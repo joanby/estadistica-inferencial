@@ -1,0 +1,498 @@
+---
+title: "Tema 1 - Muestreo estadístico"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: ''
+output: 
+  ioslides_presentation:
+    widescreen: true
+    css: Mery_style.css
+    logo: Images/matriz_mov.gif
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Conceptos básicos de muestreo 
+
+```{r, include=FALSE}
+options(digits = 8)
+```
+* En todo estudio estadístico distinguiremos entre **población**, (conjunto de sujetos con una o varias características que podemos medir y deseamos estudiar), y **muestra**, (subconjunto de una población.)
+
+* Dos tipos de análisis estadístico:
+  * **Exploratorio** o  **descriptivo**: **estadística descriptiva**.
+  * **Inferencial** o **confirmatorio**: **estadística  inferencial**.
+  
+## Conceptos básicos de muestreo 
+
+Pasos en un estudio inferencial:
+
+- Establecer la característica que se desea estimar o la hipótesis que se desea contrastar.
+
+- Determinar la información (los datos) que se necesita para hacerlo.
+
+- Diseñar un experimento que permita recoger estos datos; este paso incluye:
+
+    * Decidir qué tipo de muestra se va a tomar y su tamaño.
+   
+    * Elegir las técnicas adecuadas para realizar las inferencias deseadas a partir de la muestra que se tomará.
+
+## Conceptos básicos de muestreo 
+
+- Tomar una muestra y medir los datos deseados sobre los individuos que la forman.
+
+- Aplicar las técnicas de inferencia elegidas con el *software* adecuado.
+
+- Obtener conclusiones.
+
+- Si las conclusiones son fiables y suficientes, redactar un informe; en caso contrario, volver a empezar.
+
+# Tipos de muestreo
+
+## Muestreo aleatorio con y sin reposición {-}
+
+<l class="definition">Muestreo aleatorio</l>: consiste en seleccionar una muestra de la población de manera que todas las muestras del mismo tamaño sean **equiprobables**.
+
+
+Consideremos una urna de 100 bolas numeradas del 1 al 100:
+
+<div class="center">
+```{r, echo=FALSE, label=urna,fig.cap="Una urna de 100 bolas",out.width = "800px"}
+knitr::include_graphics("Images/basev.png",dpi=400)
+```
+</div>
+
+## Muestreo aleatorio con y sin reposición {-}
+
+Queremos extraer una muestra de 15 bolas. Para ello, podríamos repetir 15 veces el proceso de sacar una bola de la urna, anotar su número y devolverla a la urna. El tipo de muestra obtenida de esta manera recibe el nombre de **muestra aleatoria con reposición**, o simple (una **m.a.s.**, para abreviar).
+  
+<div class="center">
+
+```{r, echo=FALSE, label=simple,fig.cap="Una muestra aleatoria simple",out.width = "700px"}
+knitr::include_graphics("Images/simplev.png",dpi=400)
+```
+</div>
+
+## Muestreo aleatorio con reposición {-}
+
+Las bolas violetas son las escogidas para la muestra. La bola azul se ha escogido dos veces al ser el muestreo con reposición.
+
+Para simular un muestreo de 15 bolas con reposición en una urna de 100 en `R`, haríamos los siguiente:
+
+
+```{r}
+sample(1:100, 15, replace=TRUE)
+```
+
+Fijaos que no hemos obtenido la misma muestra. Esto es debido a que no hemos fijado la **semilla de aleatoriedad**.
+
+
+
+## Ejemplo `iris` {-}
+<div class="example">
+**Ejemplo**
+
+Veamos un ejemplo más elaborado. Consideremos la tabla de datos *iris* que contiene 150 flores de 3 especies diferentes: **setosa**, **versicolor** y **virginica**. La tabla de datos contiene 5 variables: la longitud y amplitud del pétalo, la longitud y la amplitud del sépalo y la especie de la flor.
+</div>
+
+<div class="example-sol">
+Las primeras filas de la tabla de datos son:
+
+```{r}
+head(iris)
+```
+</div>
+
+## Ejemplo `iris` {-}
+<div class="example-sol">
+Si quisiéramos una muestra de 10 flores con reposición, haríamos lo siguiente:
+
+
+La función set.seed fija la semilla de aleatoriedad sirve para que siempre dé la misma muestra. A continuación, elegimos las flores de la muestra:
+```{r}
+set.seed(4) 
+flores.elegidas.10.con=sample(1:150,10,replace=TRUE) 
+```
+
+Seguidamente, calculamos la subtabla de las flores de la muestra
+```{r}
+muestra.iris.10.con = iris[flores.elegidas.10.con,] 
+```
+</div>
+
+
+
+## Ejemplo `iris` {-}
+
+<div class="example-sol">
+Por último, mostramos la muestra de las flores:
+```{r}
+muestra.iris.10.con 
+```
+</div>
+
+## Muestreo aleatorio sin reposición {-}
+<l class="definition">Muestra aleatoria sin reposición</l>: Otra manera de extraer nuestra muestra sería repetir 15 veces el proceso de sacar una bola de la urna pero ahora sin devolverla. En este caso se habla de una **muestra aleatoria sin reposición**.
+
+<div class="center">
+```{r, echo=FALSE, label=sinrep,fig.cap="Una muestra aleatoria sin reposición",out.width = "800px"}
+knitr::include_graphics("Images/sinrepv.png",dpi=400)
+```
+</div>
+## Muestreo aleatorio  sin reposición {-}
+
+Para simular un muestreo de 15 bolas sin reposición en la urna anterior de 100 en `R`, haríamos los siguiente:
+
+```{r}
+sample(1:100, 15, replace=FALSE)
+```
+
+## Ejemplo `iris` {-}
+
+<div class="example">
+**Ejemplo** 
+
+Consideremos de nuevo la tabla de datos `iris`. 
+</div>
+
+<div class="example-sol">
+Para obtener una muestra de 10 flores sin reposición, haríamos los pasos siguientes:
+
+Primero elegimos las flores de la muestra
+```{r}
+set.seed(4) 
+flores.elegidas.10.sin=sample(1:150,10,replace=FALSE)
+```
+A continuación, calculamos la subtabla  de las flores de la muestra
+```{r}
+muestra.iris.10.sin = iris[flores.elegidas.10.sin,] 
+```
+</div>
+
+## Ejemplo `iris` {-}
+
+<div class="example-sol">
+
+Por último, mostramos las muestra de las flores:
+```{r}
+muestra.iris.10.sin 
+```
+</div>
+## Muestras aleatorias con reposición vs. sin reposición
+
+<l class="observ"> Observación</l>: ¿Cuándo se puede considerar equivalente válido realizar una muestra con reposición que sin reposición?
+
+Si el tamaño de la población es muy grande en relación al de la muestra (por dar una regla, digamos que, al menos, unas 1000 veces mayor).
+
+
+
+
+## Muestreo sistemático
+
+<l class="definition">Muestreo sistemático</l>: Supongamos que los individuos de una población vienen dados en forma de una lista ordenada. El **muestreo sistemático** consiste en tomarlos a intervalos constantes escogiendo al azar el primer individuo que elegimos.
+
+<div class="center">
+```{r, echo=FALSE, label=sist,fig.cap="Una muestra aleatoria sistemática",out.width = "800px"}
+knitr::include_graphics("Images/sistv.png",dpi=400)
+```
+</div>
+
+## Muestreo sistemático
+
+La figura anterior describe una muestra aleatoria sistemática de 15 bolas de nuestra urna de 100 bolas: hemos empezado a escoger por la bola roja oscura, que ha sido elegida al azar, y a partir de ella hemos tomado 1 de cada 7 bolas, volviendo al principio cuando hemos llegado al final de la lista de bolas.
+
+## Ejemplo `iris` 
+
+<div class="example">
+**Ejemplo**
+
+Vamos a calcular una muestra aleatoria sistemática de la tabla de datos **iris** de tamaño 10.
+</div>
+
+<div class="example-sol">
+Primero fijamos la **semilla de aleatoriedad** para la reproducibilidad del experimento:
+```{r}
+set.seed(15)
+```
+
+Seguidamente, hallamos la etiqueta de la primera flor de la muestra (que será una de las 150 de la tabla de datos):
+```{r}
+(primera.flor=sample(1:150,1)) 
+```
+</div>
+
+## Ejemplo `iris` 
+
+<div class="example-sol">
+A continuación, hallamos el incremento que vamos a ir sumando a la primera etiqueta que hemos elegido:
+```{r}
+incremento = floor(150/10)
+```
+el siguiente paso es elegir las flores de la muestra
+```{r}
+flores.elegidas.10.sis = seq(from=primera.flor,by=incremento,length.out=10)
+```
+como las etiquetas elegidas no están entre 1 y 150, hemos de transformarlas:
+```{r}
+flores.elegidas.10.sis = flores.elegidas.10.sis%%150
+```
+a continuación, calculamos la subtabla de las flores de la muestra
+```{r}
+muestra.iris.10.sis = iris[flores.elegidas.10.sis,]
+```
+
+</div>
+
+## Ejemplo `iris` 
+<div class="example-sol">
+
+Y finalmente mostramos la subtabla de la muestra
+```{r}
+muestra.iris.10.sis 
+```
+</div>
+
+## Muestreo aleatorio estratificado {-}
+
+<l class="definition">Muestreo aleatorio estratificado</l>: Este tipo de muestreo se utiliza cuando la población está clasificada en  **estratos** que son de interés para la propiedad estudiada. Se toma una muestra aleatoria de cada estrato y se unen en una muestra global. A este proceso se le llama **muestreo aleatorio estratificado**.
+
+Supongamos que nuestra urna de 100 bolas contiene 40 bolas de un color y 60 de otro color tal como muestra la figura:
+
+<div class="center">
+```{r, echo=FALSE, label=estratprevi,fig.cap="Una muestra aleatoria estratificada con dos estratos",out.width = "800px"}
+knitr::include_graphics("Images/estrat.png",dpi=400)
+```
+</div>
+
+## Muestreo aleatorio estratificado {-}
+
+Para tomar una muestra aleatoria estratificada de 15 bolas, considerando como estratos los dos colores, tomaríamos una muestra aleatoria de 6 bolas del primer color y una muestra aleatoria de 9 bolas del segundo color. 
+
+## Ejemplo `iris`  {-}
+
+<div class="example">
+**Ejemplo**
+
+Vamos a considerar que la tabla de datos iris está estratificada según tres estratos. Cada estrato está compuesto por las 50 flores de la misma especie. Vamos a hallar una muestra de tamaño 12 hallando tres muestras de tamaño 4 de cada especie (estrato) con reposición y después juntaremos la tres submuestras.
+</div>
+
+<div class="example-sol">
+En primer lugar, fijamos la semilla de aleatoriedad por reproducibilidad:
+```{r}
+set.seed(25) 
+```
+a continuación, hallamos las flores de la muestra de cada una de las especies:
+```{r}
+fls.muestra.setosa=sample(1:50,4,replace=TRUE) 
+fls.muestra.versicolor=sample(51:100,4,replace=TRUE) 
+fls.muestra.virginica=sample(101:150,4,replace=TRUE) 
+```
+</div>
+
+## Ejemplo `iris` {-}
+<div class="example-sol">
+seguidamente, calculamos y mostramos la muestra estratificada juntando las tres muestras de cada especie
+```{r}
+(muestra.iris.est=rbind(iris[fls.muestra.setosa,],iris[fls.muestra.versicolor,],
+                       iris[fls.muestra.virginica,]))
+```
+</div>
+
+
+## Muestreo por conglomerados {-}
+
+El proceso de obtener y estudiar una muestra aleatoria en algunos casos es caro o difícil, incluso aunque dispongamos de la lista completa de la población. 
+
+<l class="definition"> Muestreo por conglomerados</l>: una alternativa posible sería, en vez de extraer una muestra aleatoria de todos los individuos de la población, escoger primero al azar unos subconjuntos en los que la población está dividida, a las que llamamos en este contexto **conglomerados** (*clusters*).
+
+## Muestreo por conglomerados {-}
+Supongamos que las 100 bolas de nuestra urna se agrupan en 20 conglomerados de 5 bolas cada uno según las franjas verticales.
+
+Para obtener una muestra aleatoria por conglomerados de tamaño 15, escogeríamos al azar 3 conglomerados y la muestra estaría formada por sus bolas: los conglomerados escogidos están marcados en azul:
+
+<div class="center">
+```{r, echo=FALSE, label=clust,fig.cap="Una muestra aleatoria por conglomerados con 2 estratos y 20 conglomerados",out.width = "600px"}
+knitr::include_graphics("Images/cluster.png",dpi=400)
+```
+</div>
+
+
+
+## Ejemplo `worldcup` {-}
+<div class="example">
+
+**Ejemplo**
+
+Consideremos la tabla de datos **worldcup** del paquete **faraway**. Esta tabla de datos nos da información sobre 595 jugadores que participaron en el Mundial de Futbol del año 2010 celebrado en Sudáfrica. La tabla nos da la información siguiente sobre cada jugador:
+
+* Team: país del jugador.
+* Position: posición en la juega el jugador: Defender (defensa), Forward (delantero), GoalKeeper (portero) y Midfielder (centrocampista)
+* Time: tiempo que ha jugado el jugador en minutos.
+* Shots: número de tiros a puerta.
+* Passes: número de pases.
+* Tackles: número de entradas.
+* Saves: número de paradas.
+
+</div>
+
+
+## Ejemplo `worldcup` {-}
+
+```{r}
+library(faraway)
+head(worldcup)
+```
+
+
+
+## Ejemplo `worldcup` {-}
+<div class="example">
+**Ejemplo** 
+
+Supongamos que queremos calcular una muestra de tamaño indeterminado de los jugadores por conglomerados eligiendo como conglomerados los países a los que éstos pertenecen. 
+</div>
+
+
+<div class="example-sol">
+
+En la tabla de datos hay un total de `r length(unique(worldcup$Team))` países. 
+
+Elegiremos primero 4 países aleatoriamente y la muestra elegida serán los jugadores que pertenecen a dichos países:
+```{r}
+set.seed(19)
+números.países.elegidos = sample(1:32,4,replace=FALSE) 
+países.elegidos = unique(worldcup$Team)[números.países.elegidos]
+```
+
+Los países elegidos son:
+```{r}
+países.elegidos
+```
+
+</div>
+
+## Ejemplo `worldcup` {-}
+
+<div class="example-sol">
+La muestra elegida estará formada por los jugadores que perteneces a dichos países:
+```{r}
+muestra.worldcup.con = worldcup[worldcup$Team%in%países.elegidos,]
+```
+Dicha muestra tiene tamaño `r dim(muestra.worldcup.con)[1]`. Sólo mostramos los datos de los 8 primeros jugadores:
+```{r}
+head(muestra.worldcup.con,8)
+```
+</div>
+
+## Muestreo polietápico
+
+<l class="definition"> Muestreo polietápico</l>: si una vez seleccionada la muestra aleatoria de conglomerados, tomamos de alguna manera una muestra aleatoria de cada uno de ellos, estaremos realizando un **muestreo polietápico**.
+
+La figura muestra un ejemplo sencillo de muestreo polietápico de nuestra urna: hemos elegido al azar 5 conglomerados (marcados en azul) y de cada uno de ellos hemos elegido 3 bolas al azar sin reposición.
+
+<div class="center">
+```{r, echo=FALSE, label=poli,fig.cap="Una muestra polietápica de 5 conglomerados y 3 bolas al azar sin reposición",out.width = "600px"}
+knitr::include_graphics("Images/poli.png",dpi=400)
+```
+</div>
+## Ejemplo `worldcup`
+
+<div class="example">
+**Ejemplo**
+
+Para realizar un muestreo polietápico con los datos del ejemplo anterior (tabla de datos **worldcup**), podemos elegir una submuestra de 5 jugadores para cada uno de los 4 países elegidos, obteniendo al final una muestra de tamaño 20 de todos los jugadores de la tabla de datos.
+</div>
+
+<div class="example-sol">
+Primero definimos las 4 subtablas de datos para los jugadores de cada país elegido:
+```{r}
+worldcup.pais1 = worldcup[worldcup$Team==países.elegidos[1],]
+worldcup.pais2 = worldcup[worldcup$Team==países.elegidos[2],]
+worldcup.pais3 = worldcup[worldcup$Team==países.elegidos[3],]
+worldcup.pais4 = worldcup[worldcup$Team==países.elegidos[4],]
+```
+</div>
+
+## Ejemplo `worldcup`
+
+<div class="example-sol">
+A continuación elegimos los 5 jugadores de cada país:
+```{r}
+set.seed(28) 
+jugadores.pais1 = sample(1:dim(worldcup.pais1)[1],5,replace=FALSE)
+jugadores.pais2 = sample(1:dim(worldcup.pais2)[1],5,replace=FALSE)
+jugadores.pais3 = sample(1:dim(worldcup.pais3)[1],5,replace=FALSE)
+jugadores.pais4 = sample(1:dim(worldcup.pais4)[1],5,replace=FALSE)
+```
+
+Por último juntamos las submuestras obtenidas de los jugadores de cada país:
+```{r}
+muestra.worldcup.pol = rbind(worldcup.pais1[jugadores.pais1,],
+                             worldcup.pais2[jugadores.pais2,],
+                             worldcup.pais3[jugadores.pais3,],
+                             worldcup.pais4[jugadores.pais4,])
+```
+</div>
+
+## Ejemplo `worldcup`
+<div class="example-sol">
+
+Y finalmente los mostramos por pantalla: (mostramos sólo los 12 primeros)
+
+```{r}
+head(muestra.worldcup.pol,12)
+```
+</div>
+
+# Guía rápida
+
+## Código en `R`
+
+* `sample(x, n, replace=...)` genera una muestra aleatoria de tamaño `n` del vector `x`. Si `x` es un número natural `x`, representa el vector $1,2,\ldots,x$. Dispone de los dos parámetros siguientes: 
+
+  * `replace` que igualado a TRUE produce muestras con reposición e igualado a FALSE (su valor por defecto) produce muestras sin reposición.
+  * `prob`, que permite especificar las probabilidades de aparición de los diferentes elementos de `x` (por defecto, son todas la misma).
+
+* `set.seed` permite fijar la semilla de aleatoriedad. 
+
+## Código en `python`
+
+Cargamos la librería reticulate para conectar `R` con `Python` indicando donde tenemos instalada la versión favorita de `Python`:
+```{r}
+library(reticulate)
+use_python("/Users/juangabriel/anaconda3/bin/python3")
+#reticulate::py_install("pandas")
+```
+
+Cargamos las librerías que vamos a usar
+```{python}
+import random
+import pandas
+```
+
+## Código en `python`
+
+Podemos acceder a variables `xxx` de `R` gracias a las funciones `r.xxx` del paquete `reticulate`: 
+
+```{python}
+iris_py = r.iris
+print(iris_py.head())
+```
+
+
+## Código en `python`
+Obtenemos las filas de la muestra con la función `sample` y consultamos con ellas los datos gracias a la función `iloc`:
+```{python}
+random.seed(25) # fijamos la semilla de aleatoriedad de la librería random
+rows = random.sample(range(0, 150), 5)
+iris_py.iloc[rows,:]
+```
+
+## Código en `python`
+Si queremos obtener un porcentaje concreto del total del individuos de la población, podemos cambiar y usar el parámetro `frac` de la función `sample` aplicada al propio data frame:
+
+```{python}
+iris_py.sample(frac=0.02) # n = 3
+```
+
