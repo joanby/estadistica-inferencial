@@ -1,5 +1,5 @@
 ---
-title: "Tema 8 - Contrastes de hipótesis paramétricos con R y Python"
+title: "Tema 5 - Contrastes de hipótesis paramétricos con R y Python"
 author: "Juan Gabriel Gomila, Arnau Mir y Ricardo Alberich"
 date: 
 output: 
