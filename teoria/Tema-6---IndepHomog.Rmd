@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 title: "Tema 7 - Contrastes de independencia y homogeneidad"
+=======
+title: "Tema 10 - Contrastes de independencia y homogeneidad"
+>>>>>>> 6288024a9e843246a09a3c2923a28267f1cc3524
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: 
 output: 
