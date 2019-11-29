@@ -1,0 +1,77 @@
+---
+<<<<<<< HEAD
+title: "Tema 7 - Contrastes de independencia y homogeneidad"
+=======
+title: "Tema 10 - Contrastes de independencia y homogeneidad"
+>>>>>>> 6288024a9e843246a09a3c2923a28267f1cc3524
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: 
+output: 
+  ioslides_presentation:
+    widescreen: true
+    css: Mery_style.css
+    logo: Images/matriz_mov.gif
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Contrastes de independencia
+
+## Introducción
+
+Una de las aplicaciones más usadas del test de bondad de ajuste es testear si dos maneras de clasificar $n$ objetos son independientes o no.
+
+Veamos un ejemplo ilustrativo:
+
+<div class="example">
+**Ejemplo**
+
+En un estudio de una vacuna de hepatitis  participan 1083 voluntarios. De éstos, se eligen aleatoriamente 549 y son vacunados. Los otros, 534, no son vacunados. Después de un cierto tiempo, se observa que 70 de los 534 no vacunados han contraído la hepatitis, mientras que sólo 11 de los 549 vacunados la han contraído.
+
+Esquematizemos los resultados en lo que se llama una tabla de contingencia:
+
+</div>
+
+## Introducción
+<div class="example">
+<div class="center">
+| ¿Enfermó?/¿Vacunado? | Sí    | No | Total |
+|----------|-----|----|----|
+| Sí   | 11 | 70| `r 11+70` |
+| No  | 538 | 464 | `r 538+464` |
+| Total| `r 11+538` | `r 70+464`| `r 11+538+70+464`|
+</div>
+
+¿Es el hecho de contraer hepatitis
+independiente de haber sido vacunado contra la dolencia?
+
+En este ejemplo, testear si la manera de clasificar a los voluntarios entre vacunados y no vacunados y la manera de clasificarlos entre enfermos por hepatitis y no enfermos es equivalente a testear si la vacuna es efectiva contra la hepatitis. 
+
+Decir que la vacuna no es efectiva sería equivalente a decir que vacunar a un individuo es independiente de que contraiga la hepatitis.
+</div>
+
+## Tablas de contingencia
+La situación en general sería la siguiente:
+
+Tenemos $n$ individuos y los clasificamos según dos criterios: $X$ e $Y$. Sean $x_1,\ldots, x_I$ los distintos niveles del criterio $X$ e $y_1,\ldots, y_J$, los distintos niveles del criterio $Y$.
+
+En el ejemplo anterior $I=J=2$, $X$ sería el criterio de clasificación por vacunación con $x_1:$"vacunados" y $x_2:$"no vacunados" e $Y$ sería el criterio de clasificación por contracción de la hepatitis con $y_1:$"enfermo de hepatitis" e $y_2:$"no enfermo de hepatitis".
+
+Definimos $n_{ij}$ como el número de individuos clasificados en el nivel $x_i$ según el criterio $X$ y clasificados en el nivel $y_j$ según el criterio $Y$. A partir de dichos valores construímos la denominada **tabla de contingencia**:
+
+## Tablas de contingencia
+<div class="center">
+$X/Y$ | $Y_1$ | $\ldots$ | $Y_j$ | $\ldots$| $Y_J$ | $n_{i \bullet}$ |
+|---|---|---|---|---|---|---|
+|$X_1$ | $n_{11}$  | $\ldots$ | $n_{1j}$ | $\ldots$ | $n_{1J}$ | $n_{1\bullet}$ |
+|$\vdots$ | $\vdots$  | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
+|$X_i$ | $n_{i1}$ |  $\ldots$ | $n_{ij}$ | $\ldots$ | $n_{iJ}$ | $n_{i \bullet}$ |
+|$\vdots$ | $\vdots$  | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
+|$X_I$ | $n_{I1}$ | $\ldots$ | $n_{Ij}$ | $\ldots$ | $n_{IJ}$ | $n_{I \bullet}$ |
+$n_{\bullet j}$ | $n_{\bullet 1}$  | $\ldots$ | $n_{\bullet j}$ | $\ldots$ | $n_{\bullet J}$ | $n$ 
+</div>
+
+## Tablas de contingencia
+En la tabla anterior, $n_{i\bullet}$ sería el número total de individuos clasificados en el nivel $x_i$ según el criterio $X$ y $n_{\bullet j}$, el número total de individuos clasificados en el nivel $y_j$ según el criterio $Y$:
