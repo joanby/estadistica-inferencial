@@ -1,6 +1,6 @@
 ---
-title: "Tema 9 - Bondad de Ajuste"
-author: "Juan Gabriel Gomila, Arnau Mir y Ricardo Alberich"
+title: "Tema 6 - Bondad de Ajuste"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: 
 output: 
   ioslides_presentation:
