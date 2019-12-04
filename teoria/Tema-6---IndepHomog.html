@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tema 10 - Contrastes de independencia y homogeneidad</title>
+  <title>Tema 7 - Contrastes de independencia y homogeneidad</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -19,7 +19,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Tema 10 - Contrastes de independencia y homogeneidad',
+                title: 'Tema 7 - Contrastes de independencia y homogeneidad',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -3210,7 +3210,7 @@ font-size: 0.5em
 
 </article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion">
 
-<p>Una de las aplicaciones más usadas del test de bondad de ajuste es testear si dos maneras de clasificar \(n\) objetos son independientes o no.</p>
+<p>Una de las aplicaciones más usadas del test de bondad de ajuste es testear si dos maneras de clasificar \(n\) objetos son <strong>independientes</strong> o no.</p>
 
 <p>Veamos un ejemplo ilustrativo:</p>
 
@@ -3262,7 +3262,7 @@ font-size: 0.5em
 
 <p>La situación en general sería la siguiente:</p>
 
-<p>Tenemos \(n\) individuos y los clasificamos según dos criterios: \(X\) e \(Y\). Sean \(x_1,\ldots, x_I\) los distintos niveles del criterio \(X\) e \(y_1,\ldots, y_J\), los distintos niveles del criterio \(Y\).</p>
+<p>Tenemos \(n\) individuos y los clasificamos según dos criterios: \(X\) e \(Y\). Sean \(x_1,\ldots, x_I\) los distintos <strong>niveles</strong> del criterio \(X\) e \(y_1,\ldots, y_J\), los distintos <strong>niveles</strong> del criterio \(Y\).</p>
 
 <p>En el ejemplo anterior \(I=J=2\), \(X\) sería el criterio de clasificación por vacunación con \(x_1:\)&ldquo;vacunados&rdquo; y \(x_2:\)&ldquo;no vacunados&rdquo; e \(Y\) sería el criterio de clasificación por contracción de la hepatitis con \(y_1:\)&ldquo;enfermo de hepatitis&rdquo; e \(y_2:\)&ldquo;no enfermo de hepatitis&rdquo;.</p>
 
@@ -3339,7 +3339,476 @@ font-size: 0.5em
 
 </article></slide><slide class=""><hgroup><h2>Tablas de contingencia</h2></hgroup><article  id="tablas-de-contingencia-2">
 
-<p>En la tabla anterior, \(n_{i\bullet}\) sería el número total de individuos clasificados en el nivel \(x_i\) según el criterio \(X\) y \(n_{\bullet j}\), el número total de individuos clasificados en el nivel \(y_j\) según el criterio \(Y\).</p></article></slide>
+<p>En la tabla anterior, \(n_{i\bullet}\) sería el número total de individuos clasificados en el nivel \(x_i\) según el criterio \(X\) y \(n_{\bullet j}\), el número total de individuos clasificados en el nivel \(y_j\) según el criterio \(Y\).</p>
+
+<p>El contraste que nos planteamos es el siguiente: \[
+\left.
+\begin{array}{ll}
+H_0: \mbox{ Los criterios de clasificación $X$ e $Y$ son independientes,}\\
+H_1: \mbox{ Los criterios de clasificación $X$ y $Y$ no son independientes.}
+\end{array}
+\right\}
+\] Para poder realizar el contraste anterior, lo plantearemos como un contraste de <strong>bondad de ajuste.</strong></p>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de independencia como un contraste de bondad de ajuste</h2></hgroup><article  id="contraste-de-independencia-como-un-contraste-de-bondad-de-ajuste">
+
+<p>Para poder modelar el contraste de independencia como un contraste de <strong>bondad de ajuste</strong>, en primer lugar necesitamos definir una variable &ldquo;modelo&rdquo;.</p>
+
+<p>A partir de nuestros datos empíricos, contrastaremos si dichos datos siguen la variable &ldquo;modelo&rdquo; usando el test de la \(\chi^2\) de bondad de ajuste.</p>
+
+<p>Nuestra variable &ldquo;modelo&rdquo; será una variable aleatoria discreta <strong>bidimensional</strong> \((X,Y)\) con dominio \(\{(X_1,Y_1),\ldots,(X_I,Y_J)\}\), o, si se quiere \(\{(X_i,Y_j)\ |\ i=1,\ldots, I, \ j=1,\ldots,J\}\). Sería una variable con \(I\cdot J\) valores.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de independencia como un contraste de bondad de ajuste</h2></hgroup><article  id="contraste-de-independencia-como-un-contraste-de-bondad-de-ajuste-1">
+
+<p>Para calcular la función de probabilidad de la variable \((X,Y)\), hay que suponer que la hipótesis nula \(H_0\) es cierta o que los criterios \(X\) e \(Y\) son <strong>independientes</strong>. Por tanto: \[
+P((X,Y)=(x_i,y_j))=P(X=x_i)\cdot P(Y=y_j)=\frac{n_{i\bullet}}{n}\cdot \frac{n_{\bullet j}}{n}=\frac{n_{i\bullet}\cdot n_{\bullet j}}{n^2},
+\] \(i=1,\ldots, I\), \(j=1,\ldots,J\).</p>
+
+<p>Los valores \(n_{ij}\) serían los <strong>valores empíricos</strong> con los que hay que contrastar si siguen la distribución de la variable \((X,Y)\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Test \(\chi^2\) de independencia</h2></hgroup><article  id="test-chi2-de-independencia">
+
+<p>Una vez planteado el contraste de independencia como una contraste de <strong>bondad de ajuste</strong>, recordemos que el <strong>test \(\chi^2\)</strong> asociado al contraste es: \[
+\chi^2=\sum_{i=1}^I\sum_{j=1}^J \frac{\left( n_{ij}-n\cdot P((X,Y)=(X_i,Y_j))\right)^2 }{n\cdot P((X,Y)=(X_i,Y_j))}
+=\sum_{i=1}^I\sum_{j=1}^J \frac{\left( n_{ij}-\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}\right)^2 }{\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}},
+\] donde las frecuencias \(n_{ij}\) serían las <strong>frecuencias observadas</strong> y las frecuencias \(\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}\) serían las <strong>frecuencias esperadas</strong>.</p>
+
+<p>Recordemos que Si \(n\) es grande y cada frecuencia esperada \(\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}\) es \(\geq 5\), este estadístico sigue aproximadamente una ley \(\chi^2\) con \((I-1) \cdot (J -1)\) <strong>grados de libertad</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Test \(\chi^2\) de independencia</h2></hgroup><article  id="test-chi2-de-independencia-1">
+
+<p><l class="observ">Observación.</l></p>
+
+<p>¿Por qué los <strong>grados de libertad</strong> del <strong>estadístico de contraste</strong> son \((I-1)\cdot (J-1)\)?</p>
+
+<p>La razón es la siguiente: recordemos que al realizar un <strong>test de bondad de ajuste</strong>, los <strong>grados de libertad</strong> del estadístico \(\chi^2\) era: \(g.l.=\mbox{número de clases}-\mbox{número de parámetros estimados}-1.\)</p>
+
+<p>Fijémonos que en el contraste de independencia hemos estimado \(I+J\) <strong>parámetros</strong> que corresponden a las <strong>medias de las variables \(X\) e \(Y\)</strong>: \(\frac{n_{i\bullet}}{n}\) y \(\frac{n_{\bullet j}}{n}\), \(i=1,\ldots, I\), \(j=1,\ldots,J\).</p>
+
+<p>En nuestro caso, nos queda: \[
+g.l. =I\cdot J-I-J-1=(I-1)\cdot (J-1).
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Test \(\chi^2\) de independencia</h2></hgroup><article  id="test-chi2-de-independencia-2">
+
+<p>Como siempre, sea \(\chi_0\) el valor que toma el <strong>estadístico de contraste</strong>. El <strong>p-valor</strong> del contraste es: \[
+p=P(\chi_{(Y-1) \cdot (J -1)}^2\geq \chi_0),
+\] con el significado usual:</p>
+
+<ul>
+<li>si \(p&lt;0.05\), concluimos que tenemos evidencias suficientes para rechazar la independencia de los criterios,</li>
+<li>si \(p&gt;0.1\), concluimos que no tenemos evidencias suficientes para rechazar la independencia de los criterios y,</li>
+<li>si \(0.05\leq p\leq 0.1\), estamos en la zona de penumbra. Necesitamos más datos para tomar una decisión clara.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo">
+
+<div class="example">
+<p><strong>Ejemplo del estudio de la vacuna de hepatitis</strong></p>
+
+Recordemos que la tabla de contingencia de dicho estudio era:
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">¿Enfermó?/¿Vacunado?</th>
+<th align="left">Sí</th>
+<th align="left">No</th>
+<th align="left">Total</th>
+</tr>
+<tr class="odd">
+<td align="left">Sí</td>
+<td align="left">11</td>
+<td align="left">70</td>
+<td align="left">81</td>
+</tr>
+<tr class="even">
+<td align="left">No</td>
+<td align="left">538</td>
+<td align="left">464</td>
+<td align="left">1002</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left">549</td>
+<td align="left">534</td>
+<td align="left">1083</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-1">
+
+<div class="example">
+<p>A continuación, calculemos la tabla de las frecuencias esperadas \(\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}\) a partir de las sumas de las filas y las columnas anteriores:</p>
+
+<div class="center">
+<table class = 'rmdtable'>
+<col width="43.478261%" />
+<col width="21.739130%" />
+<col width="17.391304%" />
+<col width="17.391304%" />
+<tr class="header">
+<th align="left">¿Enfermó?/¿Vacunado?</th>
+<th align="left">Sí</th>
+<th align="left">No</th>
+<th align="left">Total</th>
+</tr>
+<tr class="odd">
+<td align="left">Sí</td>
+<td align="left">\(\frac{81\cdot 549}{1083}=41.061\)</td>
+<td align="left">\(\frac{81\cdot 534}{1083}=39.939\)</td>
+<td align="left">81</td>
+</tr>
+<tr class="even">
+<td align="left">No</td>
+<td align="left">\(\frac{1002\cdot 549}{1083}=507.939\)</td>
+<td align="left">\(\frac{1002\cdot 534}{1083}=494.061\)</td>
+<td align="left">1002</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left">549</td>
+<td align="left">534</td>
+<td align="left">1083</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-2">
+
+<div class="example">
+<p>El valor del estadístico de contraste será: \[
+\chi_0 = \frac{(11-41.061)^2}{41.061}+\frac{(70-39.939)^2}{39.939}+ \frac{(538-507.939)^2}{507.939}+\frac{(464-494.061)^2}{494.061}=48.242.
+\] El p-valor del contraste será: \[
+p=P(\chi^2_1 &gt; 48.242) = 0.
+\] Como el p-valor es muy pequeño, de hecho despreciable, concluimos que tenemos suficientes evidencias para rechazar que la vacuna y la hepatitis son independientes. O sea, vacunarse afecta al hecho de contraer la enfermedad.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-3">
+
+<div class="example">
+<p><strong>Ejemplo</strong></p>
+
+<p>Un investigador quiere saber si el número de crías por loba es independiente de la zona donde viva. Para ello, considera 3 zonas (\(X\)): \(X_1=\)&ldquo;Norte&rdquo;, \(X_2=\)&ldquo;Centro&rdquo; y \(X_3=\)&ldquo;Sur&rdquo;.</p>
+
+<p>Clasifica los números de crías (\(Y\)) en \(Y_1=\)&quot; Dos o menos&ldquo;, \(Y_2=\)&rdquo; Entre tres y cinco&ldquo;, \(Y_3=\)&rdquo;Entre seis y ocho&quot; y \(Y_4=\)&ldquo;Nueve o más&rdquo;.</p>
+
+<p>Queremos hacer el contraste: \[
+\left.
+\begin{array}{ll}
+H_0: \mbox{ El número de crías por loba es independiente de la zona}\\
+H_1: \mbox{ El número de crías por loba no es independiente de la zona}
+\end{array}
+\right\}
+\]</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-4">
+
+<div class="example">
+Toma una muestra de 200 lobas y obtiene la tabla siguiente:
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">\(X\)\(Y\)</th>
+<th align="left">\(Y_1\)</th>
+<th align="left">\(Y_2\)</th>
+<th align="left">\(Y_3\)</th>
+<th align="left">\(Y_4\)</th>
+<th align="left">\(n_{i\bullet}\)</th>
+</tr>
+<tr class="odd">
+<td align="left">\(X_1\)</td>
+<td align="left">5</td>
+<td align="left">8</td>
+<td align="left">15</td>
+<td align="left">22</td>
+<td align="left">50</td>
+</tr>
+<tr class="even">
+<td align="left">\(X_2\)</td>
+<td align="left">20</td>
+<td align="left">26</td>
+<td align="left">46</td>
+<td align="left">8</td>
+<td align="left">100</td>
+</tr>
+<tr class="odd">
+<td align="left">\(X_3\)</td>
+<td align="left">15</td>
+<td align="left">10</td>
+<td align="left">15</td>
+<td align="left">10</td>
+<td align="left">50</td>
+</tr>
+<tr class="even">
+<td align="left">\(n_{\bullet j}\)</td>
+<td align="left">40</td>
+<td align="left">44</td>
+<td align="left">76</td>
+<td align="left">40</td>
+<td align="left">200</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-5">
+
+<div class="example">
+Las frecuencias esperadas si las variables son independientes son:
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">\(X\)\(Y\)</th>
+<th align="left">\(Y_1\)</th>
+<th align="left">\(Y_2\)</th>
+<th align="left">\(Y_3\)</th>
+<th align="left">\(Y_4\)</th>
+<th align="left">\(n_{i\bullet}\)</th>
+</tr>
+<tr class="odd">
+<td align="left">\(X_1\)</td>
+<td align="left">10</td>
+<td align="left">11</td>
+<td align="left">19</td>
+<td align="left">10</td>
+<td align="left">50</td>
+</tr>
+<tr class="even">
+<td align="left">\(X_2\)</td>
+<td align="left">20</td>
+<td align="left">22</td>
+<td align="left">38</td>
+<td align="left">20</td>
+<td align="left">100</td>
+</tr>
+<tr class="odd">
+<td align="left">\(X_3\)</td>
+<td align="left">10</td>
+<td align="left">11</td>
+<td align="left">19</td>
+<td align="left">10</td>
+<td align="left">50</td>
+</tr>
+<tr class="even">
+<td align="left">\(n_{\bullet j}\)</td>
+<td align="left">40</td>
+<td align="left">44</td>
+<td align="left">76</td>
+<td align="left">40</td>
+<td align="left">200</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-6">
+
+<div class="example">
+<p>El valor del estadístico de contraste será: \[
+\begin{array}{rl}
+\chi_0  = &amp; \frac{(5-10)^2}{10}+\frac{(8-11)^2}{11}+\frac{(15-19)^2}{19}+\frac{(22-10)^2}{10}+
+\frac{(20-20)^2}{20}+\frac{(26-22)^2}{22}\\ &amp; +\frac{(46-38)^2}{38}+\frac{(8-20)^2}{20}+\frac{(15-10)^2}{10}+\frac{(10-11)^2}{11}+\frac{(15-19)^2}{19}+\frac{(10-10)^2}{10} = 31.605.
+\end{array}
+\] El p-valor del contraste vale: \[
+p=P(\chi^2_{6} &gt; 31.605) =0.
+\] omo el p-valor es muy pequeño, de hecho despreciable, concluimos que tenemos suficientes evidencias para rechazar que el número de crías y la zona donde viven las lobas son independientes.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de independencia en <code>R</code></h2></hgroup><article  id="contraste-de-independencia-en-r">
+
+<p>Para realizar un contraste de independencia en <code>R</code> hay que usar la función <code>chisq.test(tabla.contingencia,correct)</code> con los parámetros siguientes:</p>
+
+<ul>
+<li><code>tabla.contingencia</code>: es la tabla de las frecuencias empíricas.</li>
+<li><code>correct</code>: es un parámetro lógico. Si su valor es <code>FALSE</code>, hará los cálculos como hemos explicado. Si su valor es <code>TRUE</code>, aplica la corrección a la continuidad sólo para tablas de contingencia \(2\times 2\). (Ver <a href='https://es.wikipedia.org/wiki/Correcci%C3%B3n_de_Yates' title=''>https://es.wikipedia.org/wiki/Correcci%C3%B3n_de_Yates</a>)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de independencia en <code>R</code></h2></hgroup><article  id="contraste-de-independencia-en-r-1">
+
+<div class="example">
+<p><strong>Ejemplo del estudio de la vacuna de hepatitis</strong></p>
+
+<p>Para realizar el contraste de independencia en <code>R</code> hacemos lo siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(matrix(c(11,538,70,464),2,2),correct=FALSE)</pre>
+
+<pre >## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  matrix(c(11, 538, 70, 464), 2, 2)
+## X-squared = 48.242, df = 1, p-value = 3.768e-12</pre>
+
+<p>Observamos que obtenemos los mismos valores que en los cálculos hechos a mano.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-7">
+
+<div class="example">
+<p><strong>Ejemplo del estudio del número de crías de una loba y la zona donde vive</strong></p>
+
+<p>En este ejemplo, para realizar el contraste en <code>R</code>, basta hacer:</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(matrix(c(5,20,15,8,26,10,15,46,15,22,8,10),3,4))</pre>
+
+<pre >## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  matrix(c(5, 20, 15, 8, 26, 10, 15, 46, 15, 22, 8, 10), 3, 4)
+## X-squared = 31.605, df = 6, p-value = 1.942e-05</pre>
+
+<p>En este caso, también se obtienen los mismos valores que en los cálculos realizados anteriormente.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de independencia en <code>R</code></h2></hgroup><article  id="contraste-de-independencia-en-r-2">
+
+<div class="example">
+<p><strong>Ejemplo</strong></p>
+
+<p>La tabla de datos <code>WorldPhones</code> de <code>R</code> nos da el número de teléfonos que había en distintas regiones del mundo en los años 1951, 1956, 1957, 1958, 1959, 1960 y 1961:</p>
+
+<pre class = 'prettyprint lang-r'>WorldPhones</pre>
+
+<pre >##      N.Amer Europe Asia S.Amer Oceania Africa Mid.Amer
+## 1951  45939  21574 2876   1815    1646     89      555
+## 1956  60423  29990 4708   2568    2366   1411      733
+## 1957  64721  32510 5230   2695    2526   1546      773
+## 1958  68484  35218 6662   2845    2691   1663      836
+## 1959  71799  37598 6856   3000    2868   1769      911
+## 1960  76036  40341 8220   3145    3054   1905     1008
+## 1961  79831  43173 9053   3338    3224   2005     1076</pre>
+
+<p>Como puede observarse, las regiones son: Norte América, Europa, Asia, Sudamérica, Oceanía, Africa y América Central.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de independencia en <code>R</code></h2></hgroup><article  id="contraste-de-independencia-en-r-3">
+
+<div class="example">
+<p>Vamos a contrastar si el año es independiente de la región para el hecho de tener teléfono o no.</p>
+
+<p>Para hallar las distribuciones marginales de las variables &ldquo;Año&rdquo; y &ldquo;Región&rdquo; hemos de usar la función <code>addmargins</code>:</p>
+
+<pre class = 'prettyprint lang-r'>(Tabla.con.marginales = addmargins(WorldPhones))</pre>
+
+<pre >##      N.Amer Europe  Asia S.Amer Oceania Africa Mid.Amer    Sum
+## 1951  45939  21574  2876   1815    1646     89      555  74494
+## 1956  60423  29990  4708   2568    2366   1411      733 102199
+## 1957  64721  32510  5230   2695    2526   1546      773 110001
+## 1958  68484  35218  6662   2845    2691   1663      836 118399
+## 1959  71799  37598  6856   3000    2868   1769      911 124801
+## 1960  76036  40341  8220   3145    3054   1905     1008 133709
+## 1961  79831  43173  9053   3338    3224   2005     1076 141700
+## Sum  467233 240404 43605  19406   18375  10388     5892 805303</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de independencia en <code>R</code></h2></hgroup><article  id="contraste-de-independencia-en-r-4">
+
+<div class="example">
+<p>La tabla de frecuencias esperadas sería:</p></div>
+
+<pre class = 'prettyprint lang-r'>(tabla.frec.esperadas = rowSums(WorldPhones)%*%t(colSums(WorldPhones)))/sum(WorldPhones)</pre>
+
+<pre >##        N.Amer   Europe     Asia   S.Amer  Oceania    Africa  Mid.Amer
+## [1,] 43221.07 22238.41 4033.651 1795.139 1699.767  960.9348  545.0354
+## [2,] 59295.38 30509.07 5533.802 2462.767 2331.926 1318.3152  747.7391
+## [3,] 63822.06 32838.17 5956.259 2650.778 2509.948 1418.9571  804.8224
+## [4,] 68694.54 35345.20 6410.989 2853.151 2701.569 1527.2870  866.2664
+## [5,] 72408.95 37256.36 6757.640 3007.425 2847.647 1609.8696  913.1066
+## [6,] 77577.33 39915.63 7239.984 3222.088 3050.905 1724.7782  978.2820
+## [7,] 82213.67 42301.15 7672.675 3414.653 3233.240 1827.8581 1036.7482</pre>
+
+</div>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de independencia en <code>R</code></h2></hgroup><article  id="contraste-de-independencia-en-r-5">
+
+<div class="example">
+<p>Para realizar el contraste, usamos tal como hemos indicado la función <code>chisq.test</code>:</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(WorldPhones)</pre>
+
+<pre >## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  WorldPhones
+## X-squared = 2194.4, df = 36, p-value &lt; 2.2e-16</pre>
+
+<p>Vemos que el p-valor es depreciable. Concluimos que tenemos evidencias suficientes para rechazar que el año y la zona son independientes respecte del hecho de tener teléfono o no.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Caso en que las frecuencias esperadas no son inferiores a 5</h2></hgroup><article  id="caso-en-que-las-frecuencias-esperadas-no-son-inferiores-a-5">
+
+<p>Si algunas frecuencias absolutas esperadas son inferiores a 5, la aproximación del p-valor por una distribución \(\chi^2\) podría no ser adecuada.</p>
+
+<p>Si se da esta situación, lo mejor es recurrir a simular el p-valor usando el parámetro <code>simulate.p.value=TRUE</code>.</p>
+
+<p>Veamos un ejemplo en el que se da esta situación:</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-8">
+
+<div class="example">
+<p>Consideremos la tabla de datos <code>iris</code>. Nos planteamos si la especie de la flor es independiente de la longitud del pétalo.</p>
+
+<p>En primer lugar, hallamos la taula de contingencia de las dos variable (especie y longitud del pétalo), agrupando en cuatro clases la variable continua &ldquo;Longitud del pétalo&rdquo;:</p>
+
+<pre class = 'prettyprint lang-r'>(tabla.contingencia =table(cut(iris$Petal.Length,4),iris$Species))</pre>
+
+<pre >##               
+##                setosa versicolor virginica
+##   (0.994,2.48]     50          0         0
+##   (2.48,3.95]       0         11         0
+##   (3.95,5.43]       0         39        22
+##   (5.43,6.91]       0          0        28</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-9">
+
+<div class="example">
+<p>Calculemos a continuación la tabla de frecuencias esperadas:</p>
+
+<pre class = 'prettyprint lang-r'>(tabla.frec.esperadas = rowSums(tabla.contingencia)%*%t(colSums(tabla.contingencia))
+ /sum(tabla.contingencia))</pre>
+
+<pre >##         setosa versicolor virginica
+## [1,] 16.666667  16.666667 16.666667
+## [2,]  3.666667   3.666667  3.666667
+## [3,] 20.333333  20.333333 20.333333
+## [4,]  9.333333   9.333333  9.333333</pre>
+
+<p>¡Uy! Observamos que hay frecuencias esperadas menores que 5.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-10">
+
+<div class="example">
+<p>Veamos que pasa si usamos la función <code>chisq.test</code>:</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(tabla.contingencia)</pre>
+
+<pre >## Warning in chisq.test(tabla.contingencia): Chi-squared approximation may be
+## incorrect</pre>
+
+<pre >## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  tabla.contingencia
+## X-squared = 215.61, df = 6, p-value &lt; 2.2e-16</pre>
+
+<p><code>R</code> nos avisa que la aproximación puede ser incorrecta debido al hecho de que tenemos frecuencias esperadas menores que 5.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-11">
+
+<div class="example">
+<p>Para resolver este inconveniente, simularemos el valor del p-valor reiniciando la semilla a <code>NULL</code>:</p>
+
+<pre class = 'prettyprint lang-r'>set.seed(NULL)
+chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
+
+<pre >## 
+##  Pearson&#39;s Chi-squared test with simulated p-value (based on 5000
+##  replicates)
+## 
+## data:  tabla.contingencia
+## X-squared = 215.61, df = NA, p-value = 2e-04</pre>
+
+<p>El parámetro <code>B</code> indica el número de replicaciones que hemos de realizar en nuestra simulación.</p>
+
+<p>Observamos que el p-valor es pequeño. Por tanto, concluimos que tenemos evidencias suficientes para rechazar que la longitud del pétalo y la especie sean independientes.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseno-experimental-en-el-contraste-de-independencia">
+
+<p>En un <strong>contraste de independencia</strong> se toma una <strong>muestra transversal</strong> de la población, es decir, se selecciona al azar una cierta cantidad de individuos de la población, se observan las dos variables sobre cada uno de ellos, y se contrasta si las probabilidades conjuntas son iguales al producto de las probabilidades marginales de cada variable.</p>
+
+<p>En el ejemplo de la vacuna y la hepatitis, seleccionamos una muestra de 1083 individuos de toda la población, y los clasificamos en 4 subgrupos: los que han sido vacunados y han contraído la enfermedad (ha habido 11), los que no han sido vacunados y han contraído la enfermedad (ha habido 70), los que han sido vacunados y no han contraído la enfermedad (ha habido 538) y, por último, los que no han sido vacunados y no han contraído la enfermedad (ha habido 534).</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de homogeneidad</h2></hgroup><article  id="contrastes-de-homogeneidad"></article></slide>
 
 
   <slide class="backdrop"></slide>
