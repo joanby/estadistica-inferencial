@@ -73,7 +73,7 @@ H_{1}:\mu>70
 \right.
 $$
 
-La **decisión** que tomaremos se basará en algunas muestras de las que calcularemos la media muestral del nombre de bacterias por cc. 
+La **decisión** que tomaremos se basará en algunas muestras de las que calcularemos la media muestral del número de bacterias por cc. 
 
 Si es bastante grande, lo consideraremos como una evidencia de $H_1$, y si no, aceptaremos $H_0$.
 
