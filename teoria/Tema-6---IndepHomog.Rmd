@@ -60,7 +60,7 @@ Definimos $n_{ij}$ como el número de individuos clasificados en el nivel $x_i$ 
 ## Tablas de contingencia
 <div class="center">
 $X/Y$ | $Y_1$ | $\ldots$ | $Y_j$ | $\ldots$| $Y_J$ | $n_{i \bullet}$ |
-|---|---|---|---|---|---|---|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |$X_1$ | $n_{11}$  | $\ldots$ | $n_{1j}$ | $\ldots$ | $n_{1J}$ | $n_{1\bullet}$ |
 |$\vdots$ | $\vdots$  | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
 |$X_i$ | $n_{i1}$ |  $\ldots$ | $n_{ij}$ | $\ldots$ | $n_{iJ}$ | $n_{i \bullet}$ |
@@ -401,10 +401,138 @@ El contraste planteado es el siguiente:
 $$
 \left.
 \begin{array}{ll}
-H_0: \mbox{ La distribución de la variable condicional $Y|X=x$ es la misma para cualquier valor de $x$ del dominio de la variable $X$,}\\
-H_1: \mbox{ La distribución de la variable condicional $Y|X=x$ no es la misma para cualquier valor de $x$}
+H_0: & \mbox{ La distribución de la variable condicional $Y|X=x$} \\ & \mbox{es la misma para cualquier valor de $x$ del dominio de la variable $X$,}\\
+H_1: & \mbox{ La distribución de la variable condicional $Y|X=x$} \\ & \mbox{no es la misma para cualquier valor de $x$}
 \end{array}
 \right\}
 $$
 
-<l class="observ">Observación:</l>
+
+## Tablas de contingencia
+Para realizar un contraste de homogeneidad, tenemos al igual que en el contraste de independencia $n$ individuos clasificados según la variables $X$ e $Y$. 
+
+Recordemos que $x_1,\ldots, x_I$ los distintos **valores** de la variable $X$ e $y_1,\ldots, y_J$, los distintos **valores** de la variable $Y$.
+
+Recordemos también que $n_{ij}$ es el número de individuos clasificados en valor $x_i$ según la variable $X$ y clasificados en el valor $y_j$ según la variable $Y$. A partir de dichos valores construímos lo que hemos definido como la **tabla de contingencia**:
+
+## Tablas de contingencia
+<div class="center">
+$X/Y$ | $Y_1$ | $\ldots$ | $Y_j$ | $\ldots$| $Y_J$ | $n_{i \bullet}$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|$X_1$ | $n_{11}$  | $\ldots$ | $n_{1j}$ | $\ldots$ | $n_{1J}$ | $n_{1\bullet}$ |
+|$\vdots$ | $\vdots$  | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
+|$X_i$ | $n_{i1}$ |  $\ldots$ | $n_{ij}$ | $\ldots$ | $n_{iJ}$ | $n_{i \bullet}$ |
+|$\vdots$ | $\vdots$  | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
+|$X_I$ | $n_{I1}$ | $\ldots$ | $n_{Ij}$ | $\ldots$ | $n_{IJ}$ | $n_{I \bullet}$ |
+|$n_{\bullet j}$ | $n_{\bullet 1}$  | $\ldots$ | $n_{\bullet j}$ | $\ldots$ | $n_{\bullet J}$ | $n$ 
+</div>
+
+## Tablas de contingencia
+En la tabla anterior, $n_{i\bullet}$ sería el número total de individuos clasificados en el nivel $x_i$ según el criterio $X$ y $n_{\bullet j}$, el número total de individuos clasificados en el nivel $y_j$ según el criterio $Y$.
+
+
+## Contraste de homogeneidad como un contraste de bondad de ajuste
+
+Para poder modelar el contraste de homogeneidad como un contraste de **bondad de ajuste**, en primer lugar necesitamos definir una variable "modelo".
+
+La fila $i$-ésima de la **tabla de contingencia** anterior representa la tabla de **frecuencias empíricas** de la variable $Y|X=x_i$:
+
+<div class="center">
+$Y|X=x_i$ | $Y_1$ | $\ldots$ | $Y_j$ | $\ldots$| $Y_J$ | Total |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| | $n_{i1}$ |  $\ldots$ | $n_{ij}$ | $\ldots$ | $n_{iJ}$ | $n_{i \bullet}$ | 
+</div>
+
+
+## Contraste de homogeneidad como un contraste de bondad de ajuste
+Si la hipótesis nula es cierta, o, si la distribución de la variable condicionada $Y|X=x_i$ es la misma para cualquier $x_i$, significa que la distribución de cada fila coincidirá con la distribución de la última fila de la tabla de contingencia:
+
+<div class="center">
+$Y|X=x$ | $Y_1$ | $\ldots$ | $Y_j$ | $\ldots$| $Y_J$ | Total |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| | $n_{\bullet 1}$  | $\ldots$ | $n_{\bullet j}$ | $\ldots$ | $n_{\bullet J}$ | $n$ 
+</div>
+
+Dicha variable será nuestra **variable "modelo"**. Nuestro problema será, pues, chequear si la distribución de las **frecuencias empíricas** (fila $i$-ésima de la **tabla de contingencia**) coincide con la distribución de las **frecuencias teóricas** (última fila de la **tabla de contingencia**)
+
+## Contraste de homogeneidad como un contraste de bondad de ajuste
+Antes de poder aplicar toda la maquinaría del contraste $\chi^2$ de bondad de ajuste, necesitamos que la suma de las **frecuencias empíricas** coincida con la suma de las **frecuencias teóricas**. 
+
+La suma de las **frecuencias empíricas** vale $n_{i\bullet}$ y la suma de las **frecuencias teóricas**, $n$.
+
+## Contraste de homogeneidad como un contraste de bondad de ajuste
+
+Para "forzar" que las dos sumas sean iguales, multiplicaremos las **frecuencias teóricas** por $\frac{n_{i\cdot}}{n}$. Así, la tabla de **frecuencias teóricas** quedará:
+
+<div class="center">
+$Y|X=x$ | $Y_1$ | $\ldots$ | $Y_j$ | $\ldots$| $Y_J$ | Total |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| | $\frac{n_{i\bullet} n_{\bullet 1}}{n}$  | $\ldots$ | $\frac{n_{i\bullet} n_{\bullet j}}{n}$ | $\ldots$ | $\frac{n_{i\bullet} n_{\bullet J}}{n}$ | $n_{i\bullet}$ 
+</div>
+
+
+## Contraste de homogeneidad como un contraste de bondad de ajuste
+
+Si aplicamos el test $\chi^2$ de bondad de ajuste, tenemos que el estadístico de contraste será:
+$$
+\chi^2_i = \sum_{j=1}^{J} \frac{(\mbox{frec. empíricas}-\mbox{frec. teóricas})^2}{\mbox{frec. teóricas}} =\sum_{j=1}^{J} \frac{\left(n_{ij}-\frac{n_{i\bullet} n_{\bullet j}}{n}\right)^2}{\frac{n_{i\bullet} n_{\bullet J}}{n}}.
+$$
+Ahora bien, tenemos en total $i$ filas. Por tanto, tenemos que sumar el estadístico anterior para todas las filas:
+$$
+\chi^2 = \sum_{i=1}^I\sum_{j=1}^{J} \frac{\left(n_{ij}-\frac{n_{i\bullet} n_{\bullet j}}{n}\right)^2}{\frac{n_{i\bullet} n_{\bullet J}}{n}}.
+$$
+
+## Contraste de homogeneidad como un contraste de bondad de ajuste
+
+Observar que nos queda la misma expresión que el **estadístico de contraste** para el **contraste de independencia.**
+
+Por tanto, desde el punto de vista de cómputo o de cálculo, realizar un **contraste de independencia** o de **homogeneidad** sería lo mismo.
+
+Ahora bien, desde el punto de vista de diseño de experimentos, no. 
+
+## Contraste de homogeneidad como un contraste de bondad de ajuste
+
+Recordemos que en un **contraste de independencia** se toma una **muestra transversal** de la población. En cambio, en un **contraste de homogeneidad** se  escoge una de las variables (para todo el estudio realizado, sería la variable $X$) y para cada uno de sus posibles valores se toma una muestra aleatoria, de tamaño prefijado, de individuos con ese valor para esa variable; su unión forma una **muestra estratificada** en el sentido que hemos visto en la sección de Muestreo.
+
+## Ejemplo
+<div class="example">
+**Ejemplo del estudio del número de crías de una loba y la zona donde vive**
+
+Recordemos que la tabla de contingencia en este ejemplo era:
+<div class="center">
+$X$\textbackslash $Y$ | $Y_1$ | $Y_2$ | $Y_3$ | $Y_4$ | $n_{i\bullet}$|
+|---|---|---|---|---|---|
+|$X_1$ | 5   | 8   | 15  | 22   | 50 |
+|$X_2$ | 20 |26  |46   | 8  | 100|
+|$X_3$ | 15  | 10  | 15   | 10   | 50 | 
+|$n_{\bullet j}$ | 40 | 44 | 76 | 40 | 200 |  
+</div>
+
+</div>
+
+## Ejemplo
+<div class="example">
+Recordemos que la variable $X$ representaba la zona donde vive la loba y la variable $Y$, el número de crías.
+
+Los valores de $X$ eran: $X_1=$"Norte", $X_2=$"Centro" y $X_3=$"Sur".
+
+Los valores de $Y$ eran:
+$Y_1=$" Dos o menos", $Y_2=$" Entre tres y cinco",  $Y_3=$"Entre seis y ocho" y $Y_4=$"Nueve  o más".
+
+El contraste de homogeneidad consiste en este caso en testear si la distribución de la variable $Y$, número de crías, es la misma para los tres valores de la variable $X$. 
+
+Para que dicho estudio tenga sentido, tendremos **estratificar** primero la población de las lobas según los valores de la variable $X$. O sea, tendremos que elegir un número prefijado de lobas que vivan en el norte, un número prefijado de lobas que vivan en el centro y un número prefijado de lobas que vivan en el sur. 
+
+Según los datos de la tabla anterior, se eligen aleatoriamente 50 lobas que viven en el norte, 100 lobas que viven en el centro y 50 lobas que viven en el sur. Fijaos que estos tres números se fijan antes de realizar los tres muestreos, cosa que no pasaba en el contraste de independencia. En dicho contraste, se fijaba un sólo número que sería el número total de lobas a clasificar.
+</div>
+
+## Ejemplo
+<div class="example">
+El contraste realizado en `R` era el siguiente:
+```{r}
+chisq.test(matrix(c(5,20,15,8,26,10,15,46,15,22,8,10),3,4))
+```
+
+Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes para rechazar que la distribución del número de crías de las lobas
+es la misma para las tres zonas donde viven.
+</div>
