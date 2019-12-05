@@ -3208,7 +3208,7 @@ font-size: 0.5em
 
 <slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de independencia</h2></hgroup><article  id="contrastes-de-independencia">
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción">
 
 <p>Una de las aplicaciones más usadas del test de bondad de ajuste es testear si dos maneras de clasificar \(n\) objetos son <strong>independientes</strong> o no.</p>
 
@@ -3221,7 +3221,7 @@ font-size: 0.5em
 
 <p>Esquematizemos los resultados en lo que se llama una tabla de contingencia:</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-1">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción-1">
 
 <div class="example">
 <div class="center">
@@ -3802,13 +3802,28 @@ chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
 
 <p>Observamos que el p-valor es pequeño. Por tanto, concluimos que tenemos evidencias suficientes para rechazar que la longitud del pétalo y la especie sean independientes.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseno-experimental-en-el-contraste-de-independencia">
+</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseño-experimental-en-el-contraste-de-independencia">
 
 <p>En un <strong>contraste de independencia</strong> se toma una <strong>muestra transversal</strong> de la población, es decir, se selecciona al azar una cierta cantidad de individuos de la población, se observan las dos variables sobre cada uno de ellos, y se contrasta si las probabilidades conjuntas son iguales al producto de las probabilidades marginales de cada variable.</p>
 
 <p>En el ejemplo de la vacuna y la hepatitis, seleccionamos una muestra de 1083 individuos de toda la población, y los clasificamos en 4 subgrupos: los que han sido vacunados y han contraído la enfermedad (ha habido 11), los que no han sido vacunados y han contraído la enfermedad (ha habido 70), los que han sido vacunados y no han contraído la enfermedad (ha habido 538) y, por último, los que no han sido vacunados y no han contraído la enfermedad (ha habido 534).</p>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de homogeneidad</h2></hgroup><article  id="contrastes-de-homogeneidad"></article></slide>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de homogeneidad</h2></hgroup><article  id="contrastes-de-homogeneidad">
+
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción-2">
+
+<p>En un contraste de homogeneidad, tenemos dos variables discretas \(X\) e \(Y\) y nos planteamos si la distribución de la variable \(Y\) depende de los valores de la variable \(X\).</p>
+
+<p>El contraste planteado es el siguiente: \[
+\left.
+\begin{array}{ll}
+H_0: \mbox{ La distribución de la variable condicional $Y|X=x$ es la misma para cualquier valor de $x$ del dominio de la variable $X$,}\\
+H_1: \mbox{ La distribución de la variable condicional $Y|X=x$ no es la misma para cualquier valor de $x$}
+\end{array}
+\right\}
+\]</p>
+
+<p><l class="observ">Observación:</l></p></article></slide>
 
 
   <slide class="backdrop"></slide>

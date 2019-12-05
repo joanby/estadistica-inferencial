@@ -393,4 +393,18 @@ En el ejemplo de la vacuna y la hepatitis, seleccionamos una muestra de 1083 ind
 
 # Contrastes de homogeneidad
 
+## Introducción
+
 En un contraste de homogeneidad, tenemos dos variables discretas $X$ e $Y$ y nos planteamos si la distribución de la variable $Y$ depende de los valores de la variable $X$. 
+
+El contraste planteado es el siguiente:
+$$
+\left.
+\begin{array}{ll}
+H_0: \mbox{ La distribución de la variable condicional $Y|X=x$ es la misma para cualquier valor de $x$ del dominio de la variable $X$,}\\
+H_1: \mbox{ La distribución de la variable condicional $Y|X=x$ no es la misma para cualquier valor de $x$}
+\end{array}
+\right\}
+$$
+
+<l class="observ">Observación:</l>
