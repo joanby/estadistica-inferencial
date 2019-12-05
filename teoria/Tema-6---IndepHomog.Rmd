@@ -26,7 +26,7 @@ Veamos un ejemplo ilustrativo:
 
 En un estudio de una vacuna de hepatitis  participan 1083 voluntarios. De éstos, se eligen aleatoriamente 549 y son vacunados. Los otros, 534, no son vacunados. Después de un cierto tiempo, se observa que 70 de los 534 no vacunados han contraído la hepatitis, mientras que sólo 11 de los 549 vacunados la han contraído.
 
-Esquematizemos los resultados en lo que se llama una tabla de contingencia:
+Esquematicemos los resultados en lo que se llama una tabla de contingencia:
 
 </div>
 
@@ -55,7 +55,7 @@ Tenemos $n$ individuos y los clasificamos según dos criterios: $X$ e $Y$. Sean 
 
 En el ejemplo anterior $I=J=2$, $X$ sería el criterio de clasificación por vacunación con $x_1:$"vacunados" y $x_2:$"no vacunados" e $Y$ sería el criterio de clasificación por contracción de la hepatitis con $y_1:$"enfermo de hepatitis" e $y_2:$"no enfermo de hepatitis".
 
-Definimos $n_{ij}$ como el número de individuos clasificados en el nivel $x_i$ según el criterio $X$ y clasificados en el nivel $y_j$ según el criterio $Y$. A partir de dichos valores construímos la denominada **tabla de contingencia**:
+Definimos $n_{ij}$ como el número de individuos clasificados en el nivel $x_i$ según el criterio $X$ y clasificados en el nivel $y_j$ según el criterio $Y$. A partir de dichos valores construimos la denominada **tabla de contingencia**:
 
 ## Tablas de contingencia
 <div class="center">
@@ -246,7 +246,7 @@ El p-valor del contraste vale:
 $$
 p=P(\chi^2_{6} > `r round(chisq.test(matrix(c(5,20,15,8,26,10,15,46,15,22,8,10),3,4),correct=FALSE)[[1]],3)`) =`r round(pchisq(chisq.test(matrix(c(5,20,15,8,26,10,15,46,15,22,8,10),3,4),correct=FALSE)[[1]],6,lower.tail=FALSE),3)`.
 $$
-omo el p-valor es muy pequeño, de hecho despreciable, concluimos que tenemos suficientes evidencias para rechazar que el número de crías y la zona donde viven las lobas son independientes.
+Como el p-valor es muy pequeño, de hecho despreciable, concluimos que tenemos suficientes evidencias para rechazar que el número de crías y la zona donde viven las lobas son independientes.
 </div>
 
 ## Contraste de independencia en `R`
@@ -288,7 +288,7 @@ La tabla de datos `WorldPhones` de `R` nos da el número de teléfonos que habí
 ```{r}
 WorldPhones
 ```
-Como puede observarse, las regiones son: Norte América, Europa, Asia, Sudamérica, Oceanía, Africa y América Central.
+Como puede observarse, las regiones son: Norte América, Europa, Asia, Sudamérica, Oceanía, África y América Central.
 </div>
 
 ## Contraste de independencia en `R`
@@ -413,7 +413,7 @@ Para realizar un contraste de homogeneidad, tenemos al igual que en el contraste
 
 Recordemos que $x_1,\ldots, x_I$ los distintos **valores** de la variable $X$ e $y_1,\ldots, y_J$, los distintos **valores** de la variable $Y$.
 
-Recordemos también que $n_{ij}$ es el número de individuos clasificados en valor $x_i$ según la variable $X$ y clasificados en el valor $y_j$ según la variable $Y$. A partir de dichos valores construímos lo que hemos definido como la **tabla de contingencia**:
+Recordemos también que $n_{ij}$ es el número de individuos clasificados en valor $x_i$ según la variable $X$ y clasificados en el valor $y_j$ según la variable $Y$. A partir de dichos valores construimos lo que hemos definido como la **tabla de contingencia**:
 
 ## Tablas de contingencia
 <div class="center">

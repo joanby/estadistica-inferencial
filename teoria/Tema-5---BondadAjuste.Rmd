@@ -13,26 +13,166 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Contrastes no paramétricos
 
-<div class="exercise">
+## Introducción 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+En el capítulo anterior hemos visto toda una batería de contrastes de hipótesis basados en parámetros de poblaciones como por ejemplo $\mu$, media de la población, $p$, proporción de éxitos de la población, $\sigma$, desviación típica de la población, etc.
+
+En este tipo de contrastes, suponemos que conocemos el tipo de distribución de la población. O sea, sabemos que la variable $X$, que nos da los valores de la población, es normal, binomial, o de otro tipo. Lo que no conocemos, y ésta es la razón de por qué realizamos este tipo de contrastes, es uno o más parámetros de los que depende la distribución de la variable $X$.
+
+Por ejemplo, si suponemos que $X$ es normal y hacemos contrastes de hipótesis sobre su media, tenemos, por un lado, el caso en que conocemos la desviación típica $\sigma$ y el caso en que no la conocemos. 
+
+## Introducción 
+A todo este tipo de contrastes se les conoce como **contrastes paramétricos**.
+
+Ahora bien, suponer de qué tipo es la distribución de la variable $X$ que nos da los valores de la población es de hecho "un brindis al sol".
+¿En qué nos basamos en decir que la distribución de $X$ es normal por ejemplo? ¿Qué evidencias basadas en información sobre los valores de una muestra de dicha población tenemos de la normalidad de $X$?
+
+Este tipo de preguntas son las que intentan responder los **contrastes no paramétricos**. Son contrastes en los que la hipótesis nula no consiste en averiguar si un determinado parámetro vale un cierto valor sino que la distribución de la variable $X$ es de un tipo u otro. 
+Una vez que tengamos evidencias suficientes de la normalidad de $X$, podemos pasar a una "segunda fase" e intentar saber alguna información sobre los parámetros de los que depende la distribución de $X$ usando los **contrastes paramétricos**.
+
+# Contrastes de bondad de ajuste 
+
+## Introducción
+
+Uno de las técnicas más conocidas para estudiar los **contrastes no paramétricos** son los **tests de bondad de ajuste** o **tests $\chi^2$**.
+
+El contraste que intentamos estudiar es del tipo siguiente:
+$$
+\left.
+\begin{array}{ll}
+H_0: \mbox{ La distribución de $X$ es del tipo $X_0$,}\\
+H_1: \mbox{ La distribución de $X$ no es del tipo $X_0$,}
+\end{array}
+\right\}
+$$
+donde $X_0$ es un tipo de distribución conocida. 
+
+<l class="observ">Observación:</l> en la distribución de $X_0$ no hace falta indicar los parámetros de los que ésta depende. Por ejemplo, $X_0$ puede ser normal, binomial, Poisson, etc. pero no indicamos los parámetros de los que depende. Veremos más adelante cómo estimar o aproximar dichos parámetros a partir de los valores de la muestra.
+
+## Contraste de bondad de ajuste
+Veamos a continuación cómo se realiza un **contraste de bondad de ajuste**.
+
+Suponemos que disponemos de los valores de una muestra de tamaño $n$ de la variable $X$ que nos da los valores de la población: $x_1,x_2,\ldots,x_n$.
+
+A continuación, clasificamos los valores $x_i$, $i=1,\ldots, n$ en $k$ clases. La elección de estas clases depende del problema estudiado y del contexto del mismo. 
+
+Sean $n_1,\ldots,n_k$, el número de valores de la muestra que están en cada una de las clases: $n_1$ sería el número de valores de la muestra que están en la clase 1, $n_2$, el número de valores de la muestra que están en la clase 2 y así sucesivamente hasta $n_k$.
+
+## Contraste de bondad de ajuste
+Obtendríamos lo que se conoce como **tabla de frecuencias empíricas**:
+
+<div class="center">
+| Clases | Clase 1    | Clase 2 | $\ldots$ | Clase $k$ | Total |
+|:----|:----:|:----:|:----:|:----:|:----:|
+| Frecuencias empíricas   | $n_1$ | $n_2$ | $\ldots$ | $n_k$ | $n$
+</div>
+
+El siguiente paso es obtener la tabla de la función de probabilidad de la variable discreta $X_k$ de valores $\{1,\ldots,k\}$ y con función de probabilidad $p_i=P(X_k=i)=P(X_0\in\mbox{Clase i})$, $i=1,\ldots,k$.
+
+Esta función de probabilidad tiene que hallarse a partir del conocimiento de $X_0$. Si desconocemos alguno(s) del (de los) parámetro(s) de (los) que depende $X_0$, los tendremos que estimar usando las técnicas vistas en el capítulo de estimación de parámetros.
+
+
+## Contraste de bondad de ajuste
+La tabla de la función de probabilidad $X_k$ quedaría de la forma siguiente:
+<div class="center">
+| $X_k$ | $1$    | $2$ | $\ldots$ | $k$ | Total |
+|:----|:----:|:----:|:----:|:----:|:----:|
+| $P(X_k=i)$   | $P(X_k=1)$ | $P(X_k=2)$ | $\ldots$ | $P(X_k=k)$ | $1$
+</div>
+
+A partir de dicha tabla, calculamos la **tabla de frecuencias teóricas**:
+<div class="center">
+| Clases | Clase 1    | Clase 2 | $\ldots$ | Clase $k$ | Total |
+|:----|:----:|:----:|:----:|:----:|:----:|
+| Frecuencias teóricas  | $n\cdot P(X_k=1)$ | $n\cdot P(X_k=2)$ | $\ldots$ | $n\cdot P(X_k=k)$ | $n$
+</div>
+
+El **test $\chi^2$** o **test de bondad de ajuste** se basa en que, si la hipótesis nula es cierta, las **frecuencias empíricas** y las **frecuencias teóricas** son "parecidas".
+
+## Contraste de bondad de ajuste
+
+Más concretamente, si la hipótesis nula es cierta, el estadístico siguiente:
+$$
+\chi^2 = \sum_{i=1}^k \frac{(\mbox{frec. empíricas}_i-\mbox{frec. teóricas}_i)^2}{\mbox{frec. teóricas}_i}= \sum_{i=1}^k \frac{(n_i-n\cdot P(X_k=i))^2}{n\cdot P(X_k=i)},
+$$
+sigue aproximadamente al distribución $\chi^2_{k-1}$ grados de libertad. 
+
+Sea $\chi_0$ el valor del estadístico de contraste anterior para nuestra muestra. El p-valor del contraste vale:
+$$
+p=P(\chi_k^2 > \chi_0),
+$$
+
+## Contraste de bondad de ajuste
+
+con el significado usual: 
+
+* si $p<0.05$, concluimos que tenemos evidencias suficientes para rechazar la independencia de los criterios,
+* si $p>0.1$, concluimos que no tenemos evidencias suficientes para rechazar la independencia de los criterios y,
+* si $0.05\leq p\leq 0.1$, estamos en la zona de penumbra. Necesitamos más datos para tomar una decisión clara.
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo del lanzamiento de un dado**
+
+Imaginemos que queremos ver si un dado está trucado o no.
+
+Si no está trucado, cuando tiramos el dado y miramos el resultado $X$, cada resultado $i=1,\ldots,6$ tiene probabilidad $P(X=i)=\frac{1}{6}$. Ésta sería, por tanto, la función de distribución de la variable $X_k$.
+
+Las clases serían posibles valores que puede tener el dado al lanzarse. La distribución de la variable $X_k$ sería en este caso:
+
+<div class="center">
+| $X_k$ | $1$    | $2$ | $3$ | $4$ | $5$ | $6$ | Total |
+|:----|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+| $P(X_k=i)$   | $\frac{1}{6}$ |$\frac{1}{6}$ |$\frac{1}{6}$ |$\frac{1}{6}$ |$\frac{1}{6}$ |$\frac{1}{6}$ |  $1$
+</div>
+</div>
+
+## Ejemplo
+<div class="example">
+
+Nos dicen que han lanzado el dado  120 veces y se han obtenido los resultados siguientes:
+
+<div class="center">
+| Clases | Clase 1    | Clase 2 | Clase 3 |Clase 4 |Clase 5 |Clase 6 | Total |
+|:----|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+| Frecuencias empíricas   | 20 | 22 | 17 | 18 | 19 | 24 | `r 20+22+17+18+19+24`
+</div>
+
+¿Hay bastante evidencia que el dado esté trucado?
+</div>
+
+<div class="example-sol">
+**Resolución**
+
+La tabla de **frecuencias teóricas** sería:
+
+<div class="center">
+| Clases | Clase 1    | Clase 2 | Clase 3 |Clase 4 |Clase 5 |Clase 6 | Total |
+|:----|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+| Frecuencias teóricas  | $\frac{120}{6}=20$ | $\frac{120}{6}=20$ |$\frac{120}{6}=20$ |$\frac{120}{6}=20$ |$\frac{120}{6}=20$ |$\frac{120}{6}=20$ | $120$
+</div>
 
 </div>
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+## Ejemplo
+
+<div class="example-sol">
+El valor del estadístico $\chi^2$ sería:
+$$
+\chi_0 = \frac{(20-20)^2}{20}+\frac{(22-20)^2}{20}+\frac{(17-20)^2}{20}+\frac{(18-20)^2}{20}+\frac{(19-20)^2}{20}+\frac{(24-20)^2}{20} = `r round((22-20)^2/20+(17-20)^2/20+(18-20)^2/20+(19-20)^2/20+(24-20)^2/20,4)`.
+$$
+
+
+El p-valor del contraste sería $P(\chi_5^2 > `r round((22-20)^2/20+(17-20)^2/20+(18-20)^2/20+(19-20)^2/20+(24-20)^2/20,4)`)$:
+```{r}
+pchisq((22-20)^2/20+(17-20)^2/20+(18-20)^2/20+(19-20)^2/20+(24-20)^2/20,5,
+       lower.tail=FALSE)
 ```
 
-## Including Plots
+Como el p-valor es grande, concluímos que no tenemos evidencias suficientes para rechazar que el dado esté trucado.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+</div>
