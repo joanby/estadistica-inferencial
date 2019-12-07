@@ -3323,14 +3323,24 @@ A partir de dicha tabla, calculamos la <strong>tabla de frecuencias teóricas</s
 <td align="center">\(n\cdot P(X_k=k)\)</td>
 <td align="center">\(n\)</td>
 </tr>
+<tr class="even">
+<td align="left">Frecuencias teóricas</td>
+<td align="center">\(e_1\)</td>
+<td align="center">\(e_2\)</td>
+<td align="center">\(\ldots\)</td>
+<td align="center">\(e_k\)</td>
+<td align="center">\(n\)</td>
+</tr>
 </table></div>
 
-<p>El <strong>test \(\chi^2\)</strong> o <strong>test de bondad de ajuste</strong> se basa en que, si la hipótesis nula es cierta, las <strong>frecuencias empíricas</strong> y las <strong>frecuencias teóricas</strong> son &ldquo;parecidas&rdquo;.</p>
+<p>Llamaremos \(e_i=n\cdot P(X_k=i)\) a la <strong>frecuencia teórica</strong> de la clase \(i\)-ésima. (\(e\) de &ldquo;esperada&rdquo;)</p>
 
 </article></slide><slide class=""><hgroup><h2>Contraste de bondad de ajuste</h2></hgroup><article  id="contraste-de-bondad-de-ajuste-3">
 
+<p>El <strong>test \(\chi^2\)</strong> o <strong>test de bondad de ajuste</strong> se basa en que, si la hipótesis nula es cierta, las <strong>frecuencias empíricas</strong> y las <strong>frecuencias teóricas</strong> son &ldquo;parecidas&rdquo;.</p>
+
 <p>Más concretamente, si la hipótesis nula es cierta, el estadístico siguiente: \[
-\chi^2 = \sum_{i=1}^k \frac{(\mbox{frec. empíricas}_i-\mbox{frec. teóricas}_i)^2}{\mbox{frec. teóricas}_i}= \sum_{i=1}^k \frac{(n_i-n\cdot P(X_k=i))^2}{n\cdot P(X_k=i)},
+\chi^2 = \sum_{i=1}^k \frac{(\mbox{frec. empíricas}_i-\mbox{frec. teóricas}_i)^2}{\mbox{frec. teóricas}_i}= \sum_{i=1}^k \frac{(n_i-e_i)^2}{e_i},
 \] sigue aproximadamente al distribución \(\chi^2_{k-1}\) grados de libertad.</p>
 
 <p>Sea \(\chi_0\) el valor del estadístico de contraste anterior para nuestra muestra. El p-valor del contraste vale: \[
@@ -3472,7 +3482,443 @@ p=P(\chi_k^2 &gt; \chi_0),
 
 <pre >## [1] 0.8888998</pre>
 
-<p>Como el p-valor es grande, concluímos que no tenemos evidencias suficientes para rechazar que el dado esté trucado.</p></div></article></slide>
+<p>Como el p-valor es grande, concluímos que no tenemos evidencias suficientes para rechazar que el dado esté trucado.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Condiciones para poder aplicar el test de bondad de ajuste</h2></hgroup><article  id="condiciones-para-poder-aplicar-el-test-de-bondad-de-ajuste">
+
+<p>El test de <strong>bondad de ajuste</strong> está basado en el <strong>estadístico \(\chi^2\)</strong> que recordemos sigue aproximadamente una distribución \(\chi^2_{k-1}\) grados de libertad.</p>
+
+<p>Al estar basado en un <strong>Teorema Límite</strong>, para que dicha aproximación sea efectiva, las condiciones siguientes se tienen que verificar:</p>
+
+<ul>
+<li><p>el tamaño de la muestra tiene que ser grande: \(n\geq 25\) o mejor \(n\geq 30\),</p></li>
+<li><p>las clases tienen que cubrir todos los resultados posibles, (a la práctica: \(n=\sum_{i=1}^k n_i = \sum_{i=1}^k e_i\))</p></li>
+<li><p>las <strong>frecuencias teóricas</strong> tienen que ser mayores o iguales que 5: \(e_i\geq 5\), para todo \(i=1,\ldots,k\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-3">
+
+<div class="example">
+<p><strong>Ejemplo del lanzamiento de un dado</strong></p>
+
+<p>En el ejemplo del lanzamiento del dado, observamos que se verifican las condiciones anteriores:</p>
+
+<ul>
+<li>\(n=120\geq 30\),</li>
+<li>\(\sum_{i=1}^6 n_i = 20+22+17+18+19+24=120=\sum_{i=1}^6 e_i =20+20+20+20+20+20\),</li>
+<li>\(e_1=e_2=e_3=e_4=e_5=e_6=20\geq 5.\)</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Resolución de un test de bondad de ajuste en <code>R</code></h2></hgroup><article  id="resolucion-de-un-test-de-bondad-de-ajuste-en-r">
+
+<p>Para resolver un <strong>contraste de bondad de ajuste</strong> en <code>R</code>, hemos de usar la función <code>chisq.test</code>.</p>
+
+<p>Su sintaxis básica es</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(x, p=..., rescale.p=..., simulate.p.value=...)</pre>
+
+<p>donde:</p>
+
+<ul>
+<li><code>x</code> es el vector (o la tabla, calculada con <code>table</code>) de frecuencias <strong>absolutas observadas</strong> de las clases en la muestra, recordemos que las hemos llamado \(n_i\), \(i=1,\ldots, k\).</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Resolución de un test de bondad de ajuste en <code>R</code></h2></hgroup><article  id="resolucion-de-un-test-de-bondad-de-ajuste-en-r-1">
+
+<ul>
+<li><code>p</code> es el vector de probabilidades teóricas de las clases para la distribución que queremos contrastar. O sea, es el vector de la función de probabilidad de la variable \(X_k\): \(p_i=P(X_k=i)\), \(i=1,\ldots k\).</li>
+</ul>
+
+<p>Si no lo especificamos, se entiende que la probabilidad es la misma para todas las clases. Obviamente, estas probabilidades se tienen que especificar en el mismo orden que las frecuencias de <code>x</code> y, como son las probabilidades de todos los resultados posibles, en principio tienen que sumar 1; esta condición se puede relajar con el siguiente parámetro.</p>
+
+</article></slide><slide class=""><hgroup><h2>Resolución de un test de bondad de ajuste en <code>R</code></h2></hgroup><article  id="resolucion-de-un-test-de-bondad-de-ajuste-en-r-2">
+
+<ul>
+<li><code>rescale.p</code> es un parámetro lógico que, si se iguala a <code>TRUE</code>, indica que los valores de <code>p</code> no son probabilidades, sino solo proporcionales a las probabilidades; esto hace que <code>R</code> tome como probabilidades teóricas los valores de <code>p</code> partidos por su suma, para que sumen 1.</li>
+</ul>
+
+<p>Por defecto vale <code>FALSE</code>, es decir, se supone que el vector que se entra como <code>p</code> son probabilidades y por lo tanto debe sumar 1, y si esto no pasa se genera un mensaje de error indicándolo. Igualarlo a <code>TRUE</code> puede ser útil, porque nos permite especificar las probabilidades mediante las frecuencias esperadas o mediante porcentajes. Pero también es peligroso, porque si nos hemos equivocado y hemos entrado un vector en <code>p</code> que no corresponda a una probabilidad, <code>R</code> no nos avisará.</p>
+
+</article></slide><slide class=""><hgroup><h2>Resolución de un test de bondad de ajuste en <code>R</code></h2></hgroup><article  id="resolucion-de-un-test-de-bondad-de-ajuste-en-r-3">
+
+<ul>
+<li><code>simulate.p.value</code> es un parámetro lógico que indica a la función si debe optar por una simulación para el cálculo del p-valor del contraste.</li>
+</ul>
+
+<p>Por defecto vale <code>FALSE</code>, en cuyo caso este p-valor no se simula sino que se calcula mediante la distribución \(\chi^2\) correspondiente.</p>
+
+<p>Si falla una o más condiciones para que se aplique el <strong>test de bondad de ajuste</strong>, tendremos que especificarlo como <code>TRUE</code> y <code>R</code> realizará una serie de replicaciones aleatorias de la situación teórica: por defecto, 2000, pero su número se puede especificar mediante el parámetro <code>B</code>. Es decir, generará un conjunto de vectores aleatorios de frecuencias con la distribución que queremos contrastar, cada uno de suma total la de <code>x</code>. A continuación, calculará la proporción de estas repeticiones en las que el estadístico de contraste es mayor o igual que el obtenido para <code>x</code>, y éste será el p-valor que dará.</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-4">
+
+<div class="example">
+<p><strong>Ejemplo de la tabla de datos <code>iris</code></strong></p>
+
+<p>Consideremos la tabla de datos <code>iris</code>. Imaginemos que queremos ver si en una muestra de tamaño 10, hay la misma cantidad de flores de las tres especies: setosa, versicolor y virgínica.</p></div>
+
+<div class="example-sol">
+<p>En primer lugar, elegimos una muestra de 10 flores:</p>
+
+<pre class = 'prettyprint lang-r'>set.seed(2020)  # fijamos la semilla de aleatorización
+muestra.flores = sample(iris$Species,10)</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-5">
+
+<div class="example-sol">
+<p>A continuación, realizamos el contraste de bondad de ajuste:</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(table(muestra.flores))</pre>
+
+<pre >## Warning in chisq.test(table(muestra.flores)): Chi-squared approximation may
+## be incorrect</pre>
+
+<pre >## 
+##  Chi-squared test for given probabilities
+## 
+## data:  table(muestra.flores)
+## X-squared = 0.8, df = 2, p-value = 0.6703</pre>
+
+<p>Fijaos que <code>R</code> nos avisa que las aproximaciones pueden ser incorrectas. La razón es que las <strong>frecuencias observadas</strong> no son mayores que 5 ya que éstas valen: \(e_{setosa}=e_{versicolor}=e_{virginica}=\frac{10}{3}\approx 3.333.\)</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-6">
+
+<div class="example-sol">
+<p>Para solventar este problema, vamos a simular el p-valor:</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(table(muestra.flores), simulate.p.value = TRUE, B=2000)</pre>
+
+<pre >## 
+##  Chi-squared test for given probabilities with simulated p-value
+##  (based on 2000 replicates)
+## 
+## data:  table(muestra.flores)
+## X-squared = 0.8, df = NA, p-value = 0.7631</pre>
+
+<p>Vemos que con 2000 replicaciones, al obtener un p-valor grande, podemos concluir que no tenemos evidencias suficientes para rechazar que la proporción de especies en la muestra no sea la misma.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad">
+
+<div class="example">
+<p><strong>Ejemplo para comprobar si cierta distribución es normal usando el test de bondad de ajuste</strong></p>
+
+<p>Un técnico de medio ambiente quiere estudiar el aumento de temperatura del agua a dos kilómetros de los vertidos de agua autorizados de una planta industrial.</p>
+
+<p>El responsable de la empresa afirma que <em>estos aumentos de temperatura siguen una ley normal con \(\mu=3.5\) décimas de grado C y \(\sigma=0.7\) décimas de grado C.</em></p>
+
+<p>El técnico lo posa en entredicho. Para decidirlo, toma una muestra aleatoria de 40 observaciones del aumento de las temperaturas (en décimas de grado) y se obtienen los resultados siguientes:</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-1">
+
+<div class="example">
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Rango de temperaturas</th>
+<th align="right">Frecuencias</th>
+</tr>
+<tr class="odd">
+<td align="left">1.45-1.95</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">1.95-2.45</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2.45-2.95</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">2.95-3.45</td>
+<td align="right">15</td>
+</tr>
+<tr class="odd">
+<td align="left">3.45-3.95</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">3.95-4.45</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">4.45-4.95</td>
+<td align="right">3</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-2">
+
+<div class="example">
+<p>¿Hay evidencia que la sospecha del técnico sea verdadera?</p></div>
+
+<div class="example-sol">
+<p>El contraste a realizar es el siguiente: \[\left\{
+\begin{array}{l}
+H_0:\mbox{La distribución de los aumentos de temperatura es $N(3.5,0.7)$,}\\[1ex]
+H_1: \mbox{La distribución de los aumentos de temperatura no es $N(3.5,0.7)$.}
+\end{array}
+\right.\]</p>
+
+<p>Para poder aplicar el <strong>test de bondad de ajuste</strong>, como la distribución teórica es normal y su dominio es todo \(\mathbb{R}\), tendremos que ampliar los intervalos de la tabla anterior para asegurarnos que los valores de la tabla pueden alcanzar todos los valores de la distribución teórica:</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-3">
+
+<div class="example-sol">
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Rango de temperaturas</th>
+<th align="right">Frecuencias</th>
+</tr>
+<tr class="odd">
+<td align="left">\((-\infty,1.95]\)</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">\((1.95,2.45]\)</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">\((2.45,2.95]\)</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">\((2.95,3.45]\)</td>
+<td align="right">15</td>
+</tr>
+<tr class="odd">
+<td align="left">\((3.45,3.95]\)</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">\((3.95,4.45]\)</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">\((4.45,\infty)\)</td>
+<td align="right">3</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-4">
+
+<div class="example-sol">
+<p>La tabla anterior nos determina las clases a considerar que corresponderían a los intervalos. Las frecuencias empíricas serían las que nos da la segunda columna de la tabla.</p>
+
+<p>A continuación, vamos a calcular las frecuencias teóricas. Para ello, en primer lugar, hay que hallar la función de probabilidad de la variable \(X_k\):</p>
+
+<ul>
+<li><p>Cálculo de \(p_1 = P(X_0\in \mbox{Clase }1)\): \[
+p_1  = P(X_0\leq 1.95)=P\left(Z\leq \frac{1.95-3.5}{0.7}\right)=P(Z\leq -2.214)=0.013,
+\] donde \(Z=N(0,1)\). Por tanto, \(e_1 = n\cdot 0.013=40\cdot 0.013=0.54.\)</p></li>
+<li>Cálculo de \(p_2 = P(X_0\in \mbox{Clase }2)\): \[
+\begin{array}{rl}
+p_2 &amp; = P(1.95 &lt; X_0\leq 2.45)=P\left(\frac{1.95-3.5}{0.7} &lt; Z \leq  \frac{2.45-3.5}{0.7}\right) =P(-2.214 &lt; Z\leq -1.5) \\ &amp; =P(Z\leq -1.5)-P(Z\leq -2.214)=0.067-0.013=0.053.
+\end{array}
+\] Por tanto, \(e_2 = n\cdot 0.053=40\cdot 0.053=2.14.\)</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-5">
+
+<div class="example-sol">
+<ul>
+<li><p>Cálculo de \(p_3 = P(X_0\in \mbox{Clase }3)\): \[
+\begin{array}{rl}
+p_3 &amp; = P(2.45 &lt; X_0\leq 2.95)=P\left(\frac{2.45-3.5}{0.7} &lt; Z \leq  \frac{2.95-3.5}{0.7}\right) =P(-1.5 &lt; Z\leq -0.786) \\ &amp; =P(Z\leq -0.786)-P(Z\leq -1.5)=0.216-0.067=0.149.
+\end{array}
+\] Por tanto, \(e_3 = n\cdot 0.149=40\cdot 0.149=5.97.\)</p></li>
+<li><p>Cálculo de \(p_4 = P(X_0\in \mbox{Clase }4)\): \[
+\begin{array}{rl}
+p_4 &amp; = P(2.95 &lt; X_0\leq 3.45)=P\left(\frac{2.95-3.5}{0.7} &lt; Z \leq  \frac{3.45-3.5}{0.7}\right) =P(-0.786 &lt; Z\leq -0.071) \\ &amp; =P(Z\leq -0.071)-P(Z\leq -0.786)=0.472-0.216=0.256.
+\end{array}
+\] Por tanto, \(e_4 = n\cdot 0.256=40\cdot 0.256=10.22.\)</p></li>
+<li><p>Cálculo de \(p_5 = P(X_0\in \mbox{Clase }5)\): \[
+\begin{array}{rl}
+p_5 &amp; = P(3.45 &lt; X_0\leq 3.95)=P\left(\frac{3.45-3.5}{0.7} &lt; Z \leq  \frac{3.95-3.5}{0.7}\right) =P(-0.071 &lt; Z\leq 0.643) \\ &amp; =P(Z\leq 0.643)-P(Z\leq -0.071)=0.74-0.472=0.268.
+\end{array}
+\] Por tanto, \(e_5 = n\cdot 0.268=40\cdot 0.268=10.73.\)</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-6">
+
+<div class="example-sol">
+<ul>
+<li><p>Cálculo de \(p_6 = P(X_0\in \mbox{Clase }6)\): \[
+\begin{array}{rl}
+p_6 &amp; = P(3.95 &lt; X_0\leq 4.45)=P\left(\frac{3.95-3.5}{0.7} &lt; Z \leq  \frac{4.45-3.5}{0.7}\right) =P(0.643 &lt; Z\leq 1.357) \\ &amp; =P(Z\leq 1.357)-P(Z\leq 0.643)=0.913-0.74=0.173.
+\end{array}
+\] Por tanto, \(e_6 = n\cdot 0.173=40\cdot 0.173=6.91.\)</p></li>
+<li><p>Cálculo de \(p_7 = P(X_0\in \mbox{Clase }7)\): \[
+p_1  = P(X_0\geq 4.45)=P\left(Z\geq \frac{4.45-3.5}{0.7}\right)=P(Z\geq 1.357)=0.087,
+\] donde \(Z=N(0,1)\). Por tanto, \(e_1 = n\cdot 0.087=40\cdot 0.087=3.49.\)</p></li>
+</ul>
+
+<p>Observamos que las <strong>frecuencias teóricas</strong> \(e_1\), \(e_2\) y \(e_7\) son menores que 5. Por tanto, no se cumplen las condiciones para poder aplicar el <strong>contraste de bondad de ajuste</strong>.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-7">
+
+<div class="example-sol">
+<p>Para solventar este problema, agruparemos los intervalos \((-\infty,1.95]\), \((1.95,2.45]\), \((2.45,2.95]\) en el intervalo \((-\infty, 2.95)\) y los intervalos \((3.95,4.45]\) y \((4.45,\infty)\) en el intervalo \((3.95,\infty)\). De esta forma, la tabla de frecuencias empíricas quedará de la forma siguiente:</p>
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Rango de temperaturas</th>
+<th align="right">Frecuencias</th>
+</tr>
+<tr class="odd">
+<td align="left">\((-\infty,2.95]\)</td>
+<td align="right">\(2+1+4=7\)</td>
+</tr>
+<tr class="even">
+<td align="left">\((2.95,3.45]\)</td>
+<td align="right">\(15\)</td>
+</tr>
+<tr class="odd">
+<td align="left">\((3.45,3.95]\)</td>
+<td align="right">\(10\)</td>
+</tr>
+<tr class="even">
+<td align="left">\((3.95,\infty]\)</td>
+<td align="right">\(5+3=8\)</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-8">
+
+<div class="example-sol">
+<p>Las <strong>frecuencias teóricas</strong> de la nueva tabla serán las siguientes:</p>
+
+<ul>
+<li>\(e_1 = 0.54+2.14+5.97 =8.64\).</li>
+<li>\(e_2 = n\cdot 0.256=40\cdot 0.256=10.22.\)</li>
+<li>\(e_3 = n\cdot 0.268=40\cdot 0.268=10.73.\)</li>
+<li>\(e_4 = 6.91+3.49= 10.41.\)</li>
+</ul>
+
+<p>Ahora vemos que las <strong>frecuencias teóricas</strong> son mayores o iguales que 5 y, por tanto, se verifican las condiciones para poder aplicar el <strong>test de bondad de ajuste</strong>.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-9">
+
+<div class="example-sol">
+<p>La tabla siguiente resume los cálculos realizados:</p>
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Rango de temperaturas</th>
+<th align="right">Frecuencias empíricas</th>
+<th align="right">Frecuencias teóricas</th>
+</tr>
+<tr class="odd">
+<td align="left">\((-\infty,2.95]\)</td>
+<td align="right">\(7\)</td>
+<td align="right">\(8.64\)</td>
+</tr>
+<tr class="even">
+<td align="left">\((2.95,3.45]\)</td>
+<td align="right">\(15\)</td>
+<td align="right">\(10.22\)</td>
+</tr>
+<tr class="odd">
+<td align="left">\((3.45,3.95]\)</td>
+<td align="right">\(10\)</td>
+<td align="right">\(10.73\)</td>
+</tr>
+<tr class="even">
+<td align="left">\((3.95,\infty]\)</td>
+<td align="right">\(8\)</td>
+<td align="right">\(10.41\)</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad</h2></hgroup><article  id="ejemplo-de-normalidad-10">
+
+<div class="example-sol">
+<p>El valor del <strong>estadístico de contraste</strong> \(\chi^2\) vale: \[
+\chi_0 = \frac{(7-8.64)^2}{8.64}+ \frac{(15-10.22)^2}{10.22}+ \frac{(10-10.73)^2}{10.73}+\frac{(8-10.41)^2}{10.41}=3.153.
+\] El p-valor del contraste será: \[
+p=P(\chi_{3} &gt; 3.153)=0.369.
+\] Como el p-valor es grande, concluimos que no tenemos evidencias suficientes para rechazar que el aumento de temperatura no siga una distribución normal de parámetros \(\mu =3.5\) décimas de grado y \(\sigma =0.7\) décimas de grado.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad con <code>R</code></h2></hgroup><article  id="ejemplo-de-normalidad-con-r">
+
+<div class="example">
+<p>Vamos a realizar el ejemplo anterior usando <code>R</code>.</p>
+
+<p>En primer lugar, definimos las clases definiendo los extremos de los intervalos y las <strong>frecuencias empíricas</strong>:</p>
+
+<pre class = 'prettyprint lang-r'>extremos.izquierdos = c(-Inf,1.95,2.45,2.95,3.45,3.95,4.45)
+extremos.derechos = c(1.95,2.45,2.95,3.45,3.95,4.45,Inf)
+frecuencias.empíricas = c(2,1,4,15,10,5,3)
+n=sum(frecuencias.empíricas)</pre>
+
+<p>Para hallar las <strong>frecuencias teóricas</strong> usamos la función <code>pnorm</code> de <code>R</code>:</p>
+
+<pre class = 'prettyprint lang-r'>mu=3.5; sigma=0.7;
+probabilidades.teóricas = pnorm(extremos.derechos,mu,sigma)-
+  pnorm(extremos.izquierdos,mu,sigma)
+frecuencias.teóricas = n*probabilidades.teóricas
+round(frecuencias.teóricas,2)</pre>
+
+<pre >## [1]  0.54  2.14  5.97 10.22 10.73  6.91  3.49</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad con <code>R</code></h2></hgroup><article  id="ejemplo-de-normalidad-con-r-1">
+
+<div class="example">
+<p>Por último, aplicamos el test de la \(\chi^2\) usando la función <code>chisq.test</code>:</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(frecuencias.empíricas,p=probabilidades.teóricas)</pre>
+
+<pre >## Warning in chisq.test(frecuencias.empíricas, p = probabilidades.teóricas):
+## Chi-squared approximation may be incorrect</pre>
+
+<pre >## 
+##  Chi-squared test for given probabilities
+## 
+## data:  frecuencias.empíricas
+## X-squared = 8.1337, df = 6, p-value = 0.2285</pre>
+
+<p><code>R</code> nos avisa que la aproximación \(\chi^2\) puede no ser correcta. Nosotros sabemos la razón: hay tres probabilidades teóricas que son menores que 5.</p>
+
+<p>Llegados a este punto, podemos actuar de dos formas: juntamos intervalos o simulamos el p-valor.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad con <code>R</code></h2></hgroup><article  id="ejemplo-de-normalidad-con-r-2">
+
+<div class="example">
+<p>Si optamos por la primera opción, tendremos que hacer:</p>
+
+<pre class = 'prettyprint lang-r'>extremos.izquierdos2=extremos.izquierdos[c(1,4,5,6)]
+extremos.derechos2 = extremos.derechos[c(3,4,5,7)]
+frecuencias.empíricas2 = c(sum(frecuencias.empíricas[1:3]),
+                           frecuencias.empíricas[4:5],sum(frecuencias.empíricas[6:7]))
+probabilidades.teóricas2 =pnorm(extremos.derechos2,mu,sigma)-
+  pnorm(extremos.izquierdos2,mu,sigma)
+frecuencias.teóricas2 = n*probabilidades.teóricas2
+chisq.test(frecuencias.empíricas2,p=probabilidades.teóricas2)</pre>
+
+<pre >## 
+##  Chi-squared test for given probabilities
+## 
+## data:  frecuencias.empíricas2
+## X-squared = 3.1531, df = 3, p-value = 0.3686</pre>
+
+<p>Vemos que obtenemos los mismos valores que los cálculos realizados a mano.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo de normalidad con <code>R</code></h2></hgroup><article  id="ejemplo-de-normalidad-con-r-3">
+
+<div class="example">
+<p>Si optamos por la segunda opción, hemos de hacer:</p>
+
+<pre class = 'prettyprint lang-r'>chisq.test(frecuencias.empíricas,p=probabilidades.teóricas,simulate.p.value = TRUE,
+           B=2000)</pre>
+
+<pre >## 
+##  Chi-squared test for given probabilities with simulated p-value
+##  (based on 2000 replicates)
+## 
+## data:  frecuencias.empíricas
+## X-squared = 8.1337, df = NA, p-value = 0.2114</pre></div></article></slide>
 
 
   <slide class="backdrop"></slide>

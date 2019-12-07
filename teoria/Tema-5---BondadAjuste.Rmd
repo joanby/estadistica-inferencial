@@ -82,20 +82,24 @@ La tabla de la función de probabilidad $X_k$ quedaría de la forma siguiente:
 | $P(X_k=i)$   | $P(X_k=1)$ | $P(X_k=2)$ | $\ldots$ | $P(X_k=k)$ | $1$
 </div>
 
-A partir de dicha tabla, calculamos la **tabla de frecuencias teóricas**:
+A partir de dicha tabla, calculamos la **tabla de frecuencias teóricas**: 
 <div class="center">
 | Clases | Clase 1    | Clase 2 | $\ldots$ | Clase $k$ | Total |
 |:----|:----:|:----:|:----:|:----:|:----:|
 | Frecuencias teóricas  | $n\cdot P(X_k=1)$ | $n\cdot P(X_k=2)$ | $\ldots$ | $n\cdot P(X_k=k)$ | $n$
+| Frecuencias teóricas  | $e_1$ | $e_2$ | $\ldots$ | $e_k$ | $n$
 </div>
 
-El **test $\chi^2$** o **test de bondad de ajuste** se basa en que, si la hipótesis nula es cierta, las **frecuencias empíricas** y las **frecuencias teóricas** son "parecidas".
+Llamaremos $e_i=n\cdot P(X_k=i)$ a la **frecuencia teórica** de la clase $i$-ésima. ($e$ de "esperada")
+
+
 
 ## Contraste de bondad de ajuste
+El **test $\chi^2$** o **test de bondad de ajuste** se basa en que, si la hipótesis nula es cierta, las **frecuencias empíricas** y las **frecuencias teóricas** son "parecidas".
 
 Más concretamente, si la hipótesis nula es cierta, el estadístico siguiente:
 $$
-\chi^2 = \sum_{i=1}^k \frac{(\mbox{frec. empíricas}_i-\mbox{frec. teóricas}_i)^2}{\mbox{frec. teóricas}_i}= \sum_{i=1}^k \frac{(n_i-n\cdot P(X_k=i))^2}{n\cdot P(X_k=i)},
+\chi^2 = \sum_{i=1}^k \frac{(\mbox{frec. empíricas}_i-\mbox{frec. teóricas}_i)^2}{\mbox{frec. teóricas}_i}= \sum_{i=1}^k \frac{(n_i-e_i)^2}{e_i},
 $$
 sigue aproximadamente al distribución $\chi^2_{k-1}$ grados de libertad. 
 
@@ -174,5 +178,360 @@ pchisq((22-20)^2/20+(17-20)^2/20+(18-20)^2/20+(19-20)^2/20+(24-20)^2/20,5,
 ```
 
 Como el p-valor es grande, concluímos que no tenemos evidencias suficientes para rechazar que el dado esté trucado.
+
+</div>
+
+## Condiciones para poder aplicar el test de bondad de ajuste
+
+El test de **bondad de ajuste** está basado en el **estadístico $\chi^2$** que recordemos sigue aproximadamente una distribución $\chi^2_{k-1}$ grados de libertad.
+
+Al estar basado en un **Teorema Límite**, para que dicha aproximación sea efectiva, las condiciones siguientes se tienen que verificar:
+
+* el tamaño de la muestra tiene que ser grande: $n\geq 25$ o mejor $n\geq 30$,
+
+* las clases tienen que cubrir todos los resultados posibles, (a la práctica: $n=\sum_{i=1}^k n_i = \sum_{i=1}^k e_i$)
+
+* las **frecuencias teóricas** tienen que ser mayores o iguales que 5: $e_i\geq 5$, para todo $i=1,\ldots,k$.
+
+## Ejemplo
+<div class="example">
+**Ejemplo del lanzamiento de un dado**
+
+En el ejemplo del lanzamiento del dado, observamos que se verifican las condiciones anteriores:
+
+* $n=120\geq 30$,
+* $\sum_{i=1}^6 n_i = 20+22+17+18+19+24=120=\sum_{i=1}^6 e_i =20+20+20+20+20+20$,
+* $e_1=e_2=e_3=e_4=e_5=e_6=20\geq 5.$
+
+</div>
+
+## Resolución de un test de bondad de ajuste en `R`
+Para resolver un **contraste de bondad de ajuste** en `R`, hemos de usar la función `chisq.test`.
+
+Su sintaxis básica es
+```{r,eval=FALSE}
+chisq.test(x, p=..., rescale.p=..., simulate.p.value=...)
+```
+donde:
+
+* `x` es el vector (o la tabla, calculada con `table`) de frecuencias **absolutas observadas** de las clases en la muestra, recordemos que las hemos llamado $n_i$, $i=1,\ldots, k$.
+
+## Resolución de un test de bondad de ajuste en `R`
+
+* `p` es el vector de probabilidades teóricas de las clases para la distribución que queremos contrastar. O sea, es el vector de la función de probabilidad de la variable $X_k$: $p_i=P(X_k=i)$, $i=1,\ldots k$. 
+
+Si no lo especificamos, se entiende que la probabilidad es la misma para todas las clases. Obviamente, estas probabilidades se tienen que especificar en el mismo orden que las frecuencias de `x` y, como son las probabilidades de todos los resultados posibles, en principio tienen que sumar 1; esta condición se puede relajar con el siguiente parámetro.
+
+
+## Resolución de un test de bondad de ajuste en `R`
+* `rescale.p` es un parámetro lógico que, si se iguala a `TRUE`, indica que  los valores de `p` no son probabilidades, sino solo proporcionales a las probabilidades; esto hace que `R` tome como probabilidades teóricas los valores de `p`  partidos por su suma, para que sumen 1.  
+
+Por defecto vale `FALSE`, es decir, se supone que el vector que se entra como  `p`  son probabilidades y por lo tanto debe sumar 1, y si esto no pasa se genera un mensaje de error indicándolo. Igualarlo a `TRUE` puede ser útil, porque nos permite especificar las probabilidades mediante  las frecuencias esperadas o mediante porcentajes. Pero también es peligroso, porque si nos hemos equivocado y hemos entrado un vector en `p` que no corresponda a una probabilidad, `R` no nos avisará.
+
+
+## Resolución de un test de bondad de ajuste en `R`
+
+*  `simulate.p.value` es un  parámetro lógico que indica a la función si debe
+optar por una simulación para el cálculo  del p-valor del contraste. 
+
+Por defecto vale `FALSE`, en cuyo caso este p-valor no se simula sino que se calcula mediante la distribución $\chi^2$ correspondiente.  
+
+Si falla una o más condiciones para que se aplique el **test de bondad de ajuste**, tendremos que especificarlo como `TRUE` y `R` realizará una serie  de replicaciones aleatorias de la situación teórica: por defecto, 2000, pero su número se puede especificar mediante el parámetro `B`. Es decir,  generará un conjunto de vectores aleatorios de frecuencias con la distribución que queremos contrastar,  cada uno de suma total la de `x`.  A continuación, calculará la proporción de estas repeticiones en las que el estadístico de contraste es  mayor o igual que el obtenido para `x`, y éste será el  p-valor que dará. 
+
+## Ejemplo
+<div class="example">
+**Ejemplo de la tabla de datos `iris`**
+
+Consideremos la tabla de datos `iris`. Imaginemos que queremos ver si en una muestra de tamaño 10, hay la misma cantidad de flores de las tres especies: setosa, versicolor y virgínica.
+</div>
+
+
+<div class="example-sol">
+En primer lugar, elegimos una muestra de 10 flores:
+```{r}
+set.seed(2020)  # fijamos la semilla de aleatorización
+muestra.flores = sample(iris$Species,10)
+```
+
+</div>
+
+## Ejemplo
+
+<div class="example-sol">
+A continuación, realizamos el contraste de bondad de ajuste:
+```{r}
+chisq.test(table(muestra.flores))
+```
+Fijaos que `R` nos avisa que las aproximaciones pueden ser incorrectas. La razón es que las **frecuencias observadas** no son mayores que 5 ya que éstas valen: $e_{setosa}=e_{versicolor}=e_{virginica}=\frac{10}{3}\approx `r round(10/3,3)`.$
+</div>
+
+## Ejemplo
+
+<div class="example-sol">
+Para solventar este problema, vamos a simular el p-valor:
+```{r}
+chisq.test(table(muestra.flores), simulate.p.value = TRUE, B=2000)
+```
+Vemos que con 2000 replicaciones, al obtener un p-valor grande, podemos concluir que no tenemos evidencias suficientes para rechazar que la proporción de especies en la muestra no sea la misma.
+</div>
+
+## Ejemplo de normalidad
+<div class="example">
+**Ejemplo para comprobar si cierta distribución es normal usando el test de bondad de ajuste**
+
+Un técnico de medio ambiente quiere estudiar el aumento de temperatura del agua
+a dos kilómetros de los vertidos de agua autorizados de una
+planta industrial.
+
+
+El responsable de la empresa afirma que *estos aumentos de temperatura siguen una ley normal
+con $\mu=3.5$ décimas de grado C y $\sigma=0.7$ décimas de grado C.*
+
+
+El técnico lo posa en entredicho. Para decidirlo, toma una muestra aleatoria de 40 observaciones del aumento
+de las temperaturas (en décimas de grado) y se obtienen los resultados siguientes:
+</div>
+
+## Ejemplo de normalidad
+<div class="example">
+<div class="center">
+|Rango de temperaturas | Frecuencias|
+|:----|----:|
+|1.45-1.95 | 2 |
+|1.95-2.45 | 1 |
+|2.45-2.95 | 4 |
+|2.95-3.45 | 15 |
+|3.45-3.95 | 10 |
+|3.95-4.45 | 5 |
+|4.45-4.95 | 3 |
+</div>
+</div>
+
+## Ejemplo de normalidad
+<div class="example">
+¿Hay evidencia que la sospecha del técnico sea verdadera?
+</div>
+
+<div class="example-sol">
+El contraste a realizar es el siguiente:
+$$\left\{
+\begin{array}{l}
+H_0:\mbox{La distribución de los aumentos de temperatura es $N(3.5,0.7)$,}\\[1ex]
+H_1: \mbox{La distribución de los aumentos de temperatura no es $N(3.5,0.7)$.}
+\end{array}
+\right.$$
+
+Para poder aplicar el **test de bondad de ajuste**, como la distribución teórica es normal y su dominio es todo $\mathbb{R}$, tendremos que ampliar los intervalos de la tabla anterior para asegurarnos que los valores de la tabla pueden alcanzar todos los valores de la distribución teórica:
+</div>
+
+## Ejemplo de normalidad
+<div class="example-sol">
+<div class="center">
+|Rango de temperaturas | Frecuencias|
+|:----|----:|
+|$(-\infty,1.95]$ | 2 |
+|$(1.95,2.45]$ | 1 |
+|$(2.45,2.95]$ | 4 |
+|$(2.95,3.45]$ | 15 |
+|$(3.45,3.95]$ | 10 |
+|$(3.95,4.45]$ | 5 |
+|$(4.45,\infty)$ | 3 |
+</div>
+
+</div>
+
+## Ejemplo de normalidad
+<div class="example-sol">
+
+
+La tabla anterior nos determina las clases a considerar que corresponderían a los intervalos. Las frecuencias empíricas serían las que nos da la segunda columna de la tabla.
+
+A continuación, vamos a calcular las frecuencias teóricas. Para ello, en primer lugar, hay que hallar la función de probabilidad de la variable $X_k$:
+
+* Cálculo de $p_1 = P(X_0\in \mbox{Clase }1)$:
+$$
+p_1  = P(X_0\leq 1.95)=P\left(Z\leq \frac{1.95-3.5}{0.7}\right)=P(Z\leq `r round((1.95-3.5)/0.7,3)`)=`r round(pnorm(1.95,3.5,0.7),3)`,
+$$
+donde $Z=N(0,1)$. Por tanto, $e_1 = n\cdot `r round(pnorm(1.95,3.5,0.7),3)`=40\cdot `r round(pnorm(1.95,3.5,0.7),3)`=`r round(40*pnorm(1.95,3.5,0.7),2)`.$
+
+* Cálculo de $p_2 = P(X_0\in \mbox{Clase }2)$:
+$$
+\begin{array}{rl}
+p_2 & = P(1.95 < X_0\leq 2.45)=P\left(\frac{1.95-3.5}{0.7} < Z \leq  \frac{2.45-3.5}{0.7}\right) =P(`r round((1.95-3.5)/0.7,3)` < Z\leq `r round((2.45-3.5)/0.7,3)`) \\ & =P(Z\leq `r round((2.45-3.5)/0.7,3)`)-P(Z\leq `r round((1.95-3.5)/0.7,3)`)=`r round(pnorm(2.45,3.5,0.7),3)`-`r round(pnorm(1.95,3.5,0.7),3)`=`r round(pnorm(2.45,3.5,0.7)-pnorm(1.95,3.5,0.7),3)`.
+\end{array}
+$$
+Por tanto, $e_2 = n\cdot `r round(pnorm(2.45,3.5,0.7)-pnorm(1.95,3.5,0.7),3)`=40\cdot `r round(pnorm(2.45,3.5,0.7)-pnorm(1.95,3.5,0.7),3)`=`r round(40*(pnorm(2.45,3.5,0.7)-pnorm(1.95,3.5,0.7)),2)`.$
+</div>
+
+## Ejemplo de normalidad
+<div class="example-sol">
+
+
+* Cálculo de $p_3 = P(X_0\in \mbox{Clase }3)$:
+$$
+\begin{array}{rl}
+p_3 & = P(2.45 < X_0\leq 2.95)=P\left(\frac{2.45-3.5}{0.7} < Z \leq  \frac{2.95-3.5}{0.7}\right) =P(`r round((2.45-3.5)/0.7,3)` < Z\leq `r round((2.95-3.5)/0.7,3)`) \\ & =P(Z\leq `r round((2.95-3.5)/0.7,3)`)-P(Z\leq `r round((2.45-3.5)/0.7,3)`)=`r round(pnorm(2.95,3.5,0.7),3)`-`r round(pnorm(2.45,3.5,0.7),3)`=`r round(pnorm(2.95,3.5,0.7)-pnorm(2.45,3.5,0.7),3)`.
+\end{array}
+$$
+Por tanto, $e_3 = n\cdot `r round(pnorm(2.95,3.5,0.7)-pnorm(2.45,3.5,0.7),3)`=40\cdot `r round(pnorm(2.95,3.5,0.7)-pnorm(2.45,3.5,0.7),3)`=`r round(40*(pnorm(2.95,3.5,0.7)-pnorm(2.45,3.5,0.7)),2)`.$
+
+* Cálculo de $p_4 = P(X_0\in \mbox{Clase }4)$:
+$$
+\begin{array}{rl}
+p_4 & = P(2.95 < X_0\leq 3.45)=P\left(\frac{2.95-3.5}{0.7} < Z \leq  \frac{3.45-3.5}{0.7}\right) =P(`r round((2.95-3.5)/0.7,3)` < Z\leq `r round((3.45-3.5)/0.7,3)`) \\ & =P(Z\leq `r round((3.45-3.5)/0.7,3)`)-P(Z\leq `r round((2.95-3.5)/0.7,3)`)=`r round(pnorm(3.45,3.5,0.7),3)`-`r round(pnorm(2.95,3.5,0.7),3)`=`r round(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7),3)`.
+\end{array}
+$$
+Por tanto, $e_4 = n\cdot `r round(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7),3)`=40\cdot `r round(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7),3)`=`r round(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)),2)`.$
+
+* Cálculo de $p_5 = P(X_0\in \mbox{Clase }5)$:
+$$
+\begin{array}{rl}
+p_5 & = P(3.45 < X_0\leq 3.95)=P\left(\frac{3.45-3.5}{0.7} < Z \leq  \frac{3.95-3.5}{0.7}\right) =P(`r round((3.45-3.5)/0.7,3)` < Z\leq `r round((3.95-3.5)/0.7,3)`) \\ & =P(Z\leq `r round((3.95-3.5)/0.7,3)`)-P(Z\leq `r round((3.45-3.5)/0.7,3)`)=`r round(pnorm(3.95,3.5,0.7),3)`-`r round(pnorm(3.45,3.5,0.7),3)`=`r round(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7),3)`.
+\end{array}
+$$
+Por tanto, $e_5 = n\cdot `r round(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7),3)`=40\cdot `r round(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7),3)`=`r round(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)),2)`.$
+
+</div>
+
+
+## Ejemplo de normalidad
+<div class="example-sol">
+
+* Cálculo de $p_6 = P(X_0\in \mbox{Clase }6)$:
+$$
+\begin{array}{rl}
+p_6 & = P(3.95 < X_0\leq 4.45)=P\left(\frac{3.95-3.5}{0.7} < Z \leq  \frac{4.45-3.5}{0.7}\right) =P(`r round((3.95-3.5)/0.7,3)` < Z\leq `r round((4.45-3.5)/0.7,3)`) \\ & =P(Z\leq `r round((4.45-3.5)/0.7,3)`)-P(Z\leq `r round((3.95-3.5)/0.7,3)`)=`r round(pnorm(4.45,3.5,0.7),3)`-`r round(pnorm(3.95,3.5,0.7),3)`=`r round(pnorm(4.45,3.5,0.7)-pnorm(3.95,3.5,0.7),3)`.
+\end{array}
+$$
+Por tanto, $e_6 = n\cdot `r round(pnorm(4.45,3.5,0.7)-pnorm(3.95,3.5,0.7),3)`=40\cdot `r round(pnorm(4.45,3.5,0.7)-pnorm(3.95,3.5,0.7),3)`=`r round(40*(pnorm(4.45,3.5,0.7)-pnorm(3.95,3.5,0.7)),2)`.$
+
+* Cálculo de $p_7 = P(X_0\in \mbox{Clase }7)$:
+$$
+p_1  = P(X_0\geq 4.45)=P\left(Z\geq \frac{4.45-3.5}{0.7}\right)=P(Z\geq `r round((4.45-3.5)/0.7,3)`)=`r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`,
+$$
+donde $Z=N(0,1)$. Por tanto, $e_1 = n\cdot `r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`=40\cdot `r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`=`r round(40*pnorm(4.45,3.5,0.7,lower.tail=FALSE),2)`.$
+
+Observamos que las **frecuencias teóricas** $e_1$, $e_2$ y $e_7$ son menores que 5. Por tanto, no se cumplen las condiciones para poder aplicar el **contraste de bondad de ajuste**. 
+
+</div>
+
+## Ejemplo de normalidad
+<div class="example-sol">
+
+Para solventar este problema, agruparemos los intervalos $(-\infty,1.95]$, $(1.95,2.45]$, $(2.45,2.95]$ en el intervalo $(-\infty, 2.95)$ y los intervalos $(3.95,4.45]$ y $(4.45,\infty)$ en el intervalo $(3.95,\infty)$. De esta forma, la tabla de frecuencias empíricas quedará de la forma siguiente:
+
+<div class="center">
+|Rango de temperaturas | Frecuencias|
+|:----|----:|
+|$(-\infty,2.95]$ | $2+1+4=`r 2+1+4`$ |
+|$(2.95,3.45]$ | $15$ |
+|$(3.45,3.95]$ | $10$ |
+|$(3.95,\infty]$ | $5+3=`r 5+3`$  |
+</div>
+
+
+</div>
+
+## Ejemplo de normalidad
+<div class="example-sol">
+Las **frecuencias teóricas** de la nueva tabla serán las siguientes:
+
+* $e_1 = `r round(40*pnorm(1.95,3.5,0.7),2)`+`r round(40*(pnorm(2.45,3.5,0.7)-pnorm(1.95,3.5,0.7)),2)`+`r round(40*(pnorm(2.95,3.5,0.7)-pnorm(2.45,3.5,0.7)),2)` =`r round(40*pnorm(2.95,3.5,0.7),2)`$.
+* $e_2 = n\cdot `r round(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7),3)`=40\cdot `r round(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7),3)`=`r round(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)),2)`.$
+* $e_3 =  n\cdot `r round(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7),3)`=40\cdot `r round(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7),3)`=`r round(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)),2)`.$
+* $e_4 = `r round(40*(pnorm(4.45,3.5,0.7)-pnorm(3.95,3.5,0.7)),2)`+`r round(40*pnorm(4.45,3.5,0.7,lower.tail=FALSE),2)`= `r round(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE),2)`.$
+
+Ahora vemos que las **frecuencias teóricas** son mayores o iguales que 5 y, por tanto, se verifican las condiciones para poder aplicar el **test de bondad de ajuste**.
+</div>
+
+## Ejemplo de normalidad
+<div class="example-sol">
+La tabla siguiente resume los cálculos realizados:
+
+<div class="center">
+|Rango de temperaturas | Frecuencias empíricas| Frecuencias teóricas |
+|:----|----:|----:|
+|$(-\infty,2.95]$ | $`r 2+1+4`$ | $`r round(40*pnorm(2.95,3.5,0.7),2)`$|
+|$(2.95,3.45]$ | $15$ | $`r round(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)),2)`$|
+|$(3.45,3.95]$ | $10$ | $`r round(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)),2)`$|
+|$(3.95,\infty]$ | $`r 5+3`$  | $`r round(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE),2)`$
+</div>
+</div>
+
+## Ejemplo de normalidad
+<div class="example-sol">
+El valor del **estadístico de contraste** $\chi^2$ vale:
+$$
+\chi_0 = \frac{(7-`r round(40*pnorm(2.95,3.5,0.7),2)`)^2}{`r round(40*pnorm(2.95,3.5,0.7),2)`}+ \frac{(15-`r round(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)),2)`)^2}{`r round(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)),2)`}+ \frac{(10-`r round(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)),2)`)^2}{`r round(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)),2)`}+\frac{(8-`r round(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE),2)`)^2}{`r round(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE),2)`}=`r round((7-40*pnorm(2.95,3.5,0.7))^2/(40*pnorm(2.95,3.5,0.7))+(15-40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))^2/(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))+(10-40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))^2/(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))+(8-40*pnorm(3.95,3.5,0.7,lower.tail=FALSE))^2/(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE)),3)`.
+$$
+El p-valor del contraste será:
+$$
+p=P(\chi_{3} > `r round((7-40*pnorm(2.95,3.5,0.7))^2/(40*pnorm(2.95,3.5,0.7))+(15-40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))^2/(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))+(10-40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))^2/(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))+(8-40*pnorm(3.95,3.5,0.7,lower.tail=FALSE))^2/(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE)),3)`)=`r round(pchisq((7-40*pnorm(2.95,3.5,0.7))^2/(40*pnorm(2.95,3.5,0.7))+(15-40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))^2/(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))+(10-40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))^2/(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))+(8-40*pnorm(3.95,3.5,0.7,lower.tail=FALSE))^2/(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE)),3,lower.tail=FALSE),3)`.
+$$
+Como el p-valor es grande, concluimos que no tenemos evidencias suficientes para rechazar que el aumento de temperatura no siga una distribución normal de parámetros $\mu =3.5$ décimas de grado y $\sigma =0.7$ décimas de grado.
+</div>
+
+
+## Ejemplo de normalidad con `R`
+<div class="example">
+Vamos a realizar el ejemplo anterior usando `R`.
+
+En primer lugar, definimos las clases definiendo los extremos de los intervalos y las **frecuencias empíricas**:
+```{r}
+extremos.izquierdos = c(-Inf,1.95,2.45,2.95,3.45,3.95,4.45)
+extremos.derechos = c(1.95,2.45,2.95,3.45,3.95,4.45,Inf)
+frecuencias.empíricas = c(2,1,4,15,10,5,3)
+n=sum(frecuencias.empíricas)
+```
+
+Para hallar las **frecuencias teóricas** usamos la función `pnorm` de `R`:
+```{r}
+mu=3.5; sigma=0.7;
+probabilidades.teóricas = pnorm(extremos.derechos,mu,sigma)-
+  pnorm(extremos.izquierdos,mu,sigma)
+frecuencias.teóricas = n*probabilidades.teóricas
+round(frecuencias.teóricas,2)
+```
+
+</div>
+
+## Ejemplo de normalidad con `R`
+<div class="example">
+Por último, aplicamos el test de la $\chi^2$ usando la función `chisq.test`:
+```{r}
+chisq.test(frecuencias.empíricas,p=probabilidades.teóricas)
+```
+`R` nos avisa que la aproximación $\chi^2$ puede no ser correcta. Nosotros sabemos la razón: hay tres probabilidades teóricas que son menores que 5.
+
+Llegados a este punto, podemos actuar de dos formas: juntamos intervalos o simulamos el p-valor.
+
+</div>
+
+## Ejemplo de normalidad con `R`
+<div class="example">
+Si optamos por la primera opción, tendremos que hacer:
+```{r}
+extremos.izquierdos2=extremos.izquierdos[c(1,4,5,6)]
+extremos.derechos2 = extremos.derechos[c(3,4,5,7)]
+frecuencias.empíricas2 = c(sum(frecuencias.empíricas[1:3]),
+                           frecuencias.empíricas[4:5],sum(frecuencias.empíricas[6:7]))
+probabilidades.teóricas2 =pnorm(extremos.derechos2,mu,sigma)-
+  pnorm(extremos.izquierdos2,mu,sigma)
+frecuencias.teóricas2 = n*probabilidades.teóricas2
+chisq.test(frecuencias.empíricas2,p=probabilidades.teóricas2)
+```
+Vemos que obtenemos los mismos valores que los cálculos realizados a mano.
+
+</div>
+
+## Ejemplo de normalidad con `R`
+<div class="example">
+Si optamos por la segunda opción, hemos de hacer:
+
+```{r}
+chisq.test(frecuencias.empíricas,p=probabilidades.teóricas,simulate.p.value = TRUE,
+           B=2000)
+```
+Aunque obtengamos un p-valor distinto, llegamos a la misma conclusión anterior.
 
 </div>
