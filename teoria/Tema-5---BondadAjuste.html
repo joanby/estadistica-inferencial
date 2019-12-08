@@ -3918,7 +3918,109 @@ chisq.test(frecuencias.empíricas2,p=probabilidades.teóricas2)</pre>
 ##  (based on 2000 replicates)
 ## 
 ## data:  frecuencias.empíricas
-## X-squared = 8.1337, df = NA, p-value = 0.2114</pre></div></article></slide>
+## X-squared = 8.1337, df = NA, p-value = 0.2114</pre>
+
+<p>Aunque obtengamos un p-valor distinto, llegamos a la misma conclusión anterior.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de bondad de ajuste con parámetros poblacionales desconocidos</h2></hgroup><article  id="contrastes-de-bondad-de-ajuste-con-parametros-poblacionales-desconocidos">
+
+<p>El ejemplo visto anteriormente de normalidad no es realista en el sentido que la mayoría de las veces desconoceremos la media \(\mu\) y la desviación típica \(\sigma\) de la variable de la población \(X_0\) a la que se refiere la hipòtesis nula \(H_0\).</p>
+
+<p>Cuando la variable \(X_0\) de la población de contraste dependa de algún(os) parámetro(s) desconocido(s), necesitamos conocer su valor de cara a calcular las <strong>frecuencias esperadas</strong> o <strong>frecuencias teóricas</strong> \(e_i\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de bondad de ajuste con parámetros poblacionales desconocidos</h2></hgroup><article  id="contrastes-de-bondad-de-ajuste-con-parametros-poblacionales-desconocidos-1">
+
+<p>La manera de resolver este inconveniente, es estimar dichos parámetros usando el <strong>estimador máximo verosímil</strong> correspondiente.</p>
+
+<p>Una vez estimados el(los) parámetro(s) del(de los) que depende la variable de la población \(X_0\), podemos realizar el <strong>test de bondad de ajuste</strong> tal como hemos visto pero ahora los grados de libertad de la distribución \(\chi^2\) disminuyen. En concreto, valen: \(k-1-\mbox{número de parámetros estimados.}\)</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-7">
+
+<div class="example">
+<p><strong>Ejemplo</strong></p>
+
+<p>Se quiere determinar si el número de veces que aparece la secuencia GATACA en una cadena de ADN de longitud 1000 sigue una ley Poisson.</p>
+
+<p>Se toman varias muestras de cadenas de ADN de longitud 1000 y se cuentan los números de GATACA</p>
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">número \(x_i\) de veces queaparece GATACA</th>
+<th align="right">0</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+</tr>
+<tr class="odd">
+<td align="left">frecuencia empírica \(n_i\)</td>
+<td align="right">229</td>
+<td align="right">211</td>
+<td align="right">93</td>
+<td align="right">35</td>
+<td align="right">7</td>
+<td align="right">1</td>
+</tr>
+</table></div>
+
+<p>Hemos realizado en total \(n=229 + 211+ 93+ 35 + 7 + 1=576\) observaciones.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-8">
+
+<div class="example-sol">
+<p>El contraste a realizar es el siguiente: \[
+\left\{ \begin {array}{ll}
+H_0: \mbox{La muestra proviene de una distribución } Po(\lambda),\\
+H_1: \mbox{La muestra no proviene de esta distribución.}
+\end{array}
+\right.\]</p>
+
+<p>Al no conocer el parámetro \(\lambda\), hemos de estimarlo.</p>
+
+<p>Recordemos que el <strong>estimador máximo verosímil</strong> del parámetro \(\lambda\) de una distribución de Poisson es su <strong>media muestral</strong>: \(\hat{\lambda}=\overline{X}\): \[
+\hat{\lambda}  =\dfrac{229\cdot 0+ 211\cdot 1+  93\cdot 2+ 35\cdot 3+7\cdot 4+ 1\cdot 5}{229+ 211+ 93 +35 + 7 + 1}
+  =\dfrac{535}{576}=0.929.
+\]</p>
+
+<p>Las clases deben cubrir todo el conjunto de valores de la variable \(X_0\) que, en nuestro caso, al ser una variable de Poisson, serían todos los enteros positivos: \(D_{X_0}=\{0,1,\ldots\}\).</p>
+
+<p>Usando la tabla de <strong>frecuencias empíricas</strong>, consideramos las classes siguientes: \[
+\mbox{Clase 0}:{X_0=0},\ \mbox{Clase 1}:{X_0=1},\ \mbox{Clase 2}:{X_0=2},\ \mbox{Clase 3}:{X_0=3},\ \mbox{Clase 4}:{X_0=4},\ \mbox{Clase 5}:{X_0\geq 5}.
+\]</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-9">
+
+<div class="example-sol">
+<p>Recordemos que la función de probabilidad de una variable de Poisson de parámetro \(\lambda\) vale: \(P(X_0=i)=\frac{\lambda^i}{i!}\mathrm{e}^{-\lambda}\), donde \(i\in D_{X_0}\).</p>
+
+<p>Las <strong>frecuencias esperadas o teóricas</strong> \(e_i\) se calculan de la forma siguiente:</p>
+
+<ul>
+<li><p>\(e_0 = n\cdot P(X_0\in \mbox{Clase }0)=n\cdot P(X_0 =0)=576\cdot \frac{0.929^0}{0!}\mathrm{e}^{-0.929}=  576\cdot \mathrm{e}^{-0.929}=227.531.\)</p></li>
+<li><p>\(e_1 = n\cdot P(X_0\in \mbox{Clase }1)=n\cdot P(X_0 =1)=576\cdot \frac{0.929^1}{1!}\mathrm{e}^{-0.929}=211.336.\)</p></li>
+<li><p>\(e_2 = n\cdot P(X_0\in \mbox{Clase }2)=n\cdot P(X_0 =2)=576\cdot \frac{0.929^2}{2!}\mathrm{e}^{-0.929}=98.146.\)</p></li>
+<li><p>\(e_3 = n\cdot P(X_0\in \mbox{Clase }3)=n\cdot P(X_0 =3)=576\cdot \frac{0.929^3}{3!}\mathrm{e}^{-0.929}=30.387.\)</p></li>
+<li>\(e_4 = n\cdot P(X_0\in \mbox{Clase }4)=n\cdot P(X_0 =4)=576\cdot \frac{0.929^4}{4!}\mathrm{e}^{-0.929}=7.056.\)</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-10">
+
+<div class="example-sol">
+<ul>
+<li>El cálculo de \(e_5\) se realiza de forma ligeramente diferente de los demás:</li>
+</ul>
+
+<p>\[
+\begin{array}{rl}
+e_5 &amp; = n\cdot P(X_0\in \mbox{Clase }5)=n\cdot P(X_0 \geq 5)= n\cdot (1-P(X_0\leq 4)) \\
+&amp; =n\cdot (1-(P(X_0=0)+P(X_0=1)+P(X_0=2)+P(X_0=3)+P(X_0=4)))\\
+&amp; = 576-(227.531+
+211.336+98.146+30.387+7.056
+)=1.544.
+\end{array}
+\]</p></div></article></slide>
 
 
   <slide class="backdrop"></slide>
