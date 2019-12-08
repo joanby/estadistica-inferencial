@@ -600,15 +600,15 @@ Recordemos que la función de probabilidad de una variable de Poisson de paráme
 Las **frecuencias esperadas o teóricas** $e_i$ se calculan de la forma siguiente:
 
 * $e_0 = n\cdot P(X_0\in \mbox{Clase }0)=n\cdot P(X_0 =0)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^0}{0!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=
- `r 229+ 211+ 93 +35 + 7 + 1`\cdot \mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1)),3)`.$
+ `r 229+ 211+ 93 +35 + 7 + 1`\cdot \mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1)),2)`.$
  
-* $e_1 = n\cdot P(X_0\in \mbox{Clase }1)=n\cdot P(X_0 =1)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^1}{1!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1)),3)`.$
+* $e_1 = n\cdot P(X_0\in \mbox{Clase }1)=n\cdot P(X_0 =1)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^1}{1!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1)),2)`.$
 
-* $e_2 = n\cdot P(X_0\in \mbox{Clase }2)=n\cdot P(X_0 =2)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^2}{2!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))^2*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))/factorial(2),3)`.$
+* $e_2 = n\cdot P(X_0\in \mbox{Clase }2)=n\cdot P(X_0 =2)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^2}{2!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))^2*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))/factorial(2),2)`.$
 
-* $e_3 = n\cdot P(X_0\in \mbox{Clase }3)=n\cdot P(X_0 =3)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^3}{3!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))^3*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))/factorial(3),3)`.$
+* $e_3 = n\cdot P(X_0\in \mbox{Clase }3)=n\cdot P(X_0 =3)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^3}{3!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))^3*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))/factorial(3),2)`.$
 
-* $e_4 = n\cdot P(X_0\in \mbox{Clase }4)=n\cdot P(X_0 =4)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^4}{4!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))^4*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))/factorial(4),3)`.$
+* $e_4 = n\cdot P(X_0\in \mbox{Clase }4)=n\cdot P(X_0 =4)=`r 229+ 211+ 93 +35 + 7 + 1`\cdot \frac{`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`^4}{4!}\mathrm{e}^{-`r round((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1),3)`}=`r round((229+ 211+ 93 +35 + 7 + 1)*((211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))^4*exp(-(211+93*2+35*3+7*4+1*5)/(229+ 211+ 93 +35 + 7 + 1))/factorial(4),2)`.$
 </div>
 
 ## Ejemplo
@@ -627,9 +627,191 @@ $$
 \begin{array}{rl}
 e_5 & = n\cdot P(X_0\in \mbox{Clase }5)=n\cdot P(X_0 \geq 5)= n\cdot (1-P(X_0\leq 4)) \\
 & =n\cdot (1-(P(X_0=0)+P(X_0=1)+P(X_0=2)+P(X_0=3)+P(X_0=4)))\\
-& = `r n`-(`r round(e0,3)`+
-`r round(e1,3)`+`r round(e2,3)`+`r round(e3,3)`+`r round(e4,3)`
-)=`r round(n-(e0+e1+e2+e3+e4),3)`.
+& = `r n`-(`r round(e0,2)`+
+`r round(e1,2)`+`r round(e2,2)`+`r round(e3,2)`+`r round(e4,2)`
+)=`r round(n-(e0+e1+e2+e3+e4),2)`.
 \end{array}
 $$
+Como la clase 5 no verifica las condiciones de aplicación del **contraste de bondad de ajuste** al tener una **frecuencia esperada** menor que 5, juntaremos las dos últimas clases y las nuevas clases serán:
+
+$$
+\mbox{Clase 0}:{X_0=0},\ \mbox{Clase 1}:{X_0=1},\ \mbox{Clase 2}:{X_0=2},\ \mbox{Clase 3}:{X_0=3},\ \mbox{Clase 4}:{X_0\geq4}.
+$$
+Las **frecuencias esperadas** de las nuevas clases serán:
+
+* $e_0 = n\cdot P(X_0\in \mbox{Clase }0)=n\cdot P(X_0 =0)=`r round(e0,2)`.$
+* $e_1 = n\cdot P(X_0\in \mbox{Clase }1)=n\cdot P(X_0 =1)=`r round(e1,2)`.$
+* $e_2 = n\cdot P(X_0\in \mbox{Clase }2)=n\cdot P(X_0 =2)=`r round(e2,2)`.$
+* $e_3 = n\cdot P(X_0\in \mbox{Clase }3)=n\cdot P(X_0 =3)=`r round(e3,2)`.$
 </div>
+
+## Ejemplo
+<div class="example-sol">
+* El cálculo de $e_4$ se realiza de forma parecida al cálculo de la clase 5 anterior:
+$$
+\begin{array}{rl}
+e_4 & = n\cdot P(X_0\in \mbox{Clase }4)=n\cdot P(X_0 \geq 4)= n\cdot (1-P(X_0\leq 3)) \\
+& =n\cdot (1-(P(X_0=0)+P(X_0=1)+P(X_0=2)+P(X_0=3))\\
+& = `r n`-(`r round(e0,2)`+
+`r round(e1,2)`+`r round(e2,2)`+`r round(e3,2)`
+)=`r round(n-(e0+e1+e2+e3),2)`.
+\end{array}
+$$
+
+```{r, echo=FALSE}
+e4n=n-(e0+e1+e2+e3);
+```
+
+</div>
+
+## Ejemplo
+<div class="example-sol">
+Resúmamos en una tabla las **frecuencias empíricas** y las **frecuencias esperadas**:
+
+<div class="center">
+|Clase | Frecuencias empíricas| Frecuencias teóricas |
+|:----|----:|----:|
+|$\{X_0=0\}$ | $229$ | $`r round(e0,2)`$|
+|$\{X_0=1\}$ | $211$ | $`r round(e1,2)`$|
+|$\{X_0=2\}$ | $93$ | $`r round(e2,2)`$|
+|$\{X_0 = 3\}$ | $35$  | $`r round(e3,2)`$|
+|$\{X_0\geq 4\}$ | $7+1=8$ | $`r round(e4n,2)`$|
+</div>
+</div>
+
+## Ejemplo
+<div class="example-sol">
+El valor del **estadístico de contraste** será:
+$$
+\chi_0 = \frac{(229-`r round(e0,2)`)^2}{`r round(e0,2)`}+\frac{(211-`r round(e1,2)`)^2}{`r round(e1,2)`}+\frac{(93-`r round(e2,2)`)^2}{`r round(e2,2)`}+\frac{(35-`r round(e3,2)`)^2}{`r round(e3,2)`}+\frac{(8-`r round(e4n,2)`)^2}{`r round(e4n,2)`} =`r round((229-e0)^2/e0+(211-e1)^2/e1+(93-e2)^2/e2+(35-e3)^2/e3+(8-e4n)^2/e4n,3)`.
+$$
+
+Antes de calcular el p-valor del contraste, calculemos los grados de libertad de la variable $\chi^2$. Éstos serán: $g.l.=5-1-1=3$ ya que hemos estimado un parámetro, $\lambda$.
+
+El p-valor del contraste será:
+$$
+p=P(\chi^2_3 > `r round((229-e0)^2/e0+(211-e1)^2/e1+(93-e2)^2/e2+(35-e3)^2/e3+(8-e4n)^2/e4n,3)`)=`r round(pchisq((229-e0)^2/e0+(211-e1)^2/e1+(93-e2)^2/e2+(35-e3)^2/e3+(8-e4n)^2/e4n,3,lower.tail=FALSE),3)`.
+$$
+Como el p-valor es muy grande, concluimos que no tenemos evidencias suficientes para rechazar que el número de veces que aparece la secuencia GATACA en una cadena ADN de longitud 1000 sigue una ley de Poisson.
+</div>
+
+## Ejemplo con `R`
+<div class="example-sol">
+Resolvamos el ejemplo anterior con ayuda de `R`. 
+
+En primer lugar, definimos las **frecuencias empíricas** y las **probabilidades esperadas y teóricas**:
+```{r}
+frecuencias.empíricas = c(229,211,93,35,8);
+estimación.lambda = (211+93*2+35*3+7*4+1*5)/(229+211+93+35+7+1);
+probabilidades.esperadas = c(dpois(0,estimación.lambda),dpois(1,estimación.lambda),
+                             dpois(2,estimación.lambda),dpois(3,estimación.lambda),
+                             1-ppois(3,estimación.lambda));
+```
+</div>
+
+## Ejemplo con `R`
+<div class="example-sol">
+A continuación, realizamos el **test de bondad de ajuste** usando la función `chisq.test`:
+```{r}
+chisq.test(frecuencias.empíricas,p=probabilidades.esperadas)
+```
+Nos fijamos que el valor del **estadístico de contraste** coincide con el valor obtenido haciendo los cálculos a mano. Sin embargo, el p-valor no coincide. La razón es que `R` no tiene forma de saber si hemos estimado algún parámetro o no. Por este motivo, considera que los grados de libertad del **estadístico de contraste** son 4 en lugar de 3. 
+</div>
+
+
+## Ejemplo con `R`
+<div class="example-sol">
+Entonces para hallar el p-valor correcto, hemos de usar la función `pchisq`:
+```{r}
+test.chi2=chisq.test(frecuencias.empíricas,p=probabilidades.esperadas)
+pchisq(test.chi2[[1]],3,lower.tail=FALSE)
+```
+Comprobamos que ahora sí tenemos el p-valor correcto.
+</div>
+
+# Contrastes donde la variable $X_0$ es continua
+
+## Introducción
+En esta sección, vamos a ver contrastes específicos para comprobar si una variable sigue una determinada distribución continua.
+
+El **test de bondad de ajuste** se puede aplicar en estos casos pero exige que el tamaño de la muestra $n$ tiene que ser grande por dos razones: en primer lugar, $n$ debe ser mayor que 30 y en segundo lugar, las **frecuencias esperadas** deben ser mayores que 5, condición que raramente se consigue para valores de $n$ pequeños.
+
+## Test de Kolmogorov-Smirnov (K-S test)
+
+El **test de Kolgomorov-Smirnov** (**K-S**) es un test genérico para contrastar la bondad de ajuste a distribuciones continuas.  
+
+Se puede usar con muestras pequeñas (se suele recomendar 5 elementos como el tamaño mínimo para que el resultado sea significativo), pero  la muestra no puede contener valores repetidos: si los contiene, la distribución del estadístico de contraste bajo la hipótesis nula no es la que predice la teoría sino que solo se aproxima a ella, y por lo tanto los p-valores que se obtienen son aproximados. 
+
+El test K-S realiza un contraste en el que la hipótesis nula es que la muestra proviene de una distribución continua  completamente especificada. Es decir, no sirve por ejemplo para contrastar si la muestra proviene de "alguna" distribución normal, sino solo para contrastar si proviene de una distribución normal con una media y una desviación típica concretas. 
+
+## Test de Kolmogorov-Smirnov (K-S test)
+
+Por tanto, si queremos contrastar que la muestra proviene de alguna distribución de una familia concreta y  estimamos sus parámetros a partir de la muestra, el test K-S solo nos permite rechazar o no la hipótesis de que la muestra proviene de la distribución de esa familia con exactamente esos parámetros.
+
+Si el resultado es rechazar la hipótesis nula, significa que tenemos indicios suficientes para rechazar que la muestra proviene de la distribución de la familia con los parámetros que hemos especificado pero podría ser que la muestra siguiese una distribución de la misma familia con otros parámetros.
+
+## Test de Kolmogorov-Smirnov (K-S test)
+Sean $x_1,x_2,\ldots,x_n$, con todos los valores diferentes tal como hemos comentado, y queremos contrastar si ha sido producida por una variable $X$ con distribución $F_X$.
+
+Para aplicar el test **K-S** seguimos los pasos siguientes:
+
+* Ordenamos la muestra de menor a mayor: $x_{(1)}< x_{(2)}<\cdots< x_{(n)}$.
+
+
+## Test de Kolmogorov-Smirnov (K-S test)
+* Calculamos la **función de distribución muestral** $F_{n}$
+de esta muestra, definida de la forma siguiente:
+$$
+F_n(x)=\left\{\begin{array}{ll}
+0, &\mbox{ si } x< x_{(1)}, \\
+\dfrac{k}{n}, &\mbox{ si } x_{(k)}\leq x < x_{(k+1)},\\[2ex]
+1, & \mbox{ si } x_{(n)} \leq x.
+\end{array}
+\right.
+$$
+O sea, sería la función de distribución que corresponderia a la variable aleatoria discreta $X_n$ con dominio $D_X=\{x_{(1)}< x_{(2)}<\cdots< x_{(n)}\}$ y función de probabilidad $P(X_n = x_{(i)})=\frac{1}{n}$, $i=1,\ldots,n$.
+
+
+## Test de Kolmogorov-Smirnov (K-S test)
+El gráfico siguiente muestra la **función de distribución muestral** $F_n$ para el caso en que la muestra sean los valores $1,2,3,4,5$:
+
+```{r,echo=FALSE,fig=TRUE,fig.align="center"}
+muestra=1:5
+n=length(muestra)
+Fn=function(x){ifelse(x<muestra[1],0,ifelse(x<=muestra[2],1/n,ifelse(x<=muestra[3],2/n,ifelse(x<=muestra[4],3/n,ifelse(x<=muestra[5],4/n,1)))))}
+xx=seq(from=-1,to=6,by=0.01)
+plot(xx,Fn(xx),pch=19,cex=0.1,xlab="x",ylab=expression(F[n]))
+lines(c(1,1),c(0,1/n),lty=2)
+lines(c(2,2),c(1/n,2/n),lty=2)
+lines(c(3,3),c(2/n,3/n),lty=2)
+lines(c(4,4),c(3/n,4/n),lty=2)
+lines(c(5,5),c(4/n,1),lty=2)
+```
+
+
+## Test de Kolmogorov-Smirnov (K-S test)
+* El siguiente paso es comparar $F_n(x)$ con $F_X(x)$. Si son muy diferentes, concluimos que tenemos indicios suficientes para rechazar que la muestra proviene de la variable $X$. ¿Cómo realizamos dicha comparación?
+
+Calculamos $\sup\{|F_n(x)-F_X(x)|\mid x\in \mathbb{R}\}$. Como $F_X$ es creciente, este supremo se alcanza en algún extremo del "escalón" de la función $F_n$.
+
+Para calcular dicho supremo, calculamos la denominada discrepancia de cada valor $x_{(i)}$:
+$$
+\begin{array}{rl}
+D_n(x_{(i)})& \hspace{-1.5ex} =\max\big\{| F_X(x_{(i)})-F_{n}(x_{(i)}^{-})|, |F_{X}(x_{(i)})-F_n(x_{(i)})|\big\}\\[1ex]
+& \hspace{-1.5ex} \displaystyle=\max\Big\{\Big| F_X(x_{(i)})-\frac{i-1}{n}\Big|, \Big|F_{X}(x_{(i)})-\frac{i}{n}\Big|\Big\},
+\end{array}$$
+para todos los $i=1,\ldots, n$.
+
+## Test de Kolmogorov-Smirnov (K-S test)
+* El último paso es calcular la discrepancia máxima: 
+$$
+D_n=\max\big\{D_n(x_{(i)})\mid i=1,\ldots, n\big\}.
+$$
+
+El resultado interesante viene ahora: 
+
+<l class="prop"> Teorema de Kolmogorov-Smirnov </l>
+Si la hipótesis nula es cierta, la distribución de la variable aleatoria $D_n$ no depende de la variable $X$.
+
+O dicho en otras palabras, la función de distribución de la variable aleatoria $D_n$ no depende de la función de distribución $F_X$.
+
