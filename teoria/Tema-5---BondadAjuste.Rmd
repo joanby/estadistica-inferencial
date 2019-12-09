@@ -1,5 +1,5 @@
 ---
-title: "Tema 6 - Bondad de Ajuste"
+title: "Tema 5 - Bondad de Ajuste"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: 
 output: 
@@ -51,8 +51,163 @@ donde $X_0$ es un tipo de distribución conocida.
 
 <l class="observ">Observación:</l> en la distribución de $X_0$ no hace falta indicar los parámetros de los que ésta depende. Por ejemplo, $X_0$ puede ser normal, binomial, Poisson, etc. pero no indicamos los parámetros de los que depende. Veremos más adelante cómo estimar o aproximar dichos parámetros a partir de los valores de la muestra.
 
-## Contraste de bondad de ajuste
-Veamos a continuación cómo se realiza un **contraste de bondad de ajuste**.
+## Pruebas gráficas: histogramas
+Supongamos que nuestra variable $X_0$ es continua.
+
+Para comprobar si una determinada muestra proviene de la variable $X_0$, lo primero que podemos hacer es realizar distintas pruebas gráficas como por ejemplo histogramas. 
+
+A partir de dichos histogramas, podemos "estimar" la función de densidad de la muestra y ver si dicha función de densidad se parece o no a la función de densidad de la variable $X_0$.
+
+La estimación de la función de densidad a partir del histograma de la muestra se sale de los objetivos del curso pero vamos a ver con un ejemplo cómo podemos usar dicha función. Si queréis detalles, consultad https://en.wikipedia.org/wiki/Kernel_density_estimation.
+
+
+## Pruebas gráficas: histogramas
+<div class="example">
+**Ejemplo**
+
+Consideremos la tabla de datos `iris`, concretamente la variable anchura del sépalo (`Sepal.Width`).
+
+Queremos ver a qué se puede aproximar dicha variable. 
+
+Vamos a realizar un gráfico de la estimación de la función de densidad de la muestra usando la función `density` de `R`:
+
+```{r,fig.align='center',eval=FALSE}
+muestra=iris$Sepal.Width
+plot(density(muestra),main="Estimación de la densidad")
+```
+
+</div>
+
+## Pruebas gráficas: histogramas
+<div class="example">
+
+```{r,fig.align='center',echo=FALSE}
+muestra=iris$Sepal.Width
+plot(density(muestra),main="Estimación de la densidad")
+```
+
+</div>
+
+## Pruebas gráficas: histogramas
+<div class="example">
+A "ojo de buen cubero", parece una campana de Gauss. Para comprobarlo, dibujemos además la función de densidad de la distribución normal con parámetros $\mu$ igualado a la media de la muestra y $\sigma$, a la desviación típica:
+
+```{r,fig.align='center',eval=FALSE}
+muestra=iris$Sepal.Width
+plot(density(muestra),main="Estimación de la densidad")
+x=seq(from=1,to=5,by=0.01)
+mu=mean(iris$Sepal.Width)
+sigma=sd(iris$Sepal.Width)
+lines(x,dnorm(x,mean=mu,sd=sigma),col="red")
+```
+
+</div>
+
+
+## Pruebas gráficas: histogramas
+<div class="example">
+```{r,fig.align='center',echo=FALSE}
+muestra=iris$Sepal.Width
+plot(density(muestra),main="Estimación de la densidad")
+x=seq(from=1,to=5,by=0.01)
+mu=mean(iris$Sepal.Width)
+sigma=sd(iris$Sepal.Width)
+lines(x,dnorm(x,mean=mu,sd=sigma),col="red")
+```
+
+</div>
+
+## Pruebas gráficas: histogramas
+<div class="example">
+Vemos que la campana de Gauss se parece bastante a la estimación de la densidad. 
+
+La cuestión ahora es: ¿podemos aceptar que el parecido es suficiente para aceptar que la distribución de la anchura del sépalo es normal?
+
+La respuesta será contestada en secciones posteriores.
+</div>
+
+
+## Pruebas gráficas: Q-Q-plots
+Otro tipo de prueba gráfica que podemos realizar son los llamados **gráficos cuantil-cuantil o Q-Q-plots**.
+
+Este tipo de gráficos compara  los **cuantiles observados de la muestra** con los **cuantiles teóricos de la distribución teórica.**
+
+La función de `R` que realiza un gráfico de este tipo es la función `qqPlot` del paquete `car`. 
+
+ Su sintaxis básica es
+```{r, eval=FALSE}
+qqPlot(x, distribution=...,  parámetros, id=FALSE, ...)
+```
+donde:
+
+## Pruebas gráficas: Q-Q-plots
+* `x` es el vector con la muestra.
+
+* El parámetro `distribution` se ha de igualar al nombre de la familia de distribuciones  entre comillas, y puede tomar como valor cualquier familia de distribuciones de la que R sepa calcular la densidad y los cuantiles: esto incluye  las distribuciones que hemos estudiado hasta el momento: `"norm"`, `"binom"`, `"poisson"`, `"t"`, etc.
+
+*  A continuación, se tienen que entrar los parámetros de la distribución, igualando su nombre habitual (`mean` para la media, `sd` para la desviación típica, `df` para los grados de libertad, etc.)  a su valor.
+
+* Por defecto, el gráfico obtenido con la función `qqPlot` identifica los dos Q-Q-puntos con ordenadas más extremas. Para omitirlos, usad el parámetro `id=FALSE`.
+
+
+## Pruebas gráficas: Q-Q-plots
+Otros parámetros a tener en cuenta:
+
+* `qqPlot` añade por defecto una rejilla al gráfico, que podéis eliminar con `grid=FALSE`.
+
+
+*  `qqPlot` añade por defecto una línea recta que une los Q-Q-puntos correspondientes al  primer y tercer cuartil: se la llama **recta cuartil-cuartil**. Un buen ajuste de los Q-Q-puntos a esta recta significa que la muestra se ajusta a la distribución teórica, pero posiblemente con parámetros diferentes a los especificados. Os recomendamos mantenerla, pero si queréis eliminarla por ejemplo para substituirla por la diagonal $y=x$, podéis usar el parámetro `line="none"`.
+
+## Pruebas gráficas: Q-Q-plots
+
+* `qqPlot` también añade dos curvas discontinuas que abrazan una "región de confianza del 95%" para el Q-Q-plot. Sin entrar en detalles, esta región contendría todos los Q-Q-puntos en un 95% de las ocasiones que tomáramos una muestra de la distribución teórica del mismo tamaño que la nuestra. Por lo tanto, si todos los Q-Q-puntos caen dentro de esta franja, no hay evidencia para rechazar que la muestra provenga de la distribución teórica. Esta franja de confianza es muy útil para interpretar el Q-Q-plot, pero la podéis eliminar con `envelope=FALSE`.
+
+* Se pueden usar los parámetros usuales de `plot` para poner nombres a los ejes, título, modificar el estilo de los puntos, etc., y otros parámetros específicos para modificar el aspecto del gráfico.  Por ejemplo, `col.lines` sirve para especificar el color de las líneas  que añade.
+
+
+
+
+Hagamos un gráfico Q-Q-plot del ejemplo anterior.
+
+
+## Pruebas gráficas: Q-Q-plots
+<div class="example">
+**Ejemplo**
+
+Recordemos que considerábamos la variable anchura del sépalo de la tabla de datos `iris`.
+
+El Q-Q-plot para ver si la variable anterior sigue la ley normal es el siguiente:
+
+```{r,eval=FALSE}
+library(car)
+qqPlot(iris$Sepal.Width,distribution = "norm", mean=mu,sd=sigma)
+```
+
+</div>
+
+## Pruebas gráficas: Q-Q-plots
+<div class="example">
+
+```{r,echo=FALSE,fig.align='center',message=FALSE}
+library(car)
+qqPlot(iris$Sepal.Width,distribution = "norm", mean=mu,sd=sigma)
+```
+
+</div>
+
+
+## Pruebas gráficas: Q-Q-plots
+<div class="example">
+Observamos que la mayoría de los valores de la muestra caen dentro de la franja del 95% de confianza. 
+
+Sin embargo, fijáos que hay unos pocos puntos que se salen de dicha franja.
+
+En resumen, según esta prueba gráfica, "parece" que la distribución es normal pero tenemos dudas.
+
+</div>
+
+## Contraste $\chi^2$ de Pearson
+Veamos a continuación cómo se realiza un **contraste $\chi^2$ de Pearson**.
 
 Suponemos que disponemos de los valores de una muestra de tamaño $n$ de la variable $X$ que nos da los valores de la población: $x_1,x_2,\ldots,x_n$.
 
@@ -60,7 +215,7 @@ A continuación, clasificamos los valores $x_i$, $i=1,\ldots, n$ en $k$ clases. 
 
 Sean $n_1,\ldots,n_k$, el número de valores de la muestra que están en cada una de las clases: $n_1$ sería el número de valores de la muestra que están en la clase 1, $n_2$, el número de valores de la muestra que están en la clase 2 y así sucesivamente hasta $n_k$.
 
-## Contraste de bondad de ajuste
+## Contraste $\chi^2$ de Pearson
 Obtendríamos lo que se conoce como **tabla de frecuencias empíricas**:
 
 <div class="center">
@@ -74,7 +229,7 @@ El siguiente paso es obtener la tabla de la función de probabilidad de la varia
 Esta función de probabilidad tiene que hallarse a partir del conocimiento de $X_0$. Si desconocemos alguno(s) del (de los) parámetro(s) de (los) que depende $X_0$, los tendremos que estimar usando las técnicas vistas en el capítulo de estimación de parámetros.
 
 
-## Contraste de bondad de ajuste
+## Contraste $\chi^2$ de Pearson
 La tabla de la función de probabilidad $X_k$ quedaría de la forma siguiente:
 <div class="center">
 | $X_k$ | $1$    | $2$ | $\ldots$ | $k$ | Total |
@@ -94,7 +249,7 @@ Llamaremos $e_i=n\cdot P(X_k=i)$ a la **frecuencia teórica** de la clase $i$-é
 
 
 
-## Contraste de bondad de ajuste
+## Contraste $\chi^2$ de Pearson
 El **test $\chi^2$** o **test de bondad de ajuste** se basa en que, si la hipótesis nula es cierta, las **frecuencias empíricas** y las **frecuencias teóricas** son "parecidas".
 
 Más concretamente, si la hipótesis nula es cierta, el estadístico siguiente:
@@ -108,7 +263,7 @@ $$
 p=P(\chi_k^2 > \chi_0),
 $$
 
-## Contraste de bondad de ajuste
+## Contraste $\chi^2$ de Pearson
 
 con el significado usual: 
 
@@ -181,7 +336,7 @@ Como el p-valor es grande, concluímos que no tenemos evidencias suficientes par
 
 </div>
 
-## Condiciones para poder aplicar el test de bondad de ajuste
+## Condiciones para poder aplicar el test $\chi^2$ de Pearson
 
 El test de **bondad de ajuste** está basado en el **estadístico $\chi^2$** que recordemos sigue aproximadamente una distribución $\chi^2_{k-1}$ grados de libertad.
 
@@ -205,7 +360,7 @@ En el ejemplo del lanzamiento del dado, observamos que se verifican las condicio
 
 </div>
 
-## Resolución de un test de bondad de ajuste en `R`
+## Resolución de un test $\chi^2$ de Pearson en `R`
 Para resolver un **contraste de bondad de ajuste** en `R`, hemos de usar la función `chisq.test`.
 
 Su sintaxis básica es
@@ -216,20 +371,20 @@ donde:
 
 * `x` es el vector (o la tabla, calculada con `table`) de frecuencias **absolutas observadas** de las clases en la muestra, recordemos que las hemos llamado $n_i$, $i=1,\ldots, k$.
 
-## Resolución de un test de bondad de ajuste en `R`
+## Resolución de un test $\chi^2$ de Pearson en `R`
 
 * `p` es el vector de probabilidades teóricas de las clases para la distribución que queremos contrastar. O sea, es el vector de la función de probabilidad de la variable $X_k$: $p_i=P(X_k=i)$, $i=1,\ldots k$. 
 
 Si no lo especificamos, se entiende que la probabilidad es la misma para todas las clases. Obviamente, estas probabilidades se tienen que especificar en el mismo orden que las frecuencias de `x` y, como son las probabilidades de todos los resultados posibles, en principio tienen que sumar 1; esta condición se puede relajar con el siguiente parámetro.
 
 
-## Resolución de un test de bondad de ajuste en `R`
+## Resolución de un test $\chi^2$ de Pearson en `R`
 * `rescale.p` es un parámetro lógico que, si se iguala a `TRUE`, indica que  los valores de `p` no son probabilidades, sino solo proporcionales a las probabilidades; esto hace que `R` tome como probabilidades teóricas los valores de `p`  partidos por su suma, para que sumen 1.  
 
 Por defecto vale `FALSE`, es decir, se supone que el vector que se entra como  `p`  son probabilidades y por lo tanto debe sumar 1, y si esto no pasa se genera un mensaje de error indicándolo. Igualarlo a `TRUE` puede ser útil, porque nos permite especificar las probabilidades mediante  las frecuencias esperadas o mediante porcentajes. Pero también es peligroso, porque si nos hemos equivocado y hemos entrado un vector en `p` que no corresponda a una probabilidad, `R` no nos avisará.
 
 
-## Resolución de un test de bondad de ajuste en `R`
+## Resolución de un test $\chi^2$ de Pearson en `R`
 
 *  `simulate.p.value` es un  parámetro lógico que indica a la función si debe
 optar por una simulación para el cálculo  del p-valor del contraste. 
@@ -277,7 +432,7 @@ Vemos que con 2000 replicaciones, al obtener un p-valor grande, podemos concluir
 
 ## Ejemplo de normalidad
 <div class="example">
-**Ejemplo para comprobar si cierta distribución es normal usando el test de bondad de ajuste**
+**Ejemplo para comprobar si cierta distribución es normal usando el test $\chi^2$ de Pearson en `R`**
 
 Un técnico de medio ambiente quiere estudiar el aumento de temperatura del agua
 a dos kilómetros de los vertidos de agua autorizados de una
@@ -321,7 +476,7 @@ H_1: \mbox{La distribución de los aumentos de temperatura no es $N(3.5,0.7)$.}
 \end{array}
 \right.$$
 
-Para poder aplicar el **test de bondad de ajuste**, como la distribución teórica es normal y su dominio es todo $\mathbb{R}$, tendremos que ampliar los intervalos de la tabla anterior para asegurarnos que los valores de la tabla pueden alcanzar todos los valores de la distribución teórica:
+Para poder aplicar el **test $\chi^2$ de Pearson**, como la distribución teórica es normal y su dominio es todo $\mathbb{R}$, tendremos que ampliar los intervalos de la tabla anterior para asegurarnos que los valores de la tabla pueden alcanzar todos los valores de la distribución teórica:
 </div>
 
 ## Ejemplo de normalidad
@@ -536,13 +691,13 @@ Aunque obtengamos un p-valor distinto, llegamos a la misma conclusión anterior.
 
 </div>
 
-## Contrastes de bondad de ajuste con parámetros poblacionales desconocidos
+## Test $\chi^2$ de Pearson con parámetros poblacionales desconocidos
 
 El ejemplo visto anteriormente de normalidad no es realista en el sentido que la mayoría de las veces desconoceremos la media $\mu$ y la desviación típica $\sigma$ de la variable de la población $X_0$ a la que se refiere la hipòtesis nula $H_0$.
 
 Cuando la variable $X_0$ de la población de contraste dependa de algún(os) parámetro(s) desconocido(s), necesitamos conocer su valor de cara a calcular las **frecuencias esperadas** o **frecuencias teóricas** $e_i$.
 
-## Contrastes de bondad de ajuste con parámetros poblacionales desconocidos
+## Test $\chi^2$ de Pearson con parámetros poblacionales desconocidos
 
 La manera de resolver este inconveniente, es estimar dichos parámetros usando el **estimador máximo verosímil** correspondiente.
 
@@ -811,7 +966,284 @@ $$
 El resultado interesante viene ahora: 
 
 <l class="prop"> Teorema de Kolmogorov-Smirnov </l>
-Si la hipótesis nula es cierta, la distribución de la variable aleatoria $D_n$ no depende de la variable $X$.
+Si la hipótesis nula es cierta, la distribución límite de la variable aleatoria $\sqrt{n}\cdot D_n$ no depende de la variable $X$ y converge a la denominada **distribución de Kolmogorov** $K$. Aunque $n$ tiene que ser grande, se puede hacer un cambio de variable para que el error de aproximar $\sqrt{n}\cdot D_n$ por la **distribución de Kolmogorov** $K$ sea despreciable. Para más detalles, consultar https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test
 
-O dicho en otras palabras, la función de distribución de la variable aleatoria $D_n$ no depende de la función de distribución $F_X$.
 
+## Test de Kolmogorov-Smirnov (K-S test)
+
+En la práctica, se aproxima $D_n \approx \frac{1}{\sqrt{n}}\cdot K$ y se calcular el p-valor como:
+$$
+p=P\left(D_n > d_n\right),
+$$
+donde $d_n$ representa el valor obtenido de la variable $D_n$ usando nuestra muestra. La probabilidad anterior se calcula usando la función de distribución de la variable $\frac{1}{\sqrt{n}}\cdot K$. Dicha función de distribución está tabulada o hay que usar `R`.
+
+## Ejemplo
+<div class="example">
+**Ejemplo**
+
+Queremos decidir si los valores
+$$
+5.84,4.57,1.34,3.58,1.54,2.25
+$$
+provienen de una distribución normal con $\mu=3$ y $\sigma=1.5$. 
+
+</div>
+
+
+<div class="example-sol">
+El contraste a realizar es el siguiente:
+$$
+\left\{
+\begin{array}{l}
+H_0: \mbox{ la muestra proviene de una $X\sim N(3,1.5)$,}\\
+H_0: \mbox{ la muestra no proviene de una $X\sim N(3,1.5).$}
+\end{array}
+\right.
+$$
+Para aplicar el test K-S, primero ordenamos la muestra usando `R` "como calculadora":
+```{r}
+muestra=c(5.84,4.57,1.34,3.58,1.54,2.25)
+(muestra.ordenada = sort(muestra))
+```
+
+
+</div>
+
+```{r,echo=FALSE}
+n=length(muestra)
+```
+
+
+## Ejemplo
+<div class="example-sol">
+A continuación, calculamos la **función de distribución muestral** $F_{n}$:
+$$
+F_n(x)=\left\{\begin{array}{ll}
+0, &\mbox{ si } x< `r muestra.ordenada[1]`, \\
+\frac{1}{`r n`}, & \mbox{ si } `r muestra.ordenada[1]`\leq x < `r muestra.ordenada[2]`,\\[1ex]
+\frac{2}{`r n`}, & \mbox{ si } `r muestra.ordenada[2]`\leq x < `r muestra.ordenada[3]`,\\[1ex]
+\frac{3}{`r n`}, & \mbox{ si } `r muestra.ordenada[3]`\leq x < `r muestra.ordenada[4]`,\\[1ex]
+\frac{4}{`r n`}, & \mbox{ si } `r muestra.ordenada[4]`\leq x < `r muestra.ordenada[5]`,\\[1ex]
+\frac{5}{`r n`}, & \mbox{ si } `r muestra.ordenada[5]`\leq x < `r muestra.ordenada[6]`,\\[1ex]
+1, & \mbox{ si } `r muestra.ordenada[6]` \leq x,
+\end{array}
+\right.
+$$
+
+
+</div>
+
+## Ejemplo
+
+<div class="example-sol">
+```{r,echo=FALSE,fig=TRUE,fig.align="center"}
+n=length(muestra)
+Fn=function(x){ifelse(x<muestra.ordenada[1],0,ifelse(x<=muestra.ordenada[2],1/n,ifelse(x<=muestra.ordenada[3],2/n,ifelse(x<=muestra.ordenada[4],3/n,ifelse(x<=muestra.ordenada[5],4/n,ifelse(x<=muestra.ordenada[6],5/n,1))))))}
+xx=seq(from=-1,to=6,by=0.01)
+plot(xx,Fn(xx),pch=19,cex=0.1,xlab="x",ylab=expression(F[n]))
+lines(c(muestra.ordenada[1],muestra.ordenada[1]),c(0,1/n),lty=2)
+lines(c(muestra.ordenada[2],muestra.ordenada[2]),c(1/n,2/n),lty=2)
+lines(c(muestra.ordenada[3],muestra.ordenada[3]),c(2/n,3/n),lty=2)
+lines(c(muestra.ordenada[4],muestra.ordenada[4]),c(3/n,4/n),lty=2)
+lines(c(muestra.ordenada[5],muestra.ordenada[5]),c(4/n,5/n),lty=2)
+lines(c(muestra.ordenada[6],muestra.ordenada[6]),c(5/n,1),lty=2)
+```
+
+</div>
+
+## Ejemplo
+<div class="example-sol">
+Calculamos la **discrepancia** de cada observación $x_{(i)}$ que recordemos que vale:
+$$
+D_n(x_{(i)})=\max\Big\{\Big| F_X(x_{(i)})-\frac{i-1}{n}\Big|, \Big|F_{X}(x_{(i)})-\frac{i}{n}\Big|\Big\}.
+$$
+Esquematizemos los resultados en la tabla siguiente donde $Z$ representa la normal estándar $N(0,1)$:
+</div>
+
+
+## Ejemplo
+<div class="example-sol">
+<div class="center">
+|$i$ | $x_{(i)}$ | $F_X(x_{(i)})$ | $\Big| F_X(x_{(i)})-\frac{i-1}{6}\Big|$ | $\Big|F_{X}(x_{(i)})-\frac{i}{6}\Big|$ | $D_6(x_{(i)})$|
+|:--:|:----:|:----:|:----:|:----:|:----:|
+$1$ | $`r muestra.ordenada[1]`$| $F_X(`r muestra.ordenada[1]`)=F_Z\left(\frac{`r muestra.ordenada[1]`-3}{1.5}\right)=`r round(pnorm(muestra.ordenada[1],3,1.5),3)`$| $`r round(pnorm(muestra.ordenada[1],3,1.5),3)`$ | $\left|\frac{1}{6}-`r round(pnorm(muestra.ordenada[1],3,1.5),3)`\right|$=$`r round(abs(1/6-pnorm(muestra.ordenada[1],3,1.5)),3)`$| $`r round(max(pnorm(muestra.ordenada[1],3,1.5),abs(1/6-pnorm(muestra.ordenada[1],3,1.5))),3)`$|
+$2$ | $`r muestra.ordenada[2]`$| $F_X(`r muestra.ordenada[2]`)=F_Z\left(\frac{`r muestra.ordenada[2]`-3}{1.5}\right)=`r round(pnorm(muestra.ordenada[2],3,1.5),3)`$| $\left|`r round(pnorm(muestra.ordenada[2],3,1.5),3)`-\frac{1}{6}\right|=`r round(abs(1/6-pnorm(muestra.ordenada[2],3,1.5)),3)`$ | $\left|`r round(pnorm(muestra.ordenada[2],3,1.5),3)`-\frac{2}{6}\right|=`r round(abs(2/6-pnorm(muestra.ordenada[2],3,1.5)),3)`$| $`r round(max(abs(1/6-pnorm(muestra.ordenada[2],3,1.5)),abs(2/6-pnorm(muestra.ordenada[2],3,1.5))),3)`$|
+$3$ | $`r muestra.ordenada[3]`$| $F_X(`r muestra.ordenada[3]`)=F_Z\left(\frac{`r muestra.ordenada[3]`-3}{1.5}\right)=`r round(pnorm(muestra.ordenada[3],3,1.5),3)`$| $\left|`r round(pnorm(muestra.ordenada[3],3,1.5),3)`-\frac{2}{6}\right|=`r round(abs(2/6-pnorm(muestra.ordenada[3],3,1.5)),3)`$ | $\left|`r round(pnorm(muestra.ordenada[3],3,1.5),3)`-\frac{3}{6}\right|=`r round(abs(3/6-pnorm(muestra.ordenada[3],3,1.5)),3)`$| $`r round(max(abs(2/6-pnorm(muestra.ordenada[3],3,1.5)),abs(3/6-pnorm(muestra.ordenada[3],3,1.5))),3)`$|
+$4$ | $`r muestra.ordenada[4]`$| $F_X(`r muestra.ordenada[4]`)=F_Z\left(\frac{`r muestra.ordenada[4]`-3}{1.5}\right)=`r round(pnorm(muestra.ordenada[4],3,1.5),3)`$| $\left|`r round(pnorm(muestra.ordenada[4],3,1.5),3)`-\frac{3}{6}\right|=`r round(abs(3/6-pnorm(muestra.ordenada[4],3,1.5)),3)`$ | $\left|`r round(pnorm(muestra.ordenada[4],3,1.5),3)`-\frac{4}{6}\right|=`r round(abs(4/6-pnorm(muestra.ordenada[4],3,1.5)),3)`$| $`r round(max(abs(3/6-pnorm(muestra.ordenada[4],3,1.5)),abs(4/6-pnorm(muestra.ordenada[4],3,1.5))),3)`$|
+$5$ | $`r muestra.ordenada[5]`$| $F_X(`r muestra.ordenada[5]`)=F_Z\left(\frac{`r muestra.ordenada[5]`-3}{1.5}\right)=`r round(pnorm(muestra.ordenada[5],3,1.5),3)`$| $\left|`r round(pnorm(muestra.ordenada[5],3,1.5),3)`-\frac{4}{6}\right|=`r round(abs(4/6-pnorm(muestra.ordenada[5],3,1.5)),3)`$ | $\left|`r round(pnorm(muestra.ordenada[5],3,1.5),3)`-\frac{5}{6}\right|=`r round(abs(5/6-pnorm(muestra.ordenada[5],3,1.5)),3)`$| $`r round(max(abs(4/6-pnorm(muestra.ordenada[5],3,1.5)),abs(5/6-pnorm(muestra.ordenada[5],3,1.5))),3)`$|
+$6$ | $`r muestra.ordenada[6]`$| $F_X(`r muestra.ordenada[6]`)=F_Z\left(\frac{`r muestra.ordenada[6]`-3}{1.5}\right)=`r round(pnorm(muestra.ordenada[6],3,1.5),3)`$| $\left|`r round(pnorm(muestra.ordenada[6],3,1.5),3)`-\frac{5}{6}\right|=`r round(abs(5/6-pnorm(muestra.ordenada[6],3,1.5)),3)`$ | $\left|`r round(pnorm(muestra.ordenada[6],3,1.5),3)`-1\right|=`r round(abs(1-pnorm(muestra.ordenada[6],3,1.5)),3)`$| $`r round(max(abs(5/6-pnorm(muestra.ordenada[6],3,1.5)),abs(1-pnorm(muestra.ordenada[6],3,1.5))),3)`$|
+</div>
+</div>
+
+
+## Ejemplo
+<div class="example-sol">
+El valor del **estadístico** $D_6$ será el máximo de la última columna de la tabla anterior: $D_6 =0.191.$
+
+De cara a hallar el p-valor tenemos que consultar **la tabla del test de Kolmogorov-Smirnov**. Si vais a http://images.google.com y escribís "tabla de dn Kolmogorov" en la casilla de búsqueda, encontraréis un montón de tablas de la variable $D_n$. 
+
+La primera fila de dichas tablas corresponde al **error tipo I del contraste** y la primera columna, al tamaño de la muestra $n$. 
+
+Si os fijáis en la fila correspondiente a $n=6$, veréis que el valor de $D_6=0.191$ no sale, lo que significa que el valor $\alpha$ debe ser mayor que 0.2. Por tanto, nuestro p-valor serà mayor que 0.2, hecho que nos hace concluir que no tenemos indicios suficientes para rechazar que la muestra se distribuya según una distribución normal $N(\mu=3,\sigma=1.5)$.
+</div>
+
+## Contraste K-S en `R`
+La función básica para realizar el test K-S es `ks.test`. Su sintaxis
+básica para una muestra es
+```{r, eval=FALSE}
+ks.test(x, y, parámetros)
+```
+
+donde:
+
+* `x` es la muestra de una variable continua.
+
+* `y` puede ser un segundo vector, y entonces se contrasta si ambos vectores han sido generados por la misma distribución continua, o el nombre de la función de distribución (empezando con `p`) que queremos contrastar, entre comillas; por ejemplo `"pnorm"` para
+la distribución normal.
+
+* Los `parámetros` de la función de distribución si se ha especificado una; por
+ejemplo `mean=0, sd=1` para una distribución normal estándar.
+
+## Ejemplo en `R`
+<div class="example-sol">
+Para realizar el contraste K-S para nuestro ejemplo, tenemos que hacer lo siguiente:
+```{r}
+ks.test(muestra,"pnorm",mean=3,sd=1.5)
+```
+Observamos que nos da el mismo valor de **discrepancia máxima** que hemos obtenido anteriormente con un p-valor altísimo, hecho que corrobora la conlusión que hemos escrito.
+
+</div>
+
+# Tests de normalidad
+
+## Test de Kolmogorov-Smirnov-Lilliefors (K-S-L)
+
+Para contrastar si una muestra proviene de una distribución normal con los parámetros $\mu$ y $\sigma$ desconocidos, el **test K-S** nos "obliga" a darles un valor.
+
+Los valores "óptimos" para dichos parámetros serían las estimaciones dadas por los **estimadores de máxima verosimilitud**: la **media muestral** para $\mu$ y la **desviación típica muestral** para sigma. 
+
+La **prueba de Kolmogorov-Smirnov-Lilliefors** consiste en estimar dichos parámetros, calcular la **discrepancia máxima** tal como hemos explicado pero a la hora de calcular el p-valor, se usa otra distribución, llamada **distribución de Lilliefors** en lugar de usar la **distribución de Kolmogorov** ya que con la **distribución de Lilliefors**, el contraste es más robusto.
+
+
+
+## Test K-S-L en `R`
+<div class="example">
+Vamos a aplicar el **test K-S-L** a nuestra muestra anterior para ver si se distribuye según la ley normal.
+
+El **test K-S-L** test en `R` se aplica usando la función `lillie.test` del paquete `nortest`:
+```{r}
+library(nortest)
+lillie.test(muestra)
+```
+Vemos que el p-valor no es tan grande como en el caso anterior pero aún así, es suficientemente grande para concluir que no tenemos indicios suficientes para rechazar que nuestra muestra siga la distribución normal.
+</div>
+
+## Test K-S-L
+
+El test K-S-L tiene un inconveniente: aunque es muy sensible a las diferencias entre la muestra y la distribución teórica alrededor de sus valores medios, le cuesta detectar diferencias prominentes en un extremo u otro de la distribución. 
+
+Su potencia se ve afectada por dicho inconveniente.
+
+## Test K-S-L
+Veamos un ejemplo de este hecho intentando ver si una muestra de una distribución $t$ de Student nos acepta que es normal o no:
+```{r}
+set.seed(100)
+x=rt(50,3)
+lillie.test(x)
+```
+## Test K-S-L
+
+Nos dice que no podemos rechazar que la muestra `x` sea normal. 
+
+Esto es debido a que la función de densidad de la distribución $t$ de Student es algo más aplanada que la distribución normal, donde en los dos extremos está por encima de la de la normal. 
+
+Como el test K-S-L no detecta las diferencias en los extremos, acepta que `x` es normal.
+
+## Test de normalidad de Anderson-Darling (A-D)
+El **test de normalidad de Anderson-Darling** resuelve el inconveniente del **test de K-S-L**.
+
+Este test está implementado en la función `ad.test` del paquete `nortest`. 
+
+Si ahora, aplicamos el **test A-D** a la muestra anterior de la distribución $t$ de Student, la normalidad queda rechazada:
+```{r}
+ad.test(x)
+```
+## Test de normalidad de Anderson-Darling (A-D)
+
+Un inconveniente común a los **tests K-S-L y A-D** es que, si bien pueden usarse con muestras pequeñas (pongamos de más de 5 elementos), se comportan mal con muestras grandes, de varios miles de elementos. 
+
+En muestras de este tamaño, cualquier pequeña divergencia de la normalidad se magnifica y en estos dos tests aumenta la probabilidad de errores de tipo I.
+
+
+## Test de Shapiro-Wilks (S-W)
+Un test que resuelve este problema es el de **Shapiro-Wilk** (**S-W**), implementado en la función  `shapiro.test` de la instalación básica de `R`.
+
+Apliquemos el **test S-W** a las dos muestras anteriores: la muestra del ejemplo y la muestra de la distribución $t$ de Student:
+
+
+## Test de Shapiro-Wilks (S-W)
+```{r}
+shapiro.test(muestra)
+shapiro.test(x)
+```
+## Test de Shapiro-Wilks (S-W)
+Vemos que acepta que la muestra del ejemplo anterior sea normal y rechaza la normalidad en el caso de la muestra de la $t$ de Student.
+
+Si nuestra muestra de valores tiene empates, los p-valores de los contrastes calculados a partir de las distribuciones de los estadísticos usados en los tests **K-S-L**, **A-D** y **S-W** se pueden ver afectados hasta el punto de que, si hay muchos empates, su significado no tenga ningún sentido. 
+
+Hay que decir que el menos afectado por los empates es el test de **S-W**.
+
+
+## Test omnibus de D'Agostino-Pearson
+Un test que no es sensible a los empates es el test de normalidad de **D'Agostino-Pearson**.
+
+Este test se encuentra implementado en la función `dagoTest` del paquete **fBasics**, y lo que hace es cuantificar lo diferentes que son la asimetría y la curtosis de la muestra (dos parámetros estadísticos relacionados con la forma de la gráfica de la función de densidad muestral)  respecto de los esperados en una distribución normal, y resume esta discrepancia en un p-valor con el significado usual.
+
+Para poder aplicar dicho test, el tamaño de la muestra debe ser 20 como mínimo.
+
+Por tanto, sólo podemos aplicar dicho test a la muestra de datos correspondiente a la distribución $t$ de Student:
+
+## Test omnibus de D'Agostino-Pearson
+
+```{r,warning=FALSE,message=FALSE}
+library(fBasics)
+dagoTest(x)
+```
+## Test omnibus de D'Agostino-Pearson
+Si nos fijamos en el resultado, el test calcula tres estadísticos de contraste: el test **Omnibus** basado en la distribución $\chi^2$, el test de asimetría y el test de curtosis con sus correspondientes p-valores. Para más información, id a https://en.wikipedia.org/wiki/D%27Agostino%27s_K-squared_test
+
+Vemos que según el test de **D'Agostino-Pearson**, la muestra `x` correspondiente a la distribución $t$ de Student no sigue la ley normal.
+
+
+## Guía rápida
+
+* `qqPlot` del paquete **car**, sirve para dibujar un Q-Q-plot de una muestra contra una distribución teórica.  Sus parámetros principales son:
+
+    * `distribution`: el nombre de la familia de distribuciones, entre comillas.
+    * Los parámetros de la distribución: `mean` para la media, `sd` para la desviación típica, `df` para los grados de libertad, etc.
+    *  Los parámetros usuales de `plot`.
+
+## Guía rápida
+
+* `chisq.test` sirve para realizar tests $\chi^2$ de bondad de ajuste. Sus parámetros principales son:
+
+    * `p`: el vector de probabilidades teóricas.
+    *  `rescale.p`: igualado a `TRUE`, indica que  los valores de `p` no son probabilidades, sino sólo proporcionales a las probabilidades.
+    *  `simulate.p.value`: igualado a `TRUE`, R calcula el p-valor mediante simulaciones.
+    *  `B`: en este último caso, permite especificar el número de simulaciones.
+
+
+## Guía rápida
+
+* `ks.test` realiza el test de Kolmogorov-Smirnov. Tiene dos tipos de uso:
+
+    * `ks.test(x,y)`: contrasta si los vectores `x` e `y`  han sido generados por la misma distribución continua.
+    * `ks.test(x, "distribución", parámetros)`: contrasta si el vector `x`  ha sido generado por la distribución especificada, que se ha de indicar con el nombre de la función de distribución de R  (la que empieza con p).
+
+*  `lillie.test` del paquete **nortest**, realiza el test de normalidad de Kolmogorov-Smirnov-Lilliefors.
+
+*  `ad.test` del paquete **nortest**, realiza el test de normalidad de Anderson-Darling.
+
+*  `shapiro.test`, realiza el test de normalidad de Shapiro-Wilk.
+
+*  `dagoTest` del paquete **fBasics**, realiza el test ómnibus de D'Agostino-Pearson.

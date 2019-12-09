@@ -1,5 +1,5 @@
 ---
-title: "Tema 7 - Contrastes de independencia y homogeneidad"
+title: "Tema 6 - Contrastes de independencia y homogeneidad"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: 
 output: 
