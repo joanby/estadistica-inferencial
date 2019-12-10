@@ -1,6 +1,6 @@
 ---
-title: "Tema 12 - Análisis de la Varianza"
-author: "Juan Gabriel Gomila, Arnau Mir y Ricardo Alberich"
+title: "Tema 7 - Análisis de la Varianza"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: 
 output: 
   ioslides_presentation:
@@ -13,26 +13,246 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Problema básico
 
-<div class="exercise">
+## Introducción
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+El problema que intentamos resolver es un **contraste de igualdad de medias** cuando tenemos **más de dos poblaciones.**
+
+Concretamente, supongamos que $k>2$ poblaciones. 
+
+Algunas veces, segregaremos la población por $k$ subpoblaciones definidas por los nivels de un factor. 
+
+Por ejemplo, si queremos estudiar el peso de una población de una determinada edad, pongamos entre 30 y 40 años, podemos segregar por tipo de sangre, A, B, O y ABO ($k=4$) y preguntarnos si el peso medio de cada subpoblación segredada por el tipo de sangre es el mismo.
+
+## Introducción
+
+Más concretamente, Sean $\mu_1,\ldots,\mu_k$ las medias de esta magnitud (peso en el ejemplo anterior) en cada una de las subpoblaciones o poblaciones. Nos planteamos el contraste siguiente:
+$$
+\left\{
+\begin{array}{l}
+H_0 : \mu_1 =\mu_2 =\cdots =\mu_k, \\
+H_1 : \exists i,j \mid  \mu_i \not=\mu_j.
+\end{array}
+\right.
+$$
+
+Como es habitual, la decisión que tomaremos será en función de una una muestra aleatoria de cada población.
+
+## Introducción
+La técnica que resuelve el contraste anterior se llama **ANOVA** de *ANalysis Of VAriance* en inglés, **Análisis de la varianza**, es castellano.
+
+Esta técnica se puede aplicar bajo diferentes diseños de experimentos:
+
+* según cuántos factores usamos para separar la población en subpoblaciones,
+
+* según cómo escogemos los niveles de los factores,
+
+* según cómo escogemos las muestras.
+
+Veremos los diseños más básicos. En un problema concreto, se tiene que decidir primero el tipo de experimento que se tiene que realizar.
+
+## Introducción
+Recordemos que en el caso de $k=2$ poblaciones, para realizar la **comparación de sus medias**, calculábamos las medias de dos muestras y las comparábamos usando el **estadístico de contraste** correspondiente.
+
+Si quisiéramos hacer lo mismo para $k\geq 3$ poblaciones, tendríamos que comparar en total $\dbinom{k}2$ pares de medias.
+
+
+## Introducción
+
+Para ver si hay diferencias, tenemos que realizar todas las comparaciones ya que podría pasar lo siguiente:
+$$
+\mu_1\approx \mu_2, \mu_2\approx \mu_3, \mu_3\approx\mu_4\mbox{ pero }
+\mu_1\not\approx \mu_4
+$$
+
+Queremos un test que nos diga en un solo paso si todas son iguales, o si hay de diferentes. Si hubiera diferencias, en una segunda fase, buscaríamos en qué poblaciones tienen medias diferentes.
+
+## Introducción
+
+El **test ANOVA** realiza la comparación de las medias de 3 o más poblaciones basándose en la variabilidad de los datos por grupos:
+
+* **variabilidad de los datos (respecto de la media global)**,
+
+* **variabilidad dentro de cada población** (respecto de la media dentro de la población),
+
+* **variabilidad de las medias por poblaciones (respecto de la media global)**.
+
+La idea del **test ANOVA** es la siguiente: si la **variabilidad total de los datos** es explicada por la **variabilidad de las medias de las poblaciones** y la  **poca "variabilidad" dentro de cada población**, es indicio que las medias son diferentes.
+
+## Introducción
+
+Las dos figuras siguientes muestra un ejemplo de tres muestras de tres poblaciones donde hay **mucha variabilidad** entre las **medias de las muestras**.
+
+En cambio, hay **poca variabilidad** entre los valores dentro de cada muestra.
+
+La media de la muestra de "rombos" está entorno al valor 9, la media de la muestra de "cuadrados", entorno al valor 5 y la media de la muestra de "triángulos", entorno al valor 1. Hay mucha diferencia entre las **medias de las tres muestras**.
+
+## Introducción
+<div class="center">
+
+```{r, echo=FALSE, label=fd11,fig.cap="",out.width = "450px"}
+knitr::include_graphics("Images/FD1-1.jpg",dpi=1200)
+```
+</div>
+
+## Introducción
+<div class="center">
+
+```{r, echo=FALSE, label=fd12,fig.cap="",out.width = "450px"}
+knitr::include_graphics("Images/FD1-2.jpg",dpi=1200)
+```
+</div>
+
+## Introducción
+En cambio en las dos figuras siguientes se muestra un ejemplo de tres muestras de tres poblaciones donde los valores tienen mucha **variabilidad** que no es explicada por la diferencia entre las **medias de las muestras**.
+
+La media de la muestra de "rombos" está ahora entorno al valor 5.5, la media de la muestra de "cuadrados", entorno al valor 5 y la media de la muestra de "triángulos", entorno al valor 6. Vemos que en este caso, hay poca diferencia entre las **medias de las tres muestras.**
+
+## Introducción
+<div class="center">
+
+```{r, echo=FALSE, label=fd21,fig.cap="",out.width = "450px"}
+knitr::include_graphics("Images/FD2-1.jpg",dpi=1200)
+```
+</div>
+
+## Introducción
+<div class="center">
+
+```{r, echo=FALSE, label=fd22,fig.cap="",out.width = "450px"}
+knitr::include_graphics("Images/FD2-2.jpg",dpi=1200)
+```
+</div>
+
+# ANOVA de un factor
+
+## Clasificación simple, efectos fijados, diseño completamente aleatorio
+
+Supongamos que estamos en los casos siguientes:
+
+* usamos un solo factor para clasificar la población en subpoblaciones (**clasificación simple**),
+
+* el investigador decide qué niveles (o tratamientos) del factor usará (**efectos fijados**),
+
+* se toma una m.a.s. de cada subpoblación, de manera independiente unas de las otras (**completamente aleatorio**)
+
+## Ejemplo
+<div class="example">
+**Ejemplo**
+
+Se realizó un estudio para investigar el efecto del
+CO${}_2$ sobre la tasa de crecimiento de *Pseudomonas fragi* (un corruptor de alimentos). 
+Se cree que el crecimiento se ve afectado por la cantidad de CO${}_2$ en el aire.
+
+Para contrastarlo, en un experimento se administró CO${}_2$ a 5 presiones atmosféricas
+diferentes a 10 cultivos diferentes por cada nivel, y se anotó el cambio (en \%) de la masa celular
+al cabo de una hora:
+</div>
+
+## Ejemplo
+<div class="example">
+<div class="center">
+**Presión de $CO{}_2$ (en atmósferas)**
+
+|0.0|0.083|0.29|0.50|0.86|
+|--:|--:|--:|--:|--:|
+|62.6|50.9|45.5|29.5|24.9|
+|59.6|44.3|41.1|22.8|17.2|
+|64.5|47.5|29.8|19.2|7.8|
+|59.3|49.5|38.3|20.6|10.5|
+|58.6|48.5|40.2|29.2|17.8|
+</div>
+</div>
+
+
+## Ejemplo
+<div class="example">
+<div class="center">
+**Presión de $CO{}_2$ (en atmósferas)**
+
+|0.0|0.083|0.29|0.50|0.86|
+|--:|--:|--:|--:|--:|
+|64.6|50.4|38.5|24.1|22.1|
+|50.9|35.2|30.2|22.6|22.6|
+|56.2|49.9|27.0|32.7|16.8|
+|52.3|42.6|40.0|24.4|15.9|
+|62.8|41.6|33.9|29.6|8.8|
+</div>
+</div>
+
+
+## Almacenamiento de datos en ANOVA
+
+Los datos se suelen dar en forma de tabla donde las columnas suelen ser los niveles del factor. 
+
+Por tanto, en cada columna $i$-ésima habrá la muestra correspondiente al factor $i$-ésimo.
+
+Más concretamente, suponamos que los datos vienen con la estructura siguiente:
+
+
+## Almacenamiento de datos en ANOVA
+<div class="center">
+**Nivell del factor**
+
+|$F_1$|$F_2$|$\cdots$|$F_k$|
+|:--:|:--:|:--:|:--:|
+|$X_{11}$|$X_{21}$|$\cdots$|$X_{k1}$|
+|$X_{12}$|$X_{22}$|$\cdots$|$X_{k2}$|
+|$\vdots$|$\vdots$|$\vdots$|$\vdots$|
+|$X_{1n_1}$|$X_{2n_2}$|$\cdots$|$X_{kn_k}$|
+</div>
+
+## Almacenamiento de datos en ANOVA
+donde 
+
+* *$n_i$* es el tamaño de la muestra del nivel $i$,
+
+* $X_{ij}$ es el valor de la característica bajo estudio correspondiente al individuo $j$ del nivel $i$.
+
+<div class="example">
+En el ejemplo anterior, 
+
+* $k=5$,
+* $F_1=0.0$, $F_2=0.083$, $F_3=0.29$, $F_4=0.50$ y $F_5=0.86$,
+* $n_1=n_2=n_3=n_4=n_5=10$.
 
 </div>
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Almacenamiento de datos en ANOVA
+Para poder aplicar la **técnica ANOVA**, el paso previo es almacenar los datos en dos variables:
 
-```{r cars}
-summary(cars)
+* variable característica, la llamaremos $X$,
+* variable factor, la llamaremos $F$.
+
+La variable $X$ tendrá como valores los valores de la tabla anterior $X_{ij}$ y la variable $F$ valdrá $i$ si la el valor de la variable $X$ corresponde al nivel $i$-ésimo del factor. 
+
+De esta manera **transformaremos** la tabla anterior en una tabla de $n=n_1+\cdots + n_k$ filas y 2 columnas donde la primera columna serán los valores de la variable $X$ y la segunda columna, los valores de la variable $F$.
+
+## Almacenamiento de datos en ANOVA
+<div class="example">
+Realicemos la transformación anterior con los datos del ejemplo.
+
+Llamaremos a la variable $X$ `Incremento.celular` y a la variable $F$, `nivel.Presión`. 
+
+Los valores de las variables anteriores serán:
+```{r}
+Incremento.celular=c(62.6,50.9,45.5,
+ 29.5,24.9,59.6,44.3, 41.1,22.8,
+ 17.2,64.5,47.5,29.8,19.2,
+ 7.8,59.3, 49.5,38.3,20.6,10.5,58.6,48.5,40.2,
+ 29.2,17.8, 64.6,50.4,38.5,24.1,22.1,50.9,35.2,
+ 30.2,22.6, 22.6,56.2,49.9,27.0,32.7,16.8,52.3,
+ 42.6,40.0, 24.4,15.9,62.8,41.6,33.9,29.6,8.8)
+nivel.Presión=rep(c("0.0","0.083","0.29","0.50","0.86"),
+ times=10)
 ```
 
-## Including Plots
+</div>
 
-You can also embed plots, for example:
+## Almacenamiento de datos en ANOVA
+<div class="example">
+Nuestra **tabla transformada** será:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+</div>
