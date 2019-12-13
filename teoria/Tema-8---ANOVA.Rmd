@@ -1457,7 +1457,7 @@ Calculemos a continuación los estadísticos definidos:
 
 * Suma total del tratamiento $i$-ésimo:
 ```{r}
-(suma.tratamientos = aggregate(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
+(sumas.tratamientos = aggregate(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
                       tabla.datos.ANOVA.BLOQUES$tratamiento, FUN="sum"))
 ```
 
@@ -1508,5 +1508,321 @@ Calculemos a continuación los estadísticos definidos:
 ```{r}
 (suma.total = sum(tabla.datos.ANOVA.BLOQUES$kilocal))
 ```
+
+* Media muestral global:
+```{r}
+(media.muestral = suma.total/dim(tabla.datos.ANOVA.BLOQUES)[1])
+```
+
+* Suma total de cuadrados:
+```{r}
+(suma.total.cuadrados = sum(tabla.datos.ANOVA.BLOQUES$kilocal^2))
+```
+
+
+</div>
+
+
+## Identidad de la suma de cuadrados
+En el diseño de **ANOVA por bloques**,  la **variabilidad de los datos** respecto la **media global**, lo que llamamos **Suma Total de Cuadrados** se descompone de tres variabilidades:
+
+* La **variabiliad** debida a los **tratamientos**.
+
+* La **variabilidad** debida a los **bloques**.
+
+* La **variabilidad** debida a **factores aleatorios**.
+
+El siguiente teorema nos da dicha descomposición.
+
+
+## Identidad de la suma de cuadrados
+
+<l class="prop">Teorema. </l>
+$$
+\begin{array}{rl}
+\sum\limits_{i=1}^k\sum\limits_{j=1}^b (X_{ij}- \overline{X}_{\bullet\bullet})^2
+ & = b\sum\limits_{i=1}^k
+(\overline{X}_{i\bullet}-\overline{X}_{\bullet\bullet})^2 \\ & \quad +
+k\sum\limits_{j=1}^b (\overline{X}_{\bullet
+j}-\overline{X}_{\bullet\bullet})^2 \\ &\quad + \sum\limits_{i=1}^k\sum\limits_{j=1}^b
+(X_{ij} - \overline{X}_{i\bullet}- \overline{X}_{\bullet j}+\overline{X}_{\bullet\bullet})^2,
+\end{array}
+$$
+
+## Identidad de la suma de cuadrados
+donde:
+
+* $SS_{Total} = \sum\limits_{i=1}^k\sum\limits_{j=1}^b (X_{ij}-
+\overline{X}_{\bullet\bullet})^2$, variabilidad total.
+
+* $SS_{Tr}=b\sum\limits_{i=1}^k
+(\overline{X}_{i\bullet}-\overline{X}_{\bullet\bullet})^2$, variabilidad 
+debida a los tratamientos.
+
+* $SS_{Bl}=k\sum\limits_{j=1}^b (\overline{X}_{\bullet
+j}-\overline{X}_{\bullet\bullet})^2$, variabilidad  debida a los bloques.
+
+## Identidad de la suma de cuadrados
+
+* $SS_E= \sum\limits_{i=1}^k\sum\limits_{j=1}^b (X_{ij} - \overline{X}_{i\bullet}-
+\overline{X}_{\bullet j}+\overline{X}_{\bullet\bullet})^2$, variabilidad debida a factores aleatorios.
+
+
+Usando la notación definida, el teorema anterior puede escribirse de la forma siguiente:
+$$
+SS_{Total}=SS_{Tr}+SS_{Bl}+SS_E.
+$$
+
+## Identidad de la suma de cuadrados
+Para calcular las variabilidades definidas anteriormente, hay que usar las expresiones siguientes:
+
+* $\displaystyle SS_{Total}=T_{\bullet\bullet}^{(2)}-\dfrac{T_{\bullet\bullet}^2}{k\cdot b}$.
+
+* $\displaystyle SS_{Tr}= \sum\limits_{i=1}^k\dfrac{T_{i\bullet}^2}{b}-\dfrac{T_{\bullet\bullet}^2}{k\cdot b}$.
+
+* $\displaystyle SS_{Bl}= \sum\limits_{j=1}^b \dfrac{T_{\bullet j}^2}{k}-\dfrac{T_{\bullet\bullet}^2}{k\cdot b}$.
+
+* $SS_E=SS_{Total}-SS_{Tr}-SS_{Bl}$.
+
+## Identidad de la suma de cuadrados
+<div class="example">
+Calculemos las variabilidades definidas para los datos del ejemplo que estamos desarrollando:
+
+* Variabilidad total:
+```{r}
+(SST = suma.total.cuadrados-suma.total^2/dim(tabla.datos.ANOVA.BLOQUES)[1])
+```
+
+* Variabilidad debida a los tratamientos:
+```{r}
+num.bloques = 8
+num.tratamientos = 3
+(SS.Tr = (1/num.bloques)*sum(sumas.tratamientos[,2]^2)-
+    suma.total^2/dim(tabla.datos.ANOVA.BLOQUES)[1])
+```
+</div>
+
+## Identidad de la suma de cuadrados
+<div class="example">
+* Variabilidad debida a los bloques:
+```{r}
+(SS.Bl = (1/num.tratamientos)*sum(sumas.bloques[,2]^2)-
+   suma.total^2/dim(tabla.datos.ANOVA.BLOQUES)[1])
+```
+
+* Variabilidad debida a factores aleatorios:
+```{r}
+(SSE = SST-SS.Tr-SS.Bl)
+```
+
+</div>
+
+## Contraste
+Recordemos que el contraste a realizar es el siguiente:
+$$
+\left.
+\begin{array}{l}
+H_0 :  \mu_{1\bullet}=\cdots =\mu_{k\bullet}, \\
+H_1 : \exists i,j=1,\ldots ,k\mid  \mu_{i\bullet}.
+\neq \mu_{j\bullet}
+\end{array}
+\right\}
+$$
+Para realizar dicho contraste, usaremos los estadísticos siguientes:
+
+* Cuadrado medio de los tratamientos: $MS_{Tr}=\dfrac{SS_{Tr}}{k-1}$.
+
+* Cuadrado medio del error: $MS_E = \dfrac{SS_E}{(b-1) (k-1)}$.
+
+* Cuadrado medio de los bloques: $MS_{Bl}=\dfrac{SS_{Bl}}{b-1}$.
+
+## Contraste
+El valor medio o la esperanza de los estadísticos $MS_{Tr}$ y $MS_E$ es el siguiente:
+$$
+\begin{array}{l}
+E(MS_{Tr})=\sigma^2 + \dfrac{b}{k-1}\sum\limits_{i=1}^k (\mu_{i\bullet}-\mu)^2, \\
+E(MS_E)=\sigma^2.
+\end{array}
+$$
+
+Entonces, si $H_0:\mu_{1\bullet}=\cdots =\mu_{k\bullet}=\mu$ es cierta, se verificará que la cantidad siguiente será nula:
+$$
+\sum\limits_{i=1}^k (\mu_{i\bullet}-\mu)^2 = 0,
+$$
+y si $H_0$ no es cierta, dicha cantidad sería positiva.
+
+## Estadísticos del contraste
+Basándonos en la apreciación anterior, se considera como **estadístico de contraste** el cociente siguiente:
+$$
+F=\frac{MS_{Tr}}{MS_E},
+$$
+que, si $H_0$ es cierta, se distribuye según una $F_{k-1,(k-1)(b-1)}$ (F de Fisher con $k-1$ y grados $(k-1)(b-1)$ de libertad).
+
+Por tanto, su valor será próximo a $1$.
+
+## Estadísticos del contraste
+
+Entonces, rechazaremos la hipótesis nula si $F$ es bastante más grande que 1 basándonos en el p-valor:
+$$
+p=P(F_{k-1,(k-1)(b-1)}\geq F),
+$$
+con el significado usual: si el p-valor es más pequeño que el nivel de significación $\alpha$, rechazamos $H_0$ y concluimos que no todas las medias son iguales. En caso contrario, aceptamos $H_0$.
+
+
+## Ejemplo
+<div class="example">
+Realicemos el contraste ANOVA por bloques en el ejemplo que vamos desarrollando.
+
+Los cuadrados medios serán:
+
+* Cuadrado medio de los tratamientos: $MS_{Tr}=\dfrac{SS_{Tr}}{k-1}$:
+```{r}
+(MS.Tr = SS.Tr/(num.tratamientos-1))
+```
+
+* Cuadrado medio del error: $MS_E = \dfrac{SS_E}{(b-1) (k-1)}$:
+```{r}
+(MSE=SSE/((num.bloques-1)*(num.tratamientos-1)))
+```
+</div>
+
+## Ejemplo
+<div class="example">
+
+* Cuadrado medio de los bloques: $MS_{Bl}=\dfrac{SS_{Bl}}{b-1}$:
+```{r}
+(MS.Bl = SS.Bl/(num.bloques-1))
+```
+
+* Estadístico de contraste:
+```{r}
+(est.contraste = MS.Tr/MSE)
+```
+</div>
+
+
+## Ejemplo
+<div class="example">
+* p-valor:
+```{r}
+(p=pf(est.contraste,num.tratamientos-1,(num.tratamientos-1)*(num.bloques-1),
+      lower.tail = FALSE))
+```
+
+Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes para rechazar que las medias de los tratamientos sean iguales. O sea, la energía consumida en correr, pasear y montar en bicicleta no es la misma para los tres casos.
+</div>
+
+## Tabla del contraste
+El contraste realizado se resume en la tabla siguiente:
+
+<div class="center">
+|Origen variación|Grados de libertad|Sumas de cuadrados | Cuadrados medios|Estadístico de contraste|p-valor|
+|:---|:---:|:---:|:---:|:---:|:---:|
+|Tratamiento|$k-1$|$SS_{Tr}$|$MS_{Tr}=\frac{SS_{Tr}}{k-1}$|$F=\frac{MS_{Tr}}{MS_E}$|p-valor|
+|Bloque|$b-1$|$SS_{Bl}$|$MS_{Bl}=\dfrac{SS_{Bl}}{b-1}$|||
+|Error|$(k-1)\cdot (b-1)$|$SS_E$|$MS_E=\frac{SS_E}{(k-1)\cdot (b-1)}$| | |
+</div>
+
+
+## Ejemplo
+<div class="example" >
+En el ejemplo que estamos estudiando, la tabla ANOVA por bloques es la siguiente:
+
+<div class="center">
+|Origen variación|Grados de libertad|Sumas de cuadrados | Cuadrados medios|Estadístico de contraste|p-valor|
+|:---|---:|:---:|:---:|:---:|:---:|
+|Tratamiento|$`r num.tratamientos-1`$|$`r round(SS.Tr,3)`$|$`r round(MS.Tr,3)`$|$`r round(est.contraste,3)`$|`r round(p,3)`|
+|Bloque|$`r num.bloques-1`$|$`r round(SS.Bl,3)`$|$`r round(MS.Bl,3)`$|||
+|Error|$`r (num.tratamientos-1)*(num.bloques-1)`$|$`r round(SSE,3)`$|$`r round(MSE,3)`$| | |
+</div>
+</div>
+
+## ANOVA por bloques en `R`
+Para realizar un contraste ANOVA por bloques en `R`, hay que usar la misma función `aov` que hemos usado cuando explicamos el ANOVA de un factor.
+
+Recordemos que la función `aov` se aplica a la tabla de datos modificada que hemos explicado:
+
+```{r,eval = FALSE}
+summary(aov(X ~ Tr + Bl))
+```
+donde recordemos que en la variable `X` se almacenan los valores de la variable a estudiar, la variable factor `Tr` nos dice el tratamiento que se aplica y la variable factor `Bl`, el bloque correspondiente.
+
+## Ejemplo
+<div class="example">
+El contraste ANOVA por bloques en `R` para nuestro ejemplo se realizaría de la forma siguiente:
+
+```{r}
+summary(aov(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
+              tabla.datos.ANOVA.BLOQUES$tratamiento + tabla.datos.ANOVA.BLOQUES$bloque))
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Fijaos que la tabla obtenida no sería correcta ya que los grados de libertad de los tratamientos y los grados de libertad de los bloques (columna `Df`) son 1 y deberían ser 2 y 7, respectivamente.
+
+Éste es uno de los errores más comunes que pueden ocurrir cuando realizamos un contraste ANOVA en `R`.
+
+La razón es que `R` no ha considerado como factor ni la columna de los tratamientos ni la columna de los bloques en la tabla de datos `tabla.datos.ANOVA.BLOQUES`.
+
+Para solucionar este problema, le decimos a `R` que dichas columnas son factores:
+</div>
+
+## Ejemplo
+<div class="example">
+
+```{r}
+summary(aov(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
+              as.factor(tabla.datos.ANOVA.BLOQUES$tratamiento) 
+            + as.factor(tabla.datos.ANOVA.BLOQUES$bloque)))
+```
+
+Observamos que hemos obtenido la misma tabla que la tabla obtenida haciendo los cálculos "a mano".
+
+</div>
+
+
+## Efectividad en la construcción de los bloques
+Recordemos que el objetivo del diseño por bloques es la reducción de algunas variables extrañas que podrían distorsionarnos los resultados si hubiésemos realizado el contraste ANOVA de un factor sin tener en cuenta los bloques.
+
+Llegados a este punto, nos podemos preguntar si el diseño por bloques ha sido efectivo, es decir, si dicha construcción realmente ha reducido el efecto de las variables extrañas que no controlamos.
+
+Expresado en términos de la variabilidad, la efectividad del diseño por bloques significa que la variabilidad debida a los bloques, $SS_{Bl}$, explica una parte importante de la varibilidad total, $SST$. 
+
+En este caso, el valor de $SSE$ disminuiría aumentando el valor del estadístico de contraste $F$, lo que haría más "difícil" aceptar la hipótesis nula, mejorando la potencia del contraste.
+
+## Efectividad en la construcción de los bloques
+
+La efectividad en la construcción de los bloques  se estima con la **eficiencia relativa**, $RE$. 
+
+Se interpreta cómo la relación entre el número de observaciones de un experimento completamente aleatorio (CA) y el número de observaciones 
+de un experimento de bloques completo aleatorio (BCA) necesaria para obtener tests equivalentes.
+
+Por ejemplo, si $RE=3$ significa que el diseño CA requiere tres veces tantas observaciones cómo el diseño de BCA. En este
+caso, ha merecido la pena el uso de bloques. 
+
+En cambio, un valor de $RE=0.5$ significa que con un diseño CA hubiera bastado la mitad de observaciones que  al diseño 
+BCA. En este caso, no era aconsejable el uso de bloques. 
+
+## Efectividad en la construcción de los bloques
+
+Para la estimación de la **eficiencia relativa** $RE$, se usa el estadístico siguiente:
+$$
+\widehat{RE}=c+(1-c)\frac{MS_{Bl}}{MS_E},
+$$
+dónde $c=\dfrac{b(k-1)}{(bk-1)}$.
+
+Por convenio, si $\widehat{RE}>1.25$, se entiende que la construcción de los bloques ha sido efectiva.
+
+## Ejemplo
+<div class="example">
+Calculemos la **eficiencia relativa** en nuestro ejemplo:
+```{r}
+c=num.bloques*(num.tratamientos-1)/(num.bloques*num.tratamientos-1)
+(RE=c+(1-c)*MS.Bl/MSE)
+```
+
+Hemos obtenido un valor mayor que 1.25. Por tanto, la construcción de bloques ha sido efectiva en nuestro caso.
+
 
 </div>
