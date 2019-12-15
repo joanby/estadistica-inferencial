@@ -1855,7 +1855,7 @@ Concretamente, para llevar a cabo el **ANOVA de dos vías**, consderaremos el ca
 
 * Tomaremos muestras aleatorias independientes del mismo tamaño de cada combinación de niveles de los dos factores (**completamente aleatorio  y balanceado**)
 
-## Formado de los datos
+## Introducción
 
 Llamaremos $A$ y $B$ a los factores a partir de los cuales vamos a segregar los datos de la variable cuyas medias de las subpoblaciones segregadas queremos comparar.
 
@@ -1868,7 +1868,7 @@ Por tanto, el número total de observaciones será $n\cdot a\cdot b$.
 La variable aleatoria $X_{ijk}$, $i=1,\ldots,a$, $j=1,\ldots,b$, $k=1,\ldots,n$, nos da la respuesta de la $k$-ésimoa unidad
 experimental al nivel $i$-ésimo del factor $A$ y el nivel $j$-ésimo del factor $B$.
 
-## Formado de los datos
+## Introducción
 La tabla de los datos tendrá la estructura siguiente:
 
 <div class="center">
@@ -1880,7 +1880,7 @@ La tabla de los datos tendrá la estructura siguiente:
 ||$X_{11n}$|$X_{21n}$|$\cdots$|$X_{a1n}$|
 </div>
 
-## Formado de los datos
+## Introducción
 
 <div class="center">
 |Factor $B$/Factor $A$|$1$|$2$|$\cdots$|$a$|
@@ -1891,7 +1891,7 @@ La tabla de los datos tendrá la estructura siguiente:
 ||$X_{12n}$|$X_{22n}$|$\cdots$|$X_{a2n}$|
 </div>
 
-## Formado de los datos
+## Introducción
 
 <div class="center">
 |Factor $B$/Factor $A$|$1$|$2$|$\cdots$|$a$|
