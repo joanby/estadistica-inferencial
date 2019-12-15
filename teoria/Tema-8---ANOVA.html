@@ -5585,7 +5585,586 @@ p=P(F_{k-1,(k-1)(b-1)}\geq F),
 
 <pre >## [1] 1.566717</pre>
 
-<p>Hemos obtenido un valor mayor que 1.25. Por tanto, la construcción de bloques ha sido efectiva en nuestro caso.</p></div></article></slide>
+<p>Hemos obtenido un valor mayor que 1.25. Por tanto, la construcción de bloques ha sido efectiva en nuestro caso.</p></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>ANOVA de dos vías</h2></hgroup><article  id="anova-de-dos-vias">
+
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-15">
+
+<p>En la sección ANOVA de un factor, realizábamos un contraste de \(k\) medias (\(k\geq 3\)) para \(k\) poblaciones o subpoblaciones clasificadas según un factor.</p>
+
+<p>Cada nivel del factor, daba lugar a una subpoblación.</p>
+
+<p>En esta sección, supondremos que tendremos dos factores que nos clasifican los valores de la población en las correspondientes subpoblaciones.</p>
+
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-16">
+
+<p>Como tenemos dos factores, hay tres cuestiones sobre la mesa que habrá que resolver:</p>
+
+<ul>
+<li>¿Existen diferencias entre las medias de las subpoblaciones debido al factor 1?</li>
+<li>¿Existen diferencias entre las medias de las subpoblaciones debido al factor 2?</li>
+<li>¿Existe interacción entre los dos factores?</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-17">
+
+<p>Concretamente, para llevar a cabo el <strong>ANOVA de dos vías</strong>, consderaremos el caso más sencillo: <strong>diseño completamente aleatorio</strong> con <strong>efectos fijos</strong>:</p>
+
+<ul>
+<li><p>Usaremos dos factores (<em>dos vías</em>).</p></li>
+<li><p>Usaremos todos los niveles de cada factor (<em>efectos fijos</em>).</p></li>
+<li><p>Tomaremos muestras aleatorias independientes del mismo tamaño de cada combinación de niveles de los dos factores (<strong>completamente aleatorio y balanceado</strong>)</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Formado de los datos</h2></hgroup><article  id="formado-de-los-datos">
+
+<p>Llamaremos \(A\) y \(B\) a los factores a partir de los cuales vamos a segregar los datos de la variable cuyas medias de las subpoblaciones segregadas queremos comparar.</p>
+
+<p>Supondremos que el factor \(A\) tiene \(a\) niveles y el factor \(B\), \(b\) niveles.</p>
+
+<p>Tomamos \(n\) observaciones para cada combinación de tratamientos. (<strong>estudio balanceado</strong>)</p>
+
+<p>Por tanto, el número total de observaciones será \(n\cdot a\cdot b\).</p>
+
+<p>La variable aleatoria \(X_{ijk}\), \(i=1,\ldots,a\), \(j=1,\ldots,b\), \(k=1,\ldots,n\), nos da la respuesta de la \(k\)-ésimoa unidad experimental al nivel \(i\)-ésimo del factor \(A\) y el nivel \(j\)-ésimo del factor \(B\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Formado de los datos</h2></hgroup><article  id="formado-de-los-datos-1">
+
+<p>La tabla de los datos tendrá la estructura siguiente:</p>
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Factor \(B\)/Factor \(A\)</th>
+<th align="center">\(1\)</th>
+<th align="center">\(2\)</th>
+<th align="center">\(\cdots\)</th>
+<th align="center">\(a\)</th>
+</tr>
+<tr class="odd">
+<td align="left">\(1\)</td>
+<td align="center">\(X_{111}\)</td>
+<td align="center">\(X_{211}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{a11}\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(X_{112}\)</td>
+<td align="center">\(X_{212}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{a12}\)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(X_{11n}\)</td>
+<td align="center">\(X_{21n}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{a1n}\)</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Formado de los datos</h2></hgroup><article  id="formado-de-los-datos-2">
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Factor \(B\)/Factor \(A\)</th>
+<th align="center">\(1\)</th>
+<th align="center">\(2\)</th>
+<th align="center">\(\cdots\)</th>
+<th align="center">\(a\)</th>
+</tr>
+<tr class="odd">
+<td align="left">\(2\)</td>
+<td align="center">\(X_{121}\)</td>
+<td align="center">\(X_{221}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{a21}\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(X_{122}\)</td>
+<td align="center">\(X_{222}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{a22}\)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(X_{12n}\)</td>
+<td align="center">\(X_{22n}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{a2n}\)</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Formado de los datos</h2></hgroup><article  id="formado-de-los-datos-3">
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Factor \(B\)/Factor \(A\)</th>
+<th align="center">\(1\)</th>
+<th align="center">\(2\)</th>
+<th align="center">\(\cdots\)</th>
+<th align="center">\(a\)</th>
+</tr>
+<tr class="odd">
+<td align="left">\(\vdots\)</td>
+<td align="center">\(\vdots\)</td>
+<td align="center">\(\vdots\)</td>
+<td align="center">\(\vdots\)</td>
+<td align="center">\(\vdots\)</td>
+</tr>
+<tr class="even">
+<td align="left">\(b\)</td>
+<td align="center">\(X_{1b1}\)</td>
+<td align="center">\(X_{2b1}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{ab1}\)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">\(X_{1b2}\)</td>
+<td align="center">\(X_{2b2}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{ab2}\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(\cdots\)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">\(X_{1bn}\)</td>
+<td align="center">\(X_{2bn}\)</td>
+<td align="center">\(\cdots\)</td>
+<td align="center">\(X_{abn}\)</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-58">
+
+<div class="example">
+<p><strong>Ejemplo</strong></p>
+
+<p>En un experimento para determinar el efecto de la luz y la temperatura sobre el índice gonadosomático (GSI, una medida de crecimiento del ovario) de una especie de pez, se utilizaron dos fotoperiodos (14 horas de luz/10 horas de oscuridad, y 9 horas de luz/15 horas de oscuridad) y dos temperaturas (16\({}^\circ\) y 27 \({}^\circ\)C).</p>
+
+<p>El experimento se realizó sobre \(20\) hembras. Se dividieron aleatoriamente en \(4\) subgrupos de \(5\) ejemplares cada uno. Cada grupo recibió una combinación diferente de luz y temperatura.</p>
+
+<p>A los 3 meses se midieron los GSI de los peces y se obtuvieron los resultados siguientes:</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-59">
+
+<div class="example">
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Factor \(B\) (temperatura)/Factor \(A\)</th>
+<th align="center">\(9\) horas</th>
+<th align="center">\(14\) horas</th>
+</tr>
+<tr class="odd">
+<td align="left">\(27^\circ\)C</td>
+<td align="center">\(0.90\)</td>
+<td align="center">\(0.83\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(1.06\)</td>
+<td align="center">\(0.67\)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">\(0.98\)</td>
+<td align="center">\(0.57\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(1.29\)</td>
+<td align="center">\(0.47\)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">\(1.12\)</td>
+<td align="center">\(0.66\)</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-60">
+
+<div class="example">
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Factor \(B\) (temperatura)/Factor \(A\)</th>
+<th align="center">\(9\) horas</th>
+<th align="center">\(14\) horas</th>
+</tr>
+<tr class="odd">
+<td align="left">\(16^\circ\)C</td>
+<td align="center">\(1.30\)</td>
+<td align="center">\(1.01\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(2.88\)</td>
+<td align="center">\(1.52\)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">\(2.42\)</td>
+<td align="center">\(1.02\)</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">\(2.66\)</td>
+<td align="center">\(1.32\)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">\(2.94\)</td>
+<td align="center">\(1.63\)</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Almacenamiento de datos en ANOVA</h2></hgroup><article  id="almacenamiento-de-datos-en-anova-7">
+
+<p>Vamos a almacenar los datos de una forma parecida a la usada en ANOVA de un factor.</p>
+
+<p>Sea \(X\) la variable característica de la que comparamos las medias de las subpoblaciones. Sean \(A\) y \(B\) los factores.</p>
+
+<p>Vamos a transformar la tabla anterior de los datos en una tabla de datos con \(N=n\cdot a\cdot b\) filas y tres columnas.</p>
+
+<p>La primera columna serán los valores de la variable \(X\), la segunda los valores o niveles de la variable factor \(A\) y la tercera, los valores o niveles de la variable factor \(B\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-61">
+
+<div class="example">
+<p>La transformación de la tabla de datos para el ejemplo anterior se realizaría de la forma siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>GSI = c(0.90,0.83,1.06,0.67,0.98,0.57,1.29,0.47,1.12,0.66,
+        1.30,1.01,2.88,1.52,2.42,1.02,2.66,1.32,2.94,1.63)
+temperatura = factor(rep(c(27,16),each=10))
+fotoperiodos = factor(rep(c(9,14),10))
+tabla.datos.GSI = data.frame(GSI,temperatura,fotoperiodos)
+head(tabla.datos.GSI)</pre>
+
+<pre >##    GSI temperatura fotoperiodos
+## 1 0.90          27            9
+## 2 0.83          27           14
+## 3 1.06          27            9
+## 4 0.67          27           14
+## 5 0.98          27            9
+## 6 0.57          27           14</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>El modelo</h2></hgroup><article  id="el-modelo-5">
+
+<p>Para poder realizar un ANOVA de dos factores, supondremos que los datos verifican las suposiciones siguientes:</p>
+
+<ul>
+<li><p>Las observaciones para cada combinación de niveles constituyen <strong>muestras aleatorias simples independientes</strong>, cada una de tamaño \(n\), de poblaciones \(a\cdot b\),</p></li>
+<li><p>Cada una de las \(a\cdot b\) poblaciones es normal.</p></li>
+<li><p>Todas las \(a\cdot b\) poblaciones tienen la misma varianza, \(\sigma^2\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>El modelo</h2></hgroup><article  id="el-modelo-6">
+
+<p>Los parámetros que intervendrán en el contraste son:</p>
+
+<ul>
+<li><p>\(\mu\): media poblacional global.</p></li>
+<li><p>\(\mu_{i\bullet\bullet}\): media poblacional del nivel \(i\)-ésimo del factor \(A\).</p></li>
+<li><p>\(\mu_{\bullet j\bullet}\): media poblacional del nivel \(j\)-ésimo del factor \(B\).</p></li>
+<li><p>\(\mu_{ij\bullet}\): media poblacional de la combinación \((i,j)\) de niveles \(A\) de y \(B\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>El modelo</h2></hgroup><article  id="el-modelo-7">
+
+<p>En este caso la expresión matemática del modelo consiste en separar los valores de la variable \(X\) en 5 sumandos: \[
+\begin{array}{l}
+X_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij}+E_{ijk},\\
+\qquad\qquad i=1,\ldots,a,\ j=1,\ldots,b,\ k=1,\ldots,n
+\end{array}
+\] donde</p>
+
+</article></slide><slide class=""><hgroup><h2>El modelo</h2></hgroup><article  id="el-modelo-8">
+
+<ul>
+<li><p>\(\mu\): es la <strong>media global</strong>,</p></li>
+<li><p>\(\alpha_i =\mu_{i\bullet\bullet}-\mu\): efecto al pertenecer al nivel \(i\)-ésimo del factor \(A\),</p></li>
+<li><p>\(\beta_j =\mu_{\bullet j\bullet}-\mu\): efecto al pertenecer al nivel \(j\)-ésimo del factor \(B\),</p></li>
+<li><p>\((\alpha\beta)_{ij}=\mu_{ij\bullet}-\mu_{i\bullet\bullet}-\mu_{\bullet j\bullet}+\mu\): efecto de la <strong>interacción</strong> entre el nivel \(i\)-ésimo del factor \(A\) y el nivel \(j\)-ésimo del factor \(B\),</p></li>
+<li><p>\(E_{ijk}=X_{ijk}-\mu_{ij\bullet}\): error residual o aleatorio.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Sumas y medias</h2></hgroup><article  id="sumas-y-medias">
+
+<p>Definimos los estadísticos siguientes:</p>
+
+<ul>
+<li><p>Suma y media de los datos para la combinación de niveles \(i\) y \(j\): \(T_{ij\bullet}=\sum\limits_{k=1}^n X_{ijk}\), \(\overline{X}_{ij\bullet}=\dfrac{T_{ij\bullet}}{n}\).</p></li>
+<li><p>Suma y media de los datos para el nivel \(i\)-ésimo: \(T_{i\bullet\bullet}=\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{j=1}^b T_{ij\bullet}\), \(\overline{X}_{i\bullet\bullet}=\dfrac{T_{i\bullet\bullet}}{bn}\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Sumas y medias</h2></hgroup><article  id="sumas-y-medias-1">
+
+<ul>
+<li><p>Suma y media de los datos para el nivel \(j\)-ésimo: \(T_{\bullet j\bullet}=\sum\limits_{i=1}^a\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{i=1}^a T_{ij\bullet}\), \(\overline{X}_{\bullet j\bullet}=\dfrac{T_{\bullet j\bullet}}{an}\).</p></li>
+<li><p>Suma total de los datos: \(T_{\bullet\bullet\bullet}=\sum\limits_{i=1}^{a}\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{i=1}^{a} T_{i\bullet\bullet}=\sum\limits_{j=1}^b T_{\bullet j\bullet}\).</p></li>
+<li><p>Media muestral de todos los datos: \(\overline{X}_{\bullet\bullet\bullet}=\dfrac{T_{\bullet\bullet\bullet}}{a b n}\).</p></li>
+<li><p>Suma de los cuadrados de los datos: \(T^{(2)}_{\bullet\bullet\bullet}=\sum\limits_{i=1}^{a}\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}^2\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-62">
+
+<div class="example">
+<p>Los valores de los estadísticos anteriores para los datos de nuestro ejemplo son los siguientes:</p>
+
+<ul>
+<li>Suma de los datos para la combinación de niveles \(i\) y \(j\):</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(suma.combinación.niveles = aggregate(tabla.datos.GSI$GSI ~ 
+                            tabla.datos.GSI$temperatura+tabla.datos.GSI$fotoperiodos, 
+                            FUN=&quot;sum&quot;))</pre>
+
+<pre >##   tabla.datos.GSI$temperatura tabla.datos.GSI$fotoperiodos
+## 1                          16                            9
+## 2                          27                            9
+## 3                          16                           14
+## 4                          27                           14
+##   tabla.datos.GSI$GSI
+## 1               12.20
+## 2                5.35
+## 3                6.50
+## 4                3.20</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-63">
+
+<div class="example">
+<p>Los valores de los estadísticos anteriores para los datos de nuestro ejemplo son los siguientes:</p>
+
+<ul>
+<li>Media de los datos para la combinación de niveles \(i\) y \(j\):</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(media.combinación.niveles = aggregate(tabla.datos.GSI$GSI ~ 
+                            tabla.datos.GSI$temperatura+tabla.datos.GSI$fotoperiodos, 
+                            FUN=&quot;mean&quot;))</pre>
+
+<pre >##   tabla.datos.GSI$temperatura tabla.datos.GSI$fotoperiodos
+## 1                          16                            9
+## 2                          27                            9
+## 3                          16                           14
+## 4                          27                           14
+##   tabla.datos.GSI$GSI
+## 1                2.44
+## 2                1.07
+## 3                1.30
+## 4                0.64</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-64">
+
+<div class="example">
+<ul>
+<li>Suma y media de los datos para el nivel \(i\)-ésimo:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(suma.fotoperiodos = aggregate(tabla.datos.GSI$GSI ~ 
+                            tabla.datos.GSI$fotoperiodos, FUN=&quot;sum&quot;))</pre>
+
+<pre >##   tabla.datos.GSI$fotoperiodos tabla.datos.GSI$GSI
+## 1                            9               17.55
+## 2                           14                9.70</pre>
+
+<pre class = 'prettyprint lang-r'>(media.fotoperiodos = aggregate(tabla.datos.GSI$GSI ~ 
+                            tabla.datos.GSI$fotoperiodos, FUN=&quot;mean&quot;))</pre>
+
+<pre >##   tabla.datos.GSI$fotoperiodos tabla.datos.GSI$GSI
+## 1                            9               1.755
+## 2                           14               0.970</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-65">
+
+<div class="example">
+<ul>
+<li>Suma y media de los datos para el nivel \(j\)-ésimo:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(suma.temperatura = aggregate(tabla.datos.GSI$GSI ~ 
+                            tabla.datos.GSI$temperatura, FUN=&quot;sum&quot;))</pre>
+
+<pre >##   tabla.datos.GSI$temperatura tabla.datos.GSI$GSI
+## 1                          16               18.70
+## 2                          27                8.55</pre>
+
+<pre class = 'prettyprint lang-r'>(media.temperatura = aggregate(tabla.datos.GSI$GSI ~ 
+                            tabla.datos.GSI$temperatura, FUN=&quot;mean&quot;))</pre>
+
+<pre >##   tabla.datos.GSI$temperatura tabla.datos.GSI$GSI
+## 1                          16               1.870
+## 2                          27               0.855</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-66">
+
+<div class="example">
+<ul>
+<li>Suma total de los datos:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(suma.total = sum(tabla.datos.GSI$GSI))</pre>
+
+<pre >## [1] 27.25</pre>
+
+<ul>
+<li>Media muestras de todos los datos:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(media.muestral = mean(tabla.datos.GSI$GSI))</pre>
+
+<pre >## [1] 1.3625</pre>
+
+<ul>
+<li>Suma de los cuadrados de los datos:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(suma.cuadrados = sum(tabla.datos.GSI$GSI^2))</pre>
+
+<pre >## [1] 48.2619</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Identidades de sumas de cuadrados</h2></hgroup><article  id="identidades-de-sumas-de-cuadrados">
+
+<p>En el caso de ANOVA de dos factores, la <strong>variabilidad total de los datos</strong> respecto la <strong>media global</strong>, (<strong>Suma Total de Cuadrados</strong>) se separa en 4 variabilidades:</p>
+
+<ul>
+<li><p>la <strong>variabilidad de las medias de cada grupo del factor \(A\)</strong> respecto la <strong>media global</strong>,</p></li>
+<li><p>la <strong>variabilidad de las medias de cada grupo del factor \(B\)</strong> respecto la <strong>media global</strong>,</p></li>
+<li><p>la <strong>variabilidad de las medias de cada combinación de grupos de los factores \(A\) y \(B\)</strong> respecto la <strong>media global</strong>,</p></li>
+<li><p>la <strong>variabilidad debida a factores aleatorios</strong>.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Identidades de sumas de cuadrados</h2></hgroup><article  id="identidades-de-sumas-de-cuadrados-1">
+
+<p>Para estimar dichas variabilidades, se introducen las sumas de cuadrados siguientes:</p>
+
+<ul>
+<li><p>Estimación de la <strong>variabilidad total de los datos</strong> respecto la <strong>media global</strong>: \(SS_{Total} =\sum\limits_{i=1}^a\sum\limits_{j=1}^b\sum\limits_{k=1}^n (X_{ijk}-\overline{X}_{\bullet\bullet\bullet})^2\).</p></li>
+<li><p>Estimación de la <strong>variabilidad de las medias de cada grupo del factor \(A\)</strong> respecto la <strong>media global</strong>: \(SS_A =b n\sum\limits_{i=1}^a (\overline{X}_{i\bullet\bullet}-\overline{X}_{\bullet\bullet\bullet})^2\).</p></li>
+<li><p>Estimación de la <strong>variabilidad de las medias de cada grupo del factor \(B\)</strong> respecto la <strong>media global</strong>: \(SS_B =a n\sum\limits_{j=1}^b (\overline{X}_{\bullet j\bullet}-\overline{X}_{\bullet\bullet\bullet})^2\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Identidades de sumas de cuadrados</h2></hgroup><article  id="identidades-de-sumas-de-cuadrados-2">
+
+<ul>
+<li><p>Estimación de la <strong>variabilidad de las medias de cada combinación de grupos de los factores \(A\) y \(B\)</strong> respecto la <strong>media global</strong> o <strong>variabilidad debida a la interacción de los factores \(A\) y \(B\)</strong>: \(SS_{AB}=n \sum\limits_{i=1}^a\sum\limits_{j=1}^b (\overline{X}_{ij\bullet}-\overline{X}_{i\bullet\bullet}-\overline{X}_{\bullet j\bullet}+\overline{X}_{\bullet\bullet\bullet})^2\).</p></li>
+<li><p>Estimación de la <strong>variabilidad que tendríamos si consideramos la combinación de factores \(A\) y \(B\) como si fuese un sólo factor</strong>: \(SS_{Tr}=n\sum\limits_{i=1}^a\sum\limits_{j=1}^b (\overline{X}_{ij\bullet}-\overline{X}_{\bullet\bullet\bullet})^2\).</p></li>
+<li><p>Estimación de la la <strong>variabilidad debida a factores aleatorios</strong>: \(SS_E = \sum\limits_{i=1}^a\sum\limits_{j=1}^b\sum\limits_{k=1}^n (X_{ijk}-\overline{X}_{ij\bullet})^2\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Identidades de sumas de cuadrados</h2></hgroup><article  id="identidades-de-sumas-de-cuadrados-3">
+
+<p>El teorema siguiente nos da la descomposición que comentamos antes:</p>
+
+<p><l class="prop">Teorema. </l> La <strong>variabilidad total de los datos</strong> se descompone de la forma siguiente en las variabilidades definidas anteriormente: \[
+SS_{Total} = SS_{Tr}+SS_E,\ \mbox{ con } SS_{Tr} = SS_A+SS_B+SS_{AB}.
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Cálculo de las sumas de cuadrados</h2></hgroup><article  id="calculo-de-las-sumas-de-cuadrados">
+
+<p>Para calcular las <strong>variabilidades</strong>, se usan las fórmulas equivalentes siguientes:</p>
+
+<ul>
+<li><p>\(SS_{Total} = T_{\bullet\bullet\bullet}^{(2)} -\dfrac{T_{\bullet\bullet\bullet}^2}{abn}\).</p></li>
+<li><p>\(SS_A = \displaystyle \dfrac1{bn}\sum\limits_{i=1}^a T_{i\bullet\bullet}^2-\dfrac{T_{\bullet\bullet\bullet}^2}{abn}\).</p></li>
+<li><p>\(SS_B =\displaystyle\dfrac1{an}\sum\limits_{j=1}^b T_{\bullet j\bullet}^2-\dfrac{T_{\bullet\bullet\bullet}^2}{abn}\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Cálculo de las sumas de cuadrados</h2></hgroup><article  id="calculo-de-las-sumas-de-cuadrados-1">
+
+<ul>
+<li><p>\(SS_{Tr}=\displaystyle\dfrac1{n}\sum\limits_{i=1}^a\sum\limits_{j=1}^b T_{ij\bullet}^2 - \dfrac{T_{\bullet\bullet\bullet}^2}{abn}\).</p></li>
+<li><p>\(SS_{AB} = SS_{Tr} -SS_A-SS_B\).</p></li>
+<li><p>\(SS_E = SS_{Total}-SS_{Tr}\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-67">
+
+<div class="example">
+<p>Calculemos las variabilidades para los datos de nuestro ejemplo:</p>
+
+<ul>
+<li><strong>Variabilidad total de los datos</strong> respecto la <strong>media global</strong>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>a=2; b=2; n=5;
+(SST = suma.cuadrados - suma.total^2/(a*b*n))</pre>
+
+<pre >## [1] 11.13377</pre>
+
+<ul>
+<li><strong>Variabilidad de las medias de cada grupo del factor \(A\)</strong> respecto la <strong>media global</strong>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(SSA = (1/(b*n))*sum(suma.fotoperiodos[,2]^2)-suma.total^2/(a*b*n))</pre>
+
+<pre >## [1] 3.081125</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-68">
+
+<div class="example">
+<ul>
+<li><strong>Variabilidad de las medias de cada grupo del factor \(B\)</strong> respecto la <strong>media global</strong>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(SSB = (1/(a*n))*sum(suma.temperatura[,2]^2)-suma.total^2/(a*b*n))</pre>
+
+<pre >## [1] 5.151125</pre>
+
+<ul>
+<li><strong>Variabilidad que tendríamos si consideramos la combinación de factores \(A\) y \(B\) como si fuese un sólo factor</strong>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(SSTr = (1/n)*sum(suma.combinación.niveles[,3]^2)-suma.total^2/(a*b*n))</pre>
+
+<pre >## [1] 8.862375</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-69">
+
+<div class="example">
+<ul>
+<li><strong>Variabilidad debida a la interacción de los factores \(A\) y \(B\)</strong>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(SSAB = SSTr-SSA-SSB)</pre>
+
+<pre >## [1] 0.630125</pre>
+
+<ul>
+<li><strong>Variabilidad debida a factores aleatorios</strong>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(SSE=SST-SSTr)</pre>
+
+<pre >## [1] 2.2714</pre></div></article></slide>
 
 
   <slide class="backdrop"></slide>
