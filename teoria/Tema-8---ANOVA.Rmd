@@ -731,7 +731,7 @@ Dicha función se aplica a la tabla de datos modificada que hemos explicado:
 ```{r,eval = FALSE}
 summary(aov(X ~ F))
 ```
-donde recordemos que en la variable `X` se almacenan los valores $X_{ij}$ y en la variable factor `R`, los niveles del factor.
+donde recordemos que en la variable `X` se almacenan los valores $X_{ij}$ y en la variable factor `F`, los niveles del factor.
 
 
 ## Ejemplo
@@ -2223,6 +2223,232 @@ a=2; b=2; n=5;
 (SSE=SST-SSTr)
 ```
 
+
+
+</div>
+
+## Cuadrados medios
+
+Para realizar el ANOVA de dos factores, usaremos los siguientes **cuadrados medios**:
+
+* **Cuadrado medio del factor $A$**: $MS_A =\dfrac{SS_A}{a-1}$.
+
+* **Cuadrado medio del factor $B$**: $MS_B =\dfrac{SS_B}{b-1}$.
+
+* **Cuadrado medio de la interacción entre los factores $A$ y $B$**: $MS_{AB}=\dfrac{SS_{AB}}{(a-1)(b-1)}$.
+
+## Cuadrados medios
+
+* **Cuadrado medio de los tratamientos**: $MS_{Tr}=\dfrac{SS_{Tr}}{ab-1}$.
+
+* **Cuadrado medio residual**: $MS_E=\dfrac{SS_E}{ab (n-1)}$.
+
+## Ejemplo
+<div class="example">
+Calculemos los cuadrados medios para los datos del ejemplo que vamos desarrollando:
+
+* * **Cuadrado medio del factor $A$** (fotoperíodo): 
+```{r}
+(MSA = SSA/(a-1))
+```
+
+* **Cuadrado medio del factor $B$** (temperatura):
+```{r}
+(MSB = SSB/(b-1))
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+* **Cuadrado medio de la interacción entre los factores $A$ y $B$**:
+```{r}
+(MSAB = SSAB/((a-1)*(b-1)))
+```
+
+
+* **Cuadrado medio de los tratamientos**: 
+```{r}
+(MSTr = (SSTr/(a*b-1)))
+```
+
+
+* **Cuadrado medio residual**:
+```{r}
+(MSE = (SSE/(a*b*(n-1))))
+```
+
+</div>
+
+## Contrastes a realizar
+
+En una ANOVA de dos vías, nos pueden interesar los  cuatro contrastes siguientes:
+
+
+*  **Contraste de medias del factor $A$**: contrastamos si hay diferencias entre los niveles del factor $A$:
+$$
+\left\{
+\begin{array}{l}
+H_0 : \mu_{1\bullet\bullet}=\mu_{2\bullet\bullet}=\cdots
+=\mu_{a\bullet\bullet}, \\
+H_1 :  \exists i,i'\mid  \mu_{i\bullet\bullet}
+\not = \mu_{i'\bullet\bullet}.
+\end{array}
+\right.
+$$
+
+El **estadístico de contraste** es $F=\frac{MS_A}{MS_E},$ que, si la hipótesis nula $H_0$ es cierta, tiene una distribución $F$ de Fisher con $a-1$ y grados $ab(n-1)$ de libertad y valor próximo a 1.
+
+
+## Contrastes a realizar
+
+* **Contraste de medias del factor $B$**: contrastamos si hay diferencias entre los niveles del factor $B$:
+$$
+\left\{
+\begin{array}{l}
+H_0 : \mu_{\bullet 1\bullet}=\mu_{\bullet 2\bullet}=\cdots =\mu_{ \bullet
+b\bullet}, \\
+H_1 :  \exists j,j'\mid  \mu_{\bullet j\bullet}
+\not = \mu_{\bullet j'\bullet}.
+\end{array}
+\right.
+$$
+
+
+El **estadístico de contraste** es $F=\frac{MS_B}{MS_E},$
+que, si la hipótesis nula $H_0$ es cierta, tiene una 
+distribución $F$ de Fisher con $b-1$ y grados $ab(n-1)$ de libertad y valor próximo a 1.
+
+
+## Contrastes a realizar
+* **Contraste de los tratamientos**: contrastamos si hay diferencias entre las parejas (nivel $i$ de $A$, nivel $j$ de $B$):
+$$
+\left\{
+\begin{array}{l}
+H_0 : \forall i,j,i',j'\mid \mu_{ij\bullet}=\mu_{i'j'\bullet}, \\
+H_1 :  \exists i,j,i',j'\mid \mu_{ij\bullet}\neq \mu_{i'j'\bullet}.
+\end{array}
+\right.
+$$
+
+
+El **estadístico de contraste** es $F=\frac{MS_{Tr}}{MS_E},$
+que, si la hipótesis nula $H_0$ es cierta, tiene una
+distribución $F$ de Fisher con $ab-1$ y grados $ab(n-1)$ de libertad y valor próximo a 1.
+
+## Contrastes a realizar
+
+* **Contraste de no interacción**: contrastamos si hay interacción entre
+los factores $A$ y $B$
+$$
+\left\{
+\begin{array}{l}
+H_0 :  \forall i,j\mid (\alpha\beta)_{ij} =0, \\
+H_1 :  \exists i,j\mid (\alpha\beta)_{ij}.
+\not = 0
+\end{array}
+\right.
+$$
+
+
+El **estadístico de contraste** es $F = \frac{MS_{AB}}{MS_E},$
+que, si la hipótesis nula $H_0$ es cierta, tiene distribución $F$ de Fisher con $(a-1)(b-1)$ y grados $ab(n-1)$ de libertad y valor próximo a 1.
+  
+## Contrastes a realizar
+
+En los cuatro casos, el p-valor es
+$$
+P(F_{x,y}\geq \mbox{valor del estadístico}),
+$$
+donde $F_{x,y}$ representa la distribución $F$ de Fisher con los grados de libertad que correspondan:
+
+* **Contraste de medias del factor $A$**: $x=a-1$, $y=ab(n-1)$.
+* **Contraste de medias del factor $B$**: $x=b-1$, $y=ab(n-1)$.
+* **Contraste de los tratamientos**: $x=ab-1$, $y=ab(n-1)$.
+* **Contraste de no interacción**: $x=(a-1)(b-1)$, $y=ab(n-1)$.
+
+## Tabla ANOVA
+Los contrastes anteriores se resumen en la tabla siguiente:
+
+<div class="center">
+|Variación|Grados de libertad|Suma de cuadrados|Cuadrados medios|Estadístico $F$ | p-valores |
+|:----:|:---:|:---:|:---:|:---:|:---:|
+|Tratamientos|$ab-1$|$SS_{Tr}$|$MS_{Tr}$|$\dfrac{MS_{Tr}}{MS_E}$ |p-valor |
+|$A$|$a-1$|$SS_A$|$MS_{A}$|$\dfrac{MS_{A}}{MS_E}$|p-valor|
+|$B$|$b-1$|$SS_B$|$MS_{B}$|$\dfrac{MS_{B}}{MS_E}$|p-valor|
+</div>
+
+## Tabla ANOVA
+
+<div class="center">
+|Variación|Grados de libertad|Suma de cuadrados|Cuadrados medios|Estadístico $F$ | p-valores |
+|:----:|:---:|:---:|:---:|:---:|:---:|
+|$AB$|$(a-1)(b-1)$|$SS_{AB}$|$MS_{AB}$|$\dfrac{MS_{AB}}{MS_E}$|p-valor|
+|Error|$ab(n-1)$|$SS_E$|$MS_{E}$|| |
+</div>
+
+## Ejemplo
+<div class="example">
+La tabla ANOVA para los datos de nuestro ejemplo es la siguiente:
+
+<div class="center">
+|Variación|Grados de libertad|Suma de cuadrados|Cuadrados medios|Estadístico $F$ | p-valores |
+|:----:|---:|---:|---:|---:|---:|
+|Tratamientos|`r a*b-1`|`r round(SSTr,3)`|`r round(MSTr,3)`|$\dfrac{`r round(MSTr,3)`}{`r round(MSE,3)`}=`r round(MSTr/MSE,3)`$|$P(F_{`r a*b-1`,`r a*b*(n-1)`} > `r round(MSTr/MSE,3)`)=`r round(pf(MSTr/MSE,a*b-1,a*b*(n-1),lower.tail=FALSE),3)`$|
+|$A$|`r a-1`|`r round(SSA,3)`|`r round(MSA,3)`|$\dfrac{`r round(MSA,3)`}{`r round(MSE,3)`}=`r round(MSA/MSE,3)`$|$P(F_{`r a-1`,`r a*b*(n-1)`}>`r round(MSA/MSE,3)`)=`r round(pf(MSA/MSE,a-1,a*b*(n-1),lower.tail=FALSE),3)`$ |
+|$B$|`r b-1`|`r round(SSB,3)`|`r round(MSB,3)`|$\dfrac{`r round(MSB,3)`}{`r round(MSE,3)`}=`r round(MSB/MSE,3)`$|$P(F_{`r b-1`,`r a*b*(n-1)`}>`r round(MSB/MSE,3)`)=`r round(pf(MSB/MSE,b-1,a*b*(n-1),lower.tail=FALSE),3)`$ |
+|$AB$|`r (a-1)*(b-1)`|`r round(SSAB,3)`|`r round(MSAB,3)`|$\dfrac{`r round(MSAB,3)`}{`r round(MSE,3)`}=`r round(MSAB/MSE,3)`$|$P(F_{`r (a-1)*(b-1)`,`r a*b*(n-1)`}>`r round(MSAB/MSE,3)`)=`r round(pf(MSAB/MSE,(a-1)*(b-1),a*b*(n-1),lower.tail=FALSE),3)`$|
+|Error|`r a*b*(n-1)`|`r round(SSE,3)`|`r round(MSE,3)`|| |
+</div>
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+Las conclusiones que se obtienen de los 4 contrastes a partir de la tabla anterior son las siguientes:
+
+* **Contraste de medias del factor $A$**: como el p-valor es prácticamente 0, concluimos que tenemos indicios suficientes para rechazar que no hay diferencias entre los niveles del factor $A$. Es decir, el índice GSI se ve afectado por el fotoperíodo.
+* **Contraste de medias del factor $B$**: como el p-valor es prácticamente 0, concluimos también que tenemos indicios suficientes para rechazar que no hay diferencias entre los niveles del factor $B$. Es decir, el índice GSI se ve afectado por la temperatura.
+* **Contraste de los tratamientos**: como el p-valor es prácticamente 0, concluimos también que tenemos indicios suficientes para rechazar que no hay diferencias entre los niveles de la combinación de factores $A$ y $B$. Es decir, el índice GSI se ve afectado por los cuatro niveles de la combinación fotoperíodo/temperatura.
+* **Contraste de no interacción**: el p-valor está entre 0.05 y 0.1. Por tanto, al estar en la zona de penumbra, no podemos concluir si hay o no interacción entre los factores $A$ y $B$. Dicho de otra manera, no queda claro si hay interacción entre el fotoperíodo y la temperatura.
+
+
+
+</div>
+
+## Contraste ANOVA de dos vías en `R`
+
+Para realizar un contraste ANOVA de dos vías en `R` hay que usar la función `aov` que usábamos en los casos de ANOVA de un factor y ANOVA por bloques.
+
+Dicha función se aplica a la tabla de datos modificada que hemos explicado:
+```{r,eval=FALSE}
+summary(aov(X ~ A*B))
+```
+donde `X` es la variable donde se almacenan los valores $X_{ijk}$ y en las variables factor `A` y `B`, los niveles de los factores `A` y `B`, respectivamente.
+
+## Ejemplo
+<div class="example">
+Para realizar el ANOVA de dos vías para los datos de nuestro ejemplo, hacemos lo siguiente:
+```{r}
+X=tabla.datos.GSI$GSI
+A=tabla.datos.GSI$fotoperiodos
+B=tabla.datos.GSI$temperatura
+summary(aov(X ~ A*B))
+```
+Obtenemos los mismos resultados que hemos obtenido anteriormente.
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+Observamos que falta la fila de los tratamientos.
+Para realizar el contraste de los tratamientos en `R`, hacemos lo siguiente:
+
+```{r}
+summary(aov(X ~ A:B))
+```
 
 
 </div>
