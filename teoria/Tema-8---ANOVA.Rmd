@@ -464,7 +464,7 @@ Las suposiciones del modelo son:
 
 * Cada una de las $k$ poblaciones sigue una **ley normal.**
 
-* Todas estas poblaciones tienen la **misma varianza $\sigma^2$.**
+* Todas estas poblaciones tienen la **misma varianza $\sigma^2$.** (**homocedasticidad**)
 
 
 ## El modelo
@@ -736,7 +736,22 @@ donde recordemos que en la variable `X` se almacenan los valores $X_{ij}$ y en l
 
 ## Ejemplo
 <div class="example">
-Para los datos del ejemplo que hemos estado trabajando, el contraste ANOVA en `R` se realizaría de la forma siguiente:
+Lo primero que podríamos hacer con los datos del ejemplo que estamos trabajando es hacer un boxplot del incremento celular en función de la presión:
+
+```{r,fig.align='center'}
+boxplot(tabla.datos.ANOVA$Incremento.celular ~ tabla.datos.ANOVA$nivel.Presión,
+        xlab="Presión",ylab="Incremento celular")
+```
+
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+Vemos que gráficamente se observan diferencias para los distintos niveles de presión.
+
+El contraste ANOVA en `R` se realizaría de la forma siguiente:
 ```{r}
 X=tabla.datos.ANOVA$Incremento.celular
 F=tabla.datos.ANOVA$nivel.Presión
@@ -1151,7 +1166,7 @@ Las suposiciones del modelo son:
 
 * Todas las poblaciones, para todos los niveles, siguen leyes normales.
 
-* Todas las poblaciones, para todos los niveles, tienen la misma varianza $\sigma^2$.
+* Todas las poblaciones, para todos los niveles, tienen la misma varianza $\sigma^2$. (**homocedasticidad**)
 
 * Las $k$ muestras son m.a.s. independientes extraídas de las $k$ poblaciones elegidas.
 
@@ -1170,7 +1185,56 @@ Si la hipótesis nula $H_0$ es cierta, este estadístico $F$ tiene distribución
 
 Por lo tanto, el test ANOVA es el mismo que en el caso de efectos fijos, pero usando los niveles seleccionados.
 
+## Condiciones del ANOVA
+Recordemos que para poder realizar el contraste ANOVA se debían de cumplir las condiciones siguientes:
 
+* Las $k$ muestras son m.a.s. **independientes** extraídas de poblaciones $k$ específicas con medias $\mu_1,\ldots,\mu_k$.
+
+* Cada una de las $k$ poblaciones sigue una **ley normal.**
+
+* Todas estas poblaciones tienen la **misma varianza $\sigma^2$.** (**homocedasticidad**)
+
+En esta sección vamos a aprender cómo comprobar la normalidad y la igualdad de varianzas de la tabla de datos tratada.
+
+## Normalidad
+Para verificar la normalidad de cada submuestra podemos usar todos los contrastes de normalidad aprendidos en el tema de **bondad de ajuste**:
+
+* Test de Kolmogorov-Smirnov-Lilliefors.
+* Test de normalidad de Anderson-Darling.
+* Test de Shapiro-Wilks.
+* Test omnibus de D'Agostino-Pearson.
+
+## Ejemplo
+<div class="example">
+Veamos si los datos de las submuestras para cada nivel de presión son normales usando el test de Kolmogorov-Smirnov-Lilliefors:
+```{r}
+library(nortest)
+lillie.test(X[F=="0.0"])
+```
+</div>
+
+## Ejemplo
+<div class="example">
+```{r}
+lillie.test(X[F=="0.083"])
+lillie.test(X[F=="0.29"])
+```
+</div>
+
+## Ejemplo
+<div class="example">
+```{r}
+lillie.test(X[F=="0.50"])
+lillie.test(X[F=="0.86"])
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Vemos que según el test de Kolmogorov-Smirnov-Lilliefors, no podemos rechazar que las 5 subsmuestras correspondientes a cada nivel de presión sigan la distribución normal.
+
+Dejamos como ejercicio al lector la comprobación de la normalidad usando los otros tests.
+</div>
 
 # Bloques completos aleatorios
 
@@ -2429,12 +2493,46 @@ donde `X` es la variable donde se almacenan los valores $X_{ijk}$ y en las varia
 
 ## Ejemplo
 <div class="example">
-Para realizar el ANOVA de dos vías para los datos de nuestro ejemplo, hacemos lo siguiente:
+Hagamos un boxplot de la variable GSI según el fotoperíodo y según la temperatura para observar gráficamente si hay diferencias:
+
+```{r,fig.align='center'}
+boxplot(tabla.datos.GSI$GSI ~ tabla.datos.GSI$fotoperiodos,xlab="Fotoperíodo",ylab="GSI")
+```
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+
+```{r,fig.align='center'}
+boxplot(tabla.datos.GSI$GSI ~ tabla.datos.GSI$temperatura,xlab="Temperatura",ylab="GSI")
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+Si hacemos el boxplot de la variable `GSI` según la combinación de los dos factores, fotoperíodo y temperatura, obtenemos:
+
+```{r,fig.align='center'}
+boxplot(tabla.datos.GSI$GSI ~ tabla.datos.GSI$fotoperiodos+tabla.datos.GSI$temperatura,
+        xlab="Combinación Fotoperíodo/Temperatura",ylab="GSI")
+```
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+Parece que sí hay diferencias en la variable `GSI` según el fotoperíodo, según la temperatura y según la combinación fotoperíodo/temperatura.
+
+El contraste ANOVA de dos vías para los datos de nuestro ejemplo se realiza de la forma siguiente en `R`:
 ```{r}
-X=tabla.datos.GSI$GSI
-A=tabla.datos.GSI$fotoperiodos
-B=tabla.datos.GSI$temperatura
-summary(aov(X ~ A*B))
+GSI=tabla.datos.GSI$GSI
+fotoperiodo=tabla.datos.GSI$fotoperiodos
+temperatura=tabla.datos.GSI$temperatura
+summary(aov(GSI ~ fotoperiodo*temperatura))
 ```
 Obtenemos los mismos resultados que hemos obtenido anteriormente.
 
@@ -2447,8 +2545,44 @@ Observamos que falta la fila de los tratamientos.
 Para realizar el contraste de los tratamientos en `R`, hacemos lo siguiente:
 
 ```{r}
-summary(aov(X ~ A:B))
+summary(aov(GSI ~ fotoperiodo:temperatura))
 ```
 
 
+</div>
+
+
+## Gráficos de interacción 
+El gráfico de interacción entre los dos factores consiste en unir mediante segmentos los valores medios que toma la variable que comparamos `X` para cada factor en los que hemos segregado dicha variable.
+
+Si no hay ninguna interacción entre los factores, los segmentos anteriores son paralelos. Cuanto más alejados del paralelismo estén dichos segmentos, más evidencia de interacción existe entre estos dos factores.
+
+Para realizar un gráfico de interacción en `R` se usa la función `interaction.plot`:
+```{r,eval=FALSE}
+interaction.plot(F1, F2, X)
+```
+donde `F1` es el factor que dibujamos en el eje de abscisas o eje X y `F2` es el otro factor usado para dibujar los segmentos.
+
+
+## Ejemplo
+<div class="example">
+Para dibujar el gráfico de interacción del fotoperíodo según la temperatura, hacemos lo siguiente:
+```{r,fig.align='center'}
+interaction.plot(fotoperiodo,temperatura,GSI,xlab="fotoperiodo",ylab="GSI")
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Para dibujar el gráfico de interacción de la temperatura según el fotoperiodo, hacemos lo siguiente:
+```{r,fig.align='center'}
+interaction.plot(temperatura,fotoperiodo,GSI,xlab="fotoperiodo",ylab="GSI")
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Vemos que las rectas anteriores no son paralelas pero tampoco "parecen" estar demasiado lejos del paralelismo.
+
+De ahí el p-valor obtenido en la zona de penumbra.
 </div>
