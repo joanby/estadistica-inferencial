@@ -21,7 +21,7 @@ El problema que intentamos resolver es un **contraste de igualdad de medias** cu
 
 Concretamente, supongamos que $k>2$ poblaciones. 
 
-Algunas veces, segregaremos la población por $k$ subpoblaciones definidas por los nivels de un factor. 
+Algunas veces, segregaremos la población por $k$ subpoblaciones definidas por los niveles de un factor. 
 
 Por ejemplo, si queremos estudiar el peso de una población de una determinada edad, pongamos entre 30 y 40 años, podemos segregar por tipo de sangre, A, B, O y ABO ($k=4$) y preguntarnos si el peso medio de cada subpoblación segredada por el tipo de sangre es el mismo.
 
@@ -188,7 +188,7 @@ Los datos se suelen dar en forma de tabla donde las columnas suelen ser los nive
 
 Por tanto, en cada columna $i$-ésima habrá la muestra correspondiente al factor $i$-ésimo.
 
-Más concretamente, suponamos que los datos vienen con la estructura siguiente:
+Más concretamente, supongamos que los datos vienen con la estructura siguiente:
 
 
 ## Almacenamiento de datos en ANOVA
@@ -277,7 +277,7 @@ Si realizamos un gráfico del porcentaje de aumento de masa celular según la va
 ```{r,eval=FALSE}
 presión = as.numeric(as.character(tabla.datos.ANOVA$nivel.Presión))
 plot(presión,tabla.datos.ANOVA$Incremento.celular,type="p",
-     pch=18,cex=2,xlab="Nivel de CO2",ylab="% de massa celular")
+     pch=18,cex=2,xlab="Nivel de CO2",ylab="% de masa celular")
 ```
 Observamos gráficamente que las medias del porcentaje del aumento de masa celular de las muestras correspondientes a los 5 niveles de presión parecen diferentes.
 </div>
@@ -602,7 +602,7 @@ Estos **estadísticos** son variables aleatorias, y se tiene que
 
 * $E(MS_E)=\sigma^2$.
 
-En particular, se puede usar $MS_E$ para estimar la variancia común $\sigma^2$.
+En particular, se puede usar $MS_E$ para estimar la varianza común $\sigma^2$.
 
 ## Estadísticos del contraste
 
@@ -640,13 +640,13 @@ Por tanto, rechazaremos la hipótesis nula si $F$ es "bastante más grande" que 
 
 ## Contraste ANOVA
 
-Sintetizemos cómo realizar el contraste ANOVA en 4 pasos:
+Sinteticemos cómo realizar el contraste ANOVA en 4 pasos:
 
 * Primer paso: calculamos las **sumas de cuadrados**: $SS_{Total}, SS_{Tr}, SS_E.$
 
 * Segundo paso: calculamos los **cuadrados medios**: $MS_{Tr}=\frac{SS_{Tr}}{k-1},\ MS_E=\frac{SS_E}{N-k}.$
 
-* Tercer paso: calculamos el **estadísto de contraste** $F$: $F=\frac{MS_{Tr}}{MS_E}.$
+* Tercer paso: calculamos el **estadístico de contraste** $F$: $F=\frac{MS_{Tr}}{MS_E}.$
 
 * Cuarto paso: calculamos el p-valor del contraste: $P(F_{k-1,N-k}\geq F)$. Si dicho p-valor es más pequeño que el nivel de significación $\alpha$, rechazamos $H_0$ y concluimos que no todas las medias son iguales. En caso contrario, aceptamos $H_0$.
 
@@ -763,7 +763,7 @@ Observamos que tenemos la misma tabla ANOVA obtenida haciendo los cálculos "a m
 
 ## Comparaciones por parejas
 
-Si hemos rechazado la hipótesis nula $H_0:\mu_1=\cdots =\mu_k$, el siguiento paso es averiguar 
+Si hemos rechazado la hipótesis nula $H_0:\mu_1=\cdots =\mu_k$, el siguiente paso es averiguar 
 cuáles son los niveles diferentes. 
 
 O sea, hallar aquellas parejas $(\mu_i,\mu_j)$ para las que podamos decir que $\mu_i\neq \mu_j$.
@@ -980,7 +980,7 @@ Los pasos a realizar para llevarlo a cabo son los siguientes:
 
 * Se ordenan en forma ascendente las $k$ medias muestrales.
 
-* Se considera cada par $Y$ de medias muestrales y se calcula el valor absoluto $D_Y$ de la  diferencia entre las dos medias y el número $p$ de medias que hay entre las dos (incluyéndo las dos medias que comparamos).
+* Se considera cada par $Y$ de medias muestrales y se calcula el valor absoluto $D_Y$ de la  diferencia entre las dos medias y el número $p$ de medias que hay entre las dos (incluyendo las dos medias que comparamos).
 
 ## Contraste de Duncan
 * Decidimos que existe diferencia entre estos dos niveles cuándo 
@@ -1139,6 +1139,37 @@ Como no vemos ningún caso en que aparezcan dos letras, podemos concluir que las
 
 </div>
 
+## Contraste de Tukey
+Si la tabla de datos es balanceada, es decir, todas las submuestras correspondientes a cada uno de los niveles del factor tienen el mismo tamaño, el método más preciso de comparación de medias es el llamado **método de Tukey**.
+
+Es un test similar al **t-test** pero el **estadístico de contraste** tiene una distribución diferente.
+
+Par aplicar el **contraste de Tukey** en `R` hay que usar la función `TukeyHSD` y aplicarla al resultado de haber aplicado la función `aov`:
+```{r,eval=FALSE}
+TukeyHSD(aov(X~F))
+```
+
+## Ejemplo
+<div class="example">
+Apliquemos el **test de Tukey** a los datos de nuestro ejemplo al ser la tabla de datos balanceada:
+
+```{r,eval=FALSE}
+TukeyHSD(aov(X~F))
+```
+
+
+Observando los p-valores, concluimos que hay diferencias entre todas las submuestras correspondientes a los 5 niveles de la presión.
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE}
+TukeyHSD(aov(X~F))
+```
+
+</div>
+
+
 
 ## Efectos aleatorios
 
@@ -1231,7 +1262,7 @@ lillie.test(X[F=="0.86"])
 
 ## Ejemplo
 <div class="example">
-Vemos que según el test de Kolmogorov-Smirnov-Lilliefors, no podemos rechazar que las 5 subsmuestras correspondientes a cada nivel de presión sigan la distribución normal.
+Vemos que según el test de Kolmogorov-Smirnov-Lilliefors, no podemos rechazar que las 5 submuestras correspondientes a cada nivel de presión sigan la distribución normal.
 
 Dejamos como ejercicio al lector la comprobación de la normalidad usando los otros tests.
 </div>
@@ -1656,7 +1687,7 @@ Calculemos a continuación los estadísticos definidos:
 ## Identidad de la suma de cuadrados
 En el diseño de **ANOVA por bloques**,  la **variabilidad de los datos** respecto la **media global**, lo que llamamos **Suma Total de Cuadrados** se descompone de tres variabilidades:
 
-* La **variabiliad** debida a los **tratamientos**.
+* La **variabilidad** debida a los **tratamientos**.
 
 * La **variabilidad** debida a los **bloques**.
 
@@ -1917,7 +1948,7 @@ Recordemos que el objetivo del diseño por bloques es la reducción de algunas v
 
 Llegados a este punto, nos podemos preguntar si el diseño por bloques ha sido efectivo, es decir, si dicha construcción realmente ha reducido el efecto de las variables extrañas que no controlamos.
 
-Expresado en términos de la variabilidad, la efectividad del diseño por bloques significa que la variabilidad debida a los bloques, $SS_{Bl}$, explica una parte importante de la varibilidad total, $SST$. 
+Expresado en términos de la variabilidad, la efectividad del diseño por bloques significa que la variabilidad debida a los bloques, $SS_{Bl}$, explica una parte importante de la variabilidad total, $SST$. 
 
 En este caso, el valor de $SSE$ disminuiría aumentando el valor del estadístico de contraste $F$, lo que haría más "difícil" aceptar la hipótesis nula, mejorando la potencia del contraste.
 
@@ -1977,7 +2008,7 @@ Como tenemos dos factores, hay tres cuestiones sobre la mesa que habrá que reso
 
 ## Introducción
 
-Concretamente, para llevar a cabo el **ANOVA de dos vías**, consderaremos el caso más sencillo: **diseño completamente aleatorio** con **efectos fijos**:
+Concretamente, para llevar a cabo el **ANOVA de dos vías**, consideraremos el caso más sencillo: **diseño completamente aleatorio** con **efectos fijos**:
 
 * Usaremos dos factores (*dos vías*).
 
@@ -1995,7 +2026,7 @@ Tomamos $n$ observaciones  para cada combinación de tratamientos. (**estudio ba
 
 Por tanto, el número total de observaciones será $n\cdot a\cdot b$.
 
-La variable aleatoria $X_{ijk}$, $i=1,\ldots,a$, $j=1,\ldots,b$, $k=1,\ldots,n$, nos da la respuesta de la $k$-ésimoa unidad
+La variable aleatoria $X_{ijk}$, $i=1,\ldots,a$, $j=1,\ldots,b$, $k=1,\ldots,n$, nos da la respuesta de la $k$-ésima unidad
 experimental al nivel $i$-ésimo del factor $A$ y el nivel $j$-ésimo del factor $B$.
 
 ## Introducción
@@ -2634,15 +2665,15 @@ donde `F1` es el factor que dibujamos en el eje de abscisas o eje X y `F2` es el
 <div class="example">
 Para dibujar el gráfico de interacción del fotoperíodo según la temperatura, hacemos lo siguiente:
 ```{r,fig.align='center'}
-interaction.plot(fotoperiodo,temperatura,GSI,xlab="fotoperiodo",ylab="GSI")
+interaction.plot(fotoperiodo,temperatura,GSI,xlab="fotoperíodo",ylab="GSI")
 ```
 </div>
 
 ## Ejemplo
 <div class="example">
-Para dibujar el gráfico de interacción de la temperatura según el fotoperiodo, hacemos lo siguiente:
+Para dibujar el gráfico de interacción de la temperatura según el fotoperíodo, hacemos lo siguiente:
 ```{r,fig.align='center'}
-interaction.plot(temperatura,fotoperiodo,GSI,xlab="fotoperiodo",ylab="GSI")
+interaction.plot(temperatura,fotoperiodo,GSI,xlab="fotoperíodo",ylab="GSI")
 ```
 </div>
 
