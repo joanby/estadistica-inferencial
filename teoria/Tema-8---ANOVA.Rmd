@@ -1236,6 +1236,70 @@ Vemos que según el test de Kolmogorov-Smirnov-Lilliefors, no podemos rechazar q
 Dejamos como ejercicio al lector la comprobación de la normalidad usando los otros tests.
 </div>
 
+
+## Igualdad de varianzas u homocedasticidad
+Para contrastar si las $k$ submuestras tienen las mismas varianzas, se usa el **test de Bartlett**.
+
+Veamos en qué consiste.
+
+Sean $\mathbf{x}_i=(x_{i1},x_{i2},\ldots,x_{in_i})$, $i=1,\ldots,k$, $k$ muestras aleatorias simples de tamaño $n_i$, para $i=1,\ldots,k$ de $k$ variables aleatorias normales $X_i$ de varianza $\sigma_i^2$, para $i=1,\ldots,k$.
+
+Nos planteamos el contraste de igualdad de varianzas:
+$$
+\left\{
+\begin{array}{l}
+H_0 : \sigma_1^2 =\sigma_2^2 =\cdots =\sigma_k^2, \\
+H_1 : \exists i,j \mid  \sigma_i^2 \not=\sigma_j^2.
+\end{array}
+\right.
+$$
+
+## Igualdad de varianzas u homocedasticidad
+Para realizar el contraste anterior, usaremos el **estadístico de Bartlett**:
+$$
+K^2 =\frac{(N-k)\ln(\tilde{s}_p^2)-\sum\limits_{i=1}^k (n_i-1)\ln(\tilde{s}_i^2)}{1+\frac{1}{3(k-1)}\left(\sum\limits_{i=1}^k \left(\frac{1}{n_i-1}\right)-\frac{1}{N-k}\right)},
+$$
+donde:
+$$
+N=\sum_{i=1}^k n_i,\ \tilde{s}_p^2 =\frac{\sum\limits_{i=1}^k (n_i-1)\tilde{s}_i^2}{N-k},\ \tilde{s}_i^2 =\frac{\sum\limits_{j=1}^{n_i} (x_{ij}-\overline{x}_i)^2}{n_i-1}.
+$$
+
+## Igualdad de varianzas u homocedasticidad
+
+El estadístico anterior sigue aproximadamente la distribución $\chi^2_{k-1}$ si la hipótesis nula es cierta.
+
+Intuitivamente, si la hipótesis nula es cierta, o, si las varianzas son iguales ($\sigma_1^2 =\sigma_2^2 =\cdots =\sigma_k^2$), tendremos que
+$$
+\tilde{s}_1^2\approx \tilde{s}_2^2\approx\cdots\approx \tilde{s}_k^2\approx \tilde{s}_p^2,
+$$
+y el valor del estadístico $K^2$ será pequeño.
+
+El p-valor del contraste se calcula como:
+$$
+p=P(\chi^2_{k-1} > K^2).
+$$
+
+## Igualdad de varianzas u homocedasticidad
+<l class="observ">Observación: </l> 
+Para realizar el **test de Bartlett**, primero hay que comprobar que las submuestras siguen la distribución normal. Es decir, no tiene sentido aplicar el **test de Bartlett** a muestras no normales.
+
+Realizar el test de Bartlett "a mano" es bastante tedioso. Por dicho motivo, explicaremos cómo realizarlo en `R`.
+
+En `R` hay que usar la función `bartlett.test`:
+```{r,eval=FALSE}
+bartlett.test(X ~ F)
+```
+
+## Ejemplo
+<div class="example">
+Apliquemos el test de Bartlett para los datos de nuestro ejemplo:
+```{r}
+bartlett.test(X ~ F)
+```
+
+Como el p-valor es muy grande, concluimos que no tenemos evidencias para rechazar la igualdad de varianzas para las 5 submuestras consideradas.
+</div>
+
 # Bloques completos aleatorios
 
 ## Introducción
@@ -1257,6 +1321,8 @@ La diferencia fundamental con respecto al ANOVA de un factor es que sospechamos 
 Por dicho motivo, creamos bloques a partir de dicha variable extraña para reducir su efecto. Veamos cómo.
 
 Suponemos que tenemos $k$ tratamientos que queremos comparar.
+
+## Introducción
 
 Escogemos como **bloques** conjuntos de individuos $k$ relacionados  (por ejemplo, $k$ copias del mismo individuo).
 
