@@ -446,3 +446,5 @@ abline(lm(y4~x4,data=anscombe),col=2)
 Observamos que en el caso de la tabla de datos `(x3,y3)`, la recta de regresión ha sido efectiva pero en los demás hemos obtenido un error considerable donde el peor caso es el de la tabla de datos `(x4,y4)`.
 
 Por tanto, considerar sólo el valor del **coeficiente de determinación** para medir el ajuste de la recta de regresión a nuestros datos no es conveniente.
+
+
