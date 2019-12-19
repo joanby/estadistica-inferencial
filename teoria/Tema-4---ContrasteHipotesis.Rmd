@@ -3400,7 +3400,7 @@ diferencias = c( 1.2, 5.2, 3.1, 4.3, -9.9, -0.7, 5.0, -1.8, 1.0, -4.1)
 
 ## Ejemplo de medias emparejadas
 <div class="example-sol">
-La media y la desviación típica muestrales de las difencias son $\overline{d}=`r mean(diferencias)`,$ $s_d = `r round(sd(diferencias),3)`.$
+La media y la desviación típica muestrales de las difencias son $\overline{d}=`r mean(diferencias)`,$ $\tilde s_d = `r round(sd(diferencias),3)`.$
 
 Queremos contrastar la igualdad de medias con el test que corresponda. Y si son diferentes, decidir cuál tiene mayor tiempo de ejecución.
 
