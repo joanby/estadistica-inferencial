@@ -1,6 +1,6 @@
 ---
-title: "Tema 13 - Regresión Lineal"
-author: "Juan Gabriel Gomila, Arnau Mir y Ricardo Alberich"
+title: "Tema 8 - Regresión Lineal"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: 
 output: 
   ioslides_presentation:
@@ -13,26 +13,438 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Regresión lineal simple
+
+## Introducción
+
+El problema de **regresión** consiste en hallar la mejor **relación funcional** entre dos variables $X$ e $Y$.
+
+Más concretamente, dada una muestra de las dos variables $X,Y$, $(x_i,y_i)_{i=1,2,\ldots,n}$, queremos estudiar cómo depende el valor de $Y$ en función del valor de $X$.
+
+La variable aleatoria $Y$ es la variable **dependiente** o **de respuesta**.
+
+La variable (no necesariamente aleatoria) $X$ es la variable **de control**,
+**independiente** o **de regresión**. Pensemos por ejemplo, en un experimento donde la variable $X$ es la que controla el experimentador y la variable $Y$ es el valor que se obtiene del experimento.
+
+## Introducción
+
+El problema de **regresión** es encontrar la mejor **relación funcional** que explique la variable $Y$ conocidas las observaciones de la
+variable $X$. 
+
+Si dicha **relación funcional** es una recta, $Y=\beta_0 +\beta_1 x$, la **regresión** se denomina **regresión lineal**.
+
+En la **regresión lineal**, se hace la suposición siguiente:
+$$
+\mu_{Y|x}=\beta_0+\beta_1 x,
+$$
+dónde $\mu_{Y|x}$ es el valor esperado de la variable aleatoria $Y$ cuando la variable $X$ vale $x$. Dicho valor esperado es una función lineal de $X$ con **término independiente** $\beta_0$ y **pendiente** $\beta_1$. Dichos valores son dos
+parámetros que tendremos que estimar.
+
+
+## Introducción
+
+Las estimaciones de $\beta_0$ y $\beta_1$ se llaman $b_0$ y $b_1$, respectivamente y se tienen que realizar a partir de la muestra $(x_i,y_i)_{i=1,2,\ldots,n}$.
+
+Una vez halladas las estimaciones $b_0$ y $b_1$, obtendremos la **recta de regresión** para nuestra muestra:
+$$
+\widehat{y}=b_0+b_1 x,
+$$
+que dado un valor $x_0$ de $X$, estimará el valor $\widehat{y}_0=b_0+b_1 x_0$ de la variable $Y$.
+
+## Mínimos cuadrados
+Vamos a explicar el método para hallar las estimaciones $b_0$ y $b_1$. 
+
+Dicho método se denomina **método de los mínimos cuadrados**.
+
+Dada una observación cualquiera de la muestra, $(x_i,y_i)$, podremos separar la componente $y_i$ como la suma de su **valor predicho por el modelo** y el error cometido:
+$$
+y_i=\beta_0+\beta_1 x_i+ \varepsilon_i\Rightarrow \varepsilon_i=y_i-(\beta_0+\beta_1 x_i).
+$$
+Llamamos  **error cuadrático teórico** de este modelo a la suma al cuadrado de todos los errores cometidos por los valores de la muestra:
+$$
+SS_\varepsilon=\sum_{i=1}^n \varepsilon_i^2=\sum_{i=1}^n (y_i-\beta_0-\beta_1 x_i)^2.
+$$
+
+## Mínimos cuadrados
+
+
+La **regresión lineal por mínimos cuadrados** consiste en hallar los estimadores $b_0$ y  $b_1$ de $\beta_0$ y $\beta_1$ que minimicen dicho **error cuadrático teórico** $SS_\varepsilon$.
+
+<l class="observ">Observación: </l> los errores cometidos pueden ser positivos o negativos. Entonces, para asegurarse de penalizar siempre los errores, se elevan éstos al cuadrado y de esta forma, siempre se suman y no pueden anularse.
+
+Para hallar el mínimo del **error cuadrático teórico**, $(b_0,b_1)$, hay que derivar respecto las variables $\beta_0$ y $\beta_1$ e igualar a $0$ dichas derivadas:
+$$
+\begin{array}{ll}
+\dfrac{\partial SS_\varepsilon}{\partial \beta_0}_{|\beta_0=b_0,\beta_1=b_1}=&-2\sum\limits_{i=1}^n (y_i -b_0-b_1 x_i)=0,\\[1ex]
+\dfrac{\partial SS_\varepsilon}{\partial \beta_1}_{|\beta_0=b_0,\beta_1=b_1}=&-2\sum\limits_{i=1}^n (y_i -b_0-b_1 x_i) x_i =0.
+\end{array}
+$$
+
+## Mínimos cuadrados
+La solución del sistema anterior es:
+$$
+\begin{array}{rl}
+b_1& \displaystyle=\frac{n \sum\limits_{i=1}^n x_i y_i-\sum\limits_{i=1}^n x_i\sum\limits_{i=1}^n y_i} {n\sum\limits_{i=1}^n
+x_i^2-(\sum\limits_{i=1}^n x_i)^2},\\
+b_0& \displaystyle=\frac{\sum\limits_{i=1}^n y_i -b_1 \sum\limits_{i=1}^n x_i}{n}.
+\end{array}
+$$
+
+## Mínimos cuadrados
+Vamos a escribir las estimaciones $b_0$ y $b_1$ obtenidas anteriormente en función de las medias, varianzas y covarianza de la muestra de valores $(x_i,y_i)$.
+
+Sean entonces 
+$$
+\overline{x}=\frac1{n}\sum\limits_{i=1}^n x_i,
+\quad \overline{y}=\frac1{n} \sum\limits_{i=1}^n y_i,
+$$
+las medias de las componentes $x$ e $y$ de los valores de la muestra y sean
+
+## Mínimos cuadrados
+$$
+\begin{array}{rl}
+\tilde{s}_x^2 &\displaystyle =\frac1{n-1}\sum_{i=1}^n (x_i-\overline{x})^2 =\frac{n}{n-1}\left(\frac1{n}\Big(\sum_{i=1}^n x_i^2\Big) -\overline{x}^2\right),\\
+\tilde{s}_y^2 &\displaystyle =\frac1{n-1}\sum_{i=1}^n (y_i-\overline{y})^2 =\frac{n}{n-1}\left(\frac1{n}\Big(\sum_{i=1}^n y_i^2\Big) -\overline{y}^2\right),\\
+\tilde{s}_{xy} &\displaystyle =\frac1{n-1}\sum_{i=1}^n (x_i-\overline{x}) (y_i-\overline{y}) =\frac{n}{n-1}\left(\frac1{n}\Big(\sum_{i=1}^n x_i y_i\Big)-\overline{x}\cdot\overline{y}\right),
+\end{array}
+$$
+las varianzas y la covarianza de la muestra $(x_i,y_i)$, $i=1,\ldots,n$.
+
+## Mínimos cuadrados
+Las estimaciones $b_0$ y $b_1$ se pueden reescribir de la forma siguiente:
+
+<l class="prop">Teorema. </l>
+Los estimadores $b_0$ y $b_1$ de  $\beta_0$ y $\beta_1$, respectivamente, hallados por el **método de los mínimos cuadradados** son los siguientes: $b_1 =\frac{\tilde{s}_{xy}}{\tilde{s}_x^2},\quad b_0 = \overline{y}-b_1 \overline{x}.$
 
 <div class="exercise">
+**Ejercicio**
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Se deja como ejercicio la demostración del teorema anterior a partir de la expresión hallada anteriormente.
 
 </div>
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Dado un valor $x$ de la variable $X$, llamaremos $\widehat{y}$ a la expresión $\widehat{y}=b_0+b_1x$ al **valor estimado** de $Y$  cuando $X=x$.
 
-```{r cars}
-summary(cars)
+Dada una observación $(x_i,y_i)$, llamaremos **error** de la observación $e_i$ a la expresión $e_i=y_i-\widehat{y}_i={y}_i-b_0-b_1x_i$.
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo**
+
+En un experimento donde se quería estudiar la asociación entre consumo de sal y presión arterial, se asignó aleatoriamente a algunos individuos una cantidad diaria constante de sal en su dieta, y al cabo de un mes se los midió la tensión arterial media. Algunos resultados fueron los siguientes:
+
+<div class="center">
+|$X$ (sal, en g) | $Y$ (Presión, en mm de Hg)|
+|:---:|---:|
+|1.8 |  100|
+|2.2 |  98|
+|3.5 |  110|
+|4.0 |  110|
+|4.3 |  112|
+|5.0 |  120|
+</div>
+</div>
+
+
+## Ejemplo
+<div class="example">
+Vamos a hallar la **recta de regresión lineal por mínimos cuadrados** de $Y$ en función de $X$.
+
+En primer lugar calculamos las medias, varianzas y covarianza de la muestra de datos:
+```{r}
+sal=c(1.8,2.2,3.5,4.0,4.3,5.0)
+tensión=c(100,98,110,110,112,120)
+(media.sal = mean(sal))
+(media.tensión = mean(tensión))
 ```
 
-## Including Plots
+</div>
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+## Ejemplo
+<div class="example">
+```{r}
+(var.sal = var(sal))
+(var.tensión = var(tensión))
+(cov.sal.tensión = cov(sal,tensión))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+</div>
+
+## Ejemplo
+<div class="example">
+Los estimadores $b_0$ y $b_1$ serán:
+```{r}
+(b1 = cov.sal.tensión/var.sal)
+(b0 = media.tensión-b1*media.sal)
+```
+La recta de regresión será, en este caso: $\widehat{y} = `r b0`+`r b1`\cdot x$.
+
+</div>
+
+## Recta de regresión en `R`
+Para hallar la recta de regresión en `R` hay que usar la función `lm`:
+```{r}
+lm(tensión ~sal)
+```
+
+## Propiedades de la recta de regresión
+La **recta de regresión** hallada por el **método de los mínimos cuadrados** verifica las propiedades siguientes:
+
+* La **recta de regresión** pasa por el vector medio $(\overline{x},\overline{y})$ de nuestra muestra de datos $(x_i,y_i)$, $i=1,\ldots,n$:
+$$
+\overline{y}=b_0+b_1 \overline{x}.
+$$
+
+* La media de los valores estimados a partir de la **recta de regresión** es igual a la media de los
+observados $y_i$, $\overline{y}$. Es decir:
+$$
+\overline{\widehat{y}}=\frac1{n}\sum_{i=1}^n\widehat{y}_i =\frac1{n}\sum_{i=1}^n(b_0+b_1x_i)=
+b_0+b_1 \overline{x}=\overline{y}.
+$$
+
+
+## Propiedades de la recta de regresión
+
+* Los errores $(e_i)_{i=1,\ldots,n}$ tienen media 0:
+$$
+\overline{e}
+=\frac1{n}\sum_{i=1}^n e_i =\frac1{n}\sum_{i=1}^n (y_i-b_0-b_1x) =\frac1{n}\sum_{i=1}^n (y_i-\widehat{y}_i) =0.
+$$
+
+
+Llamaremos **suma de cuadrados de los errores** a la cantidad siguiente: $\displaystyle SS_E=\sum_{i=1}^{n} e^2_i.$
+
+Usando que los errores $(e_i)_{i=1,\ldots,n}$ tienen media $0$, su varianza será:
+$$
+s_e^2=\frac1{n}\Big(\sum_{i=1}^{n}
+e^2_i\Big)-\overline{e}^2=\frac{SS_E}{n}-0=\frac{SS_E}{n}.
+$$
+
+## Propiedades de la recta de regresión
+Definimos las variables aleatorias $E_{x_i}$ como $E_{x_i}=y_i-b_0-b_1\cdot x_i$ donde $(x_i,y_i)$ es un valor de la muestra y $b_0$ y $b_1$ son los estimadores obtenidos por el **método de los mínimos cuadrados**. Entonces, 
+
+<l class="prop"> Teorema.</l>
+Si las variables aleatorias error $E_{x_i}$ tienen todas media 0 y la misma varianza $\sigma^2_E$ y, dos a dos, tienen covarianza 0, entonces
+
+* $b_0$ y son $b_1$ los estimadores lineales no sesgados óptimos (más eficientes) de  $\beta_0$ y $\beta_1$, respectivamente.
+
+y un **estimador no sesgado de $\sigma_E^2$** es el siguiente: $S^2=\frac{SS_E}{n-2}$.
+
+Si, además, las variables aleatorias error $E_{x_i}$ son **normales**, entonces
+ $b_0$ y son $b_1$ los estimadores máximo verosímiles de  $\beta_0$ y $\beta_1$, respectivamente.
+
+## Ejemplo
+<div class="example">
+Comprobemos las propiedades para los datos del ejemplo anterior:
+
+* La **recta de regresión** pasa por el vector medio $(\overline{x},\overline{y})$:
+```{r}
+(round(media.tensión-b0-b1*media.sal,6))
+```
+
+* La media de los valores estimados a partir de la **recta de regresión** es igual a la media de los
+observados $y_i$, $\overline{y}$.
+```{r}
+tensión.estimada = b0+b1*sal
+(mean(tensión.estimada)-mean(tensión))
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+La estimación de la varianza para los datos del ejemplo anterior es la siguiente:
+```{r}
+errores=tensión.estimada-tensión
+SSE = sum(errores^2)
+n=length(sal)
+(estimación.varianza = SSE/(n-2))
+```
+Entonces tenemos que el valor aproximado o estimado de $\sigma_E^2$ es `r estimación.varianza`.
+</div>
+
+## Coeficiente de determinación
+Llegados a este punto, nos preguntamos lo efectiva que es la **recta de regresión**.
+
+Es decir, cómo medir si la aproximación hallada $\widehat{y}=b_0+b_1 x$ a la nube de puntos $(x_i,y_i),\ i=1,\ldots,n$ ha sido suficientemente buena.
+
+Una forma de realizar dicha medición es a través del **coeficiente de determinación** $R^2$ que estima cuánta **variabilidad** de los valores $y_i$ heredan los valores estimados $\widehat{y}_i$.
+
+Para ver su definición, necesitamos introducir las **variabilidades** siguientes:
+
+## Coeficiente de determinación
+
+* **Variabilidad total** o suma total de cuadrados: $SS_T =\sum\limits_{i=1}^n(y_i-\overline{y})^2 = (n-1)\cdot \tilde{s}_y^2.$
+
+* **Variabilidad de la regresión** o suma de cuadrados de la regresión: $SS_R=\sum\limits_{i=1}^n(\widehat{y}_i-\overline{y})^2=(n-1)\cdot \tilde{s}_{\widehat{y}}^2.$
+
+* **Variabilidad del error** o suma de cuadrados del error: $SS_E=\sum\limits_{i=1}^n(y_i-\widehat{y}_i)^2=(n-1)\cdot \tilde{s}_e^2.$
+
+El teorema siguiente nos relaciona las variabilidades anteriores:
+
+## Coeficiente de determinación
+<l class="prop">Teorema. </l>
+En una regresión lineal usando el método de los mínimos cuadrados, se cumple la siguiente relación entre las **variabilidades**:
+$$
+SS_T=SS_R+SS_E,
+$$
+o equivalentemente,
+$$
+\tilde{s}^2_y=\tilde{s}^2_{\widehat{y}}+\tilde{s}^2_e.
+$$
+
+Entonces, cuántas más "proximas" estén las **variabilidades** $SS_T$ y $SS_R$, o, si se quiere, $\tilde{s}^2_y$ y $\tilde{s}^2_{\widehat{y}}$, más efectiva habrá sida la regresión, ya que la regresión habrá heredado mucha variabilidad de los datos $y_i$, $i=1,\ldots,n$ y la variabilidad del error, $SS_E$ será pequeña.
+
+## Coeficiente de determinación
+El comentario anterior motiva la definición siguiente del **coeficiente de determinación** para medir la efectividad de la recta de regresión:
+
+<l class="definition"> Definición: </l>
+se define el **coeficiente de determinación** $R^2$ en la regresión por el método de los mínimos cuadrados como: $R^2 = \frac{SS_R}{SS_T}=\frac{\tilde{s}_{\widehat{y}}^2}{\tilde{s}_y^2}.$
+
+<l class="observ"> Observación: </l> el **coeficiente de determinación** $R^2$ es la fracción de la variabilidad de las componentes $y$ que queda explicada por la variabilidad de las estimaciones correspondientes $\widehat{y}$.
+
+## Propiedades del coeficiente de determinación
+* El **coeficiente de determinación** es una cantidad entre 0 y 1: $0\leq R^2\leq 1$. Entonces, cuánto más próximo a 1 esté dicho coeficiente, más precisa será la recta de regresión.
+
+* El **coeficiente de determinación** se puede expresar en función de la **variabilidad del error** de la forma siguiente:
+$$
+R^2=\frac{SS_T-SS_E}{SS_T}=1-\frac{SS_E}{SS_T}=1-\frac{\tilde{s}_e^2}{\tilde{s}_y^2}.
+$$
+
+* Se define el **coeficiente de correlación lineal** $r_{xy}$ como $r_{xy}=\frac{\tilde{s}_{xy}}{\tilde{s}_x\cdot \tilde{s}_y}$. Entonces, el **coeficiente de determinación** $R^2$ es el cuadrado del **coeficiente de correlación lineal**: $R^2 = r_{xy}^2$.
+
+## Propiedades del coeficiente de determinación
+Veamos la demostración de la última propiedad:
+$$
+\begin{array}{rl}
+R^2 & \displaystyle =\frac{SS_R}{SS_T}=\frac{\sum\limits_{i=1}^n(b_1x_i+b_0-\overline{y})^2}{(n-1)\tilde{s}_y^2} =\frac{\sum\limits_{i=1}^n\left(\dfrac{\tilde{s}_{xy}}{\tilde{s}_x^2}x_i-\dfrac{\tilde{s}_{xy}}{\tilde{s}_x^2}\overline{x}\right)^2}{(n-1)\tilde{s}_y^2}\\
+& \displaystyle =\frac{\dfrac{\tilde{s}_{xy}^2}{\tilde{s}_x^4}\sum\limits_{i=1}^n(x_i-\overline{x})^2}{(n-1)\tilde{s}_y^2} =\dfrac{\tilde{s}_{xy}^2}{\tilde{s}_x^4}\cdot \frac{\tilde{s}_x^2}{\tilde{s}_y^2}=\frac{\tilde{s}_{xy}^2}{\tilde{s}_x^2\cdot \tilde{s}_y^2}=r_{xy}^2
+\end{array}
+$$
+
+## Ejemplo
+<div class="example">
+Calculemos las variabilidades anteriores y el **coeficiente de determinación** para los datos de nuestro ejemplo:
+
+* **Variabilidad total**:
+```{r}
+(SST = sum((tensión-media.tensión)^2))
+```
+* **Variabilidad de la regresión**:
+```{r}
+(SSR = sum((tensión.estimada-media.tensión)^2))
+```
+</div>
+
+## Ejemplo
+<div class="example">
+* **Variabilidad del error**:
+```{r}
+(SSE = sum((tensión-tensión.estimada)^2))
+```
+Comprobemos que se cumple $SST=SSR+SSE$:
+```{r}
+(round(SST-SSR-SSE,6))
+```
+</div>
+
+## Ejemplo
+<div class="example">
+El coeficiente de determinación $R^2$ será:
+```{r}
+(R2=SSR/SST)
+```
+Otra manera de calcularlo es:
+```{r}
+(R2=var(tensión.estimada)/var(tensión))
+```
+En este caso, la regresión explica un `r round(100*R2,2)`% de la variabilidad de los datos.
+</div>
+
+## Coeficiente de determinación en `R`
+Para hallar el **coeficiente de determinación** en `R` hemos de usar las funciones `lm` y `summary` junto con el parámetro `r.squared`:
+
+```{r,eval=FALSE}
+summary(lm(y ~ x))$r.squared
+```
+
+<div class="example">
+Si aplicamos las funciones anteriores a los datos de nuestro ejemplo, obtenemos:
+```{r}
+summary(lm(tensión ~ sal))$r.squared
+```
+</div>
+
+## Coeficiente de determinación
+Usar solamente el **coeficiente de determinación** para medir la calidad de la regresión es un error. 
+
+Tenemos que observar más información para poder afirmar que la regresión obtenida es adecuada y se ajusta bien a nuestros datos.
+
+En `R` existe una tabla de datos denominada `anscombe` que pone de manifiesto este hecho.
+Vamos a echarle un vistazo:
+
+## Coeficiente de determinación
+```{r}
+data(anscombe)
+str(anscombe)
+```
+Vemos que tiene 4 parejas de valores $(x_i,y_i)$ de tamaño 11:
+
+
+## Coeficiente de determinación
+```{r}
+anscombe
+```
+
+## Coeficiente de determinación
+Si calculamos los **coeficientes de determinación** para las 4 parejas, obtenemos un resultado similar:
+```{r}
+summary(lm(y1~x1,data=anscombe))$r.squared
+summary(lm(y2~x2,data=anscombe))$r.squared
+```
+
+
+## Coeficiente de determinación
+```{r}
+summary(lm(y3~x3,data=anscombe))$r.squared
+summary(lm(y4~x4,data=anscombe))$r.squared
+```
+
+En cambio, si vemos su representación gráfica, su aspecto es muy distinto:
+
+## Coeficiente de determinación
+```{r,fig.align='center',eval=FALSE}
+par(mfrow=c(2,2))
+plot(y1~x1,data=anscombe)
+abline(lm(y1~x1,data=anscombe),col=2)
+plot(y2~x2,data=anscombe)
+abline(lm(y2~x2,data=anscombe),col=2)
+plot(y3~x3,data=anscombe)
+abline(lm(y3~x3,data=anscombe),col=2)
+plot(y4~x4,data=anscombe)
+abline(lm(y4~x4,data=anscombe),col=2)
+```
+
+## Coeficiente de determinación
+```{r,fig.align='center',echo=FALSE}
+par(mfrow=c(2,2))
+plot(y1~x1,data=anscombe)
+abline(lm(y1~x1,data=anscombe),col=2)
+plot(y2~x2,data=anscombe)
+abline(lm(y2~x2,data=anscombe),col=2)
+plot(y3~x3,data=anscombe)
+abline(lm(y3~x3,data=anscombe),col=2)
+plot(y4~x4,data=anscombe)
+abline(lm(y4~x4,data=anscombe),col=2)
+```
+
+
+## Coeficiente de determinación
+Observamos que en el caso de la tabla de datos `(x3,y3)`, la recta de regresión ha sido efectiva pero en los demás hemos obtenido un error considerable donde el peor caso es el de la tabla de datos `(x4,y4)`.
+
+Por tanto, considerar sólo el valor del **coeficiente de determinación** para medir el ajuste de la recta de regresión a nuestros datos no es conveniente.
+
+
