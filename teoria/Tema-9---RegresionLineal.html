@@ -4447,7 +4447,7 @@ R^2=\frac{SS_T-SS_E}{SS_T}=1-\frac{SS_E}{SS_T}=1-\frac{\tilde{s}_e^2}{\tilde{s}_
 
 </article></slide><slide class=""><hgroup><h2>Coeficiente de determinación en <code>R</code></h2></hgroup><article  id="coeficiente-de-determinacion-en-r-1">
 
-<p>Para hallar el coeficiente de determinación en <code>R</code> podemos usar las mismas funciones que usábamos en la <strong>regresión lineal simple</strong>:</p>
+<p>Para hallar el <strong>coeficiente de determinación</strong> en <code>R</code> podemos usar las mismas funciones que usábamos en la <strong>regresión lineal simple</strong>:</p>
 
 <pre class = 'prettyprint lang-r'>summary(lm(y~x1+...+xk))$r.squared</pre>
 
@@ -4456,7 +4456,108 @@ R^2=\frac{SS_T-SS_E}{SS_T}=1-\frac{SS_E}{SS_T}=1-\frac{\tilde{s}_e^2}{\tilde{s}_
 
 <pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))$r.squared</pre>
 
-<pre >## [1] 0.9907683</pre></div></article></slide>
+<pre >## [1] 0.9907683</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación ajustado</h2></hgroup><article  id="coeficiente-de-determinacion-ajustado">
+
+<p>El <strong>coeficiente de determinación</strong> definido anteriormente aumenta si aumentamos el número de variables independientes \(k\), incluso si éstas aportan información redundante o poca información. Por ejemplo, si añadimos variables que son linealmente dependientes de las demás.</p>
+
+<p>Para evitar este problema o para penalizar el aumento de variables independientes se usa en su lugar el <strong>coeficiente de regresión ajustado</strong>: \[
+R^2_{adj}=\frac{MS_T-MS_E}{MS_T},
+\] donde \(MS_T=\frac{SS_T}{n-1},\quad MS_E=\frac{SS_E}{n-k-1}.\)</p>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación ajustado</h2></hgroup><article  id="coeficiente-de-determinacion-ajustado-1">
+
+<p>Fijarse ahora que si aumentamos \(k\), el valor de \(MS_E\) aumenta y el valor de \(R^2_{adj}\) disminuirá. Por tanto, con el \(R^2_{adj}\) penalizamos el aumento de variables independientes.</p>
+
+<p>Si aumentamos el nombre de variables independientes con variables explicativas que aporten mucha información a la regresión, el valor de \(SS_E\) disminuirá haciendo que se mantenga estable el valor de \(MS_E\) y el valor de \(R^2_{adj}\) no disminuirá.</p>
+
+<p>La relación entre el <strong>coeficiente de determinación ajustado</strong> y el <strong>coeficiente de determinación</strong> es la siguiente: \[
+R^2_{adj}=1-(1-R^2)\frac{n-1}{n-k-1}.
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-29">
+
+<div class="example">
+<p>Calculemos el <strong>coeficiente de determinación ajustado</strong> para los datos de nuestro ejemplo:</p>
+
+<pre class = 'prettyprint lang-r'>k=dim(X)[2]-1
+(R2.adj = 1-(1-R2)*(n-1)/(n-k-1))</pre>
+
+<pre >##           [,1]
+## [1,] 0.9815367</pre>
+
+<p>Observamos que obtenemos un <strong>coeficiente de determinación ajustado</strong> menor que el <strong>coeficiente de determinación</strong>.</p></div>
+
+<p>En general, lo que hemos observado en el ejemplo anterior, ocurre siempre, es decir \(0\leq R^2_{adj} &lt; R^2\leq 1\), lo que nos permite concluir que para el <strong>coeficiente de determinación ajustado</strong>, es más difícil obtener un valor cercano a 1 que para el <strong>coeficiente de determinación</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación ajustado en <code>R</code></h2></hgroup><article  id="coeficiente-de-determinacion-ajustado-en-r">
+
+<p>El cálculo del <strong>coeficiente de determinación ajustado</strong> en <code>R</code> es parecido al cálculo del <strong>coeficiente de determinación</strong>: sólo hemos de cambiar el parámetro <code>r.squared</code> por <code>adj.r.squared</code></p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~x1+...+xk))$adj.r.squared</pre>
+
+<div class="example">
+
+<p>Para los datos de nuestro ejemplo, hemos de hacer lo siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))$adj.r.squared</pre>
+
+<pre >## [1] 0.9815367</pre>
+
+</article></slide><slide class=""><hgroup><h2>Comparación de modelos</h2></hgroup><article  id="comparacion-de-modelos">
+
+<p>Imaginemos que tenemos el modelo \[
+Y_{|x_1,\ldots,x_k}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k + E_{x_1,\ldots,x_k},
+\] y añadimos una nueva variable independiente \(x_{k+1}\). Entonces, tendremos otro modelo: \[
+Y_{|x_1,\ldots,x_k,x_{k+1}}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k +\beta_{k+1}+ E_{x_1,\ldots,x_k,x_{k+1}}.
+\] ¿Cómo podemos comparar los dos modelos anteriores?</p>
+
+<p>O, dicho en otras palabras, ¿cómo decidir si la nueva variable introducida \(x_{k+1}\) aporta información relevante?</p>
+
+</article></slide><slide class=""><hgroup><h2>Comparación de modelos</h2></hgroup><article  id="comparacion-de-modelos-1">
+
+<p>Una manera de realizar dicha comparación es usando el <strong>coeficiente de regresión ajustado</strong> \(R^2_{adj}\): el modelo que tenga mayor \(R^2_{adj}\) es el mejor.</p>
+
+<p>Por tanto, si el valor del <strong>coeficiente de regresión ajustado</strong> del segundo modelo supera el <strong>coeficiente de regresión ajustado</strong> del primero, diremos que la nueva variable \(x_{k+1}\) aporta información relevante y hay que tenerla en cuenta.</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-30">
+
+<div class="example">
+<p>Con los datos de nuestro ejemplo, consideremos sólo la variable independiente correspondiente a la segunda columna de la matriz \(\mathbf{X}\), variable que corresponde a la edad del niño en días.</p>
+
+<p>El <strong>coeficiente de correlación ajustado</strong> de este modelo que, por cierto, sería de <strong>regresión lineal simple</strong> vale:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]))$adj.r.squared</pre>
+
+<pre >## [1] 0.8822663</pre>
+
+<p>Consideremos ahora las dos primeras variables correspondientes a las columnas segunda y tercera de la matriz \(\mathbf{X}\), variables que corresponden a la edad del niño en días y su altura en nacer.</p>
+
+<p>El <strong>coeficiente de correlación ajustado</strong> de este modelo vale:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]+X[,3]))$adj.r.squared</pre>
+
+<pre >## [1] 0.9617198</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-31">
+
+<div class="example">
+<p>Hemos obtenido un <strong>coeficiente de regresión ajustado</strong> superior. Por tanto, ha valido la pena añadir la variable correspondiente a la altura al nacer del niño ya que nos ha aportado información relevante al modelo.</p>
+
+<p>Consideremos ahora las tres primeras variables correspondientes a las columnas segunda, tercera y cuarta de la matriz \(\mathbf{X}\), variables que corresponden a la edad del niño en días, su altura en nacer y su peso al nacer.</p>
+
+<p>El <strong>coeficiente de correlación ajustado</strong> de este modelo vale:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]+X[,3]+X[,4]))$adj.r.squared</pre>
+
+<pre >## [1] 0.9851091</pre>
+
+<p>Hemos vuelto a obtener un <strong>coeficiente de regresión ajustado</strong> superior al anterior. Por tanto, también ha valido la pena añadir la variable peso del niño al nacer al aportar dicha variable información relevante al modelo.</p>
+
+<p>Recordemos que el <strong>coeficiente de regresión ajustado</strong> del modelo completo era 0.9815367, valor inferior al obtenido anteriormente.</p>
+
+<p>Por tanto, la última variable, el aumento del peso actual del niño respecto de su peso al nacer, no aporta información relevante y no debe ser considerada en el modelo de regresión lineal múltiple.</p></div></article></slide>
 
 
   <slide class="backdrop"></slide>
