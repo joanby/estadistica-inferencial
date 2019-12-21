@@ -260,7 +260,7 @@ sigue aproximadamente al distribución $\chi^2_{k-1}$ grados de libertad.
 
 Sea $\chi_0$ el valor del estadístico de contraste anterior para nuestra muestra. El p-valor del contraste vale:
 $$
-p=P(\chi_k^2 > \chi_0),
+p=P(\chi_{k-1}^2 > \chi_0),
 $$
 
 ## Contraste $\chi^2$ de Pearson
