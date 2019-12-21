@@ -1,0 +1,111 @@
+---
+title: "Ejercicios de Contrastes de Hipótesis"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "12/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+reticulate::use_python("/Users/juangabriel/anaconda3/bin/python3")
+```
+
+## Ejercicio 1
+
+```{python}
+import pandas as pd
+ages = pd.read_csv("../datasets/ages.csv")
+print(ages)
+```
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \mu = 30 \\
+H_1: & \mu \neq 30
+\end{array}
+\right.
+$$
+
+```{python}
+import numpy as np
+age_mean = np.mean(ages)
+age_s_tilde = np.std(ages)
+print("La edad media es {a} y la desviación típica es {b}".format(a=age_mean, b=age_s_tilde))
+```
+
+
+```{python}
+from scipy.stats import ttest_1samp
+#from statsmodels.stats import weightstats as stests
+
+ttest, pval = ttest_1samp(ages, 30)
+#ztest, pval = stests.ztest(ages, x2=None, value = 30)
+print("El p valor del contraste es ", pval)
+
+if pval < 0.05:
+  print("Rechazamos la hipótesis nula")
+else:
+  print("Se acepta la hipótesis nula")
+```
+
+
+## Ejercicio 2
+
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \mu_1 = \mu_2 \\
+H_1: & \mu_1 \neq \mu_2
+\end{array}
+\right.
+$$
+
+```{python}
+week1 = pd.read_csv("../datasets/week1.csv")
+week2 = pd.read_csv("../datasets/week2.csv")
+print(week1)
+print(week2)
+
+print("Media de la semana 1: ", np.mean(week1))
+print("Media de la semana 2: ", np.mean(week2))
+print("Desviación típica de la semana 1: ", np.std(week1))
+print("Desviación típica de la semana 2: ", np.std(week2))
+
+```
+
+```{python}
+from scipy.stats import ttest_ind
+t_test, p_value = ttest_ind(week1, week2)
+print("El p-valor del contraste es",p_value)
+
+if p_value < 0.05:
+  print("Rechazamos la hipótesis nula")
+else:
+  print("Se acepta la hipótesis nula")
+```
+
+## Ejercicio 3
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \mu_1 = \mu_2 \\
+H_1: & \mu_1 \neq \mu_2
+\end{array}
+\right.
+$$
+
+
+```{python}
+from scipy.stats import ttest_rel
+t_test, p_value = ttest_rel(week1, week2)
+print("El p-valor del contraste es",p_value)
+
+if p_value < 0.05:
+  print("Rechazamos la hipótesis nula")
+else:
+  print("Se acepta la hipótesis nula")
+```
+
