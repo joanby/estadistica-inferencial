@@ -4557,7 +4557,45 @@ Y_{|x_1,\ldots,x_k,x_{k+1}}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k +\beta_{k
 
 <p>Recordemos que el <strong>coeficiente de regresión ajustado</strong> del modelo completo era 0.9815367, valor inferior al obtenido anteriormente.</p>
 
-<p>Por tanto, la última variable, el aumento del peso actual del niño respecto de su peso al nacer, no aporta información relevante y no debe ser considerada en el modelo de regresión lineal múltiple.</p></div></article></slide>
+<p>Por tanto, la última variable, el aumento del peso actual del niño respecto de su peso al nacer, no aporta información relevante y no debe ser considerada en el modelo de regresión lineal múltiple.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Comparación de modelos</h2></hgroup><article  id="comparacion-de-modelos-2">
+
+<p>Comparar dos modelos usando el <strong>coeficiente de regresión ajustado</strong> es uno de los métodos que hay en la literatura para ver si un método es más adecuado que otro.</p>
+
+<p>Existen más métodos como son el <strong>AIC</strong> (<em>Akaike’s Information Criterion</em>) o el método <strong>BIC</strong> (<em>Bayesian Information Criterion</em>).</p>
+
+<p>El método <strong>AIC</strong> cuantifica cuánta información de \(Y\) se pierde con el modelo y cuántas variables usamos: el mejor modelo es el que tiene un valor de <strong>AIC</strong> más pequeño. Concretamente, se calcula la cantidad siguiente: \(AIC=n\ln(SS_E/n)+2k\) y el modelo con menor <strong>AIC</strong> es el más adecuado.</p>
+
+<p>Para usar el método <strong>AIC</strong> en <code>R</code>, hay que usar la función <code>AIC</code>:</p>
+
+<pre class = 'prettyprint lang-r'>AIC(lm(y~x1+...+xk))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-32">
+
+<div class="example">
+<p>Veamos usando el método <strong>AIC</strong> cuál de los cuatro modelos vistos anteriormente para los datos de nuestro ejemplo es el más adecuado:</p>
+
+<pre class = 'prettyprint lang-r'>AIC(lm(y~X[,2]))</pre>
+
+<pre >## [1] 43.25982</pre>
+
+<pre class = 'prettyprint lang-r'>AIC(lm(y~X[,2]+X[,3]))</pre>
+
+<pre >## [1] 33.76103</pre>
+
+<pre class = 'prettyprint lang-r'>AIC(lm(y~X[,2]+X[,3]+X[,4]))</pre>
+
+<pre >## [1] 25.62252</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-33">
+
+<div class="example">
+<pre class = 'prettyprint lang-r'>AIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))</pre>
+
+<pre >## [1] 27.54953</pre>
+
+<p>El método <strong>AIC</strong> concuerda con el método del <strong>coeficiente de determinación ajustado</strong>. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz \(\mathbf{X}\) que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.</p></div></article></slide>
 
 
   <slide class="backdrop"></slide>

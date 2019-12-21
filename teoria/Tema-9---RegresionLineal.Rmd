@@ -1242,3 +1242,36 @@ Recordemos que el **coeficiente de regresión ajustado** del modelo completo era
 
 Por tanto, la última variable, el aumento del peso actual del niño respecto de su peso al nacer, no aporta información relevante y no debe ser considerada en el modelo de regresión lineal múltiple.
 </div>
+
+## Comparación de modelos
+
+Comparar dos modelos usando el **coeficiente de regresión ajustado** es uno de los métodos que hay en la literatura para ver si un método es más adecuado que otro.
+
+Existen más métodos como son el **AIC** (*Akaike's Information Criterion*) o el método **BIC** (*Bayesian Information Criterion*).
+
+El método **AIC** cuantifica cuánta información de $Y$ se pierde con el modelo y cuántas variables usamos: el mejor modelo es el que tiene un valor de **AIC** más pequeño. Concretamente, se calcula la cantidad siguiente: $AIC=n\ln(SS_E/n)+2k$ y el modelo con menor **AIC** es el más adecuado.
+
+Para usar el método **AIC** en `R`, hay que usar la función `AIC`:
+```{r,eval=FALSE}
+AIC(lm(y~x1+...+xk))
+```
+
+
+## Ejemplo
+<div class="example">
+Veamos usando el método **AIC** cuál de los cuatro modelos vistos anteriormente para los datos de nuestro ejemplo es el más adecuado:
+```{r}
+AIC(lm(y~X[,2]))
+AIC(lm(y~X[,2]+X[,3]))
+AIC(lm(y~X[,2]+X[,3]+X[,4]))
+```
+</div>
+
+
+## Ejemplo
+<div class="example">
+```{r}
+AIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))
+```
+El método **AIC** concuerda con el método del **coeficiente de determinación ajustado**. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz $\mathbf{X}$ que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.
+</div>
