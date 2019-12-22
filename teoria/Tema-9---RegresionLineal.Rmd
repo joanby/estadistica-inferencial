@@ -1548,3 +1548,153 @@ predict.lm(lm(y~x1+x2+x3+x4),newdata,interval="prediction",level= 0.95)
 
 
 </div>
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$
+
+En el caso de la **regresión lineal múltiple** podemos plantearnos el contraste de hipótesis siguiente:
+$$
+\left.\begin{array}{l} 
+H_0: \beta_1=\beta_2=\cdots=\beta_k=0, \\
+H_1: \mbox{existe algún $i$ tal que }\beta_i \neq 0.
+\end{array}
+\right\}
+$$
+Es decir, queremos contrastar si la **regresión lineal múltiple** realizada ha tenido sentido ya que la hipótesis nula equivaldría a decir que ninguna variable independiente $X_i$, $i=1,\ldots,k$ ha tenido efecto sobre la variable $Y$ y como consecuencia, la regresión no ha tenido sentido.
+
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$
+Para realizar el contraste de hipótesis anterior, podríamos plantear los $k$ contrastes siguientes:
+$$
+\left.\begin{array}{l} H_0: \beta_i=0, \\
+H_1: \beta_i \neq 0, \end{array}
+\right\}
+$$
+usando como **estadístico de contraste** $\frac{\beta_i-b_i}{\sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}}$,
+que sabemos que sigue una ley $t$ de Student con $n-k-1$ grados de libertad.
+
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$
+
+El problema es que los $k$ contrastes anteriores no son **independientes**, es decir, los **estadísticos de contraste** son variables aleatorias **no independientes** entre otras cosas porque su matriz de covarianzas no tiene por qué ser diagonal. 
+
+Por tanto, si realizamos el contraste de hipótesis original a partir de los $k$ contrastes anteriores, es muy complicado hallar el **error tipo I** $\alpha$ del contraste original a partir de los **errores tipo I** de cada uno de los $k$ contrastes al fallar la independencia de los mismos.
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$
+
+Otra posibilidad para evitar el problema comentado anteriormente es plantear el contraste original como un contraste **ANOVA** donde las subpoblaciones consideradas serían las variables $Y|\underline{x}_1, \ldots, Y|\underline{x}_n$ siendo $\underline{x}_1, \ldots, \underline{x}_n$, $n$ valores concretos de las variables independientes $(X_1,\ldots, X_k)$.
+
+Fijarse que si la hipótesis nula $H_0$ es cierta, es decir $\beta_1=\cdots =\beta_k=0$, entonces los valores medios de las variables anteriores serían los mismos ya que recordemos que suponemos que:
+$$
+\mu_{Y|\underline{x}}=\beta_0 +\beta_1 \cdot x_1 +\cdots +\beta_k\cdot x_k=\beta_0,
+$$
+para todo valor de $\underline{x}$.
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$
+Por tanto, el contraste original sería equivalente a realizar el contraste **ANOVA** siguiente:
+$$
+\left.\begin{array}{l}
+H_0:\mu_{Y|\underline{x}_1}=\cdots=\mu_{Y|\underline{x}_n},\\
+ H_1:\mbox{existen $i$ y $j$ tales que }\mu_{Y|\underline{x}_i}\neq \mu_{Y|\underline{x}_j}.
+\end{array}
+\right\}
+$$
+Para que el modelo de **regresión lineal múltiple** tenga sentido hemos de rechazar la hipótesis nula anterior.
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$
+La **tabla ANOVA** es la siguiente:
+
+<div class="center">
+|Origen variación|Grados de libertad|Sumas de cuadrados | Cuadrados medios|Estadístico de contraste|p-valor|
+|:---|:---:|:---:|:---:|:---:|:---:|
+|Regresión|$k$|$SS_R$|$MS_R=\frac{SS_R}{k}$|$F=\frac{MS_R}{MS_E}$|p-valor|
+|Error|$n-k-1$|$SS_E$|$MS_E=\frac{SS_E}{n-k-1}$| | |
+</div>
+donde el **estadístico de contraste** $F=\frac{MS_R}{MS_E}$, suponiendo la hipótesis nula cierta, sigue la distribución $F$ de $k$ y $n-k-1$ grados de libertad.
+
+El p-valor del contraste anterior vale $p=P(F_{k,n-k-1}\geq f_0),$
+siendo $f_0$ el valor del estadístico de contraste $F$ para nuestros datos.
+
+## Tabla ANOVA en `R`
+Para calcular la tabla ANOVA en `R` de una **regresión lineal múltiple** hay que usar la función `anova` de la forma siguiente:
+
+```{r,eval=FALSE}
+anova(lm(y ~ Xd))
+```
+donde `Xd` es una matrix cuyas columnas son los valores de las variables independientes $x_1,\ldots, x_k$.
+
+
+
+## Ejemplo
+<div class="example">
+Para hallar la tabla ANOVA para los datos de nuestro ejemplo, hemos de hacer lo siguiente:
+```{r}
+anova(lm(y~X[,2:5]))
+```
+Observamos que el p-valor es muy pequeño. Por tanto, rechazamos la hipótesis nula y concluimos que la regresión ha tenido sentido en este caso.
+</div>
+
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$
+Otro tipo de contrastes que podemos plantearnos sobre los parámetros del modelo $\beta_i$ es, si fijado $i$, $\beta_i$ aporta algo al modelo, o, si la variable $x_i$ es **significativa**.
+
+Concretamente, fijado $i$, nos planteamos el contraste siguiente:
+$$
+\left.\begin{array}{l} H_0: \beta_i=0, \\
+H_1: \beta_i \neq 0, \end{array}
+\right\}
+$$
+usando como **estadístico de contraste** $\frac{\beta_i-b_i}{\sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}}$,
+que sabemos que sigue una ley $t$ de Student con $n-k-1$ grados de libertad. 
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$
+
+El p-valor del contraste anterior vale $p=2\cdot P(t_{n-k-1}>|t_0$, donde $t_0$ es el valor obtenido por el estadístico de contraste usando nuestros datos.
+
+Para que la variable $x_i$ sea **significativa** o para que aporte información relevante al modelo de **regresión lineal múltiple**, debemos rechazar la hipótesis nula en el contraste anterior u obtener un p-valor pequeño.
+
+## Contrastes de hipótesis sobre los parámetros $\beta_i$ en `R`
+Para realizar todos los contrastes anteriores en `R` hay que usar la función `summary` aplicada al objecto `lm(...)`:
+```{r,eval=FALSE}
+summary(lm(y~x1+...+xk))
+```
+y `R` nos da toda la información sobre la **regresión múltiple** realizada.
+
+## Ejemplo
+<div class="example">
+Si aplicamos la función `summary` a los datos de nuestro ejemplo, obtenemos la salida siguiente:
+
+```{r,eval=FALSE}
+summary(lm(y~x1+x2+x3+x4))
+```
+
+</div>
+
+## Ejemplo
+
+<div class="example">
+```{r,echo=FALSE}
+summary(lm(y~x1+x2+x3+x4))
+```
+</div>
+
+
+## Ejemplo
+<div class="example">
+En primer lugar `R` nos da la lista de los errores cometidos en las estimaciones.
+
+En segundo lugar, `R` nos muestra una tabla con las columnas siguientes:
+
+* `Estimate`: los valores estimados de los parámetros $\beta_0,\beta_1,\beta_2,\beta_3$ y $\beta_4$. Es decir, los valores $b_0,b_1,b_2,b_3$ y $b_4$.
+* `Std. Error`: los errores estándars de los estimadores $b_0,b_1,b_2,b_3$ y $b_4$.
+* `t value`: el valor del estadístico de contraste cuando realizamos el contraste $\left.\begin{array}{l} H_0: \beta_i=0, \\
+H_1: \beta_i \neq 0, \end{array}
+\right\}$ sobre cada parámetro $\beta_i$, $i=0,1,2,3,4$.
+* `Pr(>|t|)`: los p-valores del contraste anterior.
+
+Observamos que todas las variables excepto la variable `x3`, peso del niño al nacer, son no significativas para el modelo.
+
+A continuación nos da el error residual que es la estimación de $\sqrt{S^2}$, el valor de coeficiente de determinación $R^2$ y el coeficiente de determinación ajustado $R^2_{adj}$.
+
+Para finalizar nos da el valor del estadístico de contraste ANOVA comentado anteriormente junto con el p-valor del mismo.
+
+</div>
