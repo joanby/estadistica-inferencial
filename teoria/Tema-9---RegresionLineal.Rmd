@@ -1275,3 +1275,72 @@ AIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))
 ```
 El método **AIC** concuerda con el método del **coeficiente de determinación ajustado**. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz $\mathbf{X}$ que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.
 </div>
+
+## Comparación de modelos
+
+El método **BIC** cuantifica cuánta información de $Y$ se pierde con el modelo y cuántas variables y datos usamos: el mejor modelo es el que tiene un valor de **BIC** más pequeño. Para saber si un modelo es mejor que otro, hay que calcular la cantidad siguiente: 
+$BIC=n\ln(SS_E/n)+k\ln(n)$ y, como ya hemos comentado, el modelo con menor **BIC** es el más adecuado.
+
+Para usar el método **BIC** en `R`, hay que usar la función `BIC`:
+```{r,eval=FALSE}
+BIC(lm(y~x1+...+xk))
+```
+
+## Ejemplo
+<div class="example">
+Veamos usando el método **BIC** cuál de los cuatro modelos vistos anteriormente para los datos de nuestro ejemplo es el más adecuado:
+```{r}
+BIC(lm(y~X[,2]))
+BIC(lm(y~X[,2]+X[,3]))
+BIC(lm(y~X[,2]+X[,3]+X[,4]))
+```
+</div>
+
+
+## Ejemplo
+<div class="example">
+```{r}
+BIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))
+```
+El método **BIC** concuerda con los dos métodos usados anteriormente: el método del **coeficiente de determinación ajustado** y el método **AIC**. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz $\mathbf{X}$ que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.
+</div>
+
+
+## Intervalos de confianza
+Vamos a calcular los intervalos de confianza para los $k+1$ parámetros de modelo $\beta_0,\beta_1,\ldots,\beta_k$.
+
+Para ello, al igual que hicimos en la **regresión lineal simple**, supondremos que las variables aleatorias error $E_i=E_{\underline{x}_{i}}$ son incorreladas, es decir, la covarianza entre un par de ellas cualesquiera es cero y todas normales de media 0 y de misma varianza $\sigma_E^2$.
+
+Antes de dar los intervalos de confianza, necesitamos conocer las propiedades sobre los estimadores de los parámetros anteriores, es decir, si son insesgados, cómo estimar la varianza común $\sigma_E^2$ y sus errores estándar.
+
+## Intervalos de confianza
+Dichas propiedades vienen dadas en los teoremas siguientes:
+
+<l class="prop">Teorema. </l>
+Bajo las hipótesis anteriores, los estimadores $b_0,\ldots, b_k$ de los parámetros
+$\beta_0,\ldots,\beta_k$ son máximo verosímiles y además no sesgados.
+
+<l class="prop">Teorema. </l>
+Bajo las hipótesis anteriores, 
+$$
+Cov(\beta_0,\beta_1,\ldots,\beta_k)= \sigma_E^2\cdot (\mathbf{X}^\top\cdot \mathbf{X})^{-1},
+$$
+y un estimador no sesgado de la varianza común $\sigma_E^2$ es $S^2=\frac{SS_E}{n-k-1}$.
+
+
+## Intervalos de confianza
+
+<l class="prop">Teorema. </l>
+Bajo las hipótesis anteriores, el error estándar de cada estimador $b_i$ vale
+$\sqrt{(\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}},$
+(la raíz cuadrada de la $i$-èsima entrada de la diagonal de la matriz $\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1}$ empezando por $i=0$.)
+
+<l class="prop">Teorema. </l>
+Bajo las hipótesis anteriores, 
+
+* la variable aleatoria  $\frac{\beta_i-b_i}{\sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}},$
+sigue un ley $t$ de Student cono $n-k-1$ grados de libertad,
+
+* un intervalo de confianza del $(1-\alpha)\cdot 100\%$ de confianza para el parámetro $\beta_i$ es
+$b_i\pm t_{n-k-1,1-\frac{\alpha}2}\cdot \sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}.$
+

@@ -4595,7 +4595,70 @@ Y_{|x_1,\ldots,x_k,x_{k+1}}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k +\beta_{k
 
 <pre >## [1] 27.54953</pre>
 
-<p>El método <strong>AIC</strong> concuerda con el método del <strong>coeficiente de determinación ajustado</strong>. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz \(\mathbf{X}\) que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.</p></div></article></slide>
+<p>El método <strong>AIC</strong> concuerda con el método del <strong>coeficiente de determinación ajustado</strong>. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz \(\mathbf{X}\) que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Comparación de modelos</h2></hgroup><article  id="comparacion-de-modelos-3">
+
+<p>El método <strong>BIC</strong> cuantifica cuánta información de \(Y\) se pierde con el modelo y cuántas variables y datos usamos: el mejor modelo es el que tiene un valor de <strong>BIC</strong> más pequeño. Para saber si un modelo es mejor que otro, hay que calcular la cantidad siguiente: \(BIC=n\ln(SS_E/n)+k\ln(n)\) y, como ya hemos comentado, el modelo con menor <strong>BIC</strong> es el más adecuado.</p>
+
+<p>Para usar el método <strong>BIC</strong> en <code>R</code>, hay que usar la función <code>BIC</code>:</p>
+
+<pre class = 'prettyprint lang-r'>BIC(lm(y~x1+...+xk))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-34">
+
+<div class="example">
+<p>Veamos usando el método <strong>BIC</strong> cuál de los cuatro modelos vistos anteriormente para los datos de nuestro ejemplo es el más adecuado:</p>
+
+<pre class = 'prettyprint lang-r'>BIC(lm(y~X[,2]))</pre>
+
+<pre >## [1] 43.85149</pre>
+
+<pre class = 'prettyprint lang-r'>BIC(lm(y~X[,2]+X[,3]))</pre>
+
+<pre >## [1] 34.54993</pre>
+
+<pre class = 'prettyprint lang-r'>BIC(lm(y~X[,2]+X[,3]+X[,4]))</pre>
+
+<pre >## [1] 26.60864</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-35">
+
+<div class="example">
+<pre class = 'prettyprint lang-r'>BIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))</pre>
+
+<pre >## [1] 28.73288</pre>
+
+<p>El método <strong>BIC</strong> concuerda con los dos métodos usados anteriormente: el método del <strong>coeficiente de determinación ajustado</strong> y el método <strong>AIC</strong>. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz \(\mathbf{X}\) que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-8">
+
+<p>Vamos a calcular los intervalos de confianza para los \(k+1\) parámetros de modelo \(\beta_0,\beta_1,\ldots,\beta_k\).</p>
+
+<p>Para ello, al igual que hicimos en la <strong>regresión lineal simple</strong>, supondremos que las variables aleatorias error \(E_i=E_{\underline{x}_{i}}\) son incorreladas, es decir, la covarianza entre un par de ellas cualesquiera es cero y todas normales de media 0 y de misma varianza \(\sigma_E^2\).</p>
+
+<p>Antes de dar los intervalos de confianza, necesitamos conocer las propiedades sobre los estimadores de los parámetros anteriores, es decir, si son insesgados, cómo estimar la varianza común \(\sigma_E^2\) y sus errores estándar.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-9">
+
+<p>Dichas propiedades vienen dadas en los teoremas siguientes:</p>
+
+<p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores, los estimadores \(b_0,\ldots, b_k\) de los parámetros \(\beta_0,\ldots,\beta_k\) son máximo verosímiles y además no sesgados.</p>
+
+<p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores, \[
+Cov(\beta_0,\beta_1,\ldots,\beta_k)= \sigma_E^2\cdot (\mathbf{X}^\top\cdot \mathbf{X})^{-1},
+\] y un estimador no sesgado de la varianza común \(\sigma_E^2\) es \(S^2=\frac{SS_E}{n-k-1}\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-10">
+
+<p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores, el error estándar de cada estimador \(b_i\) vale \(\sqrt{(\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}},\) (la raíz cuadrada de la \(i\)-èsima entrada de la diagonal de la matriz \(\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1}\) empezando por \(i=0\).)</p>
+
+<p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores,</p>
+
+<ul>
+<li><p>la variable aleatoria \(\frac{\beta_i-b_i}{\sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}},\) sigue un ley \(t\) de Student cono \(n-k-1\) grados de libertad,</p></li>
+<li><p>un intervalo de confianza del \((1-\alpha)\cdot 100\%\) de confianza para el parámetro \(\beta_i\) es \(b_i\pm t_{n-k-1,1-\frac{\alpha}2}\cdot \sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}.\)</p></li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>
