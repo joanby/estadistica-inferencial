@@ -448,7 +448,6 @@ Observamos que en el caso de la tabla de datos `(x3,y3)`, la recta de regresión
 Por tanto, considerar sólo el valor del **coeficiente de determinación** para medir el ajuste de la recta de regresión a nuestros datos no es conveniente.
 
 
-<<<<<<< HEAD
 
 ## Intervalos de confianza
 Para poder hallar los intervalos de confianza al $100\cdot (1-\alpha)$% de confianza sobre los parámetros $\beta_0$ y $\beta_1$, necesitamos el supuestos siguiente:
@@ -1343,6 +1342,3 @@ sigue un ley $t$ de Student cono $n-k-1$ grados de libertad,
 
 * un intervalo de confianza del $(1-\alpha)\cdot 100\%$ de confianza para el parámetro $\beta_i$ es
 $b_i\pm t_{n-k-1,1-\frac{\alpha}2}\cdot \sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}.$
-
-=======
->>>>>>> 48bb92e0f4b5d623fbb622b0f15d8b4bc819b971
