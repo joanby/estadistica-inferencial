@@ -4644,8 +4644,8 @@ Y_{|x_1,\ldots,x_k,x_{k+1}}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k +\beta_{k
 <p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores, los estimadores \(b_0,\ldots, b_k\) de los parámetros \(\beta_0,\ldots,\beta_k\) son máximo verosímiles y además no sesgados.</p>
 
 <p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores, \[
-Cov(\beta_0,\beta_1,\ldots,\beta_k)= \sigma_E^2\cdot (\mathbf{X}^\top\cdot \mathbf{X})^{-1},
-\] y un estimador no sesgado de la varianza común \(\sigma_E^2\) es \(S^2=\frac{SS_E}{n-k-1}\).</p>
+\mathrm{Cov}(b_0,b_1,\ldots,b_k)= \sigma_E^2\cdot (\mathbf{X}^\top\cdot \mathbf{X})^{-1},
+\] donde \(\mathrm{Cov}(b_0,b_1,\ldots,b_k)\) es la matriz de covarianzas de los estimadores \(b_0,b_1,\ldots b_k\) de los parámetros \(\beta_0,\beta_1,\ldots,\beta_k\) de componentes \(\mathrm{Cov}(b_0,b_1,\ldots,b_k)_{ij}=\mathrm{Cov}(b_i,b_j)\), \(i,j=0,1\ldots,k\) y un estimador no sesgado de la varianza común \(\sigma_E^2\) es \(S^2=\frac{SS_E}{n-k-1}\).</p>
 
 </article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-10">
 
@@ -4656,6 +4656,154 @@ Cov(\beta_0,\beta_1,\ldots,\beta_k)= \sigma_E^2\cdot (\mathbf{X}^\top\cdot \math
 <ul>
 <li><p>la variable aleatoria \(\frac{\beta_i-b_i}{\sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}},\) sigue un ley \(t\) de Student cono \(n-k-1\) grados de libertad,</p></li>
 <li><p>un intervalo de confianza del \((1-\alpha)\cdot 100\%\) de confianza para el parámetro \(\beta_i\) es \(b_i\pm t_{n-k-1,1-\frac{\alpha}2}\cdot \sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}.\)</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-36">
+
+<div class="example">
+<p>Veamos si los errores de los datos del ejemplo que vamos desarrollando se distribuyen normalmente usando el test de <strong>Kolmogorov-Smirnov-Lilliefors</strong>:</p>
+
+<pre class = 'prettyprint lang-r'>lillie.test(errores)</pre>
+
+<pre >## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  errores
+## D = 0.13583, p-value = 0.9029</pre>
+
+<p>Como el p-valor obtenido es muy grande, concluimos que no tenemos evidencias suficientes para rechazar la normalidad de los errores.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-37">
+
+<div class="example">
+<p>La estimación de la varianza común \(S^2\) será:</p>
+
+<pre class = 'prettyprint lang-r'>(S2 = SSE/(n-k-1))</pre>
+
+<pre >## [1] 0.7413952</pre>
+
+<p>La estimación de la matriz de covarianzas de los estimadores \(b_0,b_1,b_2,b_3,b_4\) es la siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>S2*solve(t(X)%*%X)</pre>
+
+<pre >##            [,1]        [,2]         [,3]          [,4]         [,5]
+## [1,] 270.918803  5.32456268 -12.52087701 -13.743054914 -1.399872458
+## [2,]   5.324563  0.11540219  -0.26585498  -0.325517882 -0.017626546
+## [3,] -12.520877 -0.26585498   0.61764126   0.742417814  0.041580221
+## [4,] -13.743055 -0.32551788   0.74241781   1.121859593 -0.005975861
+## [5,]  -1.399872 -0.01762655   0.04158022  -0.005975861  0.027709704</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-38">
+
+<div class="example">
+<p>En la matriz anterior, podemos observar que el estimador con más varianza sería \(b_0\) seguido de \(b_3\) que corresponde a la varianza del peso del niño al nacer.</p>
+
+<p>También podemos observar que entre las variables \(x_2\) (altura del niño al nacer) y \(x_3\) (peso del niño al nacer) existe una gran correlación lineal: 0.7424178.</p>
+
+<p>Las estimaciones de los errores estándar de los estimadores \(b_0,b_1,b_2,b_3,b_4\) son las siguientes:</p>
+
+<pre class = 'prettyprint lang-r'>(errores.estandar = sqrt(S2*diag(solve(t(X)%*%X))))</pre>
+
+<pre >## [1] 16.4596113  0.3397090  0.7859016  1.0591787  0.1664623</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-39">
+
+<div class="example">
+<p>Un intervalo de confianza para los estimadores \(b_0,b_1,b_2,b_3,b_4\) al 95% de confianza es el siguiente:</p>
+
+<ul>
+<li>Intervalo de confianza para \(b_0\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>alpha=0.05
+c(estimaciones.b[1]-qt(1-alpha/2,n-k-1)*errores.estandar[1],
+  estimaciones.b[1]+qt(1-alpha/2,n-k-1)*errores.estandar[1])</pre>
+
+<pre >## [1] -38.55167  52.84674</pre>
+
+<ul>
+<li>Intervalo de confianza para \(b_1\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>c(estimaciones.b[2]-qt(1-alpha/2,n-k-1)*errores.estandar[2],
+  estimaciones.b[2]+qt(1-alpha/2,n-k-1)*errores.estandar[2])</pre>
+
+<pre >## [1] -0.8430889  1.0432778</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-40">
+
+<div class="example">
+<ul>
+<li>Intervalo de confianza para \(b_2\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>c(estimaciones.b[3]-qt(1-alpha/2,n-k-1)*errores.estandar[3],
+  estimaciones.b[3]+qt(1-alpha/2,n-k-1)*errores.estandar[3])</pre>
+
+<pre >## [1] -1.455595  2.908430</pre>
+
+<ul>
+<li>Intervalo de confianza para \(b_3\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>c(estimaciones.b[4]-qt(1-alpha/2,n-k-1)*errores.estandar[4],
+  estimaciones.b[4]+qt(1-alpha/2,n-k-1)*errores.estandar[4])</pre>
+
+<pre >## [1] 0.1350854 6.0165886</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-41">
+
+<div class="example">
+<ul>
+<li>Intervalo de confianza para \(b_4\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>c(estimaciones.b[5]-qt(1-alpha/2,n-k-1)*errores.estandar[5],
+  estimaciones.b[5]+qt(1-alpha/2,n-k-1)*errores.estandar[5])</pre>
+
+<pre >## [1] -0.4922156  0.4321313</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza en <code>R</code></h2></hgroup><article  id="intervalos-de-confianza-en-r-2">
+
+<p>Recordemos que para hallar los intervalos de confianza en <code>R</code> había que usar la función <code>confint</code> aplicado al objeto <code>lm(...)</code>. El parámetro <code>level</code> nos da el nivel de confianza con valor por defecto 0.95:</p>
+
+<pre class = 'prettyprint lang-r'>confint(lm(y~x1+...+xk))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-42">
+
+<div class="example">
+<p>Si aplicamos la función anterior a los datos de nuestro ejemplo, obtenemos los intervalos de confianza para los estimadores \(b_0,b_1,b_2,b_3,b_4\) que ya hemos obtenido antes:</p>
+
+<pre class = 'prettyprint lang-r'>confint(lm(y~X[,2]+X[,3]+X[,4]+X[,5]),level=0.95)</pre>
+
+<pre >##                   2.5 %     97.5 %
+## (Intercept) -38.5516748 52.8467396
+## X[, 2]       -0.8430889  1.0432778
+## X[, 3]       -1.4555952  2.9084299
+## X[, 4]        0.1350854  6.0165886
+## X[, 5]       -0.4922156  0.4321313</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-11">
+
+<p>Tal como hemos hecho en la <strong>regresión lineal simple</strong>, fijados unos valores concretos de las variables independientes \((x_{10},\ldots,x_{k0})\) podemos considerar dos parámetros más a estudiar: el valor medio de la variable aleatoria \(Y|x_{10},\ldots,x_{k0}\), \(\mu_{Y|x_{10},\ldots,x_{k0}}\) y el valor estimado \(y_0=b_0+b_1\cdot x_{10}+\cdots + b_k\cdot x_{k0}\) por la función de regresión.</p>
+
+<p>Recordemos que los dos intervalos de confianza anteriores nos ayudan a interpretar la regresión cuando el valor de las variables \((X_1,\ldots,X_k)\) valen un determinado valor \((x_{10},\ldots,x_{k0})\).</p>
+
+<p>Para realizar la estimación puntual de los dos parámetros anteriores usaremos el mismo estimador \(\hat{y}_0 =b_0+b_1 x_1+\cdots + b_k x_k\) pero tal como pasaba en la <strong>regresión lineal simple</strong>, los errores estándard no serán los mismos tal como nos dicen el teorema siguiente.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-12">
+
+<p><l class="prop">Teorema. </l> Sean \(\underline{x}_0=(x_{01},\ldots,x_{0k})\) unos valores concretos de las variables \((X_1,\ldots, X_k\).</p>
+
+<p>Bajo las hipótesis anteriores,</p>
+
+<ul>
+<li><p>el error estándar de \(\widehat{y}_0\) como estimador del parámetro \(\mu_{Y|\underline{x}_0}\) es el siguiente: \[
+S\sqrt{\mathbf{x}_0\cdot  (\mathbf{X}^\top \cdot\mathbf{X})^{-1}\cdot \mathbf{x}_0^\top},
+\]</p></li>
+<li><p>el error estándar de \(\widehat{y}_0\) como estimador de \(y_0\) es el siguiente: \[
+S\sqrt{1+\mathbf{x}_0\cdot  (\mathbf{X}^\top \cdot\mathbf{X})^{-1}\cdot \mathbf{x}_0^\top}.
+\]</p></li>
 </ul></article></slide>
 
 
