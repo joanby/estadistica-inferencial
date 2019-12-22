@@ -1,0 +1,157 @@
+---
+title: "Contrastes de Hipótesis"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "12/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+reticulate::use_python("/Users/juangabriel/anaconda3/bin/python3")
+```
+
+```{python setup2, include = FALSE}
+import statsmodels.api as sm
+import numpy as np
+import matplotlib.pyplot as plt
+import statistics as st
+import pandas as pd
+```
+
+
+# Contrastes de hipótesis en Python
+
+## Contrastes para la proporción poblacional $p$
+
+### Contrastes de una muestra
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & p = 0.52 \\
+H_1: & p > 0.52
+\end{array}
+\right.
+$$
+
+- 1018 personas encuestadas
+- 570 personas que creen que el problema de insomnio de sus hijos son las redes sociales y uso de dispositivos electrónicos
+
+```{python}
+n = 1018
+x = 570
+p_null = 0.52
+p_hat = x/n
+print("p_hat = {ph}".format(ph=p_hat))
+```
+
+Para hacer un contraste de una proporción, se utiliza de `sm.stats` el test que pertoque.
+
+```{python}
+ht = sm.stats.proportions_ztest(x, n, p_null, alternative = 'larger')
+print("El estadístico de contraste es {ec} y su p-valor es {pv}".format(ec=ht[0], pv=ht[1]))
+```
+
+### Contrastes de dos muestras
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & p_1 - p_2 = 0 \\
+H_1: & p_1 - p_2 \neq 0
+\end{array}
+\right.
+$$
+donde $p_1$ es la proporción de niños autóctonos que van a natación y $p_2$ proporción de niños inmigrantes que van a natación.
+
+- 247 famílias inmigrantes, 36.8% van a natación
+- 308 famílias autóctonas, 38.9% van a natación
+
+```{python}
+n1 = 247
+p1 = .37
+
+n2 = 308
+p2 = .39
+
+
+population1 = np.random.binomial(1, p1, n1)
+population2 = np.random.binomial(1, p2, n2)
+
+print(population1)
+print(population2)
+
+sm.stats.ttest_ind(population1, population2)
+```
+
+## Contrastes para la media poblacional $\mu$
+
+### Contrastes de una muestra
+
+```{python}
+data = [80.57, 98.96, 85.28, 83.83, 69.94, 89.59, 91.09, 66.25, 91.21, 82.7 , 73.54, 81.99, 54.01, 82.89, 75.88, 98.32, 107.2 , 85.53, 79.08, 84.3 , 89.32, 86.35, 78.98, 92.26, 87.01]
+```
+
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \mu = 80 \\
+H_1: & \mu > 80
+\end{array}
+\right.
+$$
+donde $\mu$ representa la media de los saltos de la competición.
+
+
+
+```{python}
+n = len(data)
+x_bar = st.mean(data)
+s_tilde = st.stdev(data)
+print("El tamaño de la muestra es {n}, la media muestral es {x_bar} y la desviación muestral {s_tilde}".format(n=n, x_bar = x_bar, s_tilde = s_tilde))
+```
+
+```{python}
+sm.stats.ztest(data, value = 80, alternative = "larger")
+```
+
+### Contrastes de dos muestras
+
+Fuente de datos original: https://wwwn.cdc.gov/nchs/nhanes/ContinuousNhanes/Default.aspx?BeginYear=2015
+
+URL de los datos: https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/nhanes_2015_2016.csv
+
+
+El contraste que queremos llevar a cabo es
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \mu_1 = \mu_2 \\
+H_1: & \mu_1 \neq \mu_2
+\end{array}
+\right.
+$$
+
+```{python}
+url = "https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/nhanes_2015_2016.csv?token=ADCEA6ARLWCQ7IK43CRGD7K6A5CYK"
+data = pd.read_csv(url)
+data.head()
+
+females = data[data["RIAGENDR"]==2]
+males = data[data["RIAGENDR"]==1]
+
+print("El número de mujeres de la muestra son: {fem_n} y el número de hombres es: {mal_n}".format(fem_n = len(females), mal_n=len(males)))
+```
+
+Hacemos limpieza de NAs de nuestros datos:
+```{python}
+fem_bmi = females["BMXBMI"].dropna()
+mal_bmi = males["BMXBMI"].dropna()
+```
+
+```{python}
+sm.stats.ztest(fem_bmi, mal_bmi, alternative = "two-sided")
+```
+
