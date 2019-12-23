@@ -3208,9 +3208,9 @@ font-size: 0.5em
 
 <slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de independencia</h2></hgroup><article  id="contrastes-de-independencia">
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción">
 
-<p>Una de las aplicaciones más usadas del test de bondad de ajuste es testear si dos maneras de clasificar \(n\) objetos son <strong>independientes</strong> o no.</p>
+<p>Una de las aplicaciones más usadas del test de bondad de ajuste es contrastar si dos maneras de clasificar \(n\) objetos son <strong>independientes</strong> o no.</p>
 
 <p>Veamos un ejemplo ilustrativo:</p>
 
@@ -3221,7 +3221,7 @@ font-size: 0.5em
 
 <p>Esquematicemos los resultados en lo que se llama una tabla de contingencia:</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-1">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción-1">
 
 <div class="example">
 <div class="center">
@@ -3254,7 +3254,7 @@ font-size: 0.5em
 
 <p>¿Es el hecho de contraer hepatitis independiente de haber sido vacunado contra la dolencia?</p>
 
-<p>En este ejemplo, testear si la manera de clasificar a los voluntarios entre vacunados y no vacunados y la manera de clasificarlos entre enfermos por hepatitis y no enfermos es equivalente a testear si la vacuna es efectiva contra la hepatitis.</p>
+<p>En este ejemplo, contrastar si la manera de clasificar a los voluntarios entre vacunados y no vacunados y la manera de clasificarlos entre enfermos por hepatitis y no enfermos es equivalente a contrastar si la vacuna es efectiva contra la hepatitis.</p>
 
 <p>Decir que la vacuna no es efectiva sería equivalente a decir que vacunar a un individuo es independiente de que contraiga la hepatitis.</p></div>
 
@@ -3274,15 +3274,15 @@ font-size: 0.5em
 <table class = 'rmdtable'>
 <tr class="header">
 <th align="center">\(X/Y\)</th>
-<th align="center">\(Y_1\)</th>
+<th align="center">\(y_1\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_j\)</th>
+<th align="center">\(y_j\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_J\)</th>
+<th align="center">\(y_J\)</th>
 <th align="center">\(n_{i \bullet}\)</th>
 </tr>
 <tr class="odd">
-<td align="center">\(X_1\)</td>
+<td align="center">\(x_1\)</td>
 <td align="center">\(n_{11}\)</td>
 <td align="center">\(\ldots\)</td>
 <td align="center">\(n_{1j}\)</td>
@@ -3300,7 +3300,7 @@ font-size: 0.5em
 <td align="center">\(\vdots\)</td>
 </tr>
 <tr class="odd">
-<td align="center">\(X_i\)</td>
+<td align="center">\(x_i\)</td>
 <td align="center">\(n_{i1}\)</td>
 <td align="center">\(\ldots\)</td>
 <td align="center">\(n_{ij}\)</td>
@@ -3318,7 +3318,7 @@ font-size: 0.5em
 <td align="center">\(\vdots\)</td>
 </tr>
 <tr class="odd">
-<td align="center">\(X_I\)</td>
+<td align="center">\(x_I\)</td>
 <td align="center">\(n_{I1}\)</td>
 <td align="center">\(\ldots\)</td>
 <td align="center">\(n_{Ij}\)</td>
@@ -3356,7 +3356,7 @@ H_1: \mbox{ Los criterios de clasificación $X$ y $Y$ no son independientes.}
 
 <p>A partir de nuestros datos empíricos, contrastaremos si dichos datos siguen la variable &ldquo;modelo&rdquo; usando el test de la \(\chi^2\) de bondad de ajuste.</p>
 
-<p>Nuestra variable &ldquo;modelo&rdquo; será una variable aleatoria discreta <strong>bidimensional</strong> \((X,Y)\) con dominio \(\{(X_1,Y_1),\ldots,(X_I,Y_J)\}\), o, si se quiere \(\{(X_i,Y_j)\ |\ i=1,\ldots, I, \ j=1,\ldots,J\}\). Sería una variable con \(I\cdot J\) valores.</p>
+<p>Nuestra variable &ldquo;modelo&rdquo; será una variable aleatoria discreta <strong>bidimensional</strong> \((X,Y)\) con dominio \(\{(x_1,y_1),\ldots,(x_I,y_J)\}\), o, si se quiere \(\{(x_i,y_j)\ |\ i=1,\ldots, I, \ j=1,\ldots,J\}\). Sería una variable con \(I\cdot J\) valores.</p>
 
 </article></slide><slide class=""><hgroup><h2>Contraste de independencia como un contraste de bondad de ajuste</h2></hgroup><article  id="contraste-de-independencia-como-un-contraste-de-bondad-de-ajuste-1">
 
@@ -3369,11 +3369,11 @@ P((X,Y)=(x_i,y_j))=P(X=x_i)\cdot P(Y=y_j)=\frac{n_{i\bullet}}{n}\cdot \frac{n_{\
 </article></slide><slide class=""><hgroup><h2>Test \(\chi^2\) de independencia</h2></hgroup><article  id="test-chi2-de-independencia">
 
 <p>Una vez planteado el contraste de independencia como una contraste de <strong>bondad de ajuste</strong>, recordemos que el <strong>test \(\chi^2\)</strong> asociado al contraste es: \[
-\chi^2=\sum_{i=1}^I\sum_{j=1}^J \frac{\left( n_{ij}-n\cdot P((X,Y)=(X_i,Y_j))\right)^2 }{n\cdot P((X,Y)=(X_i,Y_j))}
+\chi^2=\sum_{i=1}^I\sum_{j=1}^J \frac{\left( n_{ij}-n\cdot P((X,Y)=(x_i,y_j))\right)^2 }{n\cdot P((X,Y)=(x_i,y_j))}
 =\sum_{i=1}^I\sum_{j=1}^J \frac{\left( n_{ij}-\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}\right)^2 }{\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}},
 \] donde las frecuencias \(n_{ij}\) serían las <strong>frecuencias observadas</strong> y las frecuencias \(\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}\) serían las <strong>frecuencias esperadas</strong>.</p>
 
-<p>Recordemos que Si \(n\) es grande y cada frecuencia esperada \(\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}\) es \(\geq 5\), este estadístico sigue aproximadamente una ley \(\chi^2\) con \((I-1) \cdot (J -1)\) <strong>grados de libertad</strong>.</p>
+<p>Recordemos que si \(n\) es grande y cada frecuencia esperada \(\frac{n_{i\bullet}\cdot n_{\bullet j}}{n}\) es \(\geq 5\), este estadístico sigue aproximadamente una ley \(\chi^2\) con \((I-1) \cdot (J -1)\) <strong>grados de libertad</strong>.</p>
 
 </article></slide><slide class=""><hgroup><h2>Test \(\chi^2\) de independencia</h2></hgroup><article  id="test-chi2-de-independencia-1">
 
@@ -3383,16 +3383,16 @@ P((X,Y)=(x_i,y_j))=P(X=x_i)\cdot P(Y=y_j)=\frac{n_{i\bullet}}{n}\cdot \frac{n_{\
 
 <p>La razón es la siguiente: recordemos que al realizar un <strong>test de bondad de ajuste</strong>, los <strong>grados de libertad</strong> del estadístico \(\chi^2\) era: \(g.l.=\mbox{número de clases}-\mbox{número de parámetros estimados}-1.\)</p>
 
-<p>Fijémonos que en el contraste de independencia hemos estimado \(I+J\) <strong>parámetros</strong> que corresponden a las <strong>medias de las variables \(X\) e \(Y\)</strong>: \(\frac{n_{i\bullet}}{n}\) y \(\frac{n_{\bullet j}}{n}\), \(i=1,\ldots, I\), \(j=1,\ldots,J\).</p>
+<p>Fijémonos que en el contraste de independencia hemos estimado \(I+J-2\) <strong>parámetros</strong> que corresponden a las <strong>medias de las variables \(X\) e \(Y\)</strong>: \(\frac{n_{i\bullet}}{n}\) y \(\frac{n_{\bullet j}}{n}\), \(i=1,\ldots, I\), \(j=1,\ldots,J\).</p>
 
 <p>En nuestro caso, nos queda: \[
-g.l. =I\cdot J-I-J-1=(I-1)\cdot (J-1).
+g.l. =I\cdot J-(I+J-2)-1=(I-1)\cdot (J-1).
 \]</p>
 
 </article></slide><slide class=""><hgroup><h2>Test \(\chi^2\) de independencia</h2></hgroup><article  id="test-chi2-de-independencia-2">
 
 <p>Como siempre, sea \(\chi_0\) el valor que toma el <strong>estadístico de contraste</strong>. El <strong>p-valor</strong> del contraste es: \[
-p=P(\chi_{(Y-1) \cdot (J -1)}^2\geq \chi_0),
+p=P(\chi_{(I-1) \cdot (J -1)}^2\geq \chi_0),
 \] con el significado usual:</p>
 
 <ul>
@@ -3494,8 +3494,8 @@ p=P(\chi^2_1 &gt; 48.242) = 0.
 <p>Queremos hacer el contraste: \[
 \left.
 \begin{array}{ll}
-H_0: \mbox{ El número de crías por loba es independiente de la zona}\\
-H_1: \mbox{ El número de crías por loba no es independiente de la zona}
+H_0: \mbox{ El número de crías por loba es independiente de la zona,}\\
+H_1: \mbox{ El número de crías por loba no es independiente de la zona.}
 \end{array}
 \right\}
 \]</p></div>
@@ -3508,7 +3508,7 @@ Toma una muestra de 200 lobas y obtiene la tabla siguiente:
 <div class="center">
 <table class = 'rmdtable'>
 <tr class="header">
-<th align="left">\(X\)\(Y\)</th>
+<th align="left">\(X/Y\)</th>
 <th align="left">\(Y_1\)</th>
 <th align="left">\(Y_2\)</th>
 <th align="left">\(Y_3\)</th>
@@ -3557,7 +3557,7 @@ Las frecuencias esperadas si las variables son independientes son:
 <div class="center">
 <table class = 'rmdtable'>
 <tr class="header">
-<th align="left">\(X\)\(Y\)</th>
+<th align="left">\(X/Y\)</th>
 <th align="left">\(Y_1\)</th>
 <th align="left">\(Y_2\)</th>
 <th align="left">\(Y_3\)</th>
@@ -3658,7 +3658,7 @@ p=P(\chi^2_{6} &gt; 31.605) =0.
 <div class="example">
 <p><strong>Ejemplo</strong></p>
 
-<p>La tabla de datos <code>WorldPhones</code> de <code>R</code> nos da el número de teléfonos que había en distintas regiones del mundo en los años 1951, 1956, 1957, 1958, 1959, 1960 y 1961:</p>
+<p>La tabla de datos <code>WorldPhones</code> de <code>R</code> nos da el número de teléfonos (en miles de unidades) que había en distintas regiones del mundo en los años 1951, 1956, 1957, 1958, 1959, 1960 y 1961:</p>
 
 <pre class = 'prettyprint lang-r'>WorldPhones</pre>
 
@@ -3695,7 +3695,7 @@ p=P(\chi^2_{6} &gt; 31.605) =0.
 </article></slide><slide class=""><hgroup><h2>Contraste de independencia en <code>R</code></h2></hgroup><article  id="contraste-de-independencia-en-r-4">
 
 <div class="example">
-<p>La tabla de frecuencias esperadas sería:</p></div>
+<p>La tabla de frecuencias esperadas sería:</p>
 
 <pre class = 'prettyprint lang-r'>(tabla.frec.esperadas = rowSums(WorldPhones)%*%t(colSums(WorldPhones)))/sum(WorldPhones)</pre>
 
@@ -3706,9 +3706,7 @@ p=P(\chi^2_{6} &gt; 31.605) =0.
 ## [4,] 68694.54 35345.20 6410.989 2853.151 2701.569 1527.2870  866.2664
 ## [5,] 72408.95 37256.36 6757.640 3007.425 2847.647 1609.8696  913.1066
 ## [6,] 77577.33 39915.63 7239.984 3222.088 3050.905 1724.7782  978.2820
-## [7,] 82213.67 42301.15 7672.675 3414.653 3233.240 1827.8581 1036.7482</pre>
-
-</div>
+## [7,] 82213.67 42301.15 7672.675 3414.653 3233.240 1827.8581 1036.7482</pre></div>
 
 </article></slide><slide class=""><hgroup><h2>Contraste de independencia en <code>R</code></h2></hgroup><article  id="contraste-de-independencia-en-r-5">
 
@@ -3725,7 +3723,7 @@ p=P(\chi^2_{6} &gt; 31.605) =0.
 
 <p>Vemos que el p-valor es depreciable. Concluimos que tenemos evidencias suficientes para rechazar que el año y la zona son independientes respecte del hecho de tener teléfono o no.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Caso en que las frecuencias esperadas no son inferiores a 5</h2></hgroup><article  id="caso-en-que-las-frecuencias-esperadas-no-son-inferiores-a-5">
+</article></slide><slide class=""><hgroup><h2>Caso en que las frecuencias esperadas son inferiores a 5</h2></hgroup><article  id="caso-en-que-las-frecuencias-esperadas-son-inferiores-a-5">
 
 <p>Si algunas frecuencias absolutas esperadas son inferiores a 5, la aproximación del p-valor por una distribución \(\chi^2\) podría no ser adecuada.</p>
 
@@ -3738,7 +3736,7 @@ p=P(\chi^2_{6} &gt; 31.605) =0.
 <div class="example">
 <p>Consideremos la tabla de datos <code>iris</code>. Nos planteamos si la especie de la flor es independiente de la longitud del pétalo.</p>
 
-<p>En primer lugar, hallamos la taula de contingencia de las dos variable (especie y longitud del pétalo), agrupando en cuatro clases la variable continua &ldquo;Longitud del pétalo&rdquo;:</p>
+<p>En primer lugar, hallamos la tabla de contingencia de las dos variables (especie y longitud del pétalo), agrupando en cuatro clases la variable continua &ldquo;Longitud del pétalo&rdquo;:</p>
 
 <pre class = 'prettyprint lang-r'>(tabla.contingencia =table(cut(iris$Petal.Length,4),iris$Species))</pre>
 
@@ -3802,7 +3800,7 @@ chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
 
 <p>Observamos que el p-valor es pequeño. Por tanto, concluimos que tenemos evidencias suficientes para rechazar que la longitud del pétalo y la especie sean independientes.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseno-experimental-en-el-contraste-de-independencia">
+</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseño-experimental-en-el-contraste-de-independencia">
 
 <p>En un <strong>contraste de independencia</strong> se toma una <strong>muestra transversal</strong> de la población, es decir, se selecciona al azar una cierta cantidad de individuos de la población, se observan las dos variables sobre cada uno de ellos, y se contrasta si las probabilidades conjuntas son iguales al producto de las probabilidades marginales de cada variable.</p>
 
@@ -3810,7 +3808,7 @@ chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de homogeneidad</h2></hgroup><article  id="contrastes-de-homogeneidad">
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-2">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción-2">
 
 <p>En un contraste de homogeneidad, tenemos dos variables discretas \(X\) e \(Y\) y nos planteamos si la distribución de la variable \(Y\) depende de los valores de la variable \(X\).</p>
 
@@ -3818,7 +3816,7 @@ chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
 \left.
 \begin{array}{ll}
 H_0: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; \mbox{es la misma para cualquier valor de $x$ del dominio de la variable $X$,}\\
-H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; \mbox{no es la misma para cualquier valor de $x$}
+H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; \mbox{no es la misma para cualquier valor de $x$.}
 \end{array}
 \right\}
 \]</p>
@@ -3837,15 +3835,15 @@ H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; 
 <table class = 'rmdtable'>
 <tr class="header">
 <th align="center">\(X/Y\)</th>
-<th align="center">\(Y_1\)</th>
+<th align="center">\(y_1\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_j\)</th>
+<th align="center">\(y_j\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_J\)</th>
+<th align="center">\(y_J\)</th>
 <th align="center">\(n_{i \bullet}\)</th>
 </tr>
 <tr class="odd">
-<td align="center">\(X_1\)</td>
+<td align="center">\(x_1\)</td>
 <td align="center">\(n_{11}\)</td>
 <td align="center">\(\ldots\)</td>
 <td align="center">\(n_{1j}\)</td>
@@ -3863,7 +3861,7 @@ H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; 
 <td align="center">\(\vdots\)</td>
 </tr>
 <tr class="odd">
-<td align="center">\(X_i\)</td>
+<td align="center">\(x_i\)</td>
 <td align="center">\(n_{i1}\)</td>
 <td align="center">\(\ldots\)</td>
 <td align="center">\(n_{ij}\)</td>
@@ -3881,7 +3879,7 @@ H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; 
 <td align="center">\(\vdots\)</td>
 </tr>
 <tr class="odd">
-<td align="center">\(X_I\)</td>
+<td align="center">\(x_I\)</td>
 <td align="center">\(n_{I1}\)</td>
 <td align="center">\(\ldots\)</td>
 <td align="center">\(n_{Ij}\)</td>
@@ -3914,11 +3912,11 @@ H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; 
 <table class = 'rmdtable'>
 <tr class="header">
 <th align="center">\(Y|X=x_i\)</th>
-<th align="center">\(Y_1\)</th>
+<th align="center">\(y_1\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_j\)</th>
+<th align="center">\(y_j\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_J\)</th>
+<th align="center">\(y_J\)</th>
 <th align="center">Total</th>
 </tr>
 <tr class="odd">
@@ -3934,17 +3932,17 @@ H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; 
 
 </article></slide><slide class=""><hgroup><h2>Contraste de homogeneidad como un contraste de bondad de ajuste</h2></hgroup><article  id="contraste-de-homogeneidad-como-un-contraste-de-bondad-de-ajuste-1">
 
-<p>Si la hipótesis nula es cierta, o, si la distribución de la variable condicionada \(Y|X=x_i\) es la misma para cualquier \(x_i\), significa que la distribución de cada fila coincidirá con la distribución de la última fila de la tabla de contingencia:</p>
+<p>Si la hipótesis nula es cierta, o, si la distribución de la variable condicionada \(Y|X=x_i\) es la misma para cualquier \(x_i\), significa que la distribución de cada fila &ldquo;coincidirá&rdquo; con la distribución de la última fila de la tabla de contingencia:</p>
 
 <div class="center">
 <table class = 'rmdtable'>
 <tr class="header">
 <th align="center">\(Y|X=x\)</th>
-<th align="center">\(Y_1\)</th>
+<th align="center">\(y_1\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_j\)</th>
+<th align="center">\(y_j\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_J\)</th>
+<th align="center">\(y_J\)</th>
 <th align="center">Total</th>
 </tr>
 <tr class="odd">
@@ -3958,7 +3956,7 @@ H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; 
 </tr>
 </table></div>
 
-<p>Dicha variable será nuestra <strong>variable &ldquo;modelo&rdquo;</strong>. Nuestro problema será, pues, chequear si la distribución de las <strong>frecuencias empíricas</strong> (fila \(i\)-ésima de la <strong>tabla de contingencia</strong>) coincide con la distribución de las <strong>frecuencias teóricas</strong> (última fila de la <strong>tabla de contingencia</strong>)</p>
+<p>Dicha variable será nuestra <strong>variable &ldquo;modelo&rdquo;</strong>. Nuestro problema será, pues, chequear si la distribución de las <strong>frecuencias empíricas</strong> (fila \(i\)-ésima de la <strong>tabla de contingencia</strong>) coincide con la distribución de las <strong>frecuencias teóricas</strong> (última fila de la <strong>tabla de contingencia</strong>). ¿Pero cómo podemos compararlas si, en principio tendrán tamaño diferente?</p>
 
 </article></slide><slide class=""><hgroup><h2>Contraste de homogeneidad como un contraste de bondad de ajuste</h2></hgroup><article  id="contraste-de-homogeneidad-como-un-contraste-de-bondad-de-ajuste-2">
 
@@ -3981,11 +3979,11 @@ H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; 
 <col width="14.285714%" />
 <tr class="header">
 <th align="center">\(Y|X=x\)</th>
-<th align="center">\(Y_1\)</th>
+<th align="center">\(y_1\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_j\)</th>
+<th align="center">\(y_j\)</th>
 <th align="center">\(\ldots\)</th>
-<th align="center">\(Y_J\)</th>
+<th align="center">\(y_J\)</th>
 <th align="center">Total</th>
 </tr>
 <tr class="odd">
@@ -4004,12 +4002,12 @@ H_1: &amp; \mbox{ La distribución de la variable condicional $Y|X=x$} \\ &amp; 
 <p>Si aplicamos el test \(\chi^2\) de bondad de ajuste, tenemos que el estadístico de contraste será: \[
 \chi^2_i = \sum_{j=1}^{J} \frac{(\mbox{frec. empíricas}-\mbox{frec. teóricas})^2}{\mbox{frec. teóricas}} =\sum_{j=1}^{J} \frac{\left(n_{ij}-\frac{n_{i\bullet} n_{\bullet j}}{n}\right)^2}{\frac{n_{i\bullet} n_{\bullet J}}{n}}.
 \] Ahora bien, tenemos en total \(i\) filas. Por tanto, tenemos que sumar el estadístico anterior para todas las filas: \[
-\chi^2 = \sum_{i=1}^I\sum_{j=1}^{J} \frac{\left(n_{ij}-\frac{n_{i\bullet} n_{\bullet j}}{n}\right)^2}{\frac{n_{i\bullet} n_{\bullet J}}{n}}.
+\chi^2 =\sum_{i=1}^I\chi^2_i =\sum_{i=1}^I\sum_{j=1}^{J} \frac{\left(n_{ij}-\frac{n_{i\bullet} n_{\bullet j}}{n}\right)^2}{\frac{n_{i\bullet} n_{\bullet J}}{n}}.
 \]</p>
 
 </article></slide><slide class=""><hgroup><h2>Contraste de homogeneidad como un contraste de bondad de ajuste</h2></hgroup><article  id="contraste-de-homogeneidad-como-un-contraste-de-bondad-de-ajuste-5">
 
-<p>Observar que nos queda la misma expresión que el <strong>estadístico de contraste</strong> para el <strong>contraste de independencia.</strong></p>
+<p>Observemos que nos queda la misma expresión que el <strong>estadístico de contraste</strong> que en el <strong>contraste de independencia.</strong></p>
 
 <p>Por tanto, desde el punto de vista de cómputo o de cálculo, realizar un <strong>contraste de independencia</strong> o de <strong>homogeneidad</strong> sería lo mismo.</p>
 
@@ -4029,7 +4027,7 @@ Recordemos que la tabla de contingencia en este ejemplo era:
 <div class="center">
 <table class = 'rmdtable'>
 <tr class="header">
-<th align="left">\(X\)\(Y\)</th>
+<th align="left">\(X/Y\)</th>
 <th align="left">\(Y_1\)</th>
 <th align="left">\(Y_2\)</th>
 <th align="left">\(Y_3\)</th>
@@ -4081,7 +4079,7 @@ Recordemos que la tabla de contingencia en este ejemplo era:
 
 <p>El contraste de homogeneidad consiste en este caso en testear si la distribución de la variable \(Y\), número de crías, es la misma para los tres valores de la variable \(X\).</p>
 
-<p>Para que dicho estudio tenga sentido, tendremos <strong>estratificar</strong> primero la población de las lobas según los valores de la variable \(X\). O sea, tendremos que elegir un número prefijado de lobas que vivan en el norte, un número prefijado de lobas que vivan en el centro y un número prefijado de lobas que vivan en el sur.</p>
+<p>Para que dicho estudio tenga sentido (desde el punto de vista de la homogeneidad), tendremos que <strong>estratificar</strong> primero la población de las lobas según los valores de la variable \(X\). Tendremos que elegir un número prefijado de lobas que vivan en el norte, un número prefijado de lobas que vivan en el centro y un número prefijado de lobas que vivan en el sur.</p>
 
 <p>Según los datos de la tabla anterior, se eligen aleatoriamente 50 lobas que viven en el norte, 100 lobas que viven en el centro y 50 lobas que viven en el sur. Fijaos que estos tres números se fijan antes de realizar los tres muestreos, cosa que no pasaba en el contraste de independencia. En dicho contraste, se fijaba un sólo número que sería el número total de lobas a clasificar.</p></div>
 

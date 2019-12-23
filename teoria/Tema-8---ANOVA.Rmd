@@ -23,11 +23,11 @@ Concretamente, supongamos que $k>2$ poblaciones.
 
 Algunas veces, segregaremos la población por $k$ subpoblaciones definidas por los niveles de un factor. 
 
-Por ejemplo, si queremos estudiar el peso de una población de una determinada edad, pongamos entre 30 y 40 años, podemos segregar por tipo de sangre, A, B, O y ABO ($k=4$) y preguntarnos si el peso medio de cada subpoblación segredada por el tipo de sangre es el mismo.
+Por ejemplo, si queremos estudiar el peso de una población de una determinada edad, pongamos entre 30 y 40 años, podemos segregar por tipo de sangre, A, B, O y AB ($k=4$) y preguntarnos si el peso medio de cada subpoblación segredada por el tipo de sangre es el mismo.
 
 ## Introducción
 
-Más concretamente, Sean $\mu_1,\ldots,\mu_k$ las medias de esta magnitud (peso en el ejemplo anterior) en cada una de las subpoblaciones o poblaciones. Nos planteamos el contraste siguiente:
+Más concretamente, sean $\mu_1,\ldots,\mu_k$ las medias de esta magnitud (peso en el ejemplo anterior) en cada una de las subpoblaciones o poblaciones. Nos planteamos el contraste siguiente:
 $$
 \left\{
 \begin{array}{l}
@@ -37,7 +37,7 @@ H_1 : \exists i,j \mid  \mu_i \not=\mu_j.
 \right.
 $$
 
-Como es habitual, la decisión que tomaremos será en función de una una muestra aleatoria de cada población.
+Como es habitual, la decisión que tomaremos será en función de una muestra aleatoria de cada población.
 
 ## Introducción
 La técnica que resuelve el contraste anterior se llama **ANOVA** de *ANalysis Of VAriance* en inglés, **Análisis de la varianza**, es castellano.
@@ -66,7 +66,7 @@ $$
 \mu_1\not\approx \mu_4
 $$
 
-Queremos un test que nos diga en un solo paso si todas son iguales, o si hay de diferentes. Si hubiera diferencias, en una segunda fase, buscaríamos en qué poblaciones tienen medias diferentes.
+Queremos un test que nos diga en un solo paso si todas son iguales, o si hay alguna diferente. Si hubiera diferencias, en una segunda fase, buscaríamos en qué pares de poblaciones hay medias diferentes.
 
 ## Introducción
 
@@ -127,13 +127,13 @@ knitr::include_graphics("Images/FD2-2.jpg",dpi=1200)
 
 # ANOVA de un factor
 
-## Clasificación simple, efectos fijados, diseño completamente aleatorio
+## Clasificación simple, efectos fijos, diseño completamente aleatorio
 
 Supongamos que estamos en los casos siguientes:
 
 * usamos un solo factor para clasificar la población en subpoblaciones (**clasificación simple**),
 
-* el investigador decide qué niveles (o tratamientos) del factor usará (**efectos fijados**),
+* el investigador decide qué niveles (o tratamientos) del factor usará (**efectos fijos**),
 
 * se toma una m.a.s. de cada subpoblación, de manera independiente unas de las otras (**completamente aleatorio**)
 
@@ -166,7 +166,7 @@ al cabo de una hora:
 </div>
 
 
-## Ejemplo
+## Ejemplo (continuación)
 <div class="example">
 <div class="center">
 **Presión de $CO{}_2$ (en atmósferas)**
@@ -186,14 +186,14 @@ al cabo de una hora:
 
 Los datos se suelen dar en forma de tabla donde las columnas suelen ser los niveles del factor. 
 
-Por tanto, en cada columna $i$-ésima habrá la muestra correspondiente al factor $i$-ésimo.
+Por tanto, en la columna $i$-ésima habrá la muestra correspondiente al factor $i$-ésimo.
 
 Más concretamente, supongamos que los datos vienen con la estructura siguiente:
 
 
 ## Almacenamiento de datos en ANOVA
 <div class="center">
-**Nivel del factor**
+**Niveles del factor**
 
 |$F_1$|$F_2$|$\cdots$|$F_k$|
 |:--:|:--:|:--:|:--:|
@@ -225,45 +225,45 @@ Para poder aplicar la **técnica ANOVA**, el paso previo es almacenar los datos 
 * variable característica, la llamaremos $X$,
 * variable factor, la llamaremos $F$.
 
-La variable $X$ tendrá como valores los valores de la tabla anterior $X_{ij}$ y la variable $F$ valdrá $i$ si la el valor de la variable $X$ corresponde al nivel $i$-ésimo del factor. 
+La variable $X$ tendrá como valores los valores de la tabla anterior $X_{ij}$ y la variable $F$ valdrá $i$ si el valor de la variable $X$ corresponde al nivel $i$-ésimo del factor. 
 
 De esta manera **transformaremos** la tabla anterior en una tabla de $N=n_1+\cdots + n_k$ filas y 2 columnas donde la primera columna serán los valores de la variable $X$ y la segunda columna, los valores de la variable $F$.
 
 ## Almacenamiento de datos en ANOVA
 <div class="example">
+**Ejemplo (continuación)**
+
 Realicemos la transformación anterior con los datos del ejemplo.
 
 Llamaremos a la variable $X$ `Incremento.celular` y a la variable $F$, `nivel.Presión`. 
 
 Los valores de las variables anteriores serán:
 ```{r}
-Incremento.celular=c(62.6,50.9,45.5,
- 29.5,24.9,59.6,44.3, 41.1,22.8,
- 17.2,64.5,47.5,29.8,19.2,
- 7.8,59.3, 49.5,38.3,20.6,10.5,58.6,48.5,40.2,
- 29.2,17.8, 64.6,50.4,38.5,24.1,22.1,50.9,35.2,
- 30.2,22.6, 22.6,56.2,49.9,27.0,32.7,16.8,52.3,
- 42.6,40.0, 24.4,15.9,62.8,41.6,33.9,29.6,8.8)
-nivel.Presión=rep(c("0.0","0.083","0.29","0.50","0.86"),
- times=10)
+Incremento.celular=c(
+  62.6,50.9,45.5,29.5,24.9,59.6,44.3,41.1,22.8,17.2,
+  64.5,47.5,29.8,19.2,7.8,59.3, 49.5,38.3,20.6,10.5,
+  58.6,48.5,40.2,29.2,17.8,64.6,50.4,38.5,24.1,22.1,
+  50.9,35.2,30.2,22.6,22.6,56.2,49.9,27.0,32.7,16.8,
+  52.3,42.6,40.0, 24.4,15.9,62.8,41.6,33.9,29.6,8.8)
+nivel.Presión=rep(c("0.0","0.083","0.29","0.50","0.86"),times=10)
 ```
 
 </div>
 
 ## Almacenamiento de datos en ANOVA
 <div class="example">
-Nuestra **tabla transformada** será:
+
+Los primeros elementos de nuestra **tabla transformada** son:
 ```{r}
 tabla.datos.ANOVA = data.frame(Incremento.celular,nivel.Presión)
 head(tabla.datos.ANOVA)
 ```
-</div>
 
-## Almacenamiento de datos en ANOVA
-<div class="example">
 Fijémonos que hemos transformado la tabla original de 10 filas y 5 columnas en otra tabla de `r dim(tabla.datos.ANOVA)[1]` filas y `r dim(tabla.datos.ANOVA)[2]` columnas.
 
 </div>
+
+## Almacenamiento de datos en ANOVA
 
 En general, si los datos vienen dados en una tabla donde las **columnas** representan los **niveles** de la variable **factor**, la tabla transformada tendrá $N=n_1+\cdots +n_k$ filas y 2 columnas.
 
@@ -272,6 +272,8 @@ En general, si los datos vienen dados en una tabla donde las **columnas** repres
 
 ## Ejemplo
 <div class="example">
+**Ejemplo (continuación)**
+
 Si realizamos un gráfico del porcentaje de aumento de masa celular según la variable presión del nivel de $CO{}_2$, obtenemos lo siguiente:
 
 ```{r,eval=FALSE}
@@ -288,7 +290,7 @@ Observamos gráficamente que las medias del porcentaje del aumento de masa celul
 ```{r,fig.align='center',echo=FALSE,fig.height=5.75}
 presión = as.numeric(as.character(tabla.datos.ANOVA$nivel.Presión))
 plot(presión,tabla.datos.ANOVA$Incremento.celular,type="p",
-     pch=18,cex=2,xlab="Nivel de CO2",ylab="% de massa celular")
+     pch=18,cex=2,xlab="Nivel de CO2",ylab="% de incremento de masa celular")
 ```
 </div>
 
@@ -305,12 +307,12 @@ Este gráfico corrobora lo que hemos dicho anteriormente: parecen que hay difere
 <div class="example">
 ```{r,eval=FALSE}
 plot(1:50,tabla.datos.ANOVA$Incremento.celular,type="p",pch=17,
-     xlab="Número de microorganismo",ylab="% de massa celular",cex=0)
+     xlab="Número de microorganismo (por nivel)",ylab="% de incremento de masa celular",cex=0)
 points(1:10,tabla.datos.ANOVA$Incremento.celular[seq(from=1,to=46,by=5)],pch=18,cex=1.5)
 points(11:20,tabla.datos.ANOVA$Incremento.celular[seq(from=2,to=47,by=5)],pch=15,cex=1.5)
 points(21:30,tabla.datos.ANOVA$Incremento.celular[seq(from=3,to=48,by=5)],pch=17,cex=1.5)
 points(31:40,tabla.datos.ANOVA$Incremento.celular[seq(from=4,to=49,by=5)],pch=19,cex=1.5)
-points(41:50,tabla.datos.ANOVA$Incremento.celular[seq(from=5,to=50,by=5)],pch=16,cex=1.5)
+points(41:50,tabla.datos.ANOVA$Incremento.celular[seq(from=5,to=50,by=5)],pch=8,cex=1.5)
 
 lines(c(0,50),c(mean(tabla.datos.ANOVA$Incremento.celular),
                 mean(mean(c(tabla.datos.ANOVA$Incremento.celular)))),lwd=3,col="red")
@@ -346,12 +348,12 @@ text(30,mean(tabla.datos.ANOVA$Incremento.celular[seq(from=5,to=50,by=5)]),
 <div class="example">
 ```{r,fig.align='center',echo=FALSE,fig.height=5.75}
 plot(1:50,tabla.datos.ANOVA$Incremento.celular,type="p",pch=17,
-     xlab="Número de microorganismo",ylab="% de massa celular",cex=0)
+     xlab="Número de microorganismo (por nivel)",ylab="% de incremento de masa celular",cex=0)
 points(1:10,tabla.datos.ANOVA$Incremento.celular[seq(from=1,to=46,by=5)],pch=18,cex=1.5)
 points(11:20,tabla.datos.ANOVA$Incremento.celular[seq(from=2,to=47,by=5)],pch=15,cex=1.5)
 points(21:30,tabla.datos.ANOVA$Incremento.celular[seq(from=3,to=48,by=5)],pch=17,cex=1.5)
 points(31:40,tabla.datos.ANOVA$Incremento.celular[seq(from=4,to=49,by=5)],pch=19,cex=1.5)
-points(41:50,tabla.datos.ANOVA$Incremento.celular[seq(from=5,to=50,by=5)],pch=16,cex=1.5)
+points(41:50,tabla.datos.ANOVA$Incremento.celular[seq(from=5,to=50,by=5)],pch=8,cex=1.5)
 
 lines(c(0,50),c(mean(tabla.datos.ANOVA$Incremento.celular),
                 mean(mean(c(tabla.datos.ANOVA$Incremento.celular)))),lwd=3,col="red")
@@ -376,10 +378,10 @@ text(30,mean(tabla.datos.ANOVA$Incremento.celular[seq(from=5,to=50,by=5)]),
 </div>
 
 ## El contraste ANOVA
-Recordemos que supondremos que los datos vienen dados según la estructura siguiente:
+Recordemos que los datos vienen dados según la estructura siguiente:
 
 <div class="center">
-**Nivel del factor**
+**Niveles del factor**
 
 |$F_1$|$F_2$|$\cdots$|$F_k$|
 |:--:|:--:|:--:|:--:|
@@ -409,20 +411,20 @@ A partir de los datos de las muestras, definimos los **estadísticos** siguiente
 <div class="example">
 Calculemos los **estadísticos** anteriores para los datos de nuestro ejemplo.
 
-* Para calcular la suma total de los datos del $i$-ésimo, usaremos la función `aggregate` de `R`:
+* Para calcular la suma total de los datos del $i$-ésimo nivel, usaremos la función `aggregate` de `R`:
 ```{r}
-sumas.niveles = aggregate(tabla.datos.ANOVA$Incremento.celular ~ 
-                            tabla.datos.ANOVA$nivel.Presión, FUN="sum")
+sumas.niveles = aggregate(Incremento.celular ~ nivel.Presión,
+                          data = tabla.datos.ANOVA, FUN="sum")
 sumas.niveles
 ```
 </div>
 
 ## Ejemplo
 <div class="example">
-* Para calcular la media total de los datos del $i$-ésimo, podemos usar otra vez la función `aggregate` de `R`:
+* Para calcular la media total de los datos del $i$-ésimo nivel, podemos usar otra vez la función `aggregate` de `R`:
 ```{r}
-medias.niveles = aggregate(tabla.datos.ANOVA$Incremento.celular ~ 
-                            tabla.datos.ANOVA$nivel.Presión, FUN="mean")
+medias.niveles = aggregate(Incremento.celular ~  nivel.Presión,
+                           data=tabla.datos.ANOVA, FUN="mean")
 medias.niveles
 ```
 </div>
@@ -460,11 +462,11 @@ Los estimadores de los parámetros son los siguientes:
 
 Las suposiciones del modelo son:
 
-* Las $k$ muestras son m.a.s. **independientes** extraídas de poblaciones $k$ específicas con medias $\mu_1,\ldots,\mu_k$.
+* Las $k$ muestras son m.a.s. **independientes** extraídas de $k$ poblaciones  específicas con medias $\mu_1,\ldots,\mu_k$.
 
 * Cada una de las $k$ poblaciones sigue una **ley normal.**
 
-* Todas estas poblaciones tienen la **misma varianza $\sigma^2$.** (**homocedasticidad**)
+* Todas estas poblaciones tienen la **misma varianza $\sigma^2$** (**homocedasticidad**).
 
 
 ## El modelo
@@ -488,18 +490,18 @@ dónde
 ## Identidad de la suma de cuadrados
 El teorema siguiente es la clave del contraste ANOVA. 
 
-Nos separa la **variabilidad de los datos** respecto la **media global** denominada **Suma Total de Cuadrados** en dos variabilidades:
+Separa la **variabilidad de los datos** respecto la **media global** denominada **Suma Total de Cuadrados** en dos variabilidades:
 
-* La **variabilidad de los medias de cada grupo** respecto la **media global**. A dicha **variabilidad** la llamaremos **Suma de Cuadrados de los Tratamientos**. Interesa que dicha **variabilidad** sea pequeña para que la hipótesis nula de **igualdad de medias** sea cierta.
+* La **variabilidad de las medias de cada grupo** respecto la **media global**. A dicha **variabilidad** la llamaremos **Suma de Cuadrados de los Tratamientos**. Interesa que dicha **variabilidad** sea pequeña para que la hipótesis nula de **igualdad de medias** sea cierta.
 
 * La **variabilidad de los datos** respecto **la media de cada grupo**. A dicha **variabilidad** la llamaremos **Suma de Cuadrados de los Residuos o Errores**. Interesa que dicha **variabilidad** sea grande para tener grupos lo más **heterogéneos** posibles de cara a aumentar la **potencia** del contraste ANOVA.
 
 ## Identidad de la suma de cuadrados
 <l class="prop">Teorema. </l>
 
-$\displaystyle \sum_{i=1}^k\sum_{j=1}^{n_i} (X_{ij}-\overline{X}_{\bullet\bullet})^2 =
+$$\displaystyle \sum_{i=1}^k\sum_{j=1}^{n_i} (X_{ij}-\overline{X}_{\bullet\bullet})^2 =
 \sum_{i=1}^k n_i (\overline{X}_{i\bullet}-\overline{X}_{\bullet\bullet})^2 +
-\sum_{i=1}^k\sum_{j=1}^{n_i} (X_{ij}-\overline{X}_{i\bullet})^2$
+\sum_{i=1}^k\sum_{j=1}^{n_i} (X_{ij}-\overline{X}_{i\bullet})^2$$
 
 * $SS_{Total}=\sum\limits_{i=1}^k\sum\limits_{j=1}^{n_i} (X_{ij}-\overline{X}_{\bullet\bullet})^2$   (Suma Total de Cuadrados)
 
@@ -513,7 +515,7 @@ $\displaystyle \sum_{i=1}^k\sum_{j=1}^{n_i} (X_{ij}-\overline{X}_{\bullet\bullet
 ## Identidad de la suma de cuadrados
 De cara a calcular las **variabilidades** o las **sumas** anteriores podemos usar las siguientes fórmulas equivalentes:
 
-* $\displaystyle SS_{Total}=\sum_{i=1}^k\sum_{j=1}^{n_i} X_{ij}^2 - \frac{T_{\bullet\bullet}^2}{N}$.
+* $\displaystyle SS_{Total}=\sum_{i=1}^k\sum_{j=1}^{n_i} X_{ij}^2 - \frac{T_{\bullet\bullet}^2}{N} = T^{(2)}_{\bullet\bullet} - \frac{T_{\bullet\bullet}^2}{N}$.
 
 * $\displaystyle SS_{Tr}=\sum_{i=1}^k \frac{T_{i\bullet}^2}{n_i} -\frac{T_{\bullet\bullet}^2}{N}$.  
 
@@ -523,6 +525,12 @@ De cara a calcular las **variabilidades** o las **sumas** anteriores podemos usa
 
 ## Identidad de la suma de cuadrados
 
+<div class="exercise">
+**Ejercicio**
+
+Demostrar las fórmulas anteriores. 
+</div>
+
 Usualmente escribiremos, para abreviar,
 $$
 T^{(2)}_{\bullet\bullet}=\sum\limits_{i=1}^k\sum\limits_{j=1}^{n_i} X_{ij}^2.
@@ -530,35 +538,36 @@ $$
 
 ## Ejemplo
 <div class="example">
-Calculemos las **variabilidades** o **sumas** anteriores para los datos de nuestro ejemplo de dos maneras distintas tal como queda indicado en las expresiones:
+Calculemos las **variabilidades** o **sumas** anteriores para los datos de nuestro ejemplo de dos maneras distintas tal como queda indicado en las expresiones. Nos vamos a ayudar de las variables siguientes:
+
+```{r}
+(ni=table(tabla.datos.ANOVA$nivel.Presión))
+(N=sum(ni))
+```
+
+## Ejemplo
+<div class="example">
 
 * $SS_{Total}=\sum\limits_{i=1}^k\sum\limits_{j=1}^{n_i} (X_{ij}-\overline{X}_{\bullet\bullet})^2=\sum\limits_{i=1}^k\sum\limits_{j=1}^{n_i} X_{ij}^2 - \dfrac{T_{\bullet\bullet}^2}{N}$:
 
 ```{r}
-n1=length(tabla.datos.ANOVA$Incremento.celular[tabla.datos.ANOVA$nivel.Presión=="0.0"]);
-n2=length(tabla.datos.ANOVA$Incremento.celular[tabla.datos.ANOVA$nivel.Presión=="0.083"]);
-n3=length(tabla.datos.ANOVA$Incremento.celular[tabla.datos.ANOVA$nivel.Presión=="0.29"]);
-n4=length(tabla.datos.ANOVA$Incremento.celular[tabla.datos.ANOVA$nivel.Presión=="0.50"]);
-n5=length(tabla.datos.ANOVA$Incremento.celular[tabla.datos.ANOVA$nivel.Presión=="0.86"]);
-N=n1+n2+n3+n4+n5;
 (SSTotal1 =sum((tabla.datos.ANOVA$Incremento.celular-media.muestral)^2))
 ```
-</div>
 
-
-## Ejemplo
-<div class="example">
 ```{r}
 (SSTotal = sum(tabla.datos.ANOVA$Incremento.celular^2)-suma.total^2/N)
 ```
+</div>
+
+## Ejemplo
+<div class="example">
 
 * $SS_{Tr}=\sum\limits_{i=1}^k n_i
 (\overline{X}_{i\bullet}-\overline{X}_{\bullet\bullet})^2=\sum\limits_{i=1}^k \dfrac{T_{i\bullet}^2}{n_i} -\dfrac{T_{\bullet\bullet}^2}{N}$:
 
 ```{r}
-(SStr1 = SSTr1=sum(table(tabla.datos.ANOVA$nivel.Presión)*
-                     (medias.niveles[,2]-media.muestral)^2))
-(SStr=sum(sumas.niveles[,2]^2/table(tabla.datos.ANOVA$nivel.Presión))-(suma.total^2)/N)
+(SSTr1=sum(ni*(medias.niveles[,2]-media.muestral)^2))
+(SSTr=sum(sumas.niveles[,2]^2/ni)-(suma.total^2)/N)
 ```
 
 
@@ -572,7 +581,7 @@ N=n1+n2+n3+n4+n5;
 
 ```{r}
 (SSE1=sum((tabla.datos.ANOVA$Incremento.celular-medias.niveles[,2])^2))
-(SSE=SSTotal-SStr)
+(SSE=SSTotal-SSTr)
 ```
 
 
@@ -660,7 +669,7 @@ Realicemos el contraste ANOVA para los datos de nuestro ejemplo.
 
 ```{r}
 SSTotal
-SStr
+SSTr
 SSE
 ```
 </div>
@@ -670,7 +679,7 @@ SSE
 * Cuadrados medios:
 ```{r}
 k=5
-(MStr = SStr/(k-1))
+(MStr = SSTr/(k-1))
 (MSE = SSE/(N-k))
 ```
 
@@ -718,7 +727,7 @@ options(scipen=999)
 <div class="center">
 |Origen variación|Grados de libertad|Sumas de cuadrados | Cuadrados medios|Estadístico de contraste|p-valor|
 |:---|---:|---:|---:|:---:|:---:|
-|Nivel|`r k-1`|`r round(SStr,2)`|`r round(MStr,2)`|`r round(F,2)`|`r round(p,3)`|
+|Nivel|`r k-1`|`r round(SSTr,2)`|`r round(MStr,2)`|`r round(F,2)`|`r round(p,3)`|
 |Residuo|`r N-k`|`r round(SSE,2)`|`r round(MSE,2)`| | |
 </div>
 </div>
@@ -736,16 +745,13 @@ donde recordemos que en la variable `X` se almacenan los valores $X_{ij}$ y en l
 
 ## Ejemplo
 <div class="example">
-Lo primero que podríamos hacer con los datos del ejemplo que estamos trabajando es hacer un boxplot del incremento celular en función de la presión:
+Lo primero que podríamos hacer es visualizar los datos del ejemplo con un boxplot:
 
 ```{r,fig.align='center'}
-boxplot(tabla.datos.ANOVA$Incremento.celular ~ tabla.datos.ANOVA$nivel.Presión,
+boxplot(Incremento.celular ~ nivel.Presión, data = tabla.datos.ANOVA,
         xlab="Presión",ylab="Incremento celular")
 ```
-
-
 </div>
-
 
 ## Ejemplo
 <div class="example">
@@ -766,7 +772,7 @@ Observamos que tenemos la misma tabla ANOVA obtenida haciendo los cálculos "a m
 Si hemos rechazado la hipótesis nula $H_0:\mu_1=\cdots =\mu_k$, el siguiente paso es averiguar 
 cuáles son los niveles diferentes. 
 
-O sea, hallar aquellas parejas $(\mu_i,\mu_j)$ para las que podamos decir que $\mu_i\neq \mu_j$.
+Es decir, hallar aquellas parejas $(\mu_i,\mu_j)$ para las que podamos decir que $\mu_i\neq \mu_j$.
 
 Aunque hay diferentes formas de hacerlo vamos a ver las más usuales.
 
@@ -789,19 +795,18 @@ $$
 que, si la hipótesis nula $H_0$ es cierta, sigue una distribución $t$ de Student con $N-k$ grados de libertad, $t_{N-k}$.
 
 ## Test T de Bonferroni
-El $p$-valor de cada contraste es $2P(t_{N-k}\geq |t_{i,j}|)$, donde $t_{i,j}$ es el valor que  toma la estadístico.
+El $p$-valor de cada contraste es $2P(t_{N-k}\geq |t_{i,j}|)$, donde $t_{i,j}$ es el valor que  toma el estadístico.
 
-<l class="observ">Observación:</l> si se realizan $c$ contrastes a un nivel de significación $\alpha$, la probabilidad de Error de Tipo I a alguno de ellos es mayor que $\alpha$: de hecho, es $1-(1-\alpha)^c$.
+<l class="observ">Observación:</l> si se realizan $c$ contrastes a un nivel de significación $\alpha$, la probabilidad de Error de Tipo I en al menos uno de ellos es mayor que $\alpha$. Si la calculamos, sería uno menos la probabilidad de no equivocarnos en ninguno de los contrastes, es decir $1-(1-\alpha)^c$.
 
-Por ejemplo, en el ejemplo que hemos desarrollado del aumento de la masa corporal del microorganismo, si realizamos $c=\binom52=10$ contrastes con nivel de significación $\alpha =0.05$, ¡la probabilidad de Error de Tipo I a alguno de ellos es 
-$1-(1-0.05)^{10} \approx 0.4$!
+En el ejemplo del aumento de la masa corporal del microorganismo, si realizamos $c=\binom52=10$ contrastes con nivel de significación $\alpha =0.05$, ¡la probabilidad de Error de Tipo I en al menos uno de ellos es $1-(1-0.05)^{10} \approx 0.4$!
 
 Por tanto, tendremos que reducir el nivel de significación de cada contraste para que la probabilidad final de Error de Tipo I sea $\alpha$.
 
 ## Test T de Bonferroni
 Usaremos la aproximación $1-(1-x)^c \approx cx$ y entonces, si queremos efectuar $c$ contrastes con nivel de significación (global) $\alpha$, los haremos con nivel de significación $\alpha/c$.
 
-Por ejemplo, n el ejemplo que hemos desarrollado del aumento de la masa corporal del microorganismo, si realizamos los  $10$ contrastes, para obtener un nivel de significación global  $\alpha =0.05$, realizamos cada contraste con nivel de significación $\frac{0.05}{10}=0.005$.
+En el ejemplo del aumento de la masa corporal del microorganismo, si realizamos los  $10$ contrastes, para obtener un nivel de significación global  $\alpha =0.05$, realizamos cada contraste con nivel de significación $\frac{0.05}{10}=0.005$.
 
 ## Ejemplo
 <div class="example">
@@ -809,18 +814,22 @@ Realicemos el test de Bonferroni para los datos de nuestro ejemplo.
 
 En primer lugar creamos una matriz cuyas filas son las parejas de niveles las medias de los cuales contrastaremos:
 ```{r}
-pares=rbind(c(1,2),c(1,3),c(1,4),c(1,5),
-   c(2,3),c(2,4),c(2,5),c(3,4),c(3,5),c(4,5))
-pares
+(pares=rbind(c(1,2),c(1,3),c(1,4),c(1,5),c(2,3),c(2,4),c(2,5),c(3,4),c(3,5),c(4,5)))
 ```
 </div>
 
 ## Ejemplo
 <div class="example">
 A continuación calculamos los valores  de todos los estadísticos de contraste:
+
+$$
+T=\frac{\overline{X}_{i\bullet} - \overline{X}_{j\bullet}}{\sqrt{MS_E\cdot (\frac1{n_i}
++\frac1{n_j})}},
+$$
+
 ```{r}
-(est.contraste.pares = (medias.niveles[pares[,1],2]-medias.niveles[pares[,2],2])
-  /(sqrt(MSE*(1/10+1/10))))
+(est.contraste.pares = (medias.niveles[pares[,1],2]-medias.niveles[pares[,2],2])/
+  (sqrt(MSE*(1/10+1/10))))
 ```
 </div>
 
@@ -861,9 +870,9 @@ Lo añadimos como columna a la matriz de parejas de niveles y estadísticos:
 
 ## Ejemplo
 <div class="example">
-A continuación nos preguntamos qué p-valores son menores que 0.05 para saber entre qué pares podemos aceptar que hay diferencias:
+A continuación nos preguntamos qué p-valores son menores que 0.05/10 para saber entre qué pares podemos aceptar que hay diferencias:
 ```{r}
-pares[which(p.valores<0.005),c(1,2)]
+pares[which(p.valores<0.005),]
 ```
 
 
@@ -871,19 +880,27 @@ pares[which(p.valores<0.005),c(1,2)]
 
 ## Ejemplo
 <div class="example">
-Vemos que en todos los pares se verifica que el p-valor es menor que 0.05.
+Vemos que en todos los pares se verifica que el p-valor es menor que 0.005.
 
-Concluimos por tanto que tenemos indicios suficientes para rechazar que no hay diferencias entre dos medias de aumento de masa celular del microorganismo para dos niveles cualquiera de presión de $CO{}_2$.
+Concluimos que hay evidencias suficientes para rechazar la igualdad de  medias de aumento de masa celular del microorganismo entre dos niveles cualquiera de presión de $CO{}_2$. Por tanto, $\mu_i\neq \mu_j$ para todo $i\neq j$.
 </div>
 
 
 ## Ejemplo con `R`
 <div class="example">
-Para realizar la comparación de parejas con `R`, tenemos que usar la función `pairwise.t.test`:
+Para realizar la comparación por parejas con `R`, usamos la función `pairwise.t.test`. El parámetro `p.adjust.method` puede tomar el valor "none" (que no hace ajuste alguno):
+```{r}
+pairwise.t.test(X,F,p.adjust.method = "none")
+```
+
+</div>
+
+## Ejemplo con `R`
+<div class="example">
+O bien el parámetro `p.adjust.method` puede tomar el valor "bonferroni" (que multiplicará el p-valor del contraste por el número de comparaciones llevadas a cabo, $\binom{k}{2}$):
 ```{r}
 pairwise.t.test(X,F,p.adjust.method = "bonferroni")
 ```
-
 
 </div>
 
@@ -892,7 +909,7 @@ pairwise.t.test(X,F,p.adjust.method = "bonferroni")
 <div class="example">
 `R` nos muestra una tabla donde las filas y las columnas son los niveles del factor y cuyos valores son los p-valores de los contrastes por parejas.
 
-Observamos que todos los p-valores son menores que 0.05 llegando a la misma conclusión que antes.
+Observamos que, en el primer caso todos los p-valores son menores que $\alpha/c=0.05/10$ (sin hacer ningún ajuste en el método) o bien que en el segundo caso, todos los p-valores son menores que $\alpha=0.05$, llegando en ambos casos a la misma conclusión que antes.
 
 </div>
 
@@ -938,10 +955,10 @@ round(pares.ord,12)
 
 ## Ejemplo
 <div class="example">
-A continuación, averiguamos qué contrastes verifican $\widetilde{P}_{k}\leq 0.05$:
+A continuación, averiguamos qué contrastes verifican $\widetilde{P}_{j}\leq 0.05$:
 
 ```{r}
-pares.ord[which(pares.ord[,5]<=0.05),c(1,2)] 
+pares.ord[which(pares.ord[,5]<=0.05),] 
 ```
 
 
@@ -949,15 +966,16 @@ pares.ord[which(pares.ord[,5]<=0.05),c(1,2)]
 
 ## Ejemplo
 <div class="example">
-En este caso, también vemos que en todos los pares se verifica que el p-valor es menor que 0.05.
+En este caso, también vemos que en todos los pares se verifica que el p-valor ajustado es menor que 0.05.
 
-Concluimos lo mismo que en los contrastes realizados usando el método de Bonferroni: tenemos indicios suficientes para rechazar que no hay diferencias entre dos medias de aumento de masa celular del microorganismo para dos niveles cualquiera de presión de $CO{}_2$.
+Concluimos lo mismo que en los contrastes realizados usando el método de Bonferroni: tenemos indicios suficientes para rechazar la igualdad de medias de aumento de masa celular del microorganismo para dos niveles cualquiera de presión de $CO{}_2$.
 </div>
 
 
 ## Ejemplo con `R`
 
-Para realizar la comparación de parejas con `R`, tenemos que usar la mima función `pairwise.t.test` que usábamos en los contrastes por parejas usando el método de Bonferroni pero cambiando el parámetro `p.adjust.method`:
+<div class="example">
+Para realizar la comparación de parejas con `R`, tenemos que usar la misma función `pairwise.t.test` que usábamos en los contrastes por parejas usando el método de Bonferroni pero cambiando el parámetro `p.adjust.method="holm"`:
 ```{r}
 pairwise.t.test(X,F,p.adjust.method = "holm")
 ```
@@ -967,9 +985,9 @@ pairwise.t.test(X,F,p.adjust.method = "holm")
 
 ## Ejemplo con `R`
 <div class="example">
-`R` nos vuelve a mostrar una tabla donde las filas y las columnas son los niveles del factor y cuyos valores son los p-valores de los contrastes por parejas pero usando el método de Holm.
+`R` nos vuelve a mostrar una tabla donde las filas y las columnas son los niveles del factor y cuyos valores son los p-valores de los contrastes por parejas pero ajustados usando el método de Holm.
 
-Observamos que todos los p-valores son menores que 0.05 llegando a la misma conclusión que antes.
+Observamos que todos los p-valores ajustados son menores que 0.05 llegando a la misma conclusión que antes.
 
 </div>
 
@@ -984,13 +1002,12 @@ Los pasos a realizar para llevarlo a cabo son los siguientes:
 
 ## Contraste de Duncan
 * Decidimos que existe diferencia entre estos dos niveles cuándo 
-$$
-D_Y> SSR_p=r_p \sqrt{\frac{MS_E (n_i +n_j)}{2 n_i n_j}}
-$$
-dónde $n_i$ y $n_j$ son las medidas de los dos niveles que comparamos y  $r_p$ es el **menor rango significativo** con $N-k$ grados de libertad, que encontraréis en la tabla del test de Duncan. Si vais a http://images.google.com y escribís "tabla del test de Duncan" en la casilla de búsqueda, encontraréis un montón de tablas del test de Duncan. 
+$D_Y> SSR_p=r_p \sqrt{\frac{MS_E (n_i +n_j)}{2 n_i n_j}}$, dónde $n_i$ y $n_j$ son los tamaños de las subpoblaciones correspondientes a los dos niveles que comparamos y  $r_p$ es el **menor rango significativo** con $N-k$ grados de libertad, que encontraréis en la tabla del test de Duncan. Si vais a http://images.google.com y escribís "tabla del test de Duncan" en la casilla de búsqueda, encontraréis un montón de tablas del test de Duncan. 
+
+La primera columna de la tabla del test de Duncan corresponde a los grados de libertad del error $N-k$, y la primera fila, al valor $p$. Para calcular el valor $r_p$, tenéis que buscar el valor $N-k$ en la primera columna y el valor $p$ en la primera fila y ver dónde se intersecan.
 
 ## Contraste de Duncan
-La primera columna de la tabla del test de Duncan corresponde a los grados de libertad del error, $N-k$ y la primera fila, al valor $p$. Para calcular el valor $r_p$, tenéis que buscar el valor $N-k$ en la primera columna y el valor $p$ en la primera fila y ver dónde se intersecan.
+
 
 <div class="example">
 Vamos a aplicar el test de Duncan a los datos del ejemplo que hemos desarrollado.
@@ -1032,7 +1049,7 @@ $$
 SSR_p=r_p \sqrt{\frac{MS_E}{10}}
 $$
 Calculamos los valores de $r_p$ cada $p=2,3,4,5$
-y con el nivel de significación $\alpha =0.05$: (usamos 40 como grados de libertad del error puesto que es el valor más
+y con el nivel de significación $\alpha =0.05$: (usamos 40 como grados de libertad del error para consultar en la tabla, puesto que es el valor más
 próximo a $N-k=45$)
 
 ```{r,echo=FALSE}
@@ -1043,7 +1060,7 @@ rp=c(2.858,3,3.102,3.171)
 <div class="center">
 |$p$|2|3|4|5|
 |:--|--:|--:|--:|--:|
-|$r_p$|2.858|3|3.102|3.171|
+|$r_p (con\ N-k=40)$|2.858|3|3.102|3.171|
 |$SSR_p$|`r round(rp[1]*sqrt(MSE/10),3)`|`r round(rp[2]*sqrt(MSE/10),3)`|`r round(rp[3]*sqrt(MSE/10),3)`|`r round(rp[4]*sqrt(MSE/10),3)`|
 </div>
 
@@ -1142,9 +1159,10 @@ Como no vemos ningún caso en que aparezcan dos letras, podemos concluir que las
 ## Contraste de Tukey
 Si la tabla de datos es balanceada, es decir, todas las submuestras correspondientes a cada uno de los niveles del factor tienen el mismo tamaño, el método más preciso de comparación de medias es el llamado **método de Tukey**.
 
-Es un test similar al **t-test** pero el **estadístico de contraste** tiene una distribución diferente.
+Es un test similar al **t-test** pero el **estadístico de contraste** tiene una distribución diferente. Podéis consultar el test en el link
+de la [Wikipedia](https://en.wikipedia.org/wiki/Tukey%27s_range_test).
 
-Par aplicar el **contraste de Tukey** en `R` hay que usar la función `TukeyHSD` y aplicarla al resultado de haber aplicado la función `aov`:
+Par aplicar el **contraste de Tukey** en `R` hay que usar la función `TukeyHSD` (*Honestly Significative Difference*) y aplicarla al resultado de haber aplicado la función `aov`:
 ```{r,eval=FALSE}
 TukeyHSD(aov(X~F))
 ```
@@ -1177,12 +1195,12 @@ En el modelo de efectos fijos que es el que hemos visto hasta ahora, el experime
 
 Cuando el número de niveles es muy grande, y se quiere averiguar si los niveles del factor tienen influencia en el valor medio del parámetro con el contraste:
 $$
-\left\{
+\left.
 \begin{array}{l}
 H_0 : \mbox{Las medias de todos los niveles son iguales,} \\
 H_1 : \mbox{No es cierto que todos los niveles tengan la misma media.}
 \end{array}
-\right.
+\right\}
 $$
 una posibilidad es elegir una m.a.s. de niveles, $k$, y aplicar la técnica ANOVA a estos niveles.
 
@@ -1263,8 +1281,12 @@ lillie.test(X[F=="0.86"])
 ## Ejemplo
 <div class="example">
 Vemos que según el test de Kolmogorov-Smirnov-Lilliefors, no podemos rechazar que las 5 submuestras correspondientes a cada nivel de presión sigan la distribución normal.
+</div>
 
-Dejamos como ejercicio al lector la comprobación de la normalidad usando los otros tests.
+<div class="exercise">
+**Ejercicio**
+
+Comprueba la normalidad de cada una de las poblaciones anteriores usando los otros tests vistos en el tema de Bondad de Ajuste.
 </div>
 
 
@@ -1359,12 +1381,12 @@ Escogemos como **bloques** conjuntos de individuos $k$ relacionados  (por ejempl
 
 Dentro de cada bloque, asignamos aleatoriamente a cada individuo un tratamiento.
 
-Estos bloques vienen a ser los aparejamientos de los datos en los **contrastes de medias dependientes**.
+Estos bloques vienen a ser los emparejamientos de los datos en los **contrastes de medias dependientes**.
 
 ## Introducción
 En un contraste de **bloques completos aleatorios**,
 
-* Se han aparejado los individuos en **bloques.** (**bloques**)
+* Se han emparejado los individuos en **bloques.** (**bloques**)
 
 * Los tratamientos se asignan de manera aleatoria dentro de los **bloques**. (**aleatorios**)
 
@@ -1416,14 +1438,13 @@ actividad. Ésta sería la variable extraña que nos puede distorsionar los resu
 
 Por lo tanto, no es aconsejable elegir tres grupos de individuos y a cada uno hacerle hacer una de las tres actividades físicas: las diferencias metabólicas entre los individuos elegidos podrían afectar los resultados y dar demasiada variación.
 
-Lo que hacemos es seleccionar algunos individuos (los **bloques**), pedir a cada uno
-que corra, ande y recorra en bicicleta una distancia fijada, y determinar para cada individuo el número
+Lo que hacemos es seleccionar algunos individuos al azar (los **bloques aleatorios**), pedir a cada uno que corra, ande y recorra en bicicleta una distancia fijada, y determinar para cada individuo el número
 de Kcal. consumidas por Km. durante cada actividad.
 
 Cada individuo es utilizado como un bloque.  Las actividades se realizan en orden aleatorio, con tiempo de recuperación entre
 una y otra.
 
-Al aparejar cada individuo con él mismo, eliminamos el efecto de la variación individual.
+Al emparejar cada individuo con él mismo, eliminamos el efecto de la variación individual.
 
 Por tanto, vamos a realizar un **Diseño de bloques completos aleatorios mixto**.
 </div>
@@ -1466,16 +1487,16 @@ H_1 : \exists i,j \mid  \mu_{i\bullet}\not=\mu_{j\bullet},
 \end{array}
 \right\}
 $$
-donde $\mu_{i\bullet}$, $i=1,2,3$ representa el número media de Kcal.
+donde $\mu_{i\bullet}$, $i=1,2,3$ representa la media de Kcal.
 consumidas por Km. mientras se corre, se pasea o se monta en bicicleta,
 respectivamente.
 </div>
 
 
 ## Modelo
-La expresión matemática del modelo a estudiar consiste ahora en separar las diferencias de los datos respecto la **media global** en cuatro sumandos: la **media global**, las diferencias de las **medias de cada nivel** respecto de la **media global**, las diferencias de las **medias de cada bloque** respecto la **media global** y los errores residuales:
+La expresión matemática del modelo a estudiar consiste ahora en separar las diferencias de los datos respecto la **media global** en tres sumandos: las diferencias de las **medias de cada nivel** respecto de la **media global**, las diferencias de las **medias de cada bloque** respecto la **media global** y los errores residuales:
 $$
-X_{ij}=\mu+ (\mu_{i\bullet}-\mu) +(\mu_{\bullet j}-\mu) + E_{ij}, \  i=1,\ldots,k,\ j=1,\ldots,b,
+X_{ij}-\mu= (\mu_{i\bullet}-\mu) +(\mu_{\bullet j}-\mu) + E_{ij}, \  i=1,\ldots,k,\ j=1,\ldots,b,
 $$
 
 
@@ -1501,7 +1522,7 @@ dónde:
 
 Las suposiciones del modelo son:
 
-* Las $k\cdot b$ observaciones constituyen muestras aleatorias independientes, cada una de medida $1$, de $k\cdot b$ poblaciones.
+* Las $k\cdot b$ observaciones constituyen muestras aleatorias independientes, cada una de tamaño $1$, de $k\cdot b$ poblaciones.
 
 * Estas $k\cdot b$ poblaciones son todas normales y con la misma varianza $\sigma^2$.
 
@@ -1517,7 +1538,7 @@ Expliquemos con más detalle qué entendemos cuando no hay **interacción** entr
 
 Consideremos dos ejemplos en que tenemos dos bloques: hombres y mujeres y tres tratamientos o niveles. 
 
-Las tablas siguientes no da las medias poblacionales de cada bloque/tratamiento dentro de cada grupo para los dos ejemplos.
+Las tablas siguientes nos dan las medias poblacionales de cada bloque/tratamiento dentro de cada grupo para los dos ejemplos.
 
 En el primer caso, no tenemos interacción. En cambio, en el segundo caso, sí hay interacción.
 
@@ -1593,12 +1614,13 @@ Definimos los siguientes estadísticos de cara a realizar el estudio:
 Vamos a calcular los estadísticos anteriores para nuestro ejemplo de cuantificación de la energía consumida al realizar distintos ejercicios físicos.
 
 En primer lugar, tal como hicimos con el ejemplo de ANOVA de un factor, transformamos nuestra tabla de datos en una tabla de datos de 3 columnas: en la primera habrá el número de Kcal. consumidas, en la segunda el tipo de ejercicio físico (tratamiento) y en la tercera el individuo que ha realizado el ejercicio físico (bloque):
+
 ```{r}
-kilocal = c(1.4,1.1,0.7,1.5,1.2,0.8,
- 1.8,1.3,0.7,1.7,1.3,0.8,1.6,0.7,0.1,1.5,1.2,
- 0.7,1.7,1.1,0.4,2.0,1.3,0.6);
-tratamiento = rep(1:3,8);
-bloque = rep(1:8,each=3);
+kilocal = c(1.4,1.1,0.7,1.5,1.2,0.8,1.8,1.3,
+            0.7,1.7,1.3,0.8,1.6,0.7,0.1,1.5,
+            1.2,0.7,1.7,1.1,0.4,2.0,1.3,0.6)
+tratamiento = rep(1:3,8)
+bloque = rep(1:8,each=3)
 tabla.datos.ANOVA.BLOQUES = data.frame(kilocal,tratamiento,bloque)
 ```
 
@@ -1618,8 +1640,8 @@ Calculemos a continuación los estadísticos definidos:
 
 * Suma total del tratamiento $i$-ésimo:
 ```{r}
-(sumas.tratamientos = aggregate(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
-                      tabla.datos.ANOVA.BLOQUES$tratamiento, FUN="sum"))
+(sumas.tratamientos = aggregate(kilocal ~ tratamiento,
+                                data = tabla.datos.ANOVA.BLOQUES, FUN="sum"))
 ```
 
 
@@ -1632,8 +1654,8 @@ Calculemos a continuación los estadísticos definidos:
 
 * Media muestral del tratamiento $i$-ésimo:
 ```{r}
-(medias.tratamientos = aggregate(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
-                      tabla.datos.ANOVA.BLOQUES$tratamiento, FUN="mean"))
+(medias.tratamientos = aggregate(kilocal ~ tratamiento, 
+                                 data = tabla.datos.ANOVA.BLOQUES, FUN="mean"))
 ```
 
 
@@ -1645,8 +1667,8 @@ Calculemos a continuación los estadísticos definidos:
 
 * Suma total del bloque $j$-ésimo:
 ```{r}
-(sumas.bloques = aggregate(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
-                      tabla.datos.ANOVA.BLOQUES$bloque, FUN="sum"))
+(sumas.bloques = aggregate(kilocal ~ bloque, 
+                                 data = tabla.datos.ANOVA.BLOQUES, FUN="sum"))
 ```
 
 
@@ -1657,8 +1679,8 @@ Calculemos a continuación los estadísticos definidos:
 
 * Media muestral del bloque $j$-ésimo:
 ```{r}
-(medias.bloques = aggregate(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
-                      tabla.datos.ANOVA.BLOQUES$bloque, FUN="mean"))
+(medias.bloques = aggregate(kilocal ~ bloque, 
+                            data = tabla.datos.ANOVA.BLOQUES, FUN="mean"))
 ```
 
 </div>
@@ -1672,7 +1694,7 @@ Calculemos a continuación los estadísticos definidos:
 
 * Media muestral global:
 ```{r}
-(media.muestral = suma.total/dim(tabla.datos.ANOVA.BLOQUES)[1])
+(media.muestral = suma.total/nrow(tabla.datos.ANOVA.BLOQUES))
 ```
 
 * Suma total de cuadrados:
@@ -1751,7 +1773,7 @@ Calculemos las variabilidades definidas para los datos del ejemplo que estamos d
 
 * Variabilidad total:
 ```{r}
-(SST = suma.total.cuadrados-suma.total^2/dim(tabla.datos.ANOVA.BLOQUES)[1])
+(SST = suma.total.cuadrados-suma.total^2/nrow(tabla.datos.ANOVA.BLOQUES))
 ```
 
 * Variabilidad debida a los tratamientos:
@@ -1759,7 +1781,7 @@ Calculemos las variabilidades definidas para los datos del ejemplo que estamos d
 num.bloques = 8
 num.tratamientos = 3
 (SS.Tr = (1/num.bloques)*sum(sumas.tratamientos[,2]^2)-
-    suma.total^2/dim(tabla.datos.ANOVA.BLOQUES)[1])
+    suma.total^2/nrow(tabla.datos.ANOVA.BLOQUES))
 ```
 </div>
 
@@ -1768,7 +1790,7 @@ num.tratamientos = 3
 * Variabilidad debida a los bloques:
 ```{r}
 (SS.Bl = (1/num.tratamientos)*sum(sumas.bloques[,2]^2)-
-   suma.total^2/dim(tabla.datos.ANOVA.BLOQUES)[1])
+   suma.total^2/nrow(tabla.datos.ANOVA.BLOQUES))
 ```
 
 * Variabilidad debida a factores aleatorios:
@@ -1784,8 +1806,8 @@ $$
 \left.
 \begin{array}{l}
 H_0 :  \mu_{1\bullet}=\cdots =\mu_{k\bullet}, \\
-H_1 : \exists i,j=1,\ldots ,k\mid  \mu_{i\bullet}.
-\neq \mu_{j\bullet}
+H_1 : \exists i,j=1,\ldots ,k\mid  \mu_{i\bullet}
+\neq \mu_{j\bullet}.
 \end{array}
 \right\}
 $$
@@ -1836,12 +1858,12 @@ Realicemos el contraste ANOVA por bloques en el ejemplo que vamos desarrollando.
 
 Los cuadrados medios serán:
 
-* Cuadrado medio de los tratamientos: $MS_{Tr}=\dfrac{SS_{Tr}}{k-1}$:
+* Cuadrado medio de los tratamientos, $MS_{Tr}=\dfrac{SS_{Tr}}{k-1}$:
 ```{r}
 (MS.Tr = SS.Tr/(num.tratamientos-1))
 ```
 
-* Cuadrado medio del error: $MS_E = \dfrac{SS_E}{(b-1) (k-1)}$:
+* Cuadrado medio del error, $MS_E = \dfrac{SS_E}{(b-1) (k-1)}$:
 ```{r}
 (MSE=SSE/((num.bloques-1)*(num.tratamientos-1)))
 ```
@@ -1850,12 +1872,12 @@ Los cuadrados medios serán:
 ## Ejemplo
 <div class="example">
 
-* Cuadrado medio de los bloques: $MS_{Bl}=\dfrac{SS_{Bl}}{b-1}$:
+* Cuadrado medio de los bloques, $MS_{Bl}=\dfrac{SS_{Bl}}{b-1}$:
 ```{r}
 (MS.Bl = SS.Bl/(num.bloques-1))
 ```
 
-* Estadístico de contraste:
+* Estadístico de contraste, $F=\frac{MS_{Tr}}{MS_E}$:
 ```{r}
 (est.contraste = MS.Tr/MSE)
 ```
@@ -1864,13 +1886,13 @@ Los cuadrados medios serán:
 
 ## Ejemplo
 <div class="example">
-* p-valor:
+* p-valor, $p=P(F_{k-1,(k-1)(b-1)}\geq F)$:
 ```{r}
 (p=pf(est.contraste,num.tratamientos-1,(num.tratamientos-1)*(num.bloques-1),
       lower.tail = FALSE))
 ```
 
-Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes para rechazar que las medias de los tratamientos sean iguales. O sea, la energía consumida en correr, pasear y montar en bicicleta no es la misma para los tres casos.
+Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes para rechazar que las medias de los tratamientos sean iguales. Es decir, la energía consumida al correr, pasear y montar en bicicleta no es la misma para los tres casos.
 </div>
 
 ## Tabla del contraste
@@ -1913,8 +1935,8 @@ donde recordemos que en la variable `X` se almacenan los valores de la variable 
 El contraste ANOVA por bloques en `R` para nuestro ejemplo se realizaría de la forma siguiente:
 
 ```{r}
-summary(aov(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
-              tabla.datos.ANOVA.BLOQUES$tratamiento + tabla.datos.ANOVA.BLOQUES$bloque))
+summary(aov(kilocal ~ tratamiento + bloque, 
+            data = tabla.datos.ANOVA.BLOQUES))
 ```
 </div>
 
@@ -1933,12 +1955,13 @@ Para solucionar este problema, le decimos a `R` que dichas columnas son factores
 <div class="example">
 
 ```{r}
-summary(aov(tabla.datos.ANOVA.BLOQUES$kilocal ~ 
-              as.factor(tabla.datos.ANOVA.BLOQUES$tratamiento) 
-            + as.factor(tabla.datos.ANOVA.BLOQUES$bloque)))
+summary(aov(kilocal ~  as.factor(tratamiento) + as.factor(bloque),
+            data = tabla.datos.ANOVA.BLOQUES))
 ```
 
 Observamos que hemos obtenido la misma tabla que la tabla obtenida haciendo los cálculos "a mano".
+
+Notemos que no nos interesa ni el segundo estadístico de contraste ni el segundo p-valor, puesto que queremos evaluar si los tratamientos tienen o no la misma efectividad (pero `R` no sabe quien es el bloque ni quien es el tratamiento).
 
 </div>
 
@@ -2014,7 +2037,7 @@ Concretamente, para llevar a cabo el **ANOVA de dos vías**, consideraremos el c
 
 * Usaremos todos los niveles de cada factor (*efectos fijos*).
 
-* Tomaremos muestras aleatorias independientes del mismo tamaño de cada combinación de niveles de los dos factores (**completamente aleatorio  y balanceado**)
+* Tomaremos muestras aleatorias independientes del mismo tamaño de cada combinación de niveles de los dos factores (**completamente aleatorio  y balanceado**).
 
 ## Introducción
 
@@ -2120,7 +2143,7 @@ La transformación de la tabla de datos para el ejemplo anterior se realizaría 
 GSI = c(0.90,0.83,1.06,0.67,0.98,0.57,1.29,0.47,1.12,0.66,
         1.30,1.01,2.88,1.52,2.42,1.02,2.66,1.32,2.94,1.63)
 temperatura = factor(rep(c(27,16),each=10))
-fotoperiodos = factor(rep(c(9,14),10))
+fotoperiodos = factor(rep(c(9,14),times=10))
 tabla.datos.GSI = data.frame(GSI,temperatura,fotoperiodos)
 head(tabla.datos.GSI)
 ```
@@ -2180,24 +2203,26 @@ donde
 Definimos los estadísticos siguientes:
 
 
-* Suma y media de los datos para la combinación de niveles $i$ y $j$: $T_{ij\bullet}=\sum\limits_{k=1}^n X_{ijk}$, $\overline{X}_{ij\bullet}=\dfrac{T_{ij\bullet}}{n}$.
+* Suma y media de los datos para la combinación de niveles $i$ y $j$: $$T_{ij\bullet}=\sum\limits_{k=1}^n X_{ijk}, \quad \overline{X}_{ij\bullet}=\dfrac{T_{ij\bullet}}{n}.$$
  
-* Suma y media de los datos para el nivel $i$-ésimo: $T_{i\bullet\bullet}=\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{j=1}^b T_{ij\bullet}$,   $\overline{X}_{i\bullet\bullet}=\dfrac{T_{i\bullet\bullet}}{bn}$.
+* Suma y media de los datos para el nivel $i$-ésimo: $$T_{i\bullet\bullet}=\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{j=1}^b T_{ij\bullet},\quad \overline{X}_{i\bullet\bullet}=\dfrac{T_{i\bullet\bullet}}{bn}.$$
 
 
 
 
 ## Sumas y medias
 
-* Suma y media de los datos para el nivel $j$-ésimo: $T_{\bullet j\bullet}=\sum\limits_{i=1}^a\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{i=1}^a T_{ij\bullet}$, 
-$\overline{X}_{\bullet j\bullet}=\dfrac{T_{\bullet j\bullet}}{an}$.
+* Suma y media de los datos para el nivel $j$-ésimo: 
+$$T_{\bullet j\bullet}=\sum\limits_{i=1}^a\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{i=1}^a T_{ij\bullet}, \quad \overline{X}_{\bullet j\bullet}=\dfrac{T_{\bullet j\bullet}}{an}.$$
 
-* Suma total de los datos: $T_{\bullet\bullet\bullet}=\sum\limits_{i=1}^{a}\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{i=1}^{a}
-T_{i\bullet\bullet}=\sum\limits_{j=1}^b T_{\bullet j\bullet}$.
+* Suma total de los datos: $$T_{\bullet\bullet\bullet}=\sum\limits_{i=1}^{a}\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{i=1}^{a}
+T_{i\bullet\bullet}=\sum\limits_{j=1}^b T_{\bullet j\bullet}.$$
 
-* Media muestral de todos los datos: $\overline{X}_{\bullet\bullet\bullet}=\dfrac{T_{\bullet\bullet\bullet}}{a b n}$.
+## Sumas y medias
 
-* Suma de los cuadrados de los datos: $T^{(2)}_{\bullet\bullet\bullet}=\sum\limits_{i=1}^{a}\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}^2$.
+* Media muestral de todos los datos: $$\overline{X}_{\bullet\bullet\bullet}=\dfrac{T_{\bullet\bullet\bullet}}{a b n}.$$
+
+* Suma de los cuadrados de los datos: $$T^{(2)}_{\bullet\bullet\bullet}=\sum\limits_{i=1}^{a}\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}^2.$$
 
 
 ## Ejemplo
@@ -2206,9 +2231,8 @@ Los valores de los estadísticos anteriores para los datos de nuestro ejemplo so
 
 * Suma de los datos para la combinación de niveles $i$ y $j$:
 ```{r}
-(suma.combinación.niveles = aggregate(tabla.datos.GSI$GSI ~ 
-                            tabla.datos.GSI$temperatura+tabla.datos.GSI$fotoperiodos, 
-                            FUN="sum"))
+(suma.combinación.niveles = aggregate(GSI ~ temperatura+fotoperiodos,
+                                      data = tabla.datos.GSI, FUN="sum"))
 ```
 
 </div>
@@ -2220,9 +2244,8 @@ Los valores de los estadísticos anteriores para los datos de nuestro ejemplo so
 
 * Media de los datos para la combinación de niveles $i$ y $j$:
 ```{r}
-(media.combinación.niveles = aggregate(tabla.datos.GSI$GSI ~ 
-                            tabla.datos.GSI$temperatura+tabla.datos.GSI$fotoperiodos, 
-                            FUN="mean"))
+(media.combinación.niveles = aggregate(GSI ~ temperatura+fotoperiodos,
+                                       data=tabla.datos.GSI, FUN="mean"))
 ```
 
 </div>
@@ -2231,10 +2254,8 @@ Los valores de los estadísticos anteriores para los datos de nuestro ejemplo so
 <div class="example">
 * Suma y media de los datos para el nivel $i$-ésimo:
 ```{r}
-(suma.fotoperiodos = aggregate(tabla.datos.GSI$GSI ~ 
-                            tabla.datos.GSI$fotoperiodos, FUN="sum"))
-(media.fotoperiodos = aggregate(tabla.datos.GSI$GSI ~ 
-                            tabla.datos.GSI$fotoperiodos, FUN="mean"))
+(suma.fotoperiodos = aggregate(GSI ~ fotoperiodos, data=tabla.datos.GSI, FUN="sum"))
+(media.fotoperiodos = aggregate(GSI ~ fotoperiodos, data = tabla.datos.GSI, FUN="mean"))
 ```
 
 
@@ -2244,10 +2265,8 @@ Los valores de los estadísticos anteriores para los datos de nuestro ejemplo so
 <div class="example">
 * Suma y media de los datos para el nivel $j$-ésimo:
 ```{r}
-(suma.temperatura = aggregate(tabla.datos.GSI$GSI ~ 
-                            tabla.datos.GSI$temperatura, FUN="sum"))
-(media.temperatura = aggregate(tabla.datos.GSI$GSI ~ 
-                            tabla.datos.GSI$temperatura, FUN="mean"))
+(suma.temperatura = aggregate(GSI ~ temperatura, data = tabla.datos.GSI, FUN="sum"))
+(media.temperatura = aggregate(GSI ~ temperatura, data = tabla.datos.GSI, FUN="mean"))
 ```
 
 </div>
@@ -2259,7 +2278,7 @@ Los valores de los estadísticos anteriores para los datos de nuestro ejemplo so
 (suma.total = sum(tabla.datos.GSI$GSI))
 ```
 
-* Media muestras de todos los datos:
+* Media muestral de todos los datos:
 ```{r}
 (media.muestral = mean(tabla.datos.GSI$GSI))
 ```
@@ -2408,7 +2427,7 @@ Para realizar el ANOVA de dos factores, usaremos los siguientes **cuadrados medi
 <div class="example">
 Calculemos los cuadrados medios para los datos del ejemplo que vamos desarrollando:
 
-* * **Cuadrado medio del factor $A$** (fotoperíodo): 
+* **Cuadrado medio del factor $A$** (fotoperíodo): 
 ```{r}
 (MSA = SSA/(a-1))
 ```
@@ -2528,8 +2547,9 @@ donde $F_{x,y}$ representa la distribución $F$ de Fisher con los grados de libe
 * **Contraste de los tratamientos**: $x=ab-1$, $y=ab(n-1)$.
 * **Contraste de no interacción**: $x=(a-1)(b-1)$, $y=ab(n-1)$.
 
-## Tabla ANOVA
 Los contrastes anteriores se resumen en la tabla siguiente:
+
+## Tabla ANOVA
 
 <div class="center">
 |Variación|Grados de libertad|Suma de cuadrados|Cuadrados medios|Estadístico $F$ | p-valores |
@@ -2537,13 +2557,6 @@ Los contrastes anteriores se resumen en la tabla siguiente:
 |Tratamientos|$ab-1$|$SS_{Tr}$|$MS_{Tr}$|$\dfrac{MS_{Tr}}{MS_E}$ |p-valor |
 |$A$|$a-1$|$SS_A$|$MS_{A}$|$\dfrac{MS_{A}}{MS_E}$|p-valor|
 |$B$|$b-1$|$SS_B$|$MS_{B}$|$\dfrac{MS_{B}}{MS_E}$|p-valor|
-</div>
-
-## Tabla ANOVA
-
-<div class="center">
-|Variación|Grados de libertad|Suma de cuadrados|Cuadrados medios|Estadístico $F$ | p-valores |
-|:----:|:---:|:---:|:---:|:---:|:---:|
 |$AB$|$(a-1)(b-1)$|$SS_{AB}$|$MS_{AB}$|$\dfrac{MS_{AB}}{MS_E}$|p-valor|
 |Error|$ab(n-1)$|$SS_E$|$MS_{E}$|| |
 </div>
@@ -2593,7 +2606,7 @@ donde `X` es la variable donde se almacenan los valores $X_{ijk}$ y en las varia
 Hagamos un boxplot de la variable GSI según el fotoperíodo y según la temperatura para observar gráficamente si hay diferencias:
 
 ```{r,fig.align='center'}
-boxplot(tabla.datos.GSI$GSI ~ tabla.datos.GSI$fotoperiodos,xlab="Fotoperíodo",ylab="GSI")
+boxplot(GSI ~ fotoperiodos, data = tabla.datos.GSI, xlab="Fotoperíodo",ylab="GSI")
 ```
 
 </div>
@@ -2603,7 +2616,7 @@ boxplot(tabla.datos.GSI$GSI ~ tabla.datos.GSI$fotoperiodos,xlab="Fotoperíodo",y
 <div class="example">
 
 ```{r,fig.align='center'}
-boxplot(tabla.datos.GSI$GSI ~ tabla.datos.GSI$temperatura,xlab="Temperatura",ylab="GSI")
+boxplot(GSI ~ temperatura, data = tabla.datos.GSI, xlab="Temperatura",ylab="GSI")
 ```
 
 </div>
@@ -2613,8 +2626,8 @@ boxplot(tabla.datos.GSI$GSI ~ tabla.datos.GSI$temperatura,xlab="Temperatura",yla
 Si hacemos el boxplot de la variable `GSI` según la combinación de los dos factores, fotoperíodo y temperatura, obtenemos:
 
 ```{r,fig.align='center'}
-boxplot(tabla.datos.GSI$GSI ~ tabla.datos.GSI$fotoperiodos+tabla.datos.GSI$temperatura,
-        xlab="Combinación Fotoperíodo/Temperatura",ylab="GSI")
+boxplot(GSI ~ fotoperiodos+temperatura, data = tabla.datos.GSI,
+        xlab="Combinación Fotoperíodo.Temperatura",ylab="GSI")
 ```
 
 
@@ -2626,10 +2639,7 @@ Parece que sí hay diferencias en la variable `GSI` según el fotoperíodo, seg�
 
 El contraste ANOVA de dos vías para los datos de nuestro ejemplo se realiza de la forma siguiente en `R`:
 ```{r}
-GSI=tabla.datos.GSI$GSI
-fotoperiodo=tabla.datos.GSI$fotoperiodos
-temperatura=tabla.datos.GSI$temperatura
-summary(aov(GSI ~ fotoperiodo*temperatura))
+summary(aov(GSI ~ fotoperiodos*temperatura, data = tabla.datos.GSI))
 ```
 Obtenemos los mismos resultados que hemos obtenido anteriormente.
 
@@ -2642,7 +2652,7 @@ Observamos que falta la fila de los tratamientos.
 Para realizar el contraste de los tratamientos en `R`, hacemos lo siguiente:
 
 ```{r}
-summary(aov(GSI ~ fotoperiodo:temperatura))
+summary(aov(GSI ~ fotoperiodos:temperatura, data = tabla.datos.GSI))
 ```
 
 
@@ -2660,12 +2670,22 @@ interaction.plot(F1, F2, X)
 ```
 donde `F1` es el factor que dibujamos en el eje de abscisas o eje X y `F2` es el otro factor usado para dibujar los segmentos.
 
+## Ejemplo
+<div class="example">
+Para dibujar el gráfico de interacción entre factores, vamos a crear primero las tres variables siguientes:
+
+```{r}
+GSI=tabla.datos.GSI$GSI
+fotoperiodos=tabla.datos.GSI$fotoperiodos
+temperatura=tabla.datos.GSI$temperatura
+```
+</div>
 
 ## Ejemplo
 <div class="example">
 Para dibujar el gráfico de interacción del fotoperíodo según la temperatura, hacemos lo siguiente:
 ```{r,fig.align='center'}
-interaction.plot(fotoperiodo,temperatura,GSI,xlab="fotoperíodo",ylab="GSI")
+interaction.plot(fotoperiodos,temperatura,GSI, xlab="fotoperíodo",ylab="GSI")
 ```
 </div>
 
@@ -2673,7 +2693,7 @@ interaction.plot(fotoperiodo,temperatura,GSI,xlab="fotoperíodo",ylab="GSI")
 <div class="example">
 Para dibujar el gráfico de interacción de la temperatura según el fotoperíodo, hacemos lo siguiente:
 ```{r,fig.align='center'}
-interaction.plot(temperatura,fotoperiodo,GSI,xlab="fotoperíodo",ylab="GSI")
+interaction.plot(temperatura,fotoperiodos,GSI,xlab="fotoperíodo",ylab="GSI")
 ```
 </div>
 
