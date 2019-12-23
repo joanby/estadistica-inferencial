@@ -3696,7 +3696,1378 @@ abline(lm(y4~x4,data=anscombe),col=2)</pre>
 
 <p>Observamos que en el caso de la tabla de datos <code>(x3,y3)</code>, la recta de regresión ha sido efectiva pero en los demás hemos obtenido un error considerable donde el peor caso es el de la tabla de datos <code>(x4,y4)</code>.</p>
 
-<p>Por tanto, considerar sólo el valor del <strong>coeficiente de determinación</strong> para medir el ajuste de la recta de regresión a nuestros datos no es conveniente.</p></article></slide>
+<p>Por tanto, considerar sólo el valor del <strong>coeficiente de determinación</strong> para medir el ajuste de la recta de regresión a nuestros datos no es conveniente.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza">
+
+<p>Para poder hallar los intervalos de confianza al \(100\cdot (1-\alpha)\)% de confianza sobre los parámetros \(\beta_0\) y \(\beta_1\), necesitamos el supuestos siguiente:</p>
+
+<p>Para cada valor \(x_i\) de la variable \(X\), las variables aleatorias \(E_{x_i}\) sigue una distribución normal con media \(\mu_{E_{x_i}}=0\) y varianza \(\sigma_E^2\) constante independiente del valor \(x_i\). También supondremos que dados \(x_i\) y \(x_j\) dos valores distintos de la variable \(X\), la covarianza entre las variables \(E_{x_i}\) y \(E_{x_j}\) es nula: \(\sigma(E_{x_i},E_{x_j})=0\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-9">
+
+<div class="example">
+<p>Comprobemos para los datos de nuestro ejemplo si los errores siguen una distribución normal usando el test de <strong>Kolmogorov-Smirnov-Lilliefors</strong>:</p>
+
+<pre class = 'prettyprint lang-r'>library(nortest)
+lillie.test(errores)</pre>
+
+<pre >## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  errores
+## D = 0.28034, p-value = 0.1468</pre>
+
+<p>Como el p-valor es grande, podemos concluir que no tenemos evidencias suficientes para rechazar que los errores siguen una distribución normal.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-1">
+
+<p>Bajo las hipótesis anteriores tenemos los dos resultados siguientes:</p>
+
+<p><l class="prop">Teorema. </l> Los errores estándar de los estimadores \(b_1\) y \(b_0\) son, respectivamente, \[
+\frac{\sigma_E}{\tilde{s}_x\sqrt{n-1}}\quad\mbox{ y }\quad \sigma_E\sqrt{\frac{1}{n}+\frac{\overline{x}^2}{(n-1)\tilde{s}_x^2}},
+\] donde recordemos que para estimar \(\sigma_E\), usamos el estimador \(S=\sqrt{S^2}\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-2">
+
+<p><l class="prop">Teorema. </l> Las variables aleatorias \[
+\frac{b_1-\beta_1}{\frac{S}{\tilde{s}_x\sqrt{n-1}}}\quad\mbox{ y }\quad
+\frac{b_0-\beta_0}{S\sqrt{\frac{1}{n}+\frac{\overline{x}^2}{(n-1)\tilde{s}_x^2}}},
+\] siguen leyes \(t\) de Student con \(n-2\) grados de libertad.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-3">
+
+<p>Entonces bajo el supuesto anterior, los intervalos de confianza para los parámetros \(\beta_1\) y \(\beta_0\) al \(100\cdot (1-\alpha)\)% de confianza son los siguientes:</p>
+
+<ul>
+<li><p>\(\beta_1\): \(\left] b_1-t_{n-2,1-\frac{\alpha}2} \frac{S}{\tilde{s}_x\sqrt{n-1}}, b_1+t_{n-2,1-\frac{\alpha}2} \frac{S}{\tilde{s}_x\sqrt{n-1}}\right[.\) Lo escribiremos para simplificar de la forma siguiente: \(\beta_1=b_1\pm t_{n-2,1-\frac{\alpha}2} \frac{S}{\tilde{s}_x\sqrt{n-1}}\).</p></li>
+<li><p>\(\beta_0\): \(b_0\pm t_{n-2,1-\frac{\alpha}2}S\sqrt{\frac{1}{n}+\frac{\overline{x}^2}{(n-1)\tilde{s}_x^2}}\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-10">
+
+<div class="example">
+<p>Hallemos los intervalos de confianza para el 95% de confianza para los parámetros \(\beta_1\) y \(\beta_0\) usando los datos del ejemplo que hemos ido desarrollando:</p>
+
+<pre class = 'prettyprint lang-r'>alpha=0.05
+S=sqrt(estimación.varianza)
+extremo.izquierda.b1 = b1-qt(1-alpha/2,n-2)*S/(sd(sal)*sqrt(n-1))
+extremo.derecha.b1 = b1+qt(1-alpha/2,n-2)*S/(sd(sal)*sqrt(n-1))
+print(&#39;Intervalo confianza para b1:&#39;)</pre>
+
+<pre >## [1] &quot;Intervalo confianza para b1:&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>print(c(extremo.izquierda.b1,extremo.derecha.b1))</pre>
+
+<pre >## [1] 4.004434 8.666266</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-11">
+
+<div class="example">
+<pre class = 'prettyprint lang-r'>extremo.izquierda.b0 = b0-qt(1-alpha/2,n-2)*S*sqrt(1/n+media.sal^2/((n-1)*var(sal)))
+extremo.derecha.b0 = b0+qt(1-alpha/2,n-2)*S*sqrt(1/n+media.sal^2/((n-1)*var(sal)))
+print(&#39;Intervalo confianza para b0:&#39;)</pre>
+
+<pre >## [1] &quot;Intervalo confianza para b0:&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>print(c(extremo.izquierda.b0,extremo.derecha.b0))</pre>
+
+<pre >## [1] 77.86906 94.87251</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza en <code>R</code></h2></hgroup><article  id="intervalos-de-confianza-en-r">
+
+<p>Para hallar los intervalos de confianza de los parámetros \(\beta_1\) y \(\beta_0\) en <code>R</code> hay que aplicar la función <code>confint</code> al objeto <code>lm(...)</code>. El parámetro <code>level</code> nos da el nivel de confianza cuyo valor por defecto es 0.95.</p>
+
+<div class="example">
+<p>Para los datos de nuestro ejemplo, los intervalos de confianza para los parámetros \(\beta_0\) y \(\beta_1\) serían los siguientes en <code>R</code>:</p>
+
+<pre class = 'prettyprint lang-r'>confint(lm(tensión~sal),level=0.95)</pre>
+
+<pre >##                 2.5 %    97.5 %
+## (Intercept) 77.869064 94.872509
+## sal          4.004434  8.666266</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-4">
+
+<p>Fijado un valor \(x_0\) de la variable \(X\), podemos considerar dos parámetros a estudiar: el valor medio de la variable aleatoria \(Y|x_0\), \(\mu_{Y|x_0}\) y el valor estimado \(y_0\) por la recta de regresión.</p>
+
+<p>Dichos intervalos nos ayudan a estudiar cómo se comporta la regresión cuando el valor de la variable \(X\) vale un determinado valor \(x_0\).</p>
+
+<p>El estimador de los parámetros anteriores, \(\mu_{Y|x_0}\) y \(y_0\) es el mismo: \(\widehat{y}_0 = b_0+b_1\cdot x_0\) pero los errores estándards cambian dependiendo del parámetro que consideremos como indican los dos resultados siguientes:</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-5">
+
+<p>Bajo el supuesto anterior, sea \(x_0\) un valor concreto de la variable \(X\). Entonces:</p>
+
+<p><l class="prop">Teorema. </l> El error estándar del estimador \(\widehat{y}_0\) del parámetro \(\mu_{Y|x_0}\) es el siguiente: \(\sigma_E\sqrt{\frac1{n}+\frac{(x_0-\overline{x})^2}{(n-1)\tilde{s}^2_x}}.\)</p>
+
+<p>Usando el resultado anterior, se tiene que la variable aleatoria: \(\frac{\widehat{y}_0-\mu_{Y/x_0}}{S\sqrt{\frac1{n}+\frac{(x_0-\overline{x})^2}{(n-1) \tilde{s}^2_x}}}\) sigue una ley \(t\) de Student con \(n-2\) grados de libertad.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-6">
+
+<p><l class="prop">Teorema. </l> El error estándar del estimador \(\widehat{y}_0\) del parámetro \(y_0\) es el siguiente: \(\sigma_E\sqrt{1+\frac1{n}+\frac{(x_0-\overline{x})^2}{(n-1)\tilde{s}^2_x}}.\)</p>
+
+<p>Usando el resultado anterior, se tiene que la variable aleatoria: \(\frac{\widehat{y}_0-y_0}{S\sqrt{1+\frac1{n}+\frac{(x_0-\overline{x})^2}{(n-1) \tilde{s}^2_x}}}\) sigue una ley \(t\) de Student con \(n-2\) grados de libertad.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-7">
+
+<p>A partir de los teoremas anteriores, hallamos los intervalos de confianza para los parámetros \(\mu_{Y|x_0}\) y \(y_0\) al \(100\cdot (1-\alpha)\)% de confianza:</p>
+
+<ul>
+<li><p>\(\mu_{Y|x_0}\): \(\widehat{y}_0\pm t_{n-2,1-\frac{\alpha}2} S\sqrt{\frac1{n}+\frac{(x_0-\overline{x})^2}{(n-1) \tilde{s}^2_x}}\).</p></li>
+<li><p>\(y_0\): \(\widehat{y}_0\pm t_{n-2,1-\frac{\alpha}2} S\sqrt{1+\frac1{n}+\frac{(x_0-\overline{x})^2}{(n-1) \tilde{s}^2_x}}\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-12">
+
+<div class="example">
+<p>Hallemos un intervalo de confianza para un nivel de sal de \(x_0=4.5\) g. para los parámetros \(\mu_{Y|4.5}\) y \(y_0\) al \(95\)% de confianza:</p>
+
+<pre class = 'prettyprint lang-r'>alpha=0.05
+x0=4.5
+y0.estimado = b0+b1*x0
+extremo.izquierda.mu.x0 = y0.estimado-qt(1-alpha/2,n-2)*S*
+  sqrt(1/n+(x0-media.sal)^2/((n-1)*var(sal)))
+extremo.derecha.mu.x0 = y0.estimado+qt(1-alpha/2,n-2)*S*
+  sqrt(1/n+(x0-media.sal)^2/((n-1)*var(sal)))
+print(paste(&quot;Intervalo de confianza para mu de Y para x0=&quot;,x0))</pre>
+
+<pre >## [1] &quot;Intervalo de confianza para mu de Y para x0= 4.5&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>print(c(extremo.izquierda.mu.x0,extremo.derecha.mu.x0))</pre>
+
+<pre >## [1] 111.3041 118.4556</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-13">
+
+<div class="example">
+<pre class = 'prettyprint lang-r'>extremo.izquierda.y0 = y0.estimado-qt(1-alpha/2,n-2)*S*
+  sqrt(1+1/n+(x0-media.sal)^2/((n-1)*var(sal)))
+extremo.derecha.y0 = y0.estimado+qt(1-alpha/2,n-2)*S*
+  sqrt(1+1/n+(x0-media.sal)^2/((n-1)*var(sal)))
+print(paste(&quot;Intervalo de confianza para y0 para x0=&quot;,x0))</pre>
+
+<pre >## [1] &quot;Intervalo de confianza para y0 para x0= 4.5&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>print(c(extremo.izquierda.y0,extremo.derecha.y0))</pre>
+
+<pre >## [1] 107.4843 122.2754</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza en <code>R</code></h2></hgroup><article  id="intervalos-de-confianza-en-r-1">
+
+<p>Para hallar el intervalo de confianza para el parámetros \(\mu_{Y|x_0}\) al \(100\cdot (1-\alpha)\)% de confianza hay que usar la función <code>predict.lm</code> de la forma siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>newdata=data.frame(x=x0)
+predict.lm(lm(y~x),newdata,interval=&quot;confidence&quot;,level= nivel.confianza)</pre>
+
+<p>Para el parámetro \(y_0\) hay que usar la misma función anterior pero cambiando el parámetro <code>interval</code> al valor <code>prediction</code>:</p>
+
+<pre class = 'prettyprint lang-r'>newdata=data.frame(x=x0)
+predict.lm(lm(y~x),newdata,interval=&quot;prediction&quot;,level= nivel.confianza)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-14">
+
+<div class="example">
+<p>Hallemos los intervalos de confianza para los parámetros \(\mu_{Y|4.5}\) y \(y_0\) al 95% de confianza usando <code>R</code>:</p>
+
+<pre class = 'prettyprint lang-r'>newdata=data.frame(sal=4.5)
+predict.lm(lm(tensión~sal),newdata,interval=&quot;confidence&quot;,level= 0.95)</pre>
+
+<pre >##        fit      lwr      upr
+## 1 114.8799 111.3041 118.4556</pre>
+
+<pre class = 'prettyprint lang-r'>predict.lm(lm(tensión~sal),newdata,interval=&quot;prediction&quot;,level= 0.95)</pre>
+
+<pre >##        fit      lwr      upr
+## 1 114.8799 107.4843 122.2754</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de hipótesis sobre la pendiente de la recta \(\beta_1\)</h2></hgroup><article  id="contraste-de-hipotesis-sobre-la-pendiente-de-la-recta-beta_1">
+
+<p>Cuando nos planteamos hacer una regresión de la variable \(Y\) sobre la variable \(X\), estamos suponiendo que la variable \(X\) influye en la variable \(Y\). Es decir, que si cambiamos el valor de la variable \(X\), habrá un cambio en la variable \(Y\).</p>
+
+<p>Decir que la variable \(X\) influye en la variable \(Y\) en el contexto de la <strong>regresión lineal</strong> es equivalente a decir que \(\beta_1\neq 0\) ya que si \(\beta_1=0\), tendríamos que la variación de la variable \(Y\) sólo se debería a fluctuaciones aleatorias.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de hipótesis sobre la pendiente de la recta \(\beta_1\)</h2></hgroup><article  id="contraste-de-hipotesis-sobre-la-pendiente-de-la-recta-beta_1-1">
+
+<p>Por tanto, es interesante plantearse el <strong>contraste de hipótesis</strong> siguiente sobre el parámetro <strong>pendiente de la recta de regresión</strong>: \(\beta_1\): \[
+\left\{\begin{array}{l}
+H_0:\beta_1=0,\\
+H_1:\beta_1 \neq 0.
+\end{array}
+\right.
+\] En el supuesto de que las variables aleatorias \(E_{x_i}\) son normales \(N(0,\sigma_E^2)\), el <strong>estadístico de contraste</strong> para realizar el contraste anterior es el siguiente: \(T=\frac{b_1}{\frac{S}{\tilde{s}_x \sqrt{n-1}}},\) que, suponiendo que la hipótesis nula es cierta, se distribuye según una t de Student con \(n-2\) grados de libertad.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de hipótesis sobre la pendiente de la recta \(\beta_1\)</h2></hgroup><article  id="contraste-de-hipotesis-sobre-la-pendiente-de-la-recta-beta_1-2">
+
+<p>Si \(t_0\) es el valor del estadístico de contraste para los valores de nuestra muestra, el p-valor del contraste anterior es el siguiente: \[
+p=2\cdot P(t_{n-2}&gt;|t_0|),
+\] con el significado usual:</p>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de hipótesis sobre la pendiente de la recta \(\beta_1\)</h2></hgroup><article  id="contraste-de-hipotesis-sobre-la-pendiente-de-la-recta-beta_1-3">
+
+<ul>
+<li>si \(p&lt;0.05\), concluimos que tenemos evidencias suficientes para rechazar la hipótesis nula y, por tanto, tiene sentido la regresión al no rechazar que \(\beta_1\neq 0\),</li>
+<li>si \(p&gt;0.1\), concluimos que no tenemos evidencias suficientes para rechazar la hipótesis nula. En este caso, la regresión no tendría sentido al no rechazar que \(\beta_1=0\) y,</li>
+<li>si \(0.05\leq p\leq 0.1\), estamos en la zona de penumbra. Necesitamos más datos para tomar una decisión clara.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Contraste de hipótesis sobre la pendiente de la recta \(\beta_1\)</h2></hgroup><article  id="contraste-de-hipotesis-sobre-la-pendiente-de-la-recta-beta_1-4">
+
+<p>Otra forma de realizar el contraste anterior es observar el intervalo de confianza para \(\beta_1\) y ver si contiene el valor 0.</p>
+
+<p>En caso de contener el valor 0, la regresión no tendría sentido para el nivel de confianza de \(100\cdot (1-\alpha)\)% ya que no rechazamos que \(\beta_1=0\) y en caso de no contener el valor 0, la regresión sí tendría sentido al nivel de confianza anterior.</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-15">
+
+<div class="example">
+<p>Realicemos el contraste anterior para los datos de nuestro ejemplo. El valor del estadístico de contraste será:</p>
+
+<pre class = 'prettyprint lang-r'>(t0 = b1/(S/(sd(sal)*sqrt(n-1))))</pre>
+
+<pre >## [1] 7.546282</pre>
+
+<p>y el p-valor vale:</p>
+
+<pre class = 'prettyprint lang-r'>(p=2*pt(abs(t0),n-2,lower.tail = FALSE))</pre>
+
+<pre >## [1] 0.001652012</pre>
+
+<p>Como el p-valor es pequeño, podemos concluir que la regresión tiene sentido en este caso.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Contraste para el pendiente \(\beta_1\) en <code>R</code></h2></hgroup><article  id="contraste-para-el-pendiente-beta_1-en-r">
+
+<p>Para realizar el contraste anterior en <code>R</code>, hay que estudiar la salida de la función <code>summary</code> aplicada a la función <code>lm</code>:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~x))</pre>
+
+<div class="example">
+<p>La salida anterior para los datos de nuestro ejemplo es la siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(tensión ~ sal))</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-16">
+
+<div class="example">
+<pre >## 
+## Call:
+## lm(formula = tensión ~ sal)
+## 
+## Residuals:
+##      1      2      3      4      5      6 
+##  2.226 -2.309  1.455 -1.712 -1.613  1.952 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  86.3708     3.0621  28.206  9.4e-06 ***
+## sal           6.3354     0.8395   7.546  0.00165 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.332 on 4 degrees of freedom
+## Multiple R-squared:  0.9344, Adjusted R-squared:  0.918 
+## F-statistic: 56.95 on 1 and 4 DF,  p-value: 0.001652</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-17">
+
+<div class="example">
+<p>En primer lugar <code>R</code> nos da los errores de los datos cometidos al estimar los valores \(y_i\) por \(\widehat{y}_i\).</p>
+
+<p>A continuación, en una tabla, nos da las estimaciones de los parámetros \(\beta_0\) y \(\beta_1\), \(b_0\) y \(b_1\), en la columna <code>Estimate</code>, los errores estándar de dichos estimadores en la columna <code>Std. Error</code> y el valor del estadístico \(t\) en la columna <code>t value</code>. En la última columna nos da el p-valor para el contraste anterior.</p>
+
+<p>Observamos que hay dos valores de los estadísticos de contraste, uno corresponde al contraste para \(\beta_1\) (la segunda fila) y otro corresponde al contraste para \(\beta_0\) que no tiene ningún interés para ver si la regresión tiene sentido. Pensemos que el hecho de que el parámetro \(\beta_0\) sea nulo no contradice el hecho de que la variable \(X\) tenga efecto en la variable \(Y\).</p>
+
+<p>Por último, en el último párrafo de la salida, nos da el valor del error residual o la estimación de \(S\), el valor del coeficiente de determinación \(R^2\), el <code>Multiple R-squared</code>, y el valor de \(R^2\) ajustado del que hablaremos más adelante.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-18">
+
+<div class="example">
+<p>En la última fila, nos habla del estadístico \(F\) que es otra manera de realizar el contraste sobre el parámetro \(\beta_1\) que hemos explicado anteriormente pero en lugar de usar el estadístico \(T\), se usa el estadístico \(T^2\) que, si la hipótesis nula es cierta, se distribuye según una \(F\) de Fisher con 1 y \(n-2=4\) grados de libertad. Podéis comprobar por ejemplo que \(t_0^2\) vale el valor del <code>F-statistic</code>:</p>
+
+<pre class = 'prettyprint lang-r'>t0^2</pre>
+
+<pre >## [1] 56.94637</pre></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Regresión lineal múltiple</h2></hgroup><article  id="regresion-lineal-multiple">
+
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-3">
+
+<p>En la <strong>regresión lineal simple</strong>, estudiábamos si una <strong>variable dependiente</strong> \(Y\) dependía linealmente de una <strong>variable independiente o de control</strong> \(X\).</p>
+
+<p>En la práctica, dicha situación raramente se da ya que la <strong>variable dependiente o de respuesta</strong> \(Y\) suele depender de más de una <strong>variable de control</strong>.</p>
+
+<p>Por tanto, en esta sección vamos a generalizar todo el estudio que hemos hecho para la <strong>regresión lineal simple</strong> donde sólo hay una <strong>variable de control</strong> al caso en que tengamos \(k\) variables de control \(X_1,\ldots, X_k\).</p>
+
+<p>En resumen, suponemos que tenemos una <strong>variable dependiente</strong> \(Y\) y \(k\) <strong>variables independientes o de control</strong> \(X_1,\ldots, X_k\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Modelo de regresión lineal múltiple</h2></hgroup><article  id="modelo-de-regresion-lineal-multiple">
+
+<p>De forma similar a la <strong>regresión lineal simple</strong>, suposemos que la relación de la media de la variable aleatoria \(Y\), fijados \(k\) valores de las variables \(X_1,\ldots, X_k\), \(x_1,\ldots,x_k\), es la siguiente: \[
+\mu_{Y|x_1,\ldots,x_k}= \beta_0+\beta_1 x_1+\cdots+\beta_k x_k.
+\] Es decir, la media la media de la variable aleatoria \(Y_{x_1,\ldots,x_k}\) es una función lineal de los valores \(x_1,\ldots,x_k\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Modelo de regresión lineal múltiple</h2></hgroup><article  id="modelo-de-regresion-lineal-multiple-1">
+
+<p>Los valores \(\beta_0,\beta_1,\ldots,\beta_k\) son los llamados <strong>parámetros de regresión</strong> y se tienen que estimar a partir de una muestra de las variables consideradas: \[
+(x_{i1},x_{i2},\ldots,x_{ik},y_i)_{i=1,\ldots,n}
+\] Para que dichas estimaciones se puedan realizar, hay que suponer que \(n&gt;k\) ya que en caso contrario tendríamos un problema <em>subestimado</em>: tendríamos más parámetros que valores en la muestra.</p>
+
+<p>Denotaremos el vector \(\underline{x}_i\) al conjunto de los \(k\) valores del individuo \(i\)-ésimo: \(\underline{x}_i= (x_{i1},x_{i2},\ldots,x_{ik})\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Modelo de regresión lineal múltiple</h2></hgroup><article  id="modelo-de-regresion-lineal-multiple-2">
+
+<p>Escribimos el modelo de <strong>regresión lineal múltiple</strong> de la forma siguiente: \[
+Y|x_1,\ldots,x_k=\beta_0+\beta_1 x_1+\cdots+\beta_{k} x_k+E_{x_1,\ldots,x_k},
+\] donde</p>
+
+<ul>
+<li><p>\(Y|x_1,\ldots,x_k\) es la v.a. que da el valor de \(Y\) cuando cada \(X_i\) vale \(x_i\), \(X_i=x_i\),</p></li>
+<li><p>\(E_{x_1,\ldots,x_k}\) son las v.a. error, o residuales, y representan el error aleatorio del modelo asociado a \((x_1,\ldots,x_k)\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Modelo de regresión lineal múltiple</h2></hgroup><article  id="modelo-de-regresion-lineal-multiple-3">
+
+<p>A partir de una muestra \[
+(\underline{x}_{i},y_i)_{i=1,2,\ldots,n}
+\] vamos a obtener estimaciones \(b_0,b_1,\ldots,b_k\) de los <strong>parámetros de regresión</strong> \(\beta_0,\beta_1,\ldots,\beta_k\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Modelo de regresión lineal múltiple</h2></hgroup><article  id="modelo-de-regresion-lineal-multiple-4">
+
+<p>Una vez obtenidas las estimaciones \(b_0,b_1,\ldots,b_k\), podemos definir los valores siguientes: \[
+\begin{array}{l}
+\widehat{y}_i=b_0+b_1 x_{i 1}+\cdots+b_{k} x_{i k},\\
+y_i=b_0+b_1 x_{i 1}+\cdots+b_{k} x_{i k}+e_i,
+\end{array}
+\] donde</p>
+
+<ul>
+<li><p>\(\widehat{y}_i\) es el valor predicho de a partir de \(y_i\) y \(\underline{x}_{i}\) y</p></li>
+<li><p>\(e_i\) estima el error \(E_{\underline{x}_{i}}\): \(e_i=y_i-\widehat{y}_i\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Modelo de regresión lineal múltiple</h2></hgroup><article  id="modelo-de-regresion-lineal-multiple-5">
+
+<p>Para simplificar la notación, escribimos los datos de la muestra en forma matricial.</p>
+
+<p>En primer lugar, definimos los vectores siguientes: \[
+\mathbf{y}=
+\left(
+\begin{array}{l}
+y_1\\ y_2\\ \vdots\\ y_n
+\end{array}
+\right),\ \mathbf{b}=\left(
+\begin{array}{l}
+b_0\\ b_1 \\ \vdots\\b_k
+\end{array}
+\right),\ \mathbf{\widehat{y}}=\left(
+\begin{array}{l}
+\widehat{y}_1\\ \widehat{y}_2\\ \vdots\\\widehat{y}_n
+\end{array}
+\right),\ \mathbf{e}=\left(
+\begin{array}{l}
+e_1\\ e_2\\ \vdots\\ e_n
+\end{array}
+\right).
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Modelo de regresión lineal múltiple</h2></hgroup><article  id="modelo-de-regresion-lineal-multiple-6">
+
+<p>Definimos la matriz \(\mathbf{X}\) a partir de los datos de la muestra de las variables \(X_i\), \(i=1,\ldots,k\): \[
+\mathbf{X}=\left(
+\begin{array}{lllll}
+1&amp;x_{11}&amp;x_{12}&amp;\ldots&amp;x_{1k}\\
+1&amp;x_{21}&amp;x_{22}&amp;\ldots&amp;x_{2k}\\
+\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+1&amp;x_{n1}&amp;x_{n2}&amp;\ldots&amp;x_{nk}
+\end{array}
+\right).
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Modelo de regresión lineal múltiple</h2></hgroup><article  id="modelo-de-regresion-lineal-multiple-7">
+
+<p>Las ecuaciones \[
+\begin{array}{l}
+\widehat{y}_i=b_0+b_1 x_{i 1}+\cdots+b_{k} x_{i k},\\
+y_i=b_0+b_1 x_{i 1}+\cdots+b_{k} x_{i k}+e_i,
+\end{array}
+\] se escriben en forma matricial de la forma siguiente: \[
+\begin{array}{l}
+\mathbf{\widehat{y}} = \mathbf{X}\cdot\mathbf{b}, \\
+\mathbf{y}=   \mathbf{X}\cdot \mathbf{b}+\mathbf{e}.\\
+\end{array}
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Método de los mínimos cuadrados</h2></hgroup><article  id="metodo-de-los-minimos-cuadrados">
+
+<p>Definimos el <strong>error cuadrático</strong> \(SS_E\) cómo: \[
+SS_E=\sum\limits_{i=1}^n
+e^2_i=\sum\limits_{i=1}^n (y_i-\widehat{y}_i)^2 
+=\sum\limits_{i=1}^n (y_i-b_0-b_1 x_{i 1}-\cdots -b_{k} x_{ik})^2.
+\]</p>
+
+<p>Los <strong>estimadores</strong> de los <strong>parámetros</strong> \(\beta_0,\beta_1,\ldots, \beta_k\) por el método de <strong>mínimos cuadrados</strong> serán los valores \(b_0,b_1,\ldots, b_k\) que minimicen \(SS_E\).</p>
+
+<p>Para calcularlos, calculamos las derivadas parciales del error cuadrático \(SS_E\) respecto cada \(b_i\), las igualamos a 0, las resolvemos, y comprobamos que la solución \((b_0,\ldots,b_k)\) encontrada corresponde a un mínimo.</p>
+
+</article></slide><slide class=""><hgroup><h2>Método de los mínimos cuadrados</h2></hgroup><article  id="metodo-de-los-minimos-cuadrados-1">
+
+<p>El teorema siguiente nos da la expresión de dichos <strong>estimadores</strong>:</p>
+
+<p><l class="prop">Teorema.</l> Los <strong>estimadores</strong> por el método de los <strong>mínimos cuadrados</strong> de los parámetros \(\beta_0,\beta_1,\ldots,\beta_k\) a partir de la muestra \((\underline{x}_{i},y_i)_{i=1,2,\ldots,n}\) son los siguientes: \[
+\mathbf{b}=\left(\mathbf{X}^t\cdot \mathbf{X}
+\right)^{-1}\cdot \left(\mathbf{X}^t \cdot \mathbf{y}\right).
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-19">
+
+<div class="example">
+<p><strong>Ejemplo</strong></p>
+
+<p>Se postula que la altura de un bebé (\(y\)) tiene una relación lineal con su edad en días (\(x_1\)), su altura al nacer en cm. (\(x_2\)), su peso en kg. al nacer (\(x_3\)) y el aumento en tanto por ciento de su peso actual respecto de su peso al nacer (\(x_4\))</p>
+
+<p>El modelo es: \[
+\mu_{Y|x_1,x_2,x_3,x_4}=\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3+\beta_4x_4.
+\] En una muestra de \(n=9\) niños, se obtuvieron los resultados siguientes:</p>
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="center">\(y\)</th>
+<th align="center">\(x_1\)</th>
+<th align="center">\(x_2\)</th>
+<th align="center">\(x_3\)</th>
+<th align="center">\(x_4\)</th>
+</tr>
+<tr class="odd">
+<td align="center">57.5</td>
+<td align="center">78</td>
+<td align="center">48.2</td>
+<td align="center">2.75</td>
+<td align="center">29.5</td>
+</tr>
+<tr class="even">
+<td align="center">52.8</td>
+<td align="center">69</td>
+<td align="center">45.5</td>
+<td align="center">2.15</td>
+<td align="center">26.3</td>
+</tr>
+<tr class="odd">
+<td align="center">61.3</td>
+<td align="center">77</td>
+<td align="center">46.3</td>
+<td align="center">4.41</td>
+<td align="center">32.2</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-20">
+
+<div class="example">
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="center">\(y\)</th>
+<th align="center">\(x_1\)</th>
+<th align="center">\(x_2\)</th>
+<th align="center">\(x_3\)</th>
+<th align="center">\(x_4\)</th>
+</tr>
+<tr class="odd">
+<td align="center">67</td>
+<td align="center">88</td>
+<td align="center">49</td>
+<td align="center">5.52</td>
+<td align="center">36.5</td>
+</tr>
+<tr class="even">
+<td align="center">53.5</td>
+<td align="center">67</td>
+<td align="center">43</td>
+<td align="center">3.21</td>
+<td align="center">27.2</td>
+</tr>
+<tr class="odd">
+<td align="center">62.7</td>
+<td align="center">80</td>
+<td align="center">48</td>
+<td align="center">4.32</td>
+<td align="center">27.7</td>
+</tr>
+<tr class="even">
+<td align="center">56.2</td>
+<td align="center">74</td>
+<td align="center">48</td>
+<td align="center">2.31</td>
+<td align="center">28.3</td>
+</tr>
+<tr class="odd">
+<td align="center">68.5</td>
+<td align="center">94</td>
+<td align="center">53</td>
+<td align="center">4.3</td>
+<td align="center">30.3</td>
+</tr>
+<tr class="even">
+<td align="center">69.2</td>
+<td align="center">102</td>
+<td align="center">58</td>
+<td align="center">3.71</td>
+<td align="center">28.7</td>
+</tr>
+</table></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-21">
+
+<div class="example">
+<p>Hallemos los estimadores de los parámetros \(\beta_0,\beta_1,\beta_2,\beta_3\) y \(\beta_4\).</p>
+
+<p>En primer lugar, hallamos la matriz \(\mathbf{X}\) y el vector \(\mathbf{y}\): \[
+\mathbf{X}=\left(
+\begin{array}{ccccc}
+1&amp;78&amp;48.2&amp;2.75&amp;29.5\\
+1&amp;69&amp;45.5&amp;2.15&amp;26.3\\
+1&amp;77&amp;46.3&amp;4.41&amp;32.2\\
+1&amp;88&amp;49&amp;5.52&amp;36.5\\
+1&amp;67&amp;43&amp;3.21&amp;27.2\\
+1&amp;80&amp;48&amp;4.32&amp;27.7\\
+1&amp;74&amp;48&amp;2.31&amp;28.3\\
+1&amp;94&amp;53&amp;4.3&amp;30.3\\
+1&amp;102&amp;58&amp;3.71&amp;28.7
+\end{array}
+\right),\
+\mathbf{y}=\left(
+\begin{array}{c}
+57.5\\ 52.8\\ 61.3\\ 67\\ 53.5\\ 62.7\\ 56.2\\ 68.5\\ 69.2
+\end{array}
+\right).
+\]</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-22">
+
+<div class="example">
+<p>El vector de los valores estimados \(\mathbf{b}\) valdrá: \[
+\mathbf{b}=\left(\mathbf{X}^t\cdot \mathbf{X}
+\right)^{-1}\cdot \left(\mathbf{X}^t \cdot \mathbf{y}\right).
+\] Realicemos los cálculos anteriores en <code>R</code>:</p>
+
+<pre class = 'prettyprint lang-r'>X=matrix(c(1,78,48.2,2.75,29.5,1,69,45.5,2.15,26.3,
+ 1,77,46.3,4.41,32.2,1,88,49,5.52,36.5,
+ 1,67,43,3.21,27.2,1,80,48,4.32,27.7,
+ 1,74,48,2.31,28.3,1,94,53,4.3,30.3,
+ 1,102,58,3.71,28.7),nrow=9,byrow=TRUE)
+y=cbind(c(57.5,52.8,61.3,67,53.5,62.7,56.2,68.5,69.2))
+(estimaciones.b = solve(t(X)%*%X)%*%(t(X)%*%y))</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-23">
+
+<div class="example">
+<pre >##             [,1]
+## [1,]  7.14753240
+## [2,]  0.10009447
+## [3,]  0.72641738
+## [4,]  3.07583698
+## [5,] -0.03004215</pre>
+
+<p>La función lineal de regresión buscada se: \[
+\widehat{y}=7.1475324+ 0.1000945 x_1+0.7264174 x_2 +3.075837 x_3 -0.0300421 x_4.
+\] Podemos observar, por ejemplo, que cuánto más edad tenga el niño, más altura tiene, cuánto más peso al nacer, más altura tiene pero cuánto más haya aumentado su peso respecto de su peso al nacer, su altura disminuye aunque dicha disminución es minúscula.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Cálculo de la función de regresión en <code>R</code></h2></hgroup><article  id="calculo-de-la-funcion-de-regresion-en-r">
+
+<p>Para calcular la función de regresión en <code>R</code> hay que usar la función <code>lm</code>:</p>
+
+<pre class = 'prettyprint lang-r'>lm(y ~ x1+x2+...+xk)</pre>
+
+<div class="example">
+<p>En nuestro ejemplo, se calcula de la forma siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>lm(y ~ X[,2]+X[,3]+X[,4]+X[,5])</pre>
+
+<pre >## 
+## Call:
+## lm(formula = y ~ X[, 2] + X[, 3] + X[, 4] + X[, 5])
+## 
+## Coefficients:
+## (Intercept)       X[, 2]       X[, 3]       X[, 4]       X[, 5]  
+##     7.14753      0.10009      0.72642      3.07584     -0.03004</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Propiedades de la función de regresión</h2></hgroup><article  id="propiedades-de-la-funcion-de-regresion">
+
+<ul>
+<li><p>La <strong>función de regresión</strong> pasa por el vector medio \((\overline{x}_1,\overline{x}_2,\ldots,\overline{x}_k,\overline{y})\): \[
+\overline{y}=b_0+b_1 \overline{x}_1+\cdots+b_k \overline{x}_k.
+\]</p></li>
+<li><p>La media de los valores estimados se igual a la media de los observados: \[
+\overline{\widehat{y}}=\overline{y}.
+\]</p></li>
+<li><p>Los errores \((e_i)_{i=1,\ldots,n}\) tienen media 0 y varianza: \[
+\tilde{s}_e^2=\frac{SS_E}{n-1}.
+\]</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-24">
+
+<div class="example">
+<p>Verifiquemos las propiedades anteriores para los datos de nuestro ejemplo:</p>
+
+<ul>
+<li>La <strong>función de regresión</strong> pasa por el vector medio \((\overline{x}_1,\overline{x}_2,\ldots,\overline{x}_k,\overline{y})\):</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>vectores.medios = apply(X[,1:5],2,mean)
+round(mean(y)-t(estimaciones.b)%*%vectores.medios,6)</pre>
+
+<pre >##      [,1]
+## [1,]    0</pre>
+
+<ul>
+<li>La media de los valores estimados se igual a la media de los observados:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>valores.estimados = X%*%estimaciones.b
+round(mean(y)-mean(valores.estimados),6)</pre>
+
+<pre >## [1] 0</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-25">
+
+<div class="example">
+<ul>
+<li>Los errores \((e_i)_{i=1,\ldots,n}\) tienen media 0 y varianza \(\tilde{s}_e^2=\frac{SS_E}{n-1}.\)</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>errores=y-valores.estimados
+round(mean(errores))</pre>
+
+<pre >## [1] 0</pre>
+
+<pre class = 'prettyprint lang-r'>SSE=sum(errores^2)
+n=dim(X)[1]
+var(errores)-SSE/(n-1)</pre>
+
+<pre >##      [,1]
+## [1,]    0</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación</h2></hgroup><article  id="coeficiente-de-determinacion-12">
+
+<p>Al igual que hicimos que la <strong>regresión lineal simple</strong>, vamos a definir el <strong>coeficiente de determinación</strong> que es una manera (no la única como ya hemos comentado) de medir lo efectiva que es la regresión.</p>
+
+<p>Introducimos las <strong>variabilidades</strong> siguientes tal como hicimos en la <strong>regresión lineal simple</strong>:</p>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación</h2></hgroup><article  id="coeficiente-de-determinacion-13">
+
+<ul>
+<li><p><strong>Variabilidad total</strong> o suma total de cuadrados: \(SS_T =\sum\limits_{i=1}^n(y_i-\overline{y})^2 = (n-1)\cdot \tilde{s}_y^2.\)</p></li>
+<li><p><strong>Variabilidad de la regresión</strong> o suma de cuadrados de la regresión: \(SS_R=\sum\limits_{i=1}^n(\widehat{y}_i-\overline{y})^2=(n-1)\cdot \tilde{s}_{\widehat{y}}^2.\)</p></li>
+<li><p><strong>Variabilidad del error</strong> o suma de cuadrados del error: \(SS_E=\sum\limits_{i=1}^n(y_i-\widehat{y}_i)^2=(n-1)\cdot \tilde{s}_e^2.\)</p></li>
+</ul>
+
+<p>Recordemos que tal como pasaba en la <strong>regresión lineal simple</strong>, la <strong>variabilidad total</strong> se puede descomponer como la suma de la <strong>variabilidad de la regresión</strong> y la <strong>variabilidad del error</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación</h2></hgroup><article  id="coeficiente-de-determinacion-14">
+
+<p><l class="prop">Teorema. </l> En una regresión lineal múltiple usando el método de los mínimos cuadrados, se cumple la siguiente relación entre las <strong>variabilidades</strong>: \[
+SS_T=SS_R+SS_E,
+\] o equivalentemente, \[
+\tilde{s}^2_y=\tilde{s}^2_{\widehat{y}}+\tilde{s}^2_e.
+\] En este caso, tal como comentábamos en la <strong>regresión lineal simple</strong>, cuántas más &ldquo;proximas&rdquo; estén las <strong>variabilidades</strong> \(SS_T\) y \(SS_R\), o, si se quiere, \(\tilde{s}^2_y\) y \(\tilde{s}^2_{\widehat{y}}\), más efectiva habrá sida la regresión, ya que la regresión habrá heredado mucha variabilidad de los datos \(y_i\), \(i=1,\ldots,n\) y la variabilidad del error, \(SS_E\) será pequeña.</p>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación</h2></hgroup><article  id="coeficiente-de-determinacion-15">
+
+<p>Definimos el <strong>coeficiente de determinación</strong> en una <strong>regresión lineal múltiple</strong> como: \(R^2=\frac{SS_R}{SS_T}=\frac{\tilde{s}^2_{\widehat{y}}}{\tilde{s}^2_y},\) y representa la fracción de la variabilidad de \(y\) que queda explicada por la variabilidad del modelo de regresión lineal.</p>
+
+<p>De la misma manera, definimos el <strong>coeficiente de correlación múltiple</strong> de \(y\) respecto de \(x_1,\ldots, x_k\) como \(R=\sqrt{R^2}\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Propiedades del coeficiente de determinación</h2></hgroup><article  id="propiedades-del-coeficiente-de-determinacion-2">
+
+<p>El <strong>coeficiente de determinación</strong> verifica las dos primeras propiedades que verificaba el <strong>coeficiente de determinación</strong> en el caso de la <strong>regresión lineal simple</strong>:</p>
+
+<ul>
+<li><p>El <strong>coeficiente de determinación</strong> es una cantidad entre 0 y 1: \(0\leq R^2\leq 1\). Entonces, cuánto más próximo a 1 esté dicho coeficiente, más precisa será la recta de regresión.</p></li>
+<li><p>El <strong>coeficiente de determinación</strong> se puede expresar en función de la <strong>variabilidad del error</strong> de la forma siguiente: \[
+R^2=\frac{SS_T-SS_E}{SS_T}=1-\frac{SS_E}{SS_T}=1-\frac{\tilde{s}_e^2}{\tilde{s}_y^2}.
+\]</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-26">
+
+<div class="example">
+<p>Vamos a calcular las variabilidades y el coeficiente de determinación para los datos del ejemplo que estamos trabajando:</p>
+
+<ul>
+<li><strong>Variabilidad total</strong>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(SST=sum((y-mean(y))^2))</pre>
+
+<pre >## [1] 321.24</pre>
+
+<ul>
+<li><strong>Variabilidad de la regresión</strong>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(SSR=sum((valores.estimados-mean(y))^2))</pre>
+
+<pre >## [1] 318.2744</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-27">
+
+<div class="example">
+<ul>
+<li><strong>Variabilidad del error</strong></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>(SSE = sum(errores^2))</pre>
+
+<pre >## [1] 2.965581</pre>
+
+<p>Comprobemos que la <strong>variabilidad total</strong> se descompone en la suma de la <strong>variabilidad de la regresión</strong> y la <strong>variabilidad del error</strong>:</p>
+
+<pre class = 'prettyprint lang-r'>round(SST-SSR-SSE,6)</pre>
+
+<pre >## [1] 0</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-28">
+
+<div class="example">
+<p>El coeficiente de determinación será:</p>
+
+<pre class = 'prettyprint lang-r'>(R2=SSR/SST)</pre>
+
+<pre >## [1] 0.9907683</pre>
+
+<p>o, si se quiere,</p>
+
+<pre class = 'prettyprint lang-r'>(R2 = var(valores.estimados)/var(y))</pre>
+
+<pre >##           [,1]
+## [1,] 0.9907683</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación en <code>R</code></h2></hgroup><article  id="coeficiente-de-determinacion-en-r-1">
+
+<p>Para hallar el <strong>coeficiente de determinación</strong> en <code>R</code> podemos usar las mismas funciones que usábamos en la <strong>regresión lineal simple</strong>:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~x1+...+xk))$r.squared</pre>
+
+<div class="example">
+<p>Para los datos de nuestro ejemplo, hemos de hacer lo siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))$r.squared</pre>
+
+<pre >## [1] 0.9907683</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación ajustado</h2></hgroup><article  id="coeficiente-de-determinacion-ajustado">
+
+<p>El <strong>coeficiente de determinación</strong> definido anteriormente aumenta si aumentamos el número de variables independientes \(k\), incluso si éstas aportan información redundante o poca información. Por ejemplo, si añadimos variables que son linealmente dependientes de las demás.</p>
+
+<p>Para evitar este problema o para penalizar el aumento de variables independientes se usa en su lugar el <strong>coeficiente de regresión ajustado</strong>: \[
+R^2_{adj}=\frac{MS_T-MS_E}{MS_T},
+\] donde \(MS_T=\frac{SS_T}{n-1},\quad MS_E=\frac{SS_E}{n-k-1}.\)</p>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación ajustado</h2></hgroup><article  id="coeficiente-de-determinacion-ajustado-1">
+
+<p>Fijarse ahora que si aumentamos \(k\), el valor de \(MS_E\) aumenta y el valor de \(R^2_{adj}\) disminuirá. Por tanto, con el \(R^2_{adj}\) penalizamos el aumento de variables independientes.</p>
+
+<p>Si aumentamos el nombre de variables independientes con variables explicativas que aporten mucha información a la regresión, el valor de \(SS_E\) disminuirá haciendo que se mantenga estable el valor de \(MS_E\) y el valor de \(R^2_{adj}\) no disminuirá.</p>
+
+<p>La relación entre el <strong>coeficiente de determinación ajustado</strong> y el <strong>coeficiente de determinación</strong> es la siguiente: \[
+R^2_{adj}=1-(1-R^2)\frac{n-1}{n-k-1}.
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-29">
+
+<div class="example">
+<p>Calculemos el <strong>coeficiente de determinación ajustado</strong> para los datos de nuestro ejemplo:</p>
+
+<pre class = 'prettyprint lang-r'>k=dim(X)[2]-1
+(R2.adj = 1-(1-R2)*(n-1)/(n-k-1))</pre>
+
+<pre >##           [,1]
+## [1,] 0.9815367</pre>
+
+<p>Observamos que obtenemos un <strong>coeficiente de determinación ajustado</strong> menor que el <strong>coeficiente de determinación</strong>.</p></div>
+
+<p>En general, lo que hemos observado en el ejemplo anterior, ocurre siempre, es decir \(0\leq R^2_{adj} &lt; R^2\leq 1\), lo que nos permite concluir que para el <strong>coeficiente de determinación ajustado</strong>, es más difícil obtener un valor cercano a 1 que para el <strong>coeficiente de determinación</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Coeficiente de determinación ajustado en <code>R</code></h2></hgroup><article  id="coeficiente-de-determinacion-ajustado-en-r">
+
+<p>El cálculo del <strong>coeficiente de determinación ajustado</strong> en <code>R</code> es parecido al cálculo del <strong>coeficiente de determinación</strong>: sólo hemos de cambiar el parámetro <code>r.squared</code> por <code>adj.r.squared</code></p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~x1+...+xk))$adj.r.squared</pre>
+
+<div class="example">
+
+<p>Para los datos de nuestro ejemplo, hemos de hacer lo siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))$adj.r.squared</pre>
+
+<pre >## [1] 0.9815367</pre>
+
+</article></slide><slide class=""><hgroup><h2>Comparación de modelos</h2></hgroup><article  id="comparacion-de-modelos">
+
+<p>Imaginemos que tenemos el modelo \[
+Y_{|x_1,\ldots,x_k}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k + E_{x_1,\ldots,x_k},
+\] y añadimos una nueva variable independiente \(x_{k+1}\). Entonces, tendremos otro modelo: \[
+Y_{|x_1,\ldots,x_k,x_{k+1}}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k +\beta_{k+1}+ E_{x_1,\ldots,x_k,x_{k+1}}.
+\] ¿Cómo podemos comparar los dos modelos anteriores?</p>
+
+<p>O, dicho en otras palabras, ¿cómo decidir si la nueva variable introducida \(x_{k+1}\) aporta información relevante?</p>
+
+</article></slide><slide class=""><hgroup><h2>Comparación de modelos</h2></hgroup><article  id="comparacion-de-modelos-1">
+
+<p>Una manera de realizar dicha comparación es usando el <strong>coeficiente de regresión ajustado</strong> \(R^2_{adj}\): el modelo que tenga mayor \(R^2_{adj}\) es el mejor.</p>
+
+<p>Por tanto, si el valor del <strong>coeficiente de regresión ajustado</strong> del segundo modelo supera el <strong>coeficiente de regresión ajustado</strong> del primero, diremos que la nueva variable \(x_{k+1}\) aporta información relevante y hay que tenerla en cuenta.</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-30">
+
+<div class="example">
+<p>Con los datos de nuestro ejemplo, consideremos sólo la variable independiente correspondiente a la segunda columna de la matriz \(\mathbf{X}\), variable que corresponde a la edad del niño en días.</p>
+
+<p>El <strong>coeficiente de correlación ajustado</strong> de este modelo que, por cierto, sería de <strong>regresión lineal simple</strong> vale:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]))$adj.r.squared</pre>
+
+<pre >## [1] 0.8822663</pre>
+
+<p>Consideremos ahora las dos primeras variables correspondientes a las columnas segunda y tercera de la matriz \(\mathbf{X}\), variables que corresponden a la edad del niño en días y su altura en nacer.</p>
+
+<p>El <strong>coeficiente de correlación ajustado</strong> de este modelo vale:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]+X[,3]))$adj.r.squared</pre>
+
+<pre >## [1] 0.9617198</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-31">
+
+<div class="example">
+<p>Hemos obtenido un <strong>coeficiente de regresión ajustado</strong> superior. Por tanto, ha valido la pena añadir la variable correspondiente a la altura al nacer del niño ya que nos ha aportado información relevante al modelo.</p>
+
+<p>Consideremos ahora las tres primeras variables correspondientes a las columnas segunda, tercera y cuarta de la matriz \(\mathbf{X}\), variables que corresponden a la edad del niño en días, su altura en nacer y su peso al nacer.</p>
+
+<p>El <strong>coeficiente de correlación ajustado</strong> de este modelo vale:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~X[,2]+X[,3]+X[,4]))$adj.r.squared</pre>
+
+<pre >## [1] 0.9851091</pre>
+
+<p>Hemos vuelto a obtener un <strong>coeficiente de regresión ajustado</strong> superior al anterior. Por tanto, también ha valido la pena añadir la variable peso del niño al nacer al aportar dicha variable información relevante al modelo.</p>
+
+<p>Recordemos que el <strong>coeficiente de regresión ajustado</strong> del modelo completo era 0.9815367, valor inferior al obtenido anteriormente.</p>
+
+<p>Por tanto, la última variable, el aumento del peso actual del niño respecto de su peso al nacer, no aporta información relevante y no debe ser considerada en el modelo de regresión lineal múltiple.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Comparación de modelos</h2></hgroup><article  id="comparacion-de-modelos-2">
+
+<p>Comparar dos modelos usando el <strong>coeficiente de regresión ajustado</strong> es uno de los métodos que hay en la literatura para ver si un método es más adecuado que otro.</p>
+
+<p>Existen más métodos como son el <strong>AIC</strong> (<em>Akaike’s Information Criterion</em>) o el método <strong>BIC</strong> (<em>Bayesian Information Criterion</em>).</p>
+
+<p>El método <strong>AIC</strong> cuantifica cuánta información de \(Y\) se pierde con el modelo y cuántas variables usamos: el mejor modelo es el que tiene un valor de <strong>AIC</strong> más pequeño. Concretamente, se calcula la cantidad siguiente: \(AIC=n\ln(SS_E/n)+2k\) y el modelo con menor <strong>AIC</strong> es el más adecuado.</p>
+
+<p>Para usar el método <strong>AIC</strong> en <code>R</code>, hay que usar la función <code>AIC</code>:</p>
+
+<pre class = 'prettyprint lang-r'>AIC(lm(y~x1+...+xk))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-32">
+
+<div class="example">
+<p>Veamos usando el método <strong>AIC</strong> cuál de los cuatro modelos vistos anteriormente para los datos de nuestro ejemplo es el más adecuado:</p>
+
+<pre class = 'prettyprint lang-r'>AIC(lm(y~X[,2]))</pre>
+
+<pre >## [1] 43.25982</pre>
+
+<pre class = 'prettyprint lang-r'>AIC(lm(y~X[,2]+X[,3]))</pre>
+
+<pre >## [1] 33.76103</pre>
+
+<pre class = 'prettyprint lang-r'>AIC(lm(y~X[,2]+X[,3]+X[,4]))</pre>
+
+<pre >## [1] 25.62252</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-33">
+
+<div class="example">
+<pre class = 'prettyprint lang-r'>AIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))</pre>
+
+<pre >## [1] 27.54953</pre>
+
+<p>El método <strong>AIC</strong> concuerda con el método del <strong>coeficiente de determinación ajustado</strong>. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz \(\mathbf{X}\) que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Comparación de modelos</h2></hgroup><article  id="comparacion-de-modelos-3">
+
+<p>El método <strong>BIC</strong> cuantifica cuánta información de \(Y\) se pierde con el modelo y cuántas variables y datos usamos: el mejor modelo es el que tiene un valor de <strong>BIC</strong> más pequeño. Para saber si un modelo es mejor que otro, hay que calcular la cantidad siguiente: \(BIC=n\ln(SS_E/n)+k\ln(n)\) y, como ya hemos comentado, el modelo con menor <strong>BIC</strong> es el más adecuado.</p>
+
+<p>Para usar el método <strong>BIC</strong> en <code>R</code>, hay que usar la función <code>BIC</code>:</p>
+
+<pre class = 'prettyprint lang-r'>BIC(lm(y~x1+...+xk))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-34">
+
+<div class="example">
+<p>Veamos usando el método <strong>BIC</strong> cuál de los cuatro modelos vistos anteriormente para los datos de nuestro ejemplo es el más adecuado:</p>
+
+<pre class = 'prettyprint lang-r'>BIC(lm(y~X[,2]))</pre>
+
+<pre >## [1] 43.85149</pre>
+
+<pre class = 'prettyprint lang-r'>BIC(lm(y~X[,2]+X[,3]))</pre>
+
+<pre >## [1] 34.54993</pre>
+
+<pre class = 'prettyprint lang-r'>BIC(lm(y~X[,2]+X[,3]+X[,4]))</pre>
+
+<pre >## [1] 26.60864</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-35">
+
+<div class="example">
+<pre class = 'prettyprint lang-r'>BIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))</pre>
+
+<pre >## [1] 28.73288</pre>
+
+<p>El método <strong>BIC</strong> concuerda con los dos métodos usados anteriormente: el método del <strong>coeficiente de determinación ajustado</strong> y el método <strong>AIC</strong>. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz \(\mathbf{X}\) que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-8">
+
+<p>Vamos a calcular los intervalos de confianza para los \(k+1\) parámetros de modelo \(\beta_0,\beta_1,\ldots,\beta_k\).</p>
+
+<p>Para ello, al igual que hicimos en la <strong>regresión lineal simple</strong>, supondremos que las variables aleatorias error \(E_i=E_{\underline{x}_{i}}\) son incorreladas, es decir, la covarianza entre un par de ellas cualesquiera es cero y todas normales de media 0 y de misma varianza \(\sigma_E^2\).</p>
+
+<p>Antes de dar los intervalos de confianza, necesitamos conocer las propiedades sobre los estimadores de los parámetros anteriores, es decir, si son insesgados, cómo estimar la varianza común \(\sigma_E^2\) y sus errores estándar.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-9">
+
+<p>Dichas propiedades vienen dadas en los teoremas siguientes:</p>
+
+<p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores, los estimadores \(b_0,\ldots, b_k\) de los parámetros \(\beta_0,\ldots,\beta_k\) son máximo verosímiles y además no sesgados.</p>
+
+<p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores, \[
+\mathrm{Cov}(b_0,b_1,\ldots,b_k)= \sigma_E^2\cdot (\mathbf{X}^\top\cdot \mathbf{X})^{-1},
+\] donde \(\mathrm{Cov}(b_0,b_1,\ldots,b_k)\) es la matriz de covarianzas de los estimadores \(b_0,b_1,\ldots b_k\) de los parámetros \(\beta_0,\beta_1,\ldots,\beta_k\) de componentes \(\mathrm{Cov}(b_0,b_1,\ldots,b_k)_{ij}=\mathrm{Cov}(b_i,b_j)\), \(i,j=0,1\ldots,k\) y un estimador no sesgado de la varianza común \(\sigma_E^2\) es \(S^2=\frac{SS_E}{n-k-1}\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-10">
+
+<p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores, el error estándar de cada estimador \(b_i\) vale \(\sqrt{(\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}},\) (la raíz cuadrada de la \(i\)-èsima entrada de la diagonal de la matriz \(\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1}\) empezando por \(i=0\).)</p>
+
+<p><l class="prop">Teorema. </l> Bajo las hipótesis anteriores,</p>
+
+<ul>
+<li><p>la variable aleatoria \(\frac{\beta_i-b_i}{\sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}},\) sigue un ley \(t\) de Student cono \(n-k-1\) grados de libertad,</p></li>
+<li><p>un intervalo de confianza del \((1-\alpha)\cdot 100\%\) de confianza para el parámetro \(\beta_i\) es \(b_i\pm t_{n-k-1,1-\frac{\alpha}2}\cdot \sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}.\)</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-36">
+
+<div class="example">
+<p>Veamos si los errores de los datos del ejemplo que vamos desarrollando se distribuyen normalmente usando el test de <strong>Kolmogorov-Smirnov-Lilliefors</strong>:</p>
+
+<pre class = 'prettyprint lang-r'>lillie.test(errores)</pre>
+
+<pre >## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  errores
+## D = 0.13583, p-value = 0.9029</pre>
+
+<p>Como el p-valor obtenido es muy grande, concluimos que no tenemos evidencias suficientes para rechazar la normalidad de los errores.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-37">
+
+<div class="example">
+<p>La estimación de la varianza común \(S^2\) será:</p>
+
+<pre class = 'prettyprint lang-r'>(S2 = SSE/(n-k-1))</pre>
+
+<pre >## [1] 0.7413952</pre>
+
+<p>La estimación de la matriz de covarianzas de los estimadores \(b_0,b_1,b_2,b_3,b_4\) es la siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>S2*solve(t(X)%*%X)</pre>
+
+<pre >##            [,1]        [,2]         [,3]          [,4]         [,5]
+## [1,] 270.918803  5.32456268 -12.52087701 -13.743054914 -1.399872458
+## [2,]   5.324563  0.11540219  -0.26585498  -0.325517882 -0.017626546
+## [3,] -12.520877 -0.26585498   0.61764126   0.742417814  0.041580221
+## [4,] -13.743055 -0.32551788   0.74241781   1.121859593 -0.005975861
+## [5,]  -1.399872 -0.01762655   0.04158022  -0.005975861  0.027709704</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-38">
+
+<div class="example">
+<p>En la matriz anterior, podemos observar que el estimador con más varianza sería \(b_0\) seguido de \(b_3\) que corresponde a la varianza del peso del niño al nacer.</p>
+
+<p>También podemos observar que entre las variables \(x_2\) (altura del niño al nacer) y \(x_3\) (peso del niño al nacer) existe una gran correlación lineal: 0.7424178.</p>
+
+<p>Las estimaciones de los errores estándar de los estimadores \(b_0,b_1,b_2,b_3,b_4\) son las siguientes:</p>
+
+<pre class = 'prettyprint lang-r'>(errores.estandar = sqrt(S2*diag(solve(t(X)%*%X))))</pre>
+
+<pre >## [1] 16.4596113  0.3397090  0.7859016  1.0591787  0.1664623</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-39">
+
+<div class="example">
+<p>Un intervalo de confianza para los estimadores \(b_0,b_1,b_2,b_3,b_4\) al 95% de confianza es el siguiente:</p>
+
+<ul>
+<li>Intervalo de confianza para \(b_0\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>alpha=0.05
+c(estimaciones.b[1]-qt(1-alpha/2,n-k-1)*errores.estandar[1],
+  estimaciones.b[1]+qt(1-alpha/2,n-k-1)*errores.estandar[1])</pre>
+
+<pre >## [1] -38.55167  52.84674</pre>
+
+<ul>
+<li>Intervalo de confianza para \(b_1\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>c(estimaciones.b[2]-qt(1-alpha/2,n-k-1)*errores.estandar[2],
+  estimaciones.b[2]+qt(1-alpha/2,n-k-1)*errores.estandar[2])</pre>
+
+<pre >## [1] -0.8430889  1.0432778</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-40">
+
+<div class="example">
+<ul>
+<li>Intervalo de confianza para \(b_2\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>c(estimaciones.b[3]-qt(1-alpha/2,n-k-1)*errores.estandar[3],
+  estimaciones.b[3]+qt(1-alpha/2,n-k-1)*errores.estandar[3])</pre>
+
+<pre >## [1] -1.455595  2.908430</pre>
+
+<ul>
+<li>Intervalo de confianza para \(b_3\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>c(estimaciones.b[4]-qt(1-alpha/2,n-k-1)*errores.estandar[4],
+  estimaciones.b[4]+qt(1-alpha/2,n-k-1)*errores.estandar[4])</pre>
+
+<pre >## [1] 0.1350854 6.0165886</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-41">
+
+<div class="example">
+<ul>
+<li>Intervalo de confianza para \(b_4\) al 95% de confianza:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>c(estimaciones.b[5]-qt(1-alpha/2,n-k-1)*errores.estandar[5],
+  estimaciones.b[5]+qt(1-alpha/2,n-k-1)*errores.estandar[5])</pre>
+
+<pre >## [1] -0.4922156  0.4321313</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza en <code>R</code></h2></hgroup><article  id="intervalos-de-confianza-en-r-2">
+
+<p>Recordemos que para hallar los intervalos de confianza en <code>R</code> había que usar la función <code>confint</code> aplicado al objeto <code>lm(...)</code>. El parámetro <code>level</code> nos da el nivel de confianza con valor por defecto 0.95:</p>
+
+<pre class = 'prettyprint lang-r'>confint(lm(y~x1+...+xk))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-42">
+
+<div class="example">
+<p>Si aplicamos la función anterior a los datos de nuestro ejemplo, obtenemos los intervalos de confianza para los estimadores \(b_0,b_1,b_2,b_3,b_4\) que ya hemos obtenido antes:</p>
+
+<pre class = 'prettyprint lang-r'>confint(lm(y~X[,2]+X[,3]+X[,4]+X[,5]),level=0.95)</pre>
+
+<pre >##                   2.5 %     97.5 %
+## (Intercept) -38.5516748 52.8467396
+## X[, 2]       -0.8430889  1.0432778
+## X[, 3]       -1.4555952  2.9084299
+## X[, 4]        0.1350854  6.0165886
+## X[, 5]       -0.4922156  0.4321313</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-11">
+
+<p>Tal como hemos hecho en la <strong>regresión lineal simple</strong>, fijados unos valores concretos de las variables independientes \((x_{10},\ldots,x_{k0})\) podemos considerar dos parámetros más a estudiar: el valor medio de la variable aleatoria \(Y|x_{10},\ldots,x_{k0}\), \(\mu_{Y|x_{10},\ldots,x_{k0}}\) y el valor estimado \(y_0=b_0+b_1\cdot x_{10}+\cdots + b_k\cdot x_{k0}\) por la función de regresión.</p>
+
+<p>Recordemos que los dos intervalos de confianza anteriores nos ayudan a interpretar la regresión cuando el valor de las variables \((X_1,\ldots,X_k)\) valen un determinado valor \((x_{10},\ldots,x_{k0})\).</p>
+
+<p>Para realizar la estimación puntual de los dos parámetros anteriores usaremos el mismo estimador \(\hat{y}_0 =b_0+b_1 x_1+\cdots + b_k x_k\) pero tal como pasaba en la <strong>regresión lineal simple</strong>, los errores estándard no serán los mismos tal como nos dicen el teorema siguiente.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-12">
+
+<p><l class="prop">Teorema. </l> Sean \(\underline{x}_0=(x_{01},\ldots,x_{0k})\) unos valores concretos de las variables \((X_1,\ldots, X_k)\).</p>
+
+<p>Bajo las hipótesis anteriores,</p>
+
+<ul>
+<li><p>el error estándar de \(\widehat{y}_0\) como estimador del parámetro \(\mu_{Y|\underline{x}_0}\) es el siguiente: \[
+S\sqrt{\mathbf{x}_0\cdot  (\mathbf{X}^\top \cdot\mathbf{X})^{-1}\cdot \mathbf{x}_0^\top},
+\]</p></li>
+<li><p>el error estándar de \(\widehat{y}_0\) como estimador de \(y_0\) es el siguiente: \[
+S\sqrt{1+\mathbf{x}_0\cdot  (\mathbf{X}^\top \cdot\mathbf{X})^{-1}\cdot \mathbf{x}_0^\top},
+\] donde \(\mathbf{x}_0 =(1,\underline{x}_0)=(1,x_{01},\ldots,x_{0k})\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-13">
+
+<p>Los estimadores para hallar los intervalos de confianza para los parámetros \(\mu_{Y|x_{10},\ldots,x_{k0}}\) y el valor estimado \(y_0\) vienen dados por el teorema siguiente:</p>
+
+<p><l class="prop">Teorema. </l> Sean \(\underline{x}_0=(x_{01},\ldots,x_{0k})\) unos valores concretos de las variables \((X_1,\ldots, X_k)\). Bajo nuestras hipótesis, las variables aleatorias \(\dfrac{\mu_{Y|\underline{x}_0}-\widehat{y}_0}{S\sqrt{\mathbf{x}_0\cdot (\mathbf{X}^\top \cdot \mathbf{X})^{-1}\cdot \mathbf{x}_0^\top}},\  \dfrac{y_0-\widehat{y}_0}{S\sqrt{1+\mathbf{x}_0\cdot (\mathbf{X}^\top \cdot \mathbf{X})^{-1}\cdot \mathbf{x}_0^\top}},\) siguen la ley \(t\) de Student con \(n-k-1\) grados de libertad.</p>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza</h2></hgroup><article  id="intervalos-de-confianza-14">
+
+<p>Por último, bajo las hipótesis anteriores, un intervalo de confianza al \(100\cdot (1-\alpha)\)% de confianza para cada uno de los parámetros \(\mu_{Y|x_{10},\ldots,x_{k0}}\) y el valor estimado \(y_0\) es el siguiente:</p>
+
+<ul>
+<li><p>Parámetro \(\mu_{Y|x_{10},\ldots,x_{k0}}\): \(\hat{y}_0\pm t_{n-k-1,1-\frac{\alpha}{2}}\cdot S\sqrt{\mathbf{x}_0\cdot (\mathbf{X}^\top \cdot \mathbf{X})^{-1}\cdot \mathbf{x}_0^\top}\).</p></li>
+<li><p>Parámetro \(y_0\): \(\hat{y}_0\pm t_{n-k-1,1-\frac{\alpha}{2}}\cdot S\sqrt{1+\mathbf{x}_0\cdot (\mathbf{X}^\top \cdot \mathbf{X})^{-1}\cdot \mathbf{x}_0^\top}\).</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-43">
+
+<div class="example">
+<p>Hallemos un intervalo de confianza para los datos de nuestro ejemplo suponiendo un niño con \(x_{10}=75\) días de edad, de altura \(x_{20}=50\) cm. al nacer, de \(x_{30}=4\) kg. al nacer y con un \(x_{40}=30\)% de aumento de peso con respecto su peso al nacer.</p>
+
+<p>El intervalo de confianza para el parámetro \(\mu_{Y|x_{10}=75,x_{20}=50,x_{30}=4,x_{40}=30}\) al 95% de confianza es el siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>alpha=0.05
+x0 = c(1,75,50,4,30)
+y0.estimado = sum(estimaciones.b*x0)
+c(y0.estimado-qt(1-alpha/2,n-k-1)*sqrt(S2*(t(x0)%*%solve(t(X)%*%X)%*%x0)),
+  y0.estimado+qt(1-alpha/2,n-k-1)*sqrt(S2*(t(x0)%*%solve(t(X)%*%X)%*%x0)))</pre>
+
+<pre >## [1] 52.98730 71.76784</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-44">
+
+<div class="example">
+<p>El intervalo de confianza para el parámetro \(y_0\) al 95% de confianza es el siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>c(y0.estimado-qt(1-alpha/2,n-k-1)*sqrt(S2*(1+(t(x0)%*%solve(t(X)%*%X)%*%x0))),
+  y0.estimado+qt(1-alpha/2,n-k-1)*sqrt(S2*(1+(t(x0)%*%solve(t(X)%*%X)%*%x0))))</pre>
+
+<pre >## [1] 52.68777 72.06737</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Intervalos de confianza en <code>R</code></h2></hgroup><article  id="intervalos-de-confianza-en-r-3">
+
+<p>Para hallar el intervalo de confianza para el parámetros \(\mu_{Y|x_{10},\ldots,x_{k0}}\) al \(100\cdot (1-\alpha)\)% de confianza hay que usar la función <code>predict.lm</code> de la forma siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>newdata=data.frame(x1=x10,...,xk=xk0)
+predict.lm(lm(y~x1+...+xk),newdata,interval=&quot;confidence&quot;,level= nivel.confianza)</pre>
+
+<p>Para el parámetro \(y_0\) hay que usar la misma función anterior pero cambiando el parámetro <code>interval</code> al valor <code>prediction</code>:</p>
+
+<pre class = 'prettyprint lang-r'>newdata=data.frame(x1=x10,...,xk=xk0)
+predict.lm(lm(y~x1+...+xk),newdata,interval=&quot;prediction&quot;,level= nivel.confianza)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-45">
+
+<div class="example">
+<p>Para los datos del ejemplo anterior, los intervalos de confianza para los parámetros \(\mu_{Y|x_{10}=75,x_{20}=50,x_{30}=4,x_{40}=30}\) y \(y_0\) al 95% de confianza se calcularían en <code>R</code> de la forma siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>newdata=data.frame(x1=75,x2=50,x3=4,x4=30)
+x1=X[,2]
+x2=X[,3]
+x3=X[,4]
+x4=X[,5]
+predict.lm(lm(y~x1+x2+x3+x4),newdata,interval=&quot;confidence&quot;,level= 0.95)</pre>
+
+<pre >##        fit     lwr      upr
+## 1 62.37757 52.9873 71.76784</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-46">
+
+<div class="example">
+<pre class = 'prettyprint lang-r'>predict.lm(lm(y~x1+x2+x3+x4),newdata,interval=&quot;prediction&quot;,level= 0.95)</pre>
+
+<pre >##        fit      lwr      upr
+## 1 62.37757 52.68777 72.06737</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\)</h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i">
+
+<p>En el caso de la <strong>regresión lineal múltiple</strong> podemos plantearnos el contraste de hipótesis siguiente: \[
+\left.\begin{array}{l} 
+H_0: \beta_1=\beta_2=\cdots=\beta_k=0, \\
+H_1: \mbox{existe algún $i$ tal que }\beta_i \neq 0.
+\end{array}
+\right\}
+\] Es decir, queremos contrastar si la <strong>regresión lineal múltiple</strong> realizada ha tenido sentido ya que la hipótesis nula equivaldría a decir que ninguna variable independiente \(X_i\), \(i=1,\ldots,k\) ha tenido efecto sobre la variable \(Y\) y como consecuencia, la regresión no ha tenido sentido.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\)</h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i-1">
+
+<p>Para realizar el contraste de hipótesis anterior, podríamos plantear los \(k\) contrastes siguientes: \[
+\left.\begin{array}{l} H_0: \beta_i=0, \\
+H_1: \beta_i \neq 0, \end{array}
+\right\}
+\] usando como <strong>estadístico de contraste</strong> \(\frac{\beta_i-b_i}{\sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}}\), que sabemos que sigue una ley \(t\) de Student con \(n-k-1\) grados de libertad.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\)</h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i-2">
+
+<p>El problema es que los \(k\) contrastes anteriores no son <strong>independientes</strong>, es decir, los <strong>estadísticos de contraste</strong> son variables aleatorias <strong>no independientes</strong> entre otras cosas porque su matriz de covarianzas no tiene por qué ser diagonal.</p>
+
+<p>Por tanto, si realizamos el contraste de hipótesis original a partir de los \(k\) contrastes anteriores, es muy complicado hallar el <strong>error tipo I</strong> \(\alpha\) del contraste original a partir de los <strong>errores tipo I</strong> de cada uno de los \(k\) contrastes al fallar la independencia de los mismos.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\)</h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i-3">
+
+<p>Otra posibilidad para evitar el problema comentado anteriormente es plantear el contraste original como un contraste <strong>ANOVA</strong> donde las subpoblaciones consideradas serían las variables \(Y|\underline{x}_1, \ldots, Y|\underline{x}_n\) siendo \(\underline{x}_1, \ldots, \underline{x}_n\), \(n\) valores concretos de las variables independientes \((X_1,\ldots, X_k)\).</p>
+
+<p>Fijarse que si la hipótesis nula \(H_0\) es cierta, es decir \(\beta_1=\cdots =\beta_k=0\), entonces los valores medios de las variables anteriores serían los mismos ya que recordemos que suponemos que: \[
+\mu_{Y|\underline{x}}=\beta_0 +\beta_1 \cdot x_1 +\cdots +\beta_k\cdot x_k=\beta_0,
+\] para todo valor de \(\underline{x}\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\)</h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i-4">
+
+<p>Por tanto, el contraste original sería equivalente a realizar el contraste <strong>ANOVA</strong> siguiente: \[
+\left.\begin{array}{l}
+H_0:\mu_{Y|\underline{x}_1}=\cdots=\mu_{Y|\underline{x}_n},\\
+ H_1:\mbox{existen $i$ y $j$ tales que }\mu_{Y|\underline{x}_i}\neq \mu_{Y|\underline{x}_j}.
+\end{array}
+\right\}
+\] Para que el modelo de <strong>regresión lineal múltiple</strong> tenga sentido hemos de rechazar la hipótesis nula anterior.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\)</h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i-5">
+
+<p>La <strong>tabla ANOVA</strong> es la siguiente:</p>
+
+<div class="center">
+<table class = 'rmdtable'>
+<col width="13.793103%" />
+<col width="17.241379%" />
+<col width="17.241379%" />
+<col width="17.241379%" />
+<col width="17.241379%" />
+<col width="17.241379%" />
+<tr class="header">
+<th align="left">Origen variación</th>
+<th align="center">Grados de libertad</th>
+<th align="center">Sumas de cuadrados</th>
+<th align="center">Cuadrados medios</th>
+<th align="center">Estadístico de contraste</th>
+<th align="center">p-valor</th>
+</tr>
+<tr class="odd">
+<td align="left">Regresión</td>
+<td align="center">\(k\)</td>
+<td align="center">\(SS_R\)</td>
+<td align="center">\(MS_R=\frac{SS_R}{k}\)</td>
+<td align="center">\(F=\frac{MS_R}{MS_E}\)</td>
+<td align="center">p-valor</td>
+</tr>
+<tr class="even">
+<td align="left">Error</td>
+<td align="center">\(n-k-1\)</td>
+<td align="center">\(SS_E\)</td>
+<td align="center">\(MS_E=\frac{SS_E}{n-k-1}\)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</table></div>
+
+<p>donde el <strong>estadístico de contraste</strong> \(F=\frac{MS_R}{MS_E}\), suponiendo la hipótesis nula cierta, sigue la distribución \(F\) de \(k\) y \(n-k-1\) grados de libertad.</p>
+
+<p>El p-valor del contraste anterior vale \(p=P(F_{k,n-k-1}\geq f_0),\) siendo \(f_0\) el valor del estadístico de contraste \(F\) para nuestros datos.</p>
+
+</article></slide><slide class=""><hgroup><h2>Tabla ANOVA en <code>R</code></h2></hgroup><article  id="tabla-anova-en-r">
+
+<p>Para calcular la tabla ANOVA en <code>R</code> de una <strong>regresión lineal múltiple</strong> hay que usar la función <code>anova</code> de la forma siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>anova(lm(y ~ Xd))</pre>
+
+<p>donde <code>Xd</code> es una matrix cuyas columnas son los valores de las variables independientes \(x_1,\ldots, x_k\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-47">
+
+<div class="example">
+<p>Para hallar la tabla ANOVA para los datos de nuestro ejemplo, hemos de hacer lo siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>anova(lm(y~X[,2:5]))</pre>
+
+<pre >## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## X[, 2:5]   4 318.27  79.569  107.32 0.0002541 ***
+## Residuals  4   2.97   0.741                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</pre>
+
+<p>Observamos que el p-valor es muy pequeño. Por tanto, rechazamos la hipótesis nula y concluimos que la regresión ha tenido sentido en este caso.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\)</h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i-6">
+
+<p>Otro tipo de contrastes que podemos plantearnos sobre los parámetros del modelo \(\beta_i\) es, si fijado \(i\), \(\beta_i\) aporta algo al modelo, o, si la variable \(x_i\) es <strong>significativa</strong>.</p>
+
+<p>Concretamente, fijado \(i\), nos planteamos el contraste siguiente: \[
+\left.\begin{array}{l} H_0: \beta_i=0, \\
+H_1: \beta_i \neq 0, \end{array}
+\right\}
+\] usando como <strong>estadístico de contraste</strong> \(\frac{\beta_i-b_i}{\sqrt{(S^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}}}\), que sabemos que sigue una ley \(t\) de Student con \(n-k-1\) grados de libertad.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\)</h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i-7">
+
+<p>El p-valor del contraste anterior vale \(p=2\cdot P(t_{n-k-1}&gt;|t_0\), donde \(t_0\) es el valor obtenido por el estadístico de contraste usando nuestros datos.</p>
+
+<p>Para que la variable \(x_i\) sea <strong>significativa</strong> o para que aporte información relevante al modelo de <strong>regresión lineal múltiple</strong>, debemos rechazar la hipótesis nula en el contraste anterior u obtener un p-valor pequeño.</p>
+
+</article></slide><slide class=""><hgroup><h2>Contrastes de hipótesis sobre los parámetros \(\beta_i\) en <code>R</code></h2></hgroup><article  id="contrastes-de-hipotesis-sobre-los-parametros-beta_i-en-r">
+
+<p>Para realizar todos los contrastes anteriores en <code>R</code> hay que usar la función <code>summary</code> aplicada al objecto <code>lm(...)</code>:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~x1+...+xk))</pre>
+
+<p>y <code>R</code> nos da toda la información sobre la <strong>regresión múltiple</strong> realizada.</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-48">
+
+<div class="example">
+<p>Si aplicamos la función <code>summary</code> a los datos de nuestro ejemplo, obtenemos la salida siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>summary(lm(y~x1+x2+x3+x4))</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-49">
+
+<div class="example">
+<pre >## 
+## Call:
+## lm(formula = y ~ x1 + x2 + x3 + x4)
+## 
+## Residuals:
+##        1        2        3        4        5        6        7        8 
+## -0.04053 -0.12898  0.21498 -0.43238 -0.64610  0.22143  0.52245  1.12764 
+##        9 
+## -0.83852 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)  7.14753   16.45961   0.434   0.6865  
+## x1           0.10009    0.33971   0.295   0.7829  
+## x2           0.72642    0.78590   0.924   0.4076  
+## x3           3.07584    1.05918   2.904   0.0439 *
+## x4          -0.03004    0.16646  -0.180   0.8656  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.861 on 4 degrees of freedom
+## Multiple R-squared:  0.9908, Adjusted R-squared:  0.9815 
+## F-statistic: 107.3 on 4 and 4 DF,  p-value: 0.0002541</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-50">
+
+<div class="example">
+<p>En primer lugar <code>R</code> nos da la lista de los errores cometidos en las estimaciones.</p>
+
+<p>En segundo lugar, <code>R</code> nos muestra una tabla con las columnas siguientes:</p>
+
+<ul>
+<li><code>Estimate</code>: los valores estimados de los parámetros \(\beta_0,\beta_1,\beta_2,\beta_3\) y \(\beta_4\). Es decir, los valores \(b_0,b_1,b_2,b_3\) y \(b_4\).</li>
+<li><code>Std. Error</code>: los errores estándars de los estimadores \(b_0,b_1,b_2,b_3\) y \(b_4\).</li>
+<li><code>t value</code>: el valor del estadístico de contraste cuando realizamos el contraste \(\left.\begin{array}{l} H_0: \beta_i=0, \\ H_1: \beta_i \neq 0, \end{array} \right\}\) sobre cada parámetro \(\beta_i\), \(i=0,1,2,3,4\).</li>
+<li><code>Pr(&gt;|t|)</code>: los p-valores del contraste anterior.</li>
+</ul>
+
+<p>Observamos que todas las variables excepto la variable <code>x3</code>, peso del niño al nacer, son no significativas para el modelo.</p>
+
+<p>A continuación nos da el error residual que es la estimación de \(\sqrt{S^2}\), el valor de coeficiente de determinación \(R^2\) y el coeficiente de determinación ajustado \(R^2_{adj}\).</p>
+
+<p>Para finalizar nos da el valor del estadístico de contraste ANOVA comentado anteriormente junto con el p-valor del mismo.</p></div></article></slide>
 
 
   <slide class="backdrop"></slide>
