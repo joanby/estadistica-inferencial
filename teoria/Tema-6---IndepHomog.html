@@ -3208,7 +3208,7 @@ font-size: 0.5em
 
 <slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de independencia</h2></hgroup><article  id="contrastes-de-independencia">
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion">
 
 <p>Una de las aplicaciones más usadas del test de bondad de ajuste es contrastar si dos maneras de clasificar \(n\) objetos son <strong>independientes</strong> o no.</p>
 
@@ -3221,7 +3221,7 @@ font-size: 0.5em
 
 <p>Esquematicemos los resultados en lo que se llama una tabla de contingencia:</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción-1">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-1">
 
 <div class="example">
 <div class="center">
@@ -3800,7 +3800,7 @@ chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
 
 <p>Observamos que el p-valor es pequeño. Por tanto, concluimos que tenemos evidencias suficientes para rechazar que la longitud del pétalo y la especie sean independientes.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseño-experimental-en-el-contraste-de-independencia">
+</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseno-experimental-en-el-contraste-de-independencia">
 
 <p>En un <strong>contraste de independencia</strong> se toma una <strong>muestra transversal</strong> de la población, es decir, se selecciona al azar una cierta cantidad de individuos de la población, se observan las dos variables sobre cada uno de ellos, y se contrasta si las probabilidades conjuntas son iguales al producto de las probabilidades marginales de cada variable.</p>
 
@@ -3808,7 +3808,7 @@ chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de homogeneidad</h2></hgroup><article  id="contrastes-de-homogeneidad">
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción-2">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-2">
 
 <p>En un contraste de homogeneidad, tenemos dos variables discretas \(X\) e \(Y\) y nos planteamos si la distribución de la variable \(Y\) depende de los valores de la variable \(X\).</p>
 
@@ -4096,7 +4096,33 @@ Recordemos que la tabla de contingencia en este ejemplo era:
 ## data:  matrix(c(5, 20, 15, 8, 26, 10, 15, 46, 15, 22, 8, 10), 3, 4)
 ## X-squared = 31.605, df = 6, p-value = 1.942e-05</pre>
 
-<p>Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes para rechazar que la distribución del número de crías de las lobas es la misma para las tres zonas donde viven.</p></div></article></slide>
+<p>Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes para rechazar que la distribución del número de crías de las lobas es la misma para las tres zonas donde viven.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guia-rapida">
+
+<ul>
+<li><p><code>table</code> calcula tablas de contingencia de frecuencias absolutas.</p></li>
+<li><p><code>prop.table</code> calcula tablas de contingencia de frecuencias relativas.</p></li>
+<li><p><code>addmargins</code> sirve para añadir a una <code>table</code> una fila o una columna obtenidas aplicando una función a todas las columnas o a todas las filas de la tabla, respectivamente. Sus parámetros principales son:</p>
+
+<ul>
+<li><p><code>margin</code>: igualado a <code>1</code>, se aplica la función por columnas, añadiendo una nueva fila; igualado a <code>2</code>, se aplica la función por filas, añadiendo una nueva columna; igualado a <code>c(1,2)</code>, que es su valor por defecto, hace ambas cosas.</p></li>
+<li><p><code>FUN</code>: la función que se aplica a las filas o columnas; su valor por defecto es <code>sum</code>.</p></li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guia-rapida-1">
+
+<ul>
+<li><p><code>colSums</code> calcula un vector con las sumas de las columnas de una matriz o una tabla.</p></li>
+<li><p><code>rowSums</code> calcula un vector con las sumas de las filas de una matriz o una tabla.</p></li>
+<li><p><code>chisq.test</code> sirve para realizar tests \(\chi^2\) de independencia y homogeneidad. El resultado es una <code>list</code> formada, entre otros, por los objetos siguientes: <code>statistic</code> (el valor del estadístico \(X^2\)), <code>parameter</code> (los grados de libertad) y <code>p.value</code> (el p-valor). Sus parámetros principales en el contexto de esta lección son:</p>
+
+<ul>
+<li><code>simulate.p.value</code>: igualado a <code>TRUE</code>, calcula el p-valor mediante simulaciones.</li>
+<li><code>B</code>: en este último caso, permite especificar el número de simulaciones.</li>
+</ul></li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>

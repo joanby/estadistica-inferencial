@@ -958,7 +958,7 @@ round(pares.ord,12)
 A continuación, averiguamos qué contrastes verifican $\widetilde{P}_{j}\leq 0.05$:
 
 ```{r}
-pares.ord[which(pares.ord[,5]<=0.05),] 
+round(pares.ord[which(pares.ord[,5]<=0.05),],6)
 ```
 
 
@@ -2703,3 +2703,34 @@ Vemos que las rectas anteriores no son paralelas pero tampoco "parecen" estar de
 
 De ahí el p-valor obtenido en la zona de penumbra.
 </div>
+
+
+## Guía rápida
+
+* `summary(aov(X ~ F))` nos la tabla ANOVA de un factor cuando contrastamos las medias de las subpoblaciones de la variable `X` segregada según los niveles de la variable factor `F`.
+
+* `pairwise.t.test(X,F,p.adjust.method = ...)` nos realiza la comparación por parejas de niveles del factor `F` entre las medias de las subpoblaciones de la variable `X`. El parámetro `p.adjust.method` puede ser:
+  * `none`: no hace ajuste alguno,
+  * `bonferroni`: realiza el ajuste del método de Bonferroni: multiplicar el p-valor del contraste por el número de comparaciones llevadas a cabo, $\binom{k}{2}$.
+  * `holm`: realiza el ajuste del método de Holm.
+
+## Guía rápida
+
+* `duncan.test(aov,"factor",group=...)$sufijo` del paquete `agricolae`. Realiza el test de Duncan de comparación por parejas de niveles del factor `F` entre las medias de las poblaciones de la variable `X`, donde:
+
+  * `aov` es el resultado del ANOVA de partida,
+  * el `factor` es el factor del ANOVA,
+  * `group` puede ser `TRUE` o `FALSE` dependiendo de cómo queremos ver el resultado,
+  * el `sufix` es `group` si `group=TRUE` y `comparison` si `group=FALSE`.
+  
+* `TukeyHSD(aov(X~F))`: realiza el test de Tukey de comparación por parejas de niveles del factor `F` entre las medias de las subpoblaciones de la variable `X`.
+
+## Guía rápida
+
+* `bartlett.test(X~F)`: realiza el test de Bartlett para ver si las varianzas de las subpoblaciones de la variable `X` segregada según los niveles de la variable factor `F` son iguales o no.
+
+* `summary(aov(X ~ Tr+Bl))`: nos la tabla ANOVA de bloques completos aleatorios cuando contrastamos las medias de las subpoblaciones de la variable `X` segregada según los niveles de la variable factor `Tr` (tratamientos) donde los valores de cada vector de tratamientos está emparejada según la variable factor `Bl` (bloques).
+
+* `summary(aov(X ~ A*B))`: nos da la tabla ANOVA de dos factores cuando cuando contrastamos las medias de las subpoblaciones de la variable `X` segregada según los niveles de las variables factor `A` y `B`.
+
+* `interaction.plot(F1,F2,X)`: nos da el gráfico de interacción de los niveles del factor `F1` según los niveles de factor `F2` y `X` es la variable cuyas medias contrastamos en el ANOVA.

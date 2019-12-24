@@ -3818,3 +3818,37 @@ Vemos que el p-valor es parecido usando el método anterior y por tanto, las con
 
 </div>
 
+
+## Guía rápida
+
+Excepto en las que decimos lo contrario, todas las funciones para realizar contrastes que damos a continuación admiten los parámetros `alternative`, que sirve para especificar el tipo de contraste (unilateral en un sentido u otro o bilateral), y  `conf.level`, que sirve para indicar el nivel de confianza $1-\alpha$.  Sus valores por defecto son contraste bilateral y nivel de confianza 0.95.
+
+
+
+## Guía rápida
+   
+*  `t.test` realiza tests t para contrastar una o dos medias (tanto usando muestras independientes como emparejadas). Aparte de `alternative` y  `conf.level`, sus parámetros principales son:
+
+     *  `mu` para especificar el valor de la media que queremos contrastar en un test de una media.
+
+     *  `paired` para indicar si en un contraste de dos medias usamos muestras independientes o emparejadas.
+
+     *  `var.equal` para indicar en un contraste de dos medias usando muestras independientes si las varianzas poblacionales son iguales o diferentes.
+
+*  `sigma.test`, para realizar tests $\chi^2$ para contrastar una varianza (o una desviación típica). Dispone de los parámetros `sigma` y `sigmasq` para indicar, respectivamente, la desviación típica o la varianza a contrastar.
+
+## Guía rápida
+
+*  `var.test`, para realizar tests F para contrastar dos varianzas (o dos desviaciones típicas). 
+
+*  `fligner.test`, para realizar tests no paramétricos de Fligner-Killeen para contrastar dos varianzas (o dos desviaciones típicas). No dispone de los parámetros `alternative` (solo sirve para contastes bilaterales) ni `conf.level` (no calcula intervalos de confianza).
+
+*  `binom.test`, para realizar tests binomiales exactos para contrastar una proporción. Dispone del parámetro  `p` para indicar la proporción a contrastar.
+
+*  `prop.test`, para realizar tests aproximados para contrastar  una proporción o dos proporciones de poblaciones usando muestras independientes.  También dispone del parámetro  `p` para indicar la proporción a contrastar en un contraste de una proporción.
+
+## Guía rápida
+
+*  `fisher.test`, para realizar tests exactos de Fisher para contrastar dos proporciones usando muestras independientes. 
+
+*  `mcnemar.test`, para realizar tests bilaterales de McNemar para contrastar dos proporciones usando muestras emparejadas. No dispone de los parámetros `alternative`  ni `conf.level`.
