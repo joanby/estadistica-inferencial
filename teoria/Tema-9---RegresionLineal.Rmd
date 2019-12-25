@@ -1798,4 +1798,8 @@ residuos=r$res
 ```
 Obtenemos un valor muy pequeño. Concluimos consecuentemente que tenemos evidencias suficientes para rechazar que las varianzas de los residuos no son iguales para cualquier valor de $x$ o, dicho en otras palabras, el modelo no es **homocedástico**, es **heterocedástico**.
 
+
+## Test de White en `R`
+Para usar el **Test de White** en `R`, tenemos que usar la función `white.test` del paquete `het.test`.
+
 </div>
