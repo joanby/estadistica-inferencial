@@ -1698,3 +1698,104 @@ A continuación nos da el error residual que es la estimación de $\sqrt{S^2}$, 
 Para finalizar nos da el valor del estadístico de contraste ANOVA comentado anteriormente junto con el p-valor del mismo.
 
 </div>
+
+
+# Diagnósticos. Estudio de los residuos
+
+## Introducción
+
+Para que el **modelo de regresión lineal** tanto **simple** como **múltiple** sea fiable en las conclusiones derivadas de las estimaciones e inferencias (intervalos de confianzas, contrastes de hipótesis) que realizamos a partir de dicho modelo, se tienen que verificar unas hipótesis.
+
+Las tareas que realizan dichas verificaciones se denominan **diagnósticos de regresión**.
+
+Los **diagnósticos de regresión** se clasifican en tres categorías:
+
+* *Errores*: los errores tienen que seguir una $N(0,\sigma)$, cono la misma varianza, y ser incorrelados.
+
+* *Modelo*: los puntos se tienen que ajustar a la estructura lineal considerada.
+
+* *Observaciones anómalas*: a veces unas cuántas observaciones no se ajustan al modelo y hay que detectarlas.
+
+
+## Tipos de diagnósticos de regresión
+
+Hay dos métodos usados en los **diagnósticos de regresión**:
+
+* Métodos gráficos: son métodos muy flexibles pero difíciles de interpretar.
+* Métodos numéricos: son métodos de utilidad más limitada con respecto a los métodos gráficos pero con interpretación inmediata.
+
+
+## Distribución de los errores
+
+Uno de los problemas que puede sufrir nuestro modelo es que la varianza de los residuos no sea constante. Veamos uno ejemplo
+
+```{r,eval=FALSE}
+set.seed(2020)
+x<-runif(100)
+y<-1-2*x+0.3*x*rnorm(100)
+par(mfrow=c(1,2))
+plot(x,y)
+r=lm(y~x)
+abline(r,col="red")
+plot(r$res~r$fitted.values,xlab="Valores ajustados",ylab="Residuos del modelo")
+```
+
+## Distribución de los errores
+
+
+```{r,echo=FALSE,fig.align='center'}
+set.seed(2020)
+x<-runif(100)
+y<-1-2*x+0.3*x*rnorm(100)
+par(mfrow=c(1,2))
+plot(x,y)
+r=lm(y~x)
+abline(r,col="red")
+plot(r$res~r$fitted.values,xlab="Valores ajustados",ylab="Residuos del modelo")
+```
+
+## Distribución de los errores
+Como podemos observar, hemos realizado una regresión simple de 100 puntos cuyas coordenadas $x$ son valores aleatorios distribuidos uniformemente en el intervalo $(0,1)$ y cuyas coordenadas $y$ son valores ajustados a la recta $y=1-2x$ añadiendo un "ruido" normal estándar amortiguado con un coeficiente de 0.3.
+
+El gráfico de la izquierda muestra los 100 puntos junto con la correspondiente recta de regresión en color rojo.
+
+El gráfico de la derecha muestra la distribución de los pares de los errores del modelo vs. los valores ajustados, $(\hat{y}_i,e_i)$, $i=1,\ldots,n=100$. Si el modelo fuese **homocedástico**, es decir, que la varianza de los residuos fuese la misma para cualquier valor $x$, observaríamos una distribución de puntos uniforme, o lo que coloquialmente se llama un "cielo estrellado".
+
+## Distribución de los errores
+
+En cambio, observamos una distribución "triangular" o "en forma de cuña" donde a medida que aumenta el valor ajustado de los puntos, disminuye la dispersión o la variación de los errores, hecho que nos detecta que dicho modelo es anómalo en el sentido de no ser **homocedástico**.
+
+El método gráfico anterior, es decir, el gráfico de los errores $e_i$ en función de los valores estimados $\hat{y}_i$ es un método para "observar" gráficamente si el modelo es **homocedástico**.
+
+Existe un método numérico para detectar la **homocedasticidad** del modelo llamado **Test de White**.
+
+
+
+## Test de White
+Para aplicar el **Test de White**, hay que seguir los pasos siguientes:
+
+* Obtener los $\{e_i\}_{i=1,\ldots,n}$  residuos de la regresión lineal inicial.
+* Calcular el coeficiente de determinación $R^2$ de la regresión lineal de los $e_i^2$ respecto de las variables iniciales, sus cuadrados y los productos cruzados dos a dos. Es decir, calcular el coeficiente de determinación del modelo de regresión siguiente: 
+$$
+\begin{array}{rl}
+ \mu_{E^2|x_1,\ldots,x_k,x_1^2, \ldots,x_k^2,x_ix_j(i,j=1,\ldots,n,i<j)}  = & \beta_{0}+\beta_{1} x_1+\cdots +\beta_{k} x_k+\\ &  \beta_{1}^{(2)} x_1^2+\cdots + \beta_k^{(2)}x_k^2+\\ &  \beta_{12} x_1 x_2+\cdots + \beta_{k-1,k}x_{k-1} x_k.
+\end{array}
+$$
+
+## Test de White
+* Calcular el **estadístico** $X_0=nR^2$, el cual, suponiendo que la varianza es constante, sigue una $\chi^2_q$, donde $q$ es el número de variables independientes de la regresión del paso anterior.
+* Calculamos el p-valor  $P(\chi_q^2\geq X_0)$ con el significado usual.
+
+## Ejemplo
+<div class="example">
+**Ejemplo**
+
+Apliquemos el **Test de White** a los datos del ejemplo anterior:
+```{r}
+residuos=r$res
+(X0=length(residuos)*summary(lm(residuos^2~x+x^2))$r.squared)
+(p.valor=pchisq(X0,2,lower.tail = FALSE))
+```
+Obtenemos un valor muy pequeño. Concluimos consecuentemente que tenemos evidencias suficientes para rechazar que las varianzas de los residuos no son iguales para cualquier valor de $x$ o, dicho en otras palabras, el modelo no es **homocedástico**, es **heterocedástico**.
+
+</div>
