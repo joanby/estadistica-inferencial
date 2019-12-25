@@ -6772,7 +6772,40 @@ matriz.prop.empar = cbind(matriz.prop.empar[,2],matriz.prop.empar[,1])</pre></di
 </article></slide><slide class=""><hgroup><h2>Contrastes para proporciones de muestras emparejadas en <code>R</code>. Ejemplo</h2></hgroup><article  id="contrastes-para-proporciones-de-muestras-emparejadas-en-r.-ejemplo-8">
 
 <div class="example-sol">
-<p>Vemos que el p-valor es parecido usando el método anterior y por tanto, las conclusiones son las mismas.</p></div></article></slide>
+<p>Vemos que el p-valor es parecido usando el método anterior y por tanto, las conclusiones son las mismas.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guia-rapida">
+
+<p>Excepto en las que decimos lo contrario, todas las funciones para realizar contrastes que damos a continuación admiten los parámetros <code>alternative</code>, que sirve para especificar el tipo de contraste (unilateral en un sentido u otro o bilateral), y <code>conf.level</code>, que sirve para indicar el nivel de confianza \(1-\alpha\). Sus valores por defecto son contraste bilateral y nivel de confianza 0.95.</p>
+
+</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guia-rapida-1">
+
+<ul>
+<li><p><code>t.test</code> realiza tests t para contrastar una o dos medias (tanto usando muestras independientes como emparejadas). Aparte de <code>alternative</code> y <code>conf.level</code>, sus parámetros principales son:</p>
+
+<ul>
+<li><p><code>mu</code> para especificar el valor de la media que queremos contrastar en un test de una media.</p></li>
+<li><p><code>paired</code> para indicar si en un contraste de dos medias usamos muestras independientes o emparejadas.</p></li>
+<li><p><code>var.equal</code> para indicar en un contraste de dos medias usando muestras independientes si las varianzas poblacionales son iguales o diferentes.</p></li>
+</ul></li>
+<li><p><code>sigma.test</code>, para realizar tests \(\chi^2\) para contrastar una varianza (o una desviación típica). Dispone de los parámetros <code>sigma</code> y <code>sigmasq</code> para indicar, respectivamente, la desviación típica o la varianza a contrastar.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guia-rapida-2">
+
+<ul>
+<li><p><code>var.test</code>, para realizar tests F para contrastar dos varianzas (o dos desviaciones típicas).</p></li>
+<li><p><code>fligner.test</code>, para realizar tests no paramétricos de Fligner-Killeen para contrastar dos varianzas (o dos desviaciones típicas). No dispone de los parámetros <code>alternative</code> (solo sirve para contastes bilaterales) ni <code>conf.level</code> (no calcula intervalos de confianza).</p></li>
+<li><p><code>binom.test</code>, para realizar tests binomiales exactos para contrastar una proporción. Dispone del parámetro <code>p</code> para indicar la proporción a contrastar.</p></li>
+<li><p><code>prop.test</code>, para realizar tests aproximados para contrastar una proporción o dos proporciones de poblaciones usando muestras independientes. También dispone del parámetro <code>p</code> para indicar la proporción a contrastar en un contraste de una proporción.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guia-rapida-3">
+
+<ul>
+<li><p><code>fisher.test</code>, para realizar tests exactos de Fisher para contrastar dos proporciones usando muestras independientes.</p></li>
+<li><p><code>mcnemar.test</code>, para realizar tests bilaterales de McNemar para contrastar dos proporciones usando muestras emparejadas. No dispone de los parámetros <code>alternative</code> ni <code>conf.level</code>.</p></li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>

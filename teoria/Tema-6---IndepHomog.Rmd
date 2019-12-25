@@ -533,3 +533,31 @@ chisq.test(matrix(c(5,20,15,8,26,10,15,46,15,22,8,10),3,4))
 Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes para rechazar que la distribución del número de crías de las lobas
 es la misma para las tres zonas donde viven.
 </div>
+
+
+## Guía rápida
+
+
+ 
+* `table` calcula tablas de contingencia de frecuencias absolutas.
+
+* `prop.table` calcula tablas de contingencia de frecuencias relativas.
+
+* `addmargins` sirve para añadir  a una `table` una fila o una columna obtenidas aplicando una función a todas las columnas o a todas las filas de la tabla, respectivamente. Sus parámetros principales son:
+ 
+    * `margin`: igualado a `1`, se aplica la función por columnas, añadiendo una nueva fila; igualado a `2`, se aplica la función por filas, añadiendo una nueva columna; 
+igualado a `c(1,2)`, que es su valor por defecto,  hace ambas cosas.
+
+    * `FUN`:  la función que se aplica a las filas o columnas; su valor por defecto es `sum`.
+
+## Guía rápida
+
+* `colSums`  calcula un vector con las sumas de las columnas de una matriz o una tabla.
+
+* `rowSums`   calcula un vector con las sumas de las filas de una matriz o una tabla.
+
+* `chisq.test` sirve para realizar tests $\chi^2$ de independencia y homogeneidad. El resultado es una `list` formada, entre otros, por los objetos siguientes:  `statistic` (el valor del estadístico $X^2$), `parameter` (los grados de libertad) y  `p.value` (el p-valor). Sus parámetros principales en el contexto de esta lección son:
+ 
+    * `simulate.p.value`: igualado a `TRUE`, calcula el p-valor mediante simulaciones.
+    * `B`: en este último caso, permite especificar el número de simulaciones.
+ 
