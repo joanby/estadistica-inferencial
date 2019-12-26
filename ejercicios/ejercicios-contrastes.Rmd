@@ -78,6 +78,7 @@ print("Desviación típica de la semana 2: ", np.std(week2))
 ```{python}
 from scipy.stats import ttest_ind
 t_test, p_value = ttest_ind(week1, week2)
+#ztest, pval = stests.ztest(week1, x2=week2, value = 0, alternative = "two-sided")
 print("El p-valor del contraste es",p_value)
 
 if p_value < 0.05:

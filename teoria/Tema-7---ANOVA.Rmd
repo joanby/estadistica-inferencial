@@ -473,7 +473,7 @@ Las suposiciones del modelo son:
 
 La expresión matemática del modelo a estudiar consiste en separar las diferencias de los datos respecto la **media global** en dos sumandos: las diferencias de los datos respecto las **medias de cada nivel** y las diferencias de las **medias de cada nivel** respecto la **media global**:
 $$
-X_{ij} -\mu=(X_{ij} -\mu_i)+(\mu_i - \mu),\ i=1,\ldots,k,\ j=1,\ldots,n_i,
+X_{ij} - \mu = (X_{ij} -\mu_i)+(\mu_i - \mu),\ i=1,\ldots,k,\ j=1,\ldots,n_i,
 $$
 dónde
 
@@ -1494,9 +1494,9 @@ respectivamente.
 
 
 ## Modelo
-La expresión matemática del modelo a estudiar consiste ahora en separar las diferencias de los datos respecto la **media global** en tres sumandos: las diferencias de las **medias de cada nivel** respecto de la **media global**, las diferencias de las **medias de cada bloque** respecto la **media global** y los errores residuales:
+La expresión matemática del modelo a estudiar consiste ahora en expresar los datos en cuatro sumandos : la **media global**,  las diferencias de las **medias de cada nivel** respecto de la **media global**, las diferencias de las **medias de cada bloque** respecto la **media global** y los errores residuales:
 $$
-X_{ij}-\mu= (\mu_{i\bullet}-\mu) +(\mu_{\bullet j}-\mu) + E_{ij}, \  i=1,\ldots,k,\ j=1,\ldots,b,
+X_{ij} =\mu + (\mu_{i\bullet}-\mu) +(\mu_{\bullet j}-\mu) + E_{ij}, \  i=1,\ldots,k,\ j=1,\ldots,b,
 $$
 
 
@@ -2693,7 +2693,7 @@ interaction.plot(fotoperiodos,temperatura,GSI, xlab="fotoperíodo",ylab="GSI")
 <div class="example">
 Para dibujar el gráfico de interacción de la temperatura según el fotoperíodo, hacemos lo siguiente:
 ```{r,fig.align='center'}
-interaction.plot(temperatura,fotoperiodos,GSI,xlab="fotoperíodo",ylab="GSI")
+interaction.plot(temperatura,fotoperiodos,GSI,xlab="temperatura",ylab="GSI")
 ```
 </div>
 

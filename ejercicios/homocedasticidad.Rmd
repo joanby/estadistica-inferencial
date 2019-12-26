@@ -1,0 +1,87 @@
+---
+title: "Homocedasticidad (análisis de la homogeneidad de las varianzas)"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "12/26/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+```
+
+## Estudio exploratorio de los datos
+
+```{r}
+iris %>%
+  ggplot(aes(x=Species, y = Petal.Length, colour = Species))+
+  geom_boxplot()+
+  geom_point()+
+  theme_bw()+
+  theme(legend.position = "none")
+```
+
+```{r}
+aggregate(Petal.Length ~ Species, data = iris, FUN = var)
+```
+
+
+## Estudio de la homocedasticidad
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \sigma_1^2 = \sigma_2^2 = \cdots = \sigma_k^2 \\
+H_1: & \exists\ i,j : \sigma^2_i \neq \sigma^2_j
+\end{array}
+\right.
+$$
+
+### Test F de la razón de varianzas. 
+
+```{r}
+iris2 <- filter(.data = iris, Species %in% c("versicolor", "virginica"))
+```
+
+$$F = \frac{\sigma_2^2 \tilde{S}_1}{\sigma_1^2 \tilde{S}_2}\sim F_{n_1-1, n_2-1}$$
+
+
+```{r}
+var.test(x = iris[iris$Species=="versicolor", ]$Petal.Length,
+         y = iris[iris$Species=="virginica", ]$Petal.Length)
+```
+
+### Test de Levene
+
+```{r}
+library(car)
+leveneTest(Petal.Length ~ Species, data = iris, center = "median")
+leveneTest(Petal.Length ~ Species, data = iris2, center = "median")
+
+leveneTest(Petal.Length ~ Species, data = iris, center = "mean")
+leveneTest(Petal.Length ~ Species, data = iris2, center = "mean")
+```
+
+### Test de Bartlett
+
+```{r}
+bartlett.test(Petal.Length ~ Species, data = iris)
+bartlett.test(Petal.Length ~ Species, data = iris2)
+```
+
+### Test de Brown-Forsyth
+
+```{r, warning=FALSE, message=FALSE}
+library(HH)
+hov(Petal.Length ~ Species, data = iris)
+hov(Petal.Length ~ Species, data = iris2)
+```
+
+### Test de Fligner-Killeen
+
+```{r}
+fligner.test(Petal.Length ~ Species, data = iris)
+fligner.test(Petal.Length ~ Species, data = iris2)
+```
+
