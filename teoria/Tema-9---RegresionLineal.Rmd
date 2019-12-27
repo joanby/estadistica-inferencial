@@ -2067,20 +2067,321 @@ Sin embargo, `R` nos da un p-valor del que podemos concluir que no hay autocorre
 
 ## Ejemplo
 <div class="example">
-Esto es debido a que el tamaño de la muestra ($n=9$) y el número de variables regresoras $k=4$ están relativamente cerca y en estos casos puede pasarnos que tengamos discrepancias de este tipo. Tendríamos que tomar una $n$ mucho más grande para tomar una decisión clara.
+Esto es debido a que `R` es capaz de hallar los p-valores a partir de la matriz de los datos $\mathbf{X}$. Es decir, `R` usa información de nuestra muestra para hallar los p-valores. Por tanto, si os encontráis una discrepancia de este tipo, la conclusión que os dé `R` prevalece sobre los cálculos realizados a partir de la tabla del **Test de Durbin-Watson**.
 
 
 Si testeamos si los errores tienen autocorrelación negativa, obtenemos:
 ```{r}
 dwtest(reg.mul.original,alternative = 'less')
 ```
-Obtenemos un p-valor grande, concluyendo a partir de `R` que no tenemos indicios suficientes para rechazar que los errores no tengan autocorrelación negativa. Pero, insistimos, tendríamos que tomar una muestra mayor para tener una conclusión mucho más clara.
+Obtenemos un p-valor grande, concluyendo a partir de `R` que no tenemos indicios suficientes para rechazar que los errores no tengan autocorrelación negativa. Dicha conclusión prevalecería sobre la conclusión que hemos realizado antes haciendo los cálculos "a mano".
 </div>
 
 
-## Ajuste al modelo lineal
+## Aditividad y linealidad
 
-Cómo ya se ha comentado, el gráfico $\{e_i,\hat{y}_i\}_{i=1,\ldots,n}$ permite contrastar gráficamente si la varianza de los residuos es constante.
+Cuando se plantea un modelo lineal, se supone implícitamente las condiciones siguientes:
 
-A partir de dicho gráfico, se puede ver también si existe algún tipo de tendencia o estructura en los puntos de este gráfico. En caso afirmativo, se tiene que el modelo lineal no es el adecuado por estas observaciones. 
+* Aditividad: para cada variable independiente $X_i$, la variación de asociada $\mu_{Y|x_1,\ldots,x_k}$ con un aumento en $X_i$ (manteniendo las otras variables constantes) es la misma sean cuales sean los valores de las otras variables independientes.
+
+Dicho de otra forma:
+$$
+\begin{array}{rl}
+\mu_{Y|x_1,\ldots,x_i+\Delta x_i,\ldots,x_k}-& \mu_{Y|x_1,\ldots,x_i,\ldots,x_k}=\\ & \beta_0+\beta_1 x_1+\cdots+ \beta_i (x_i+\Delta x_i)+\cdots + \beta_k x_k -\\ &  (\beta_0+\beta_1 x_1+\cdots+\beta_i x_i+\cdots + \beta_k x_k) = \beta_i\Delta x_i.
+\end{array}
+$$
+
+
+## Aditividad y linealidad
+Fijémonos que la variación en el parámetro $\mu_{\ldots}$ es independiente de los valores de $x_1,\ldots,x_{i-1},x_{i+1},\ldots,x_k$.
+
+* Linealidad:  para cada variable independiente $X_i$, la variación de asociada $\mu_{Y|x_1,\ldots,x_k}$ con un aumento en $X_i$ (manteniendo las otras variables constantes) es la misma sea cual sea el valor de $X_i$.
+
+Dicho de otra forma, si miramos la expresión anterior, la  variación en el parámetro $\mu_{\ldots}$ es independiente de los valores de $x_i$.
+
+
+## Aditividad: test de Tukey
+
+Podemos comprobar la **aditividad** con el **test de Tukey**, usando los llamados **gráficos de residuos parciales para la linealidad**.
+
+La idea principal es verificar que no haya **interacción** entre las variables independientes y así, cada una tendrà un efecto aditivo en el modelo. 
+
+Si existe la **interacción**, algunos términos cuadráticos tendrán peso en el modelo. Esta es la base del **Test de Tukey**:  
+
+## Aditividad: test de Tukey
+* Se obtienen los valores ajustados $\{\hat{y}_i\}$ por la regresión lineal inicial.
+* Se lleva a cabo una segunda regresión lineal incluyendo como nueva variable independiente los $\hat{y}_i^2$. Sea $\beta$ el coeficiente de esta nueva variable.
+* Se testea si la variable $\hat{y}^2$ es significativa en la segunda regresión. Es decir, se realiza el contraste
+$$\left.\begin{array}{ll} H_0:  \beta=0,\\ H_1: \beta\neq 0.\end{array}\right\}$$
+Si no podemos descartar la hipótesis nula, la variable de los $\hat{y}_i^2$ no es significativa y el modelo es aditivo. 
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Testeemos la aditividad para los datos del ejemplo de los bebés:
+
+* Valores ajustados:
+```{r}
+reg.mul.original$fitted.values
+```
+</div>
+
+## Aditividad: test de Tukey
+<div class="example">
+* Segunda regresión lineal incluyendo los valores $\hat{y}_i^2$:
+```{r}
+valores.ajustados2 = reg.mul.original$fitted.values^2
+summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]+valores.ajustados2))[[4]]
+```
+Vemos que la variable $\hat{y}_i^2$ no es significativa del modelo con un p-valor de `r summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]+valores.ajustados2))[[4]][6,4]`. Concluimos por tanto que no tenemos evidencias suficientes para rechazar la aditividad del modelo.
+</div>
+
+## Test de Tukey en `R`
+Para realizar el **Test de Tukey** en `R` hay que usar la función `residualPlots` del paquete `car`:
+```{r,eval=FALSE}
+residualPlots(r,plot=...)
+```
+donde `r` es el objeto de `R` donde hemos guardado la información de la regresión original y `plot` es un parámetro que si vale `TRUE` (valor por defecto) nos dibuja los gráficos de los residuos frente a las variables regresoras y frente a los valores estimados junto con una curva de color azul indicando su tendencia y si vale `FALSE` simplemente da el valor del estadístico de Tukey y su p-valor.
+
+Si optamos por ver los gráficos, no debe mostrarse ningún tipo de estructura, todos ellos deben parecer "cielos estrellados".
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Apliquemos el **Test de Tukey** para los datos del ejemplo de los bebés:
+```{r}
+library(car)
+residualPlots(reg.mul.original,plot=FALSE)
+```
+Obtenemos un p-valor grande, llegando a la misma conclusión que los cálculos realizados "a mano".
+</div>
+
+
+## Linealidad: gráficos de residuos parciales
+
+Los gráficos de residuos parciales son una herramienta útil para detectar la no linealidad en una regresión. 
+
+Se definen los **residuos parciales** $e_{ij}$ para la variable independiente $X_j$ como
+$$e_{ij}=e_i+b_jx_{ij},$$
+donde $e_i$  es el residuo $i$-ésimo de la regresión lineal, $b_j$ és el coeficiente de $X_j$ en la regresión original y $x_{ij}$ es la observación $j$-ésima del individuo $i$-ésimo. 
+
+## Linealidad: gráficos de residuos parciales
+
+Los residuos parciales se dibujan contra els valors de $x_j$ y se hace su recta de regresión. 
+
+Si ésta no se ajusta a la curva dada por una regresión no paramétrica suave (las variables independientes no están predeterminadas y se construyen con los datos), el modelo no es lineal. 
+
+La función de `R` para representar estos gráficos es `crPlots` del paquete `car`.
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Realicemos los **gráficos de residuos parciales** para los datos del ejemplo de los bebés para ver gráficamente la linealidad:
+```{r,eval=FALSE}
+library(car)
+crPlots(reg.mul.original)
+```
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+library(car)
+crPlots(reg.mul.original)
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+Observamos que la única variable que no se ajusta el modelo lineal es la variable $x_4$: aumento en tanto por ciento de su peso actual respecto de su peso al nacer.
+
+Todas las demás presentan un ajuste bastante aceptable al modelo lineal.
+
+</div>
+
+
+## Observaciones anómalas
+
+Las observaciones anómalas pueden provocar que se malinterpreten patrones en el conjunto de datos.
+
+Además, puntos aislados pueden tener una gran influencia en el modelo de regresión dando resultados completamente diferentes.
+
+Por ejemplo, pueden provocar que nuestro modelo no capture características importantes de los datos.
+
+Por dichos motivos, es importante detectarlas.
+
+Como se puede observar en el gráfico siguiente, la presencia de un valor anómalo distorsiona completamente el modelo.
+
+## Observaciones anómalas
+
+```{r,echo=FALSE,fig.align='center'}
+x=seq(from=60,to=80,by=2)
+y=x+rnorm(length(x))*0.5
+x2=c(x,160)
+y2=c(y,60)
+par(mfrow=c(1,2))
+plot(x,y,main="Sin observación anómala")
+abline(lm(y~x),col="red")
+plot(x2,y2,main="Con observación anómala")
+abline(lm(y2~x2),col="red")
+```
+
+
+## Tipos de observaciones anómalas
+
+Existen tres tipos de observaciones anómalas:
+
+* **Outliers de regresión**: son observaciones que tiene un valor anómalo de la variable dependiente $Y$, condicionado a los valores de sus variables independientes $X_i$. Tendrá un residuo muy alto pero puede no afectar demasiado a los coeficientes de la regresión.
+* **Leverages**: son observaciones con un valor anómalo de las variables independientes $X_i$. No tiene porqué afectar los coeficientes de la regresión.
+* **Observaciones influyentes**: son aquellas que tienen un **leverage** alto, son **outliers de regresión** y afectan fuertemente a la regresión.
+
+En el gráfico siguiente vemos un ejemplo de un **outlier**, un **leverage** y una **observación anómala**.
+
+
+## Tipos de observaciones anómalas
+
+```{r,echo=FALSE,fig.align='center'}
+x=seq(from=60,to=80,by=2)
+y=x+rnorm(length(x))*0.5
+x2=c(x,65)
+y2=c(y,50)
+x3=c(x,160)
+y3=c(y,162)
+x4=c(x,160)
+y4=c(y,60)
+
+par(mfrow=c(1,3))
+plot(x2,y2,main="Outlier")
+points(65,50,pch=19,col="blue",cex=2)
+abline(lm(y2~x2),col="red")
+plot(x3,y3,main="Leverage")
+abline(lm(y3~x3),col="red")
+points(160,162,pch=19,col="blue",cex=2)
+plot(x4,y4,main="Punto influyente")
+abline(lm(y4~x4),col="red")
+points(160,60,pch=19,col="blue",cex=2)
+```
+
+
+## Leverages
+Para hallar las observaciones que son **leverages**, en primer lugar, necesitamos definir la **matriz Hat** como:
+$$\mathbf{H}=\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top.$$
+Esta matriz es simétrica ($\mathbf{H}^\top=\mathbf{H}$) e idempotente ($\mathbf{H}^2=\mathbf{H}$). 
+
+Además,	es fácil comprobar que 
+$$\hat{y}=\mathbf{X} b=\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top y=\mathbf{H}y,$$ 
+usando la expresión dada anteriormente que nos hallaba los valores estimados $\hat{y}$, y así tenemos que
+$\hat{y}_{j}=h_{1j}y_1+h_{2j}y_2+\ldots+h_{nj}y_n=\sum_{i=1}^n{h_{ij}y_i},$ para $j=1,\ldots,n$.
+
+## Leverages
+
+Si la componente $(i,j)$ de la **matriz Hat**, $h_{ij}$ es grande, la observación $i$-èsima tiene un impacto sustancial en el valor predicho $j$-ésimo.
+
+Se define el **leverage** de la observación $i$-ésima $h_i$ como su **valor hat**
+$h_i=\sum\limits_{j=1}^n{h_{ij}^2},$
+y así, el **valor hat** $h_i$ mide el **leverage potencial** de $y_i$ en todos los valores predichos.
+
+
+## Propiedades de los leverages
+
+
+* El **valor hat** medio es $\overline{h}=\frac{1}{n}\sum\limits_{i=1}^n h_i=\frac{k+1}{n}$.
+
+* Los **valores hat** satisfacen $\frac1{n}\leq h_i \leq 1$.
+
+* En la regresión lineal simple, los **valores hat** miden la distancia de $x_i$ a la media de $X$:
+$h_i=\frac1{n}+\frac{(x_i-\overline{x})^2}{\sum\limits_{j=1}^n{(x_j-\overline{x} )^2}}.$
+
+* En la regressió múltiple, $h_i$ mide la distancia de una observación al vector medio de $X$ de una forma parecida a la anterior.
+
+
+## Leverages
+Basándonos en las propiedades anteriores, la regla de decisión que nos dirá si una observación tiene leverage grande (y por lo tanto, tiene que ser considerada con cuidado) es cuando su **valor hat** cumpla: $h_i>2\frac{k+1}{n}.$
+
+La función `hatvalues` de `R` calcula los valores hat dado un modelo de regresión basándose en la regla anterior:
+
+```{r,eval=FALSE}
+hatvalues(r)
+```
+donde `r` es el objeto de `R` donde hemos guardado la información de la regresión original.
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Hallemos los valores **leverages** para la regresión realizada usando el ejemplo de los bebés:
+```{r}
+(valores.hat=hatvalues(reg.mul.original))
+which(valores.hat > 2*(k+1)/n)
+```
+Vemos que en nuestro ejemplo no hay ninguna observación que puede considerarse con **leverage** alto.
+</div>
+
+
+## Outliers
+
+La estrategia para determinar qué observaciones son susceptibles de ser outliers se basan en los llamados **residuos estunderizados**.
+
+Se basan en recalcular el modelo después de eliminar la observación $i$-ésima  y hallar el correspondiente $(MSE)_i$.
+
+Los **residuos estunderizados** se definen como:
+$$E_i^\star=\frac{e_i}{\sqrt{(MSE)_i(1-h_i)}},$$
+y, si el modelo es correcto, la variable anterior sigue una distribución $t$ de Student con $n-k-2$ grados de libertad.
+
+
+## Outliers
+Para detectar los **outliers** se siguen los pasos siguientes:
+
+* Para cada observación $i$-ésima, se calcula el **residuo estunderizado** $E_i^\star$.
+
+* A continuación, se realiza una corrección de Bonferroni al p-valor multiplicándolo por $n$ y así, el p-valor ajustado es $2nP(t_{n-k-2}\geq E_i^\star).$
+
+* Se van considerando por orden decreciente los p-valores de las observaciones hasta que se encuentra una observación que ya no sea un **outlier**.
+
+
+## Outliers
+La función de `R` que realiza este test de detección de **outliers** es la función `outlierTest` del paquete `car`. 
+```{r,eval=FALSE}
+outlierTest(r)
+```
+donde `r` es el objeto de `R` donde hemos guardado la información de la regresión original.
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Veamos si tenemos **outliers** para la regresión realizada usando el ejemplo de los bebés:
+```{r}
+outlierTest(reg.mul.original)
+```
+Observamos que el bebé número 8 es el que tiene un **residuo estunderizado** más alto pero el p-valor ajustado de Bonferroni nos permite rechazar que sea un **outlier**.
+
+
+</div>
+
+
+## Observaciones influentes: Distancia de Cook
+
+Como ya hemos indicado, una observación influyente es aquella que combina **discrepancia** con **leverage**.
+
+Una forma de determinarlas es examinar cómo cambian los coeficientes de la regresión si se elimina una observación en concreto.
+
+La medida para evaluar este cambio es la llamada **distancia de Cook**:
+$$D_i=\frac{e^2_{S_i}}{k+1}\cdot\frac{h_i}{1-h_i},$$
+dónde $h_i$ es el **leverage** y es $e_{S_i}$ el llamado **residuo estandarizado**, dado por
+$$e_{S_i}=\frac{e_i}{\sqrt{MSE(1-h_i)}}.$$
+
+## Observaciones influentes: Distancia de Cook
+
+El primer factor en la expresión de la **distancia de Cook** ($\frac{e^2_{S_i}}{k+1}$) mide el grado de ser **outlier** mientras que el segundo ($\frac{h_i}{1-h_i}$) mide el grado de **leverage**.
+
+Una regla para determinar qué observaciones son influyentes es $D_i > \frac4{n-k-1}.$
+
 
