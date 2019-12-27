@@ -2076,3 +2076,11 @@ dwtest(reg.mul.original,alternative = 'less')
 ```
 Obtenemos un p-valor grande, concluyendo a partir de `R` que no tenemos indicios suficientes para rechazar que los errores no tengan autocorrelación negativa. Pero, insistimos, tendríamos que tomar una muestra mayor para tener una conclusión mucho más clara.
 </div>
+
+
+## Ajuste al modelo lineal
+
+Cómo ya se ha comentado, el gráfico $\{e_i,\hat{y}_i\}_{i=1,\ldots,n}$ permite contrastar gráficamente si la varianza de los residuos es constante.
+
+A partir de dicho gráfico, se puede ver también si existe algún tipo de tendencia o estructura en los puntos de este gráfico. En caso afirmativo, se tiene que el modelo lineal no es el adecuado por estas observaciones. 
+
