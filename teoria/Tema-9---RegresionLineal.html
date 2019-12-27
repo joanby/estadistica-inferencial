@@ -5382,9 +5382,9 @@ qqPlot(errores,distribution = &quot;norm&quot;, mean=0,sd=sqrt(estimación.sigma
 
 <p>Sean \(\{e_i\}_{i=1,\ldots,n}\) los residuos de la regresión.</p>
 
-<p>Sean \(E_i\) y las \(E_{i-1}\) variables aleatorias error (trasladadas en un índice) y la recta de regresión de \(E_i\) con respecto a $E_{i-1}: \(E_i=\beta_1E_{i-1}+\beta_0\).</p>
+<p>Sean \(E_i\) y las \(E_{i-1}\) variables aleatorias error (trasladadas en un índice) y la recta de regresión de \(E_i\) con respecto a \(E_{i-1}\): \(E_i=\beta_1E_{i-1}+\beta_0\).</p>
 
-<p>Se plantea el siguiente contraste: \[\left.\begin{array}{ll} H_0: \beta_1=0,\\H_1: \beta_1\neq0,\end{array}\right\}\] con el siguiente <strong>estadístico de contraste</strong>: \[d=\frac{\sum\limits^n_{i=2}{(e_i-e_{i-1})^2}}{\sum\limits_{i=1}^n{e_i^2}}.\]</p>
+<p>Se plantea el siguiente contraste: \[\left.\begin{array}{ll} H_0: \beta_1=0,\\H_1: \beta_1\neq0,\end{array}\right\}\] con el siguiente <strong>estadístico de contraste</strong>: \(d=\frac{\sum\limits^n_{i=2}{(e_i-e_{i-1})^2}}{\sum\limits_{i=1}^n{e_i^2}}.\)</p>
 
 </article></slide><slide class=""><hgroup><h2>Correlación de los residuos: Test de Durbin-Watson</h2></hgroup><article  id="correlacion-de-los-residuos-test-de-durbin-watson-2">
 
@@ -5392,7 +5392,9 @@ qqPlot(errores,distribution = &quot;norm&quot;, mean=0,sd=sqrt(estimación.sigma
 
 <p>Si la hipótesis nula \(H_0\) es cierta, su distribución es la de una cierta combinación lineal de \(\chi^2\).</p>
 
-<p>El test necesita de una tabla de valores críticos para tomar la decisión final. Concretamente, \(d\) se tiene que comparar cono dos valoras críticos \(d_{L,\alpha}\) y \(d_{U,\alpha}\), donde \(\alpha\) es el nivel de significación que depende de \(n\) y de \(k\).</p>
+<p>El test necesita de una tabla de valores críticos para tomar la decisión final.<br/>Dicha tabla puede encontrarse en <a href='https://images.google.com' title=''>Images Google</a> y escribiendo <code>test de Durbin Watson</code> en la casilla de búsqueda.</p>
+
+<p>Concretamente, \(d\) se tiene que comparar con dos valoras críticos \(d_{L,\alpha}\) y \(d_{U,\alpha}\), donde \(\alpha\) es el nivel de significación que depende de \(n\) y de \(k\).</p>
 
 </article></slide><slide class=""><hgroup><h2>Correlación de los residuos: Test de Durbin-Watson</h2></hgroup><article  id="correlacion-de-los-residuos-test-de-durbin-watson-3">
 
@@ -5410,7 +5412,81 @@ qqPlot(errores,distribution = &quot;norm&quot;, mean=0,sd=sqrt(estimación.sigma
 <li>Si \(4-d&lt;d_{L,\alpha}\), hay autocorrelación negativa.</li>
 <li>Si \(4-d&gt;d_{U,\alpha}\), no hay autocorrelación negativa.</li>
 <li>De lo contrario, nos encontramos en la zona de penumbra.</li>
-</ul></article></slide>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-61">
+
+<div class="example">
+<p><strong>Ejemplo de los bebés</strong></p>
+
+<p>Vamos a ver si hay autocorrelación para la tabla de datos de los bebés.</p>
+
+<p>El valor del estadístico de contraste \(d\) valdrá en este caso:</p>
+
+<pre class = 'prettyprint lang-r'>diferencias = errores[2:n]-errores[1:(n-1)]
+(estadístico.d = sum(diferencias^2)/sum(errores^2))</pre>
+
+<pre >## [1] 1.910648</pre>
+
+<p>Si miramos los valores críticos para \(\alpha=0.05\), \(n=9\) y \(k=4\) en la Tabla del estadístico de Durbin-Watson, obtenemos los valores siguientes: \(d_{L,0.05}=0.3\) y \(d_{U,0.05}=2.59\).</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-62">
+
+<div class="example">
+<p>A continuación, miramos si hay autocorrelación positiva: como \(1.910648\) está entre \(d_{L,0.05}\) y \(d_{U,0.05}\), estamos en la zona de penumbra y no podemos tomar una decisión clara.</p>
+
+<p>Finalmente, testeamos si hay autocorrelación negativa. El valor de \(4-d\) será: 2.089352. Observamos también que \(4-d\) está entre \(d_{L,0.05}\) y \(d_{U,0.05}\), por tanto, volvemos a estar estamos en la zona de penumbra y no podemos tomar una decisión clara.</p>
+
+<p>En resumen, en este ejemplo no podemos decidir de forma clara a partir del estadístico de Durbin-Watson si los errores están incorrelados .</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Test de Durbin-Watson en <code>R</code></h2></hgroup><article  id="test-de-durbin-watson-en-r">
+
+<p>El test de Durbin-Watson está implementado en la función <code>dwtest</code> del paquete <code>lmtest</code>.</p>
+
+<p>El parámetro <code>alternative</code> nos indica si se testea que la autocorrelación es positiva (<code>greater</code>) o negativa (<code>less</code>):</p>
+
+<pre class = 'prettyprint lang-r'>dwtest(r,alternative=...)</pre>
+
+<p>donde en <code>r</code> se ha guardado el objecto de la regresión <code>lm(y~x1+...+xk)</code> y, como hemos indicado, con <code>alternative=greater</code> testeamos si los residuos tienen autocorrelación positiva y con <code>alternative=less</code>, si tienen autocorrelación negativa.</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-63">
+
+<div class="example">
+<p><strong>Ejemplo de los bebés</strong></p>
+
+<p>Para testear si los errores tienen autocorrelación positiva, hacemos lo siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>library(lmtest)
+dwtest(reg.mul.original,alternative = &#39;greater&#39;)</pre>
+
+<pre >## 
+##  Durbin-Watson test
+## 
+## data:  reg.mul.original
+## DW = 1.9106, p-value = 0.3081
+## alternative hypothesis: true autocorrelation is greater than 0</pre>
+
+<p>Observamos que obtenemos el mismo valor del estadístico de contraste que en los cálculos realizados &ldquo;a mano&rdquo;.</p>
+
+<p>Sin embargo, <code>R</code> nos da un p-valor del que podemos concluir que no hay autocorrelación positiva en los residuos. Recordemos que en los cálculos realizados &ldquo;a mano&rdquo;, no podíamos tomar una decisión clara.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-64">
+
+<div class="example">
+<p>Esto es debido a que el tamaño de la muestra (\(n=9\)) y el número de variables regresoras \(k=4\) están relativamente cerca y en estos casos puede pasarnos que tengamos discrepancias de este tipo. Tendríamos que tomar una \(n\) mucho más grande para tomar una decisión clara.</p>
+
+<p>Si testeamos si los errores tienen autocorrelación negativa, obtenemos:</p>
+
+<pre class = 'prettyprint lang-r'>dwtest(reg.mul.original,alternative = &#39;less&#39;)</pre>
+
+<pre >## 
+##  Durbin-Watson test
+## 
+## data:  reg.mul.original
+## DW = 1.9106, p-value = 0.6919
+## alternative hypothesis: true autocorrelation is less than 0</pre>
+
+<p>Obtenemos un p-valor grande, concluyendo a partir de <code>R</code> que no tenemos indicios suficientes para rechazar que los errores no tengan autocorrelación negativa. Pero, insistimos, tendríamos que tomar una muestra mayor para tener una conclusión mucho más clara.</p></div></article></slide>
 
 
   <slide class="backdrop"></slide>
