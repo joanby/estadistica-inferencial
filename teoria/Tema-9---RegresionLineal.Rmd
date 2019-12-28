@@ -114,7 +114,7 @@ las varianzas y la covarianza de la muestra $(x_i,y_i)$, $i=1,\ldots,n$.
 Las estimaciones $b_0$ y $b_1$ se pueden reescribir de la forma siguiente:
 
 <l class="prop">Teorema. </l>
-Los estimadores $b_0$ y $b_1$ de  $\beta_0$ y $\beta_1$, respectivamente, hallados por el **método de los mínimos cuadradados** son los siguientes: $b_1 =\frac{\tilde{s}_{xy}}{\tilde{s}_x^2},\quad b_0 = \overline{y}-b_1 \overline{x}.$
+Los estimadores $b_0$ y $b_1$ de  $\beta_0$ y $\beta_1$, respectivamente, hallados por el **método de los mínimos cuadrados** son los siguientes: $b_1 =\frac{\tilde{s}_{xy}}{\tilde{s}_x^2},\quad b_0 = \overline{y}-b_1 \overline{x}.$
 
 <div class="exercise">
 **Ejercicio**
@@ -296,7 +296,7 @@ $$
 \tilde{s}^2_y=\tilde{s}^2_{\widehat{y}}+\tilde{s}^2_e.
 $$
 
-Entonces, cuántas más "proximas" estén las **variabilidades** $SS_T$ y $SS_R$, o, si se quiere, $\tilde{s}^2_y$ y $\tilde{s}^2_{\widehat{y}}$, más efectiva habrá sida la regresión, ya que la regresión habrá heredado mucha variabilidad de los datos $y_i$, $i=1,\ldots,n$ y la variabilidad del error, $SS_E$ será pequeña.
+Entonces, cuántas más "próximas" estén las **variabilidades** $SS_T$ y $SS_R$, o, si se quiere, $\tilde{s}^2_y$ y $\tilde{s}^2_{\widehat{y}}$, más efectiva habrá sida la regresión, ya que la regresión habrá heredado mucha variabilidad de los datos $y_i$, $i=1,\ldots,n$ y la variabilidad del error, $SS_E$ será pequeña.
 
 ## Coeficiente de determinación
 El comentario anterior motiva la definición siguiente del **coeficiente de determinación** para medir la efectividad de la recta de regresión:
@@ -538,7 +538,7 @@ Fijado un valor $x_0$ de la variable $X$, podemos considerar dos parámetros a e
 
 Dichos intervalos nos ayudan a estudiar cómo se comporta la regresión cuando el valor de la variable $X$ vale un determinado valor $x_0$.
 
-El estimador de los parámetros anteriores, $\mu_{Y|x_0}$ y $y_0$ es el mismo: $\widehat{y}_0 = b_0+b_1\cdot x_0$ pero los errores estándards cambian dependiendo del parámetro que consideremos como indican los dos resultados siguientes:
+El estimador de los parámetros anteriores, $\mu_{Y|x_0}$ y $y_0$ es el mismo: $\widehat{y}_0 = b_0+b_1\cdot x_0$ pero los errores estándares cambian dependiendo del parámetro que consideremos como indican los dos resultados siguientes:
 
 ## Intervalos de confianza
 Bajo el supuesto anterior, sea $x_0$ un valor concreto de la variable $X$. Entonces:
@@ -737,7 +737,7 @@ En resumen, suponemos que tenemos una **variable dependiente** $Y$ y $k$ **varia
 
 
 ## Modelo de regresión lineal múltiple
-De forma similar a la **regresión lineal simple**, suposemos que la relación de la media de la variable aleatoria $Y$, fijados $k$ valores de las variables  $X_1,\ldots, X_k$, $x_1,\ldots,x_k$, es la siguiente:
+De forma similar a la **regresión lineal simple**, suponemos que la relación de la media de la variable aleatoria $Y$, fijados $k$ valores de las variables  $X_1,\ldots, X_k$, $x_1,\ldots,x_k$, es la siguiente:
 $$
 \mu_{Y|x_1,\ldots,x_k}= \beta_0+\beta_1 x_1+\cdots+\beta_k x_k.
 $$
@@ -865,8 +865,8 @@ El teorema siguiente nos da la expresión de dichos **estimadores**:
 Los **estimadores** por el método de los **mínimos cuadrados** de los parámetros $\beta_0,\beta_1,\ldots,\beta_k$ a partir de la muestra 
 $(\underline{x}_{i},y_i)_{i=1,2,\ldots,n}$ son los siguientes:
 $$
-\mathbf{b}=\left(\mathbf{X}^t\cdot \mathbf{X}
-\right)^{-1}\cdot \left(\mathbf{X}^t \cdot \mathbf{y}\right).
+\mathbf{b}=\left(\mathbf{X}^\top\cdot \mathbf{X}
+\right)^{-1}\cdot \left(\mathbf{X}^\top \cdot \mathbf{y}\right).
 $$
 
 ## Ejemplo
@@ -950,7 +950,7 @@ X=matrix(c(1,78,48.2,2.75,29.5,1,69,45.5,2.15,26.3,
  1,67,43,3.21,27.2,1,80,48,4.32,27.7,
  1,74,48,2.31,28.3,1,94,53,4.3,30.3,
  1,102,58,3.71,28.7),nrow=9,byrow=TRUE)
-y=c(57.5,52.8,61.3,67,53.5,62.7,56.2,68.5,69.2)
+y.bebes=c(57.5,52.8,61.3,67,53.5,62.7,56.2,68.5,69.2)
 (estimaciones.b = solve(t(X)%*%X)%*%(t(X)%*%y))
 ```
 
@@ -966,8 +966,8 @@ X=matrix(c(1,78,48.2,2.75,29.5,1,69,45.5,2.15,26.3,
  1,67,43,3.21,27.2,1,80,48,4.32,27.7,
  1,74,48,2.31,28.3,1,94,53,4.3,30.3,
  1,102,58,3.71,28.7),nrow=9,byrow=TRUE)
-y=cbind(c(57.5,52.8,61.3,67,53.5,62.7,56.2,68.5,69.2))
-(estimaciones.b = solve(t(X)%*%X)%*%(t(X)%*%y))
+y.bebes=cbind(c(57.5,52.8,61.3,67,53.5,62.7,56.2,68.5,69.2))
+(estimaciones.b = solve(t(X)%*%X)%*%(t(X)%*%y.bebes))
 ```
 La función lineal de regresión buscada se:
 $$
@@ -986,7 +986,7 @@ lm(y ~ x1+x2+...+xk)
 <div class="example">
 En nuestro ejemplo, se calcula de la forma siguiente:
 ```{r}
-lm(y ~ X[,2]+X[,3]+X[,4]+X[,5])
+lm(y.bebes ~ X[,2]+X[,3]+X[,4]+X[,5])
 ```
 
 </div>
@@ -1014,12 +1014,12 @@ Verifiquemos las propiedades anteriores para los datos de nuestro ejemplo:
 * La **función de regresión** pasa por el vector medio $(\overline{x}_1,\overline{x}_2,\ldots,\overline{x}_k,\overline{y})$:
 ```{r}
 vectores.medios = apply(X[,1:5],2,mean)
-round(mean(y)-t(estimaciones.b)%*%vectores.medios,6)
+round(mean(y.bebes)-t(estimaciones.b)%*%vectores.medios,6)
 ```
 * La media de los valores estimados se igual a la media de los observados:
 ```{r}
 valores.estimados = X%*%estimaciones.b
-round(mean(y)-mean(valores.estimados),6)
+round(mean(y.bebes)-mean(valores.estimados),6)
 ```
 
 </div>
@@ -1029,7 +1029,7 @@ round(mean(y)-mean(valores.estimados),6)
 <div class="example">
 * Los errores $(e_i)_{i=1,\ldots,n}$  tienen media 0 y varianza $\tilde{s}_e^2=\frac{SS_E}{n-1}.$
 ```{r}
-errores=y-valores.estimados
+errores=y.bebes-valores.estimados
 round(mean(errores))
 SSE=sum(errores^2)
 n=dim(X)[1]
@@ -1063,7 +1063,7 @@ o equivalentemente,
 $$
 \tilde{s}^2_y=\tilde{s}^2_{\widehat{y}}+\tilde{s}^2_e.
 $$
-En este caso, tal como comentábamos en la **regresión lineal simple**, cuántas más "proximas" estén las **variabilidades** $SS_T$ y $SS_R$, o, si se quiere, $\tilde{s}^2_y$ y $\tilde{s}^2_{\widehat{y}}$, más efectiva habrá sida la regresión, ya que la regresión habrá heredado mucha variabilidad de los datos $y_i$, $i=1,\ldots,n$ y la variabilidad del error, $SS_E$ será pequeña.
+En este caso, tal como comentábamos en la **regresión lineal simple**, cuántas más "próximas" estén las **variabilidades** $SS_T$ y $SS_R$, o, si se quiere, $\tilde{s}^2_y$ y $\tilde{s}^2_{\widehat{y}}$, más efectiva habrá sida la regresión, ya que la regresión habrá heredado mucha variabilidad de los datos $y_i$, $i=1,\ldots,n$ y la variabilidad del error, $SS_E$ será pequeña.
 
 ## Coeficiente de determinación
 Definimos el **coeficiente de determinación** en una **regresión lineal múltiple** como:
@@ -1091,11 +1091,11 @@ Vamos a calcular las variabilidades y el coeficiente de determinación para los 
 
 * **Variabilidad total**:
 ```{r}
-(SST=sum((y-mean(y))^2))
+(SST=sum((y.bebes-mean(y.bebes))^2))
 ```
 * **Variabilidad de la regresión**:
 ```{r}
-(SSR=sum((valores.estimados-mean(y))^2))
+(SSR=sum((valores.estimados-mean(y.bebes))^2))
 ```
 </div>
 
@@ -1123,7 +1123,7 @@ El coeficiente de determinación será:
 ```
 o, si se quiere,
 ```{r}
-(R2 = var(valores.estimados)/var(y))
+(R2 = var(valores.estimados)/var(y.bebes))
 ```
 
 
@@ -1139,7 +1139,7 @@ summary(lm(y~x1+...+xk))$r.squared
 <div class="example">
 Para los datos de nuestro ejemplo, hemos de hacer lo siguiente:
 ```{r}
-summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))$r.squared
+summary(lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5]))$r.squared
 ```
 
 
@@ -1187,7 +1187,7 @@ summary(lm(y~x1+...+xk))$adj.r.squared
 <div class="example">
 Para los datos de nuestro ejemplo, hemos de hacer lo siguiente:
 ```{r}
-summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))$adj.r.squared
+summary(lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5]))$adj.r.squared
 ```
 
 ## Comparación de modelos
@@ -1214,14 +1214,14 @@ Con los datos de nuestro ejemplo, consideremos sólo la variable independiente c
 
 El **coeficiente de correlación ajustado** de este modelo que, por cierto, sería de **regresión lineal simple** vale:
 ```{r}
-summary(lm(y~X[,2]))$adj.r.squared
+summary(lm(y.bebes~X[,2]))$adj.r.squared
 ```
 
 Consideremos ahora las dos primeras variables correspondientes a las columnas segunda y tercera de la matriz $\mathbf{X}$, variables que corresponden a la edad del niño en días y su altura en nacer. 
 
 El **coeficiente de correlación ajustado** de este modelo vale:
 ```{r}
-summary(lm(y~X[,2]+X[,3]))$adj.r.squared
+summary(lm(y.bebes~X[,2]+X[,3]))$adj.r.squared
 ```
 </div>
 
@@ -1233,11 +1233,11 @@ Consideremos ahora las tres primeras variables correspondientes a las columnas s
 
 El **coeficiente de correlación ajustado** de este modelo vale:
 ```{r}
-summary(lm(y~X[,2]+X[,3]+X[,4]))$adj.r.squared
+summary(lm(y.bebes~X[,2]+X[,3]+X[,4]))$adj.r.squared
 ```
 Hemos vuelto a obtener un **coeficiente de regresión ajustado** superior al anterior. Por tanto, también ha valido la pena añadir la variable peso del niño al nacer al aportar dicha variable información relevante al modelo.
 
-Recordemos que el **coeficiente de regresión ajustado** del modelo completo era `r summary(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))$adj.r.squared`, valor inferior al obtenido anteriormente.
+Recordemos que el **coeficiente de regresión ajustado** del modelo completo era `r summary(lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5]))$adj.r.squared`, valor inferior al obtenido anteriormente.
 
 Por tanto, la última variable, el aumento del peso actual del niño respecto de su peso al nacer, no aporta información relevante y no debe ser considerada en el modelo de regresión lineal múltiple.
 </div>
@@ -1260,9 +1260,9 @@ AIC(lm(y~x1+...+xk))
 <div class="example">
 Veamos usando el método **AIC** cuál de los cuatro modelos vistos anteriormente para los datos de nuestro ejemplo es el más adecuado:
 ```{r}
-AIC(lm(y~X[,2]))
-AIC(lm(y~X[,2]+X[,3]))
-AIC(lm(y~X[,2]+X[,3]+X[,4]))
+AIC(lm(y.bebes~X[,2]))
+AIC(lm(y.bebes~X[,2]+X[,3]))
+AIC(lm(y.bebes~X[,2]+X[,3]+X[,4]))
 ```
 </div>
 
@@ -1270,7 +1270,7 @@ AIC(lm(y~X[,2]+X[,3]+X[,4]))
 ## Ejemplo
 <div class="example">
 ```{r}
-AIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))
+AIC(lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5]))
 ```
 El método **AIC** concuerda con el método del **coeficiente de determinación ajustado**. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz $\mathbf{X}$ que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.
 </div>
@@ -1289,9 +1289,9 @@ BIC(lm(y~x1+...+xk))
 <div class="example">
 Veamos usando el método **BIC** cuál de los cuatro modelos vistos anteriormente para los datos de nuestro ejemplo es el más adecuado:
 ```{r}
-BIC(lm(y~X[,2]))
-BIC(lm(y~X[,2]+X[,3]))
-BIC(lm(y~X[,2]+X[,3]+X[,4]))
+BIC(lm(y.bebes~X[,2]))
+BIC(lm(y.bebes~X[,2]+X[,3]))
+BIC(lm(y.bebes~X[,2]+X[,3]+X[,4]))
 ```
 </div>
 
@@ -1299,7 +1299,7 @@ BIC(lm(y~X[,2]+X[,3]+X[,4]))
 ## Ejemplo
 <div class="example">
 ```{r}
-BIC(lm(y~X[,2]+X[,3]+X[,4]+X[,5]))
+BIC(lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5]))
 ```
 El método **BIC** concuerda con los dos métodos usados anteriormente: el método del **coeficiente de determinación ajustado** y el método **AIC**. El mejor modelo es el que incluye las variables correspondientes a las columnas 2, 3 y 4 de la matriz $\mathbf{X}$ que, recordemos, son las variables la edad del niño en días, su altura en nacer y su peso al nacer.
 </div>
@@ -1332,7 +1332,7 @@ donde $\mathrm{Cov}(b_0,b_1,\ldots,b_k)$ es la matriz de covarianzas de los esti
 <l class="prop">Teorema. </l>
 Bajo las hipótesis anteriores, el error estándar de cada estimador $b_i$ vale
 $\sqrt{(\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1})_{ii}},$
-(la raíz cuadrada de la $i$-èsima entrada de la diagonal de la matriz $\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1}$ empezando por $i=0$.)
+(la raíz cuadrada de la $i$-ésima entrada de la diagonal de la matriz $\sigma_E^2\cdot (\mathbf{X}^\top \mathbf{X})^{-1}$ empezando por $i=0$.)
 
 <l class="prop">Teorema. </l>
 Bajo las hipótesis anteriores, 
@@ -1441,7 +1441,7 @@ confint(lm(y~x1+...+xk))
 Si aplicamos la función anterior a los datos de nuestro ejemplo, obtenemos los intervalos de confianza para los estimadores $b_0,b_1,b_2,b_3,b_4$ que ya hemos obtenido antes:
 
 ```{r}
-confint(lm(y~X[,2]+X[,3]+X[,4]+X[,5]),level=0.95)
+confint(lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5]),level=0.95)
 ```
 </div>
 
@@ -1450,7 +1450,7 @@ Tal como hemos hecho en la **regresión lineal simple**, fijados unos valores co
 
 Recordemos que los dos intervalos de confianza anteriores nos ayudan a interpretar la regresión cuando el valor de las variables $(X_1,\ldots,X_k)$ valen un determinado valor $(x_{10},\ldots,x_{k0})$.
 
-Para realizar la estimación puntual de los dos parámetros anteriores usaremos el mismo estimador $\hat{y}_0 =b_0+b_1 x_1+\cdots + b_k x_k$ pero tal como pasaba en la **regresión lineal simple**, los errores estándard no serán los mismos tal como nos dicen el teorema siguiente.
+Para realizar la estimación puntual de los dos parámetros anteriores usaremos el mismo estimador $\hat{y}_0 =b_0+b_1 x_1+\cdots + b_k x_k$ pero tal como pasaba en la **regresión lineal simple**, los errores estándar no serán los mismos tal como nos dicen el teorema siguiente.
 
 ## Intervalos de confianza
 
@@ -1536,14 +1536,14 @@ x1=X[,2]
 x2=X[,3]
 x3=X[,4]
 x4=X[,5]
-predict.lm(lm(y~x1+x2+x3+x4),newdata,interval="confidence",level= 0.95)
+predict.lm(lm(y.bebes~x1+x2+x3+x4),newdata,interval="confidence",level= 0.95)
 ```
 </div>
 
 ## Ejemplo
 <div class="example">
 ```{r}
-predict.lm(lm(y~x1+x2+x3+x4),newdata,interval="prediction",level= 0.95)
+predict.lm(lm(y.bebes~x1+x2+x3+x4),newdata,interval="prediction",level= 0.95)
 ```
 
 
@@ -1620,7 +1620,7 @@ Para calcular la tabla ANOVA en `R` de una **regresión lineal múltiple** hay q
 ```{r,eval=FALSE}
 anova(lm(y ~ Xd))
 ```
-donde `Xd` es una matrix cuyas columnas son los valores de las variables independientes $x_1,\ldots, x_k$.
+donde `Xd` es una matriz cuyas columnas son los valores de las variables independientes $x_1,\ldots, x_k$.
 
 
 
@@ -1628,7 +1628,7 @@ donde `Xd` es una matrix cuyas columnas son los valores de las variables indepen
 <div class="example">
 Para hallar la tabla ANOVA para los datos de nuestro ejemplo, hemos de hacer lo siguiente:
 ```{r}
-anova(lm(y~X[,2:5]))
+anova(lm(y.bebes~X[,2:5]))
 ```
 Observamos que el p-valor es muy pequeño. Por tanto, rechazamos la hipótesis nula y concluimos que la regresión ha tenido sentido en este caso.
 </div>
@@ -1664,7 +1664,7 @@ y `R` nos da toda la información sobre la **regresión múltiple** realizada.
 Si aplicamos la función `summary` a los datos de nuestro ejemplo, obtenemos la salida siguiente:
 
 ```{r,eval=FALSE}
-summary(lm(y~x1+x2+x3+x4))
+summary(lm(y.bebes~x1+x2+x3+x4))
 ```
 
 </div>
@@ -1673,7 +1673,7 @@ summary(lm(y~x1+x2+x3+x4))
 
 <div class="example">
 ```{r,echo=FALSE}
-summary(lm(y~x1+x2+x3+x4))
+summary(lm(y.bebes~x1+x2+x3+x4))
 ```
 </div>
 
@@ -1685,7 +1685,7 @@ En primer lugar `R` nos da la lista de los errores cometidos en las estimaciones
 En segundo lugar, `R` nos muestra una tabla con las columnas siguientes:
 
 * `Estimate`: los valores estimados de los parámetros $\beta_0,\beta_1,\beta_2,\beta_3$ y $\beta_4$. Es decir, los valores $b_0,b_1,b_2,b_3$ y $b_4$.
-* `Std. Error`: los errores estándars de los estimadores $b_0,b_1,b_2,b_3$ y $b_4$.
+* `Std. Error`: los errores estándares de los estimadores $b_0,b_1,b_2,b_3$ y $b_4$.
 * `t value`: el valor del estadístico de contraste cuando realizamos el contraste $\left.\begin{array}{l} H_0: \beta_i=0, \\
 H_1: \beta_i \neq 0, \end{array}
 \right\}$ sobre cada parámetro $\beta_i$, $i=0,1,2,3,4$.
@@ -1805,7 +1805,7 @@ Para usar el **Test de White** en `R`, tenemos que usar la función `bptest` del
 library(lmtest)
 bptest(lm1, ~ X + I(X^2))
 ```
-donde `lm1` es el objeto de `R` donde hemos guardado la información de la regresión original y `X` es la matrix que contiene los valores de la muestra de variables independientes.
+donde `lm1` es el objeto de `R` donde hemos guardado la información de la regresión original y `X` es la matriz que contiene los valores de la muestra de las variables independientes.
 
 ## Ejemplo
 <div class="example">
@@ -1841,7 +1841,7 @@ Por tanto, tendríamos 14 variables independientes pero sólo $n=9$ valores de $
 
 
 ## Test de Breusch-Pagan
-Cuando nos encontramos en una situación como la del ejemplo de los bebés, en lugar de aplicar el **Test de White** para contrastar la **homocedasticidad** de los residuos, podemos aplicat el **Test de Breuch-Pagan**.
+Cuando nos encontramos en una situación como la del ejemplo de los bebés, en lugar de aplicar el **Test de White** para contrastar la **homocedasticidad** de los residuos, podemos aplicar el **Test de Breuch-Pagan**.
 
 Su aplicación es bastante parecida al **Test de White** pero evita los términos de segundo orden en la regresión auxiliar. 
 
@@ -1910,8 +1910,8 @@ donde `lm1` es el objeto de `R` donde hemos guardado la información de la regre
 
 Si aplicamos el **Test de Breusch-Pagan** en `R` en este ejemplo obtenemos:
 ```{r}
-y=c(57.5,52.8,61.3,67,53.5,62.7,56.2,68.5,69.2)
-reg.mul.original = lm(y~X[,2]+X[,3]+X[,4]+X[,5])
+y.bebes=c(57.5,52.8,61.3,67,53.5,62.7,56.2,68.5,69.2)
+reg.mul.original = lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5])
 bptest(reg.mul.original)
 ```
 obteniendo los mismos resultados que hemos hallado anteriormente realizando los cálculos "a mano".
@@ -1985,30 +1985,546 @@ Expliquemos cómo aplicar dicho test.
 
 Sean $\{e_i\}_{i=1,\ldots,n}$ los residuos de la regresión. 
 
-Sean $E_i$ y las $E_{i-1}$ variables aleatorias error (trasladadas en un índice) y la recta de regresión de $E_i$ con respecto a $E_{i-1}: $E_i=\beta_1E_{i-1}+\beta_0$.
+Sean $E_i$ y las $E_{i-1}$ variables aleatorias error (trasladadas en un índice) y la recta de regresión de $E_i$ con respecto a $E_{i-1}$: $E_i=\beta_1E_{i-1}+\beta_0$.
 
 Se plantea el siguiente contraste:
 $$\left.\begin{array}{ll} H_0: \beta_1=0,\\H_1: \beta_1\neq0,\end{array}\right\}$$
 con el siguiente **estadístico de contraste**:
-$$d=\frac{\sum\limits^n_{i=2}{(e_i-e_{i-1})^2}}{\sum\limits_{i=1}^n{e_i^2}}.$$
+$d=\frac{\sum\limits^n_{i=2}{(e_i-e_{i-1})^2}}{\sum\limits_{i=1}^n{e_i^2}}.$
 
 ## Correlación de los residuos: Test de Durbin-Watson
 El valor de este estadístico es aproximadamente $2(1-b_1)$ donde $b_1$ se una estimación de $\beta_1$. 
 
 Si la hipótesis nula $H_0$ es cierta, su distribución es la de una cierta combinación lineal de $\chi^2$.
 
-El test necesita de una tabla de valores críticos para tomar la decisión final.  Concretamente, $d$ se tiene que comparar cono dos valoras críticos $d_{L,\alpha}$ y $d_{U,\alpha}$, donde  $\alpha$ es el nivel de significación que depende de $n$ y de $k$.
+El test necesita de una tabla de valores críticos para tomar la decisión final.  
+Dicha tabla puede encontrarse en [Images Google](https://images.google.com) y escribiendo `test de Durbin Watson` en la casilla de búsqueda.
+
+Concretamente, $d$ se tiene que comparar con dos valoras críticos $d_{L,\alpha}$ y $d_{U,\alpha}$, donde  $\alpha$ es el nivel de significación que depende de $n$ y de $k$.
 
 ## Correlación de los residuos: Test de Durbin-Watson
 
-Decidimos si hay autocorrelació positiva:
+Decidimos si hay autocorrelación positiva:
 
 * Si $d<d_{L,\alpha}$, hay autocorrelación positiva.
 * Si $d>d_{U,\alpha}$, no hay autocorrelación positiva.
 * De lo contrario, nos encontramos en la zona de penumbra.
 
-Decidimos si hay autocorrelació negativa:
+Decidimos si hay autocorrelación negativa:
 
 * Si $4-d<d_{L,\alpha}$, hay autocorrelación negativa.
 * Si $4-d>d_{U,\alpha}$, no hay autocorrelación negativa.
 * De lo contrario, nos encontramos en la zona de penumbra.
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Vamos a ver si hay autocorrelación para la tabla de datos de los bebés.
+
+El valor del estadístico de contraste $d$ valdrá en este caso:
+```{r}
+diferencias = errores[2:n]-errores[1:(n-1)]
+(estadístico.d = sum(diferencias^2)/sum(errores^2))
+```
+Si miramos los valores críticos para $\alpha=0.05$, $n=9$ y $k=4$ en la Tabla del estadístico de Durbin-Watson, obtenemos los valores siguientes: $d_{L,0.05}=0.3$ y $d_{U,0.05}=2.59$.
+</div>
+
+
+## Ejemplo
+<div class="example">
+A continuación, miramos si hay autocorrelación positiva: como $`r estadístico.d`$ está entre $d_{L,0.05}$ y $d_{U,0.05}$, estamos en la zona de penumbra y no podemos tomar una decisión clara.
+
+Finalmente, testeamos si hay autocorrelación negativa. El valor de $4-d$ será: `r 4-estadístico.d`. Observamos también que $4-d$ está entre $d_{L,0.05}$ y $d_{U,0.05}$, por tanto, volvemos a estar estamos en la zona de penumbra y no podemos tomar una decisión clara.
+
+En resumen, en este ejemplo no podemos decidir de forma clara a partir del estadístico de Durbin-Watson si los errores están incorrelados .
+
+</div>
+
+## Test de Durbin-Watson en `R`
+El test de Durbin-Watson está implementado en la función `dwtest` del paquete `lmtest`.
+
+El parámetro `alternative` nos indica si se testea que la autocorrelación es positiva (`greater`) o negativa (`less`):
+```{r,eval=FALSE}
+dwtest(r,alternative=...)
+```
+donde en `r` se ha guardado el objecto de la regresión `lm(y~x1+...+xk)` y, como hemos indicado, con `alternative=greater` testeamos si los residuos tienen autocorrelación positiva y con `alternative=less`, si tienen autocorrelación negativa.
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Para testear si los errores tienen autocorrelación positiva, hacemos lo siguiente:
+```{r}
+library(lmtest)
+dwtest(reg.mul.original,alternative = 'greater')
+```
+Observamos que obtenemos el mismo valor del estadístico de contraste que en los cálculos realizados "a mano". 
+
+Sin embargo, `R` nos da un p-valor del que podemos concluir que no hay autocorrelación positiva en los residuos. Recordemos que en los cálculos realizados "a mano", no podíamos tomar una decisión clara. 
+
+</div>
+
+## Ejemplo
+<div class="example">
+Esto es debido a que `R` es capaz de hallar los p-valores a partir de la matriz de los datos $\mathbf{X}$. Es decir, `R` usa información de nuestra muestra para hallar los p-valores. Por tanto, si os encontráis una discrepancia de este tipo, la conclusión que os dé `R` prevalece sobre los cálculos realizados a partir de la tabla del **Test de Durbin-Watson**.
+
+
+Si testeamos si los errores tienen autocorrelación negativa, obtenemos:
+```{r}
+dwtest(reg.mul.original,alternative = 'less')
+```
+Obtenemos un p-valor grande, concluyendo a partir de `R` que no tenemos indicios suficientes para rechazar que los errores no tengan autocorrelación negativa. Dicha conclusión prevalecería sobre la conclusión que hemos realizado antes haciendo los cálculos "a mano".
+</div>
+
+
+## Aditividad y linealidad
+
+Cuando se plantea un modelo lineal, se supone implícitamente las condiciones siguientes:
+
+* Aditividad: para cada variable independiente $X_i$, la variación de asociada $\mu_{Y|x_1,\ldots,x_k}$ con un aumento en $X_i$ (manteniendo las otras variables constantes) es la misma sean cuales sean los valores de las otras variables independientes.
+
+Dicho de otra forma:
+$$
+\begin{array}{rl}
+\mu_{Y|x_1,\ldots,x_i+\Delta x_i,\ldots,x_k}-& \mu_{Y|x_1,\ldots,x_i,\ldots,x_k}=\\ & \beta_0+\beta_1 x_1+\cdots+ \beta_i (x_i+\Delta x_i)+\cdots + \beta_k x_k -\\ &  (\beta_0+\beta_1 x_1+\cdots+\beta_i x_i+\cdots + \beta_k x_k) = \beta_i\Delta x_i.
+\end{array}
+$$
+
+
+## Aditividad y linealidad
+Fijémonos que la variación en el parámetro $\mu_{\ldots}$ es independiente de los valores de $x_1,\ldots,x_{i-1},x_{i+1},\ldots,x_k$.
+
+* Linealidad:  para cada variable independiente $X_i$, la variación de asociada $\mu_{Y|x_1,\ldots,x_k}$ con un aumento en $X_i$ (manteniendo las otras variables constantes) es la misma sea cual sea el valor de $X_i$.
+
+Dicho de otra forma, si miramos la expresión anterior, la  variación en el parámetro $\mu_{\ldots}$ es independiente de los valores de $x_i$.
+
+
+## Aditividad: test de Tukey
+
+Podemos comprobar la **aditividad** con el **test de Tukey**, usando los llamados **gráficos de residuos parciales para la linealidad**.
+
+La idea principal es verificar que no haya **interacción** entre las variables independientes y así, cada una tendrá un efecto aditivo en el modelo. 
+
+Si existe la **interacción**, algunos términos cuadráticos tendrán peso en el modelo. Esta es la base del **Test de Tukey**:  
+
+## Aditividad: test de Tukey
+* Se obtienen los valores ajustados $\{\hat{y}_i\}$ por la regresión lineal inicial.
+* Se lleva a cabo una segunda regresión lineal incluyendo como nueva variable independiente los $\hat{y}_i^2$. Sea $\beta$ el coeficiente de esta nueva variable.
+* Se testea si la variable $\hat{y}^2$ es significativa en la segunda regresión. Es decir, se realiza el contraste
+$$\left.\begin{array}{ll} H_0:  \beta=0,\\ H_1: \beta\neq 0.\end{array}\right\}$$
+Si no podemos descartar la hipótesis nula, la variable de los $\hat{y}_i^2$ no es significativa y el modelo es aditivo. 
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Testeemos la aditividad para los datos del ejemplo de los bebés:
+
+* Valores ajustados:
+```{r}
+reg.mul.original$fitted.values
+```
+</div>
+
+## Aditividad: test de Tukey
+<div class="example">
+* Segunda regresión lineal incluyendo los valores $\hat{y}_i^2$:
+```{r}
+valores.ajustados2 = reg.mul.original$fitted.values^2
+summary(lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5]+valores.ajustados2))[[4]]
+```
+Vemos que la variable $\hat{y}_i^2$ no es significativa del modelo con un p-valor de `r summary(lm(y.bebes~X[,2]+X[,3]+X[,4]+X[,5]+valores.ajustados2))[[4]][6,4]`. Concluimos por tanto que no tenemos evidencias suficientes para rechazar la aditividad del modelo.
+</div>
+
+## Test de Tukey en `R`
+Para realizar el **Test de Tukey** en `R` hay que usar la función `residualPlots` del paquete `car`:
+```{r,eval=FALSE}
+residualPlots(r,plot=...)
+```
+donde `r` es el objeto de `R` donde hemos guardado la información de la regresión original y `plot` es un parámetro que si vale `TRUE` (valor por defecto) nos dibuja los gráficos de los residuos frente a las variables regresoras y frente a los valores estimados junto con una curva de color azul indicando su tendencia y si vale `FALSE` simplemente da el valor del estadístico de Tukey y su p-valor.
+
+Si optamos por ver los gráficos, no debe mostrarse ningún tipo de estructura, todos ellos deben parecer "cielos estrellados".
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Apliquemos el **Test de Tukey** para los datos del ejemplo de los bebés:
+```{r}
+library(car)
+residualPlots(reg.mul.original,plot=FALSE)
+```
+Obtenemos un p-valor grande, llegando a la misma conclusión que los cálculos realizados "a mano".
+</div>
+
+
+## Linealidad: gráficos de residuos parciales
+
+Los gráficos de residuos parciales son una herramienta útil para detectar la no linealidad en una regresión. 
+
+Se definen los **residuos parciales** $e_{ij}$ para la variable independiente $X_j$ como
+$$e_{ij}=e_i+b_jx_{ij},$$
+donde $e_i$  es el residuo $i$-ésimo de la regresión lineal, $b_j$ es el coeficiente de $X_j$ en la regresión original y $x_{ij}$ es la observación $j$-ésima del individuo $i$-ésimo. 
+
+## Linealidad: gráficos de residuos parciales
+
+Los residuos parciales se dibujan contra los valores de $x_j$ y se hace su recta de regresión. 
+
+Si ésta no se ajusta a la curva dada por una regresión no paramétrica suave (las variables independientes no están predeterminadas y se construyen con los datos), el modelo no es lineal. 
+
+La función de `R` para representar estos gráficos es `crPlots` del paquete `car`.
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Realicemos los **gráficos de residuos parciales** para los datos del ejemplo de los bebés para ver gráficamente la linealidad:
+```{r,eval=FALSE}
+library(car)
+crPlots(reg.mul.original)
+```
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+library(car)
+crPlots(reg.mul.original)
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+Observamos que la única variable que no se ajusta el modelo lineal es la variable $x_4$: aumento en tanto por ciento de su peso actual respecto de su peso al nacer.
+
+Todas las demás presentan un ajuste bastante aceptable al modelo lineal.
+
+</div>
+
+
+## Observaciones anómalas
+
+Las observaciones anómalas pueden provocar que se malinterpreten patrones en el conjunto de datos.
+
+Además, puntos aislados pueden tener una gran influencia en el modelo de regresión dando resultados completamente diferentes.
+
+Por ejemplo, pueden provocar que nuestro modelo no capture características importantes de los datos.
+
+Por dichos motivos, es importante detectarlas.
+
+Como se puede observar en el gráfico siguiente, la presencia de un valor anómalo distorsiona completamente el modelo.
+
+## Observaciones anómalas
+
+```{r,echo=FALSE,fig.align='center'}
+x=seq(from=60,to=80,by=2)
+y=x+rnorm(length(x))*0.5
+x2=c(x,160)
+y2=c(y,60)
+par(mfrow=c(1,2))
+plot(x,y,main="Sin observación anómala")
+abline(lm(y~x),col="red")
+plot(x2,y2,main="Con observación anómala")
+abline(lm(y2~x2),col="red")
+```
+
+
+## Tipos de observaciones anómalas
+
+Existen tres tipos de observaciones anómalas:
+
+* **Outliers de regresión**: son observaciones que tiene un valor anómalo de la variable dependiente $Y$, condicionado a los valores de sus variables independientes $X_i$. Tendrá un residuo muy alto pero puede no afectar demasiado a los coeficientes de la regresión.
+* **Leverages**: son observaciones con un valor anómalo de las variables independientes $X_i$. No tiene porqué afectar los coeficientes de la regresión.
+* **Observaciones influyentes**: son aquellas que tienen un **leverage** alto, son **outliers de regresión** y afectan fuertemente a la regresión.
+
+En el gráfico siguiente vemos un ejemplo de un **outlier**, un **leverage** y una **observación anómala**.
+
+
+## Tipos de observaciones anómalas
+
+```{r,echo=FALSE,fig.align='center'}
+x=seq(from=60,to=80,by=2)
+y=x+rnorm(length(x))*0.5
+x2=c(x,65)
+y2=c(y,50)
+x3=c(x,160)
+y3=c(y,162)
+x4=c(x,160)
+y4=c(y,60)
+
+par(mfrow=c(1,3))
+plot(x2,y2,main="Outlier")
+points(65,50,pch=19,col="blue",cex=2)
+abline(lm(y2~x2),col="red")
+plot(x3,y3,main="Leverage")
+abline(lm(y3~x3),col="red")
+points(160,162,pch=19,col="blue",cex=2)
+plot(x4,y4,main="Punto influyente")
+abline(lm(y4~x4),col="red")
+points(160,60,pch=19,col="blue",cex=2)
+```
+
+
+## Leverages
+Para hallar las observaciones que son **leverages**, en primer lugar, necesitamos definir la **matriz Hat** como:
+$$\mathbf{H}=\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top.$$
+Esta matriz es simétrica ($\mathbf{H}^\top=\mathbf{H}$) e idempotente ($\mathbf{H}^2=\mathbf{H}$). 
+
+Además,	es fácil comprobar que 
+$$\hat{y}=\mathbf{X} b=\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top y=\mathbf{H}y,$$ 
+usando la expresión dada anteriormente que nos hallaba los valores estimados $\hat{y}$, y así tenemos que
+$\hat{y}_{j}=h_{1j}y_1+h_{2j}y_2+\ldots+h_{nj}y_n=\sum_{i=1}^n{h_{ij}y_i},$ para $j=1,\ldots,n$.
+
+## Leverages
+
+Si la componente $(i,j)$ de la **matriz Hat**, $h_{ij}$ es grande, la observación $i$-ésima tiene un impacto sustancial en el valor predicho $j$-ésimo.
+
+Se define el **leverage** de la observación $i$-ésima $h_i$ como su **valor hat**
+$h_i=\sum\limits_{j=1}^n{h_{ij}^2},$
+y así, el **valor hat** $h_i$ mide el **leverage potencial** de $y_i$ en todos los valores predichos.
+
+
+## Propiedades de los leverages
+
+
+* El **valor hat** medio es $\overline{h}=\frac{1}{n}\sum\limits_{i=1}^n h_i=\frac{k+1}{n}$.
+
+* Los **valores hat** satisfacen $\frac1{n}\leq h_i \leq 1$.
+
+* En la regresión lineal simple, los **valores hat** miden la distancia de $x_i$ a la media de $X$:
+$h_i=\frac1{n}+\frac{(x_i-\overline{x})^2}{\sum\limits_{j=1}^n{(x_j-\overline{x} )^2}}.$
+
+* En la regresión múltiple, $h_i$ mide la distancia de una observación al vector medio de $X$ de una forma parecida a la anterior.
+
+
+## Leverages
+Basándonos en las propiedades anteriores, la regla de decisión que nos dirá si una observación tiene leverage grande (y por lo tanto, tiene que ser considerada con cuidado) es cuando su **valor hat** cumpla: $h_i>2\frac{k+1}{n}.$
+
+La función `hatvalues` de `R` calcula los valores hat dado un modelo de regresión basándose en la regla anterior:
+
+```{r,eval=FALSE}
+hatvalues(r)
+```
+donde `r` es el objeto de `R` donde hemos guardado la información de la regresión original.
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Hallemos los valores **leverages** para la regresión realizada usando el ejemplo de los bebés:
+```{r}
+(valores.hat=hatvalues(reg.mul.original))
+which(valores.hat > 2*(k+1)/n)
+```
+Vemos que en nuestro ejemplo no hay ninguna observación que puede considerarse con **leverage** alto.
+</div>
+
+
+## Outliers
+
+La estrategia para determinar qué observaciones son susceptibles de ser outliers se basan en los llamados **residuos estunderizados**.
+
+Se basan en recalcular el modelo después de eliminar la observación $i$-ésima  y hallar el correspondiente $(MSE)_i$.
+
+Los **residuos estunderizados** se definen como:
+$$E_i^\star=\frac{e_i}{\sqrt{(MSE)_i(1-h_i)}},$$
+y, si el modelo es correcto, la variable anterior sigue una distribución $t$ de Student con $n-k-2$ grados de libertad.
+
+
+## Outliers
+Para detectar los **outliers** se siguen los pasos siguientes:
+
+* Para cada observación $i$-ésima, se calcula el **residuo estunderizado** $E_i^\star$.
+
+* A continuación, se realiza una corrección de Bonferroni al p-valor multiplicándolo por $n$ y así, el p-valor ajustado es $2nP(t_{n-k-2}\geq E_i^\star).$
+
+* Se van considerando por orden decreciente los p-valores de las observaciones hasta que se encuentra una observación que ya no sea un **outlier**.
+
+
+## Outliers
+La función de `R` que realiza este test de detección de **outliers** es la función `outlierTest` del paquete `car`. 
+```{r,eval=FALSE}
+outlierTest(r)
+```
+donde `r` es el objeto de `R` donde hemos guardado la información de la regresión original.
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Veamos si tenemos **outliers** para la regresión realizada usando el ejemplo de los bebés:
+```{r}
+outlierTest(reg.mul.original)
+```
+Observamos que el bebé número 8 es el que tiene un **residuo estunderizado** más alto pero el p-valor ajustado de Bonferroni nos permite rechazar que sea un **outlier**.
+
+
+</div>
+
+
+## Observaciones influyentes: Distancia de Cook
+
+Como ya hemos indicado, una observación influyente es aquella que combina **discrepancia** con **leverage**.
+
+Una forma de determinarlas es examinar cómo cambian los coeficientes de la regresión si se elimina una observación en concreto.
+
+La medida para evaluar este cambio es la llamada **distancia de Cook**:
+$$D_i=\frac{e^2_{S_i}}{k+1}\cdot\frac{h_i}{1-h_i},$$
+dónde $h_i$ es el **leverage** y es $e_{S_i}$ el llamado **residuo estandarizado**, dado por
+$$e_{S_i}=\frac{e_i}{\sqrt{MSE(1-h_i)}}.$$
+
+## Observaciones influyentes: Distancia de Cook
+
+El primer factor en la expresión de la **distancia de Cook** ($\frac{e^2_{S_i}}{k+1}$) mide el grado de ser **outlier** mientras que el segundo ($\frac{h_i}{1-h_i}$) mide el grado de **leverage**.
+
+Una regla para determinar qué observaciones son influyentes es $D_i > \frac4{n-k-1}.$
+
+En `R` la **distancia de Cook** se calcula con la función `cooks.distance` del paquete `car`:
+```{r,eval=FALSE}
+cooks.distance(r)
+```
+donde `r` es el objeto de `R` donde hemos guardado la información de la regresión original.
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Calculemos las observaciones influyentes usando la **distancia de Cook** para la regresión realizada usando el ejemplo de los bebés:
+```{r}
+(distancias.cook=cooks.distance(reg.mul.original))
+which(distancias.cook > 4/(n-k-1))
+```
+Observamos que el bebé número 9 es una observación influyente según la **distancia de Cook**.
+</div>
+
+## Tratamiento de las observaciones anómalas
+
+El tratamiento de las observaciones anómalas es bastante complejo.
+
+Nos debemos preguntar si se deben a errores en la entrada o recogida de los datos y si éste es el caso, se debían de eliminar.
+
+Pero también pueden explicar que no se ha considerado alguna variable independiente que afecta al conjunto de observaciones anómalas.
+
+Las más peligrosas son las influyentes. 
+
+En el supuesto de que se determine que se pueden eliminar, se tienen que eliminar de una a una, actualizando el modelo cada vez.
+
+
+## Algunas consideraciones finales: selección del modelo
+
+El modelo de regresión lineal no es el único que podemos usar. Existen otros modelos como los polinómicos o los logarítmicos que podrían ajustar mejor nuestra tabla de datos.
+
+El modelo puede ser más eficaz si añadimos otras variables, o puede ser igual de eficaz si eliminamos variables redundantes.
+
+Puede haber dependencias lineales entre las variables que las haga redundantes. Podemos detectar dichas dependencias con la matriz de covarianzas entre las variables regresoras o independientes.
+
+## Algunas consideraciones finales: selección del modelo
+En `R` existe la función `step` que, a partir del método `AIC` nos da el mejor modelo desde en el sentido de buscar un equilibrio entre la simplicidad y la adecuación:
+```{r,eval=FALSE}
+step(r)
+```
+donde `r` es el objeto de `R` donde hemos guardado la información de la regresión original.
+
+## Ejemplo
+<div class="example">
+**Ejemplo de los bebés**
+
+Si aplicamos la función `step` a la tabla de datos de los bebés, veamos cuál es el mejor modelo:
+```{r,eval=FALSE}
+step(reg.mul.original)
+```
+
+Con un `AIC` de -3.78, `R` nos dice que el mejor modelo es considerar las variables regresoras $x_2$ (altura del bebé al nacer) y $x_3$ (peso del bebé al nacer).
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE}
+step(reg.mul.original)
+```
+</div>
+
+
+## Guía rápida. Regresión lineal simple
+
+* `lm(y~x)`: objeto donde `R` guarda la información de la recta de regresión de la variable `y` en función de la variable `x`.
+
+* `summary(lm(y~x))`: información detallada de la recta de regresión de la variable `y` en función de la variable `x`:
+  * `summary(lm(y~x))$r.squared`: nos da el coeficiente de determinación.
+  * `summary(lm(y~x))$coefficients`: nos da los coeficientes ($b_0$ y $b_1$) de la recta de regresión, las desviaciones estándar del error de dichos estimadores, el valor $t$ al hacer los contrastes de hipótesis para contrastar si son nulos y los p-valores correspondientes de dichos contrastes.
+
+
+
+## Guía rápida. Regresión lineal simple
+
+* `abline(lm(y~x))`: dibuja la recta de regresión de la variable `y` en función de la variable `x` una vez que se ha realizado un plot de la nube de puntos $(x_i,y_i)$, $i=1,\ldots,n$.
+
+* `confint(lm(y~x),level=q)`: nos da el intervalo de confianza de los parámetros $\beta_0$ y $\beta_1$ al 100$\cdot$`q`% de confianza. Valor por defecto: `q`=0.95.
+
+* `predict.lm(lm(y~x),newdata,interval=...,level=q)`: da el intervalo de confianza para el parámetro $\mu_{Y|x_0}$ o $y_0$ al 100$\cdot$`q`% de confianza dependiendo de los valores del parámetro `interval`: (`newdata` debe ser un `dataframe` de una fila con el valor de la variable $x_0$)
+  * `interval="confidence"`: intervalo de confianza para $\mu_{Y|x_0}$.
+  * `interval="prediction"`: intervalo de confianza para $y_0$.
+
+## Guía rápida. Regresión lineal múltiple
+
+* `lm(y~x1+...xk)`: objeto donde `R` guarda la información de la función de regresión de la variable `y` en función de las variables regresoras `x1`,$\ldots$,`xk`.
+
+* `summary(lm(y~x1+...xk))`: información detallada de la recta de regresión de la variable `y` en función de las variables regresoras `x1`,$\ldots$,`xk`:
+  * `summary(lm(y~x))$r.squared`: nos da el coeficiente de determinación.
+  * `summary(lm(y~x))$coefficients`: nos da los coeficientes ($b_0,b_1,\ldots,b_k$) de la función de regresión, las desviaciones estándar del error de dichos estimadores, el valor $t$ al hacer los contrastes de hipótesis para contrastar si son nulos y los p-valores correspondientes de dichos contrastes.
+  * `summary(lm(y~x))$adj.r.squared`: nos da el coeficiente de determinación ajustado.
+
+## Guía rápida. Regresión lineal múltiple
+
+* `AIC(lm(y~x1+...+xk))`: nos da el valor `AIC` del modelo de regresión múltiple `lm(y~x1+...xk)`.
+
+* `BIC(lm(y~x1+...+xk))`: nos da el valor `BIC` del modelo de regresión múltiple `lm(y~x1+...xk)`.
+
+* `confint(lm(y~x1+...+xk),level=q)`: nos da el intervalo de confianza de los parámetros $b_0,b_1,\ldots,b_k$ al 100$\cdot$`q`% de confianza. Valor por defecto: `q`=0.95.
+
+## Guía rápida. Regresión lineal múltiple
+* `predict.lm(lm(y~x1+...+xk),newdata,interval=...,level=q)`: da el intervalo de confianza para el parámetro $\mu_{Y|x_{01},\ldots,x_{0k}}$ o $y_0$ al 100$\cdot$`q`% de confianza dependiendo de los valores del parámetro `interval`: (`newdata` debe ser un `dataframe` de una fila con el valor de las variables $x_{01},\ldots,x_{0k}$)
+  * `interval="confidence"`: intervalo de confianza para $\mu_{Y|x_{01},\ldots,x_{0k}}$.
+  * `interval="prediction"`: intervalo de confianza para $y_0$.
+  
+* `anova(lm(y~Xd))`: calcula la tabla ANOVA de una regresión lineal múltiple de `y` en función de las columnas de la matriz `Xd`, es decir, `Xd` es una matriz cuyas columnas son los valores de las variables independientes $x_1,\ldots,x_k$.
+
+## Guía rápida. Regresión lineal múltiple
+
+* `bptest(lm(y~x1+...+xk),~X+I(X^2))` del paquete `lmtest`: realiza el test de White para verificar la homocedasticidad de los residuos en la regresión lineal múltiple `lm(y~x1+...+xk)` donde `X`  es la matriz que contiene los valores de la muestra de las variables independientes.
+
+* `bptest(lm(y~x1+...+xk)` del paquete `lmtest`: realiza el test de Breuch-Pagan para verificar la homocedasticidad de los residuos en la regresión lineal múltiple `lm(y~x1+...+xk)`.
+
+* `dwtest(lm(y~x1+...+xk,alternative=))` del paquete `lmtest`: realiza el test de Durbin-Watson para comprobar la autocorrelación de los residuos donde si el parámetro `alternative` vale:
+  * `greater`: comprueba si los residuos tienen autocorrelación positiva.
+  * `less`: comprueba si los residuos tienen autocorrelación negativa.
+  
+## Guía rápida. Regresión lineal múltiple
+* `residualPlot(lm(y~x1+...+xk),plot=...)` del paquete `car`: realiza el test de Tukey para verificar la aditividad del modelo lineal múltiple `lm(y~x1+...+xk)`. Los valores del parámetro `plot` pueden ser:
+  * `FALSE`: da el valor del estadístico de contraste y el correspondiente p-valor.
+  * `TRUE`: dibuja los gráficos de los residuos frente a las variables regresoras $x_1,\ldots, x_k$ y frente a los valores estimados $\hat{y}_i$, $i=1,\ldots,n$.
+  
+* `crPlots(lm(y~x1+...+xk))` del paquete `car`: realiza los gráficos de los residuos parciales para testear la linealidad del modelo de regresión múltiple `lm(y~x1+...+xk)`.
+
+* `hatvalues(lm(y~x1+...+xk))`: cálculos los valores hat para el modelo de regresión múltiple `lm(y~x1+...+xk)` con el objetivo de hallar las posibles observaciones *leverages*.
+
+## Guía rápida. Regresión lineal múltiple
+
+* `outlierTest(lm(y~x1+...+xk))`: realiza el test de detección de outliers para el modelo de regresión múltiple `lm(y~x1+...+xk)`.
+
+* `cooks.distance(lm(y~x1+...+xk))`: calcula las distancias de Cook de las observaciones para el modelo de regresión múltiple `lm(y~x1+...+xk)` con el fin de hallar las observaciones influyentes.
+
+* `step(lm(y~x1+...+xk))`: da el mejor modelo de regresión múltiple en el sentido de buscar un equilibrio entre la simplicidad y la adecuación a partir del modelo completo `lm(y~x1+...+xk)` usando el valor `AIC`.
+
+
+
+
+
+
+
+
