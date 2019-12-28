@@ -154,4 +154,3 @@ mal_bmi = males["BMXBMI"].dropna()
 ```{python}
 sm.stats.ztest(fem_bmi, mal_bmi, alternative = "two-sided")
 ```
-

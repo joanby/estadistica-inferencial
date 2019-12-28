@@ -1,0 +1,171 @@
+---
+title: "Repaso de intervalos y estimación puntual"
+author: "Curso completo de estadística inferencial con R y Python"
+output:
+  pdf_document:
+    highlight: tango
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+  html_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Estimación puntual
+
+Sea $X_{1}$ y $X_{2}$ una muestra aleatoria de dos observaciones
+independientes de una población con media $\mu$ y varianza $\sigma^2$. Considerar los
+siguientes tres estimadores puntuales de $\mu$:
+
+$$
+\begin{array}{l}
+    \overline{X}=\frac{1}{2} X_{1}+\frac{1}{2} X_{2}\\
+    \hat{\mu}^{(1)}=\frac{1}{4}X_{1}+\frac{3}{4} X_{2}\\
+    \hat{\mu}^{(2)}=\frac{1}{3}X_{1}+\frac{2}{3} X_{2}
+\end{array}
+$$
+
+1. Probar que los tres estimadores son insesgados.
+2. ¿Cuál de los tres estimadores es más  eficiente?
+3. Hallar la eficiencia relativa de $\overline{X}$ con respecto a los otros estimadores.
+  
+## Solución: Estimación puntual  
+  
+  
+1. Para probar que los tres estimadores son insesgados calculemos  sus esperanzas:
++ $E\left(\overline{X}\right)=E\left(\frac{1}{2} X_{1}+\frac{1}{2} X_{2}\right)=\frac{1}{2}\mu+\frac{1}{2}\mu=\mu$.
++ $E\left(\hat{\mu}^{(1)}\right)=E\left(\frac{1}{4}X_{1}+\frac{3}{4} X_{2}\right)=\frac{1}{4}\mu+\frac{3}{4}\mu=\mu$.
++ $E\left(\hat{\mu}^{(2)}\right)=E\left(\frac{1}{3}X_{1}+\frac{2}{3} X_{2}\right)=\frac{1}{3}\mu+\frac{2}{3}\mu=\mu$.  
+Por lo tanto los tres estimadores son insesgados para el parámetro $\mu$.
+2. ¿Cuál de los tres estimadores es más  eficiente?
+Calculemos las varianzas de cada estimador. Como las variables son independientes la varianza de la suma es la suma de las varianzas
++ $Var\left(\overline{X}\right)= Var\left(\frac{1}{2} X_{1}+\frac{1}{2} X_{2}\right)=\frac{1}{4}\sigma^2+\frac{1}{4}\sigma^2)=\frac{1}{2}\cdot\sigma^2.$
++ $Var\left(\hat{\mu}^{(1)}\right)=Var\left(\frac{1}{4} X_{1}+\frac{3}{4} X_{2}\right)=\frac{1}{16}\sigma^2+\frac{9}{16}\sigma^2=\frac{5}{8}\cdot\sigma^2.$
++ $Var\left(\hat{\mu}^{(2)}\right)=Var\left(\frac{1}{3} X_{1}+\frac{2}{3} X_{2})=\frac{1}{9}\sigma^2+\frac{4}{9}\sigma^2\right)=\frac{5}{9}\cdot\sigma^2.$  
+Es evidente que $\frac{1}{2}< \frac{5}{9}< \frac{5}{8}$, por lo que  el estimador mas eficiente, como ya sabíamos por teoría, es $\overline{X}.$
+3. Hallar la eficiencia relativa de $\overline{X}$ con respecto a los otros estimadores son:
++ $\frac{Var\left(\overline{X}\right)}{Var\left(\hat{\mu}^{(1)}\right)}=\frac{\frac{\sigma^2}{2}}{\frac{5}{8} \sigma^2}=\frac{8}{10}=0.8$
++ $\frac{Var\left(\overline{X}\right)}{Var\left(\hat{\mu}^{(2)}\right)}=\frac{\frac{\sigma^2}{2}}{\frac{5}{9} \sigma^2}=\frac{9}{10}=0.9$  
+Lo que se interpreta como que, respecto a su varianza la media aritmética  tiene un $80\%$ y un $90\%$ de la varianza de los otros dos estimadores.  
+
+
+
+  
+# Intervalos de confianza
+En una clase de estadística asisten estudiantes del Grado de Matemáticas y de
+Ingeniería Telemática. En una muestra de 18 estudiantes  se observaron las
+siguientes calificaciones en el examen final
+
+$$62 ,  57 ,  85 ,  59,  64,  63,  71,  58,  77,  72,  73 ,  79 ,  85 ,  73,  62,  51,  60, 57$$
+
+1. Utilizar un método de estimación insesgado para obtener una estimación puntual de las calificación media de los estudiantes.
+
+2. Utilizad un método de estimación insesgado para obtener una estimación puntual de la proporción poblacional de estudiantes que obtuvieron una calificación  mayor que 70.
+
+3. Calculad manualmente y con `R`  un intervalo de confianza al 95% para la nota media (suponiendo población normal). Interpretad el resultado
+
+4. Calculad con R un intervalo  de confianza del 95%  para la proporción poblacional de notas mayores de 70. 
+
+Indicación: utilizad si queréis el código siguiente comentando que es es lo que hace cada linea. Interpretad el resultado.
+
+
+```{r}
+data=c(62,57,85,59,64,63,71,58,77,72,73,79,85,73,62,51,60,57)
+length(data)
+library(epitools)
+binom.approx(sum(data>70),length(data),0.95)
+binom.exact(sum(data>70),length(data),0.95)
+binom.wilson(sum(data>70),length(data),0.95)
+```
+  
+## Solución:  Intervalos de confianza
+
+Explicamos primero el código de `R`
+
+```{r}
+data=c(62,57,85,59,64,63,71,58,77,72,73,79,85,73,62,51,60,57)
+n=length(data)
+n
+```
+De estos resultados obtenemos que el tamaño de la muestra es $n=`r n`$.
+
+```{r}
+library(epitools)
+```
+Cargamos la librería `epitools`.
+
+
+```{r}
+binom.approx(sum(data>70),length(data),0.95)
+```
+Esta función calcula el intervalo de confianza aproximado por la fórmula de Laplace
+
+```{r}
+binom.exact(sum(data>70),length(data),0.95)
+```
+Esta función calcula el intervalo de confianza exacto siguiendo una distribución binomial por la fórmula de Laplace
+
+
+
+```{r}
+binom.wilson(sum(data>70),length(data),0.95)
+```
+Esta función calcula el intervalo de confianza aproximado  de Wilson.
+
+
+1. Esta estimación no está en el código. El estimador insesgado de la media poblacional de notas es la media aritmética. Así que la calculamos manualmente
+
+$$\begin{aligned}
+\overline{x}&=\frac{`r paste(data,collapse="+")`}{18}\\
+&=\frac{`r sum(data)`}{18}=`r round(sum(data)/18,5)`
+\end{aligned}
+$$
+
+2. Como se ve en cada salida  de los resultados del código se estima la proporción muestral, que es el estimador insesgado de la proporción poblacional. Notemos que la entrada es `sum(data>70)` que nos da el número de observaciones mayores que $70$ en la muestra. Por lo tanto la respuesta es que el estimador insesgado es 
+$$\hat{p}=\frac{8}{18}=`r round(8/18,4)`$$.
+
+3. Ahora necesitamos calcular la desviación típica muestral. Calculemos primero la media de los cuadrados de la muestra (de forma manual)
+
+$$\begin{aligned}
+\frac{\sum_{i}^n x_i^2}{n}&=\frac{`r paste(data,collapse="^2+")`}{18}\\
+&=\frac{`r format(sum(data^2),5)`}{18}=`r sum(data^2)/18`
+\end{aligned}
+$$
+ por lo tanto la varianza muestral es 
+ $$S^2= `r sum(data^2)/18`-`r round(mean(data),4)`^2=`r round(sum(data^2)/18-round(mean(data),5)^2,4)`.$$
+Ahora calculamos la cuasivarianza $\tilde{S}^2$
+$$\tilde{S}^2=\frac{18}{18-1}\cdot S^2= `r (17/18)*(round(sum(data^2)/18-round(mean(data),5)^2,4))`\mbox{ y } \tilde{S}=
++\sqrt{`r (18/(18-1))*(round(sum(data^2)/18-round(mean(data),5)^2,4))`}=
+`r round(sqrt((18/(18-1))*(round(sum(data^2)/18-round(mean(data),5)^2,4))),5)` $$
+Sabemos, que bajo las condición de normalidad  y $\sigma$ desconocida el intervalo de confianza del $(1-\frac{\alpha}{2})\cdot 100\%$ es 
+$$\Big]\overline{x}-t_{n-1,1-\frac{\alpha}{2}}\cdot \frac{\tilde{S}}{\sqrt{n}},\overline{x}+t_{n-1,1-\frac{\alpha}{2}}
+\cdot \frac{\tilde{S}}{\sqrt{n}}\Big[.$$
+
+Donde $t_{n-1}{1-\frac{\alpha}{2}}$ es el cuantil $1-\frac{\alpha}{2}$  de una distribución $t$ de Student con $n-1$ grados de libertad. En nuestro caso $n=18$ y $1-\alpha=0.95$ por lo tanto, consultando la tabla de cuantiles de la $t$ de Student 
+$$t_{n-1,1-\frac{\alpha}{2}}=t_{17,0.975}\approx 2.109816$$
+
+Sustituyendo en la fórmula del intervalo 
+$$\Big]67.11111-2.109816\cdot \frac{10.08721}{\sqrt{18}},67.11111+2.109816\cdot \frac{10.08721}{\sqrt{18}}\Big[=
+\Big]`r round(67.11111-2.109816*10.08721/sqrt(18),4)`,`r round(67.11111+2.109816*10.08721/sqrt(18),4)`\Big[.$$
+Por lo tanto y con un nivel de confianza del 95\% la media poblacional de las notas se encontrará (redondeando) entre 62.01 y  72.13 puntos.  
+
+Con calculos más  precisos con `R`: 
+
+```{r}
+mean(data)
+sd(data)
+qt(0.975,17)
+c(mean(data)-qt(0.975,17)*sd(data)/sqrt(18),mean(data)+qt(0.975,17)*sd(data)/sqrt(18))
+```
+4. Para el intervalo de las proporciones sí utilizamos el código. Como la muestra es pequeña  no es mayor que 100 no podemos utilizar Laplace  y al no ser mayor que 40 no podemos utilizar  Wilson. Así que el resultado debe de ser el intervalo exacto  o de Clopper-Pearson que se calcula con la siguiente función
+```{r}
+sum(data>70)
+binom.exact(sum(data>70),length(data),0.95)
+```
+
+
+Por lo tanto la proporción poblacional  de notas mayores de 70 se encontrará (redondeando) entre el 21.53\% y el 69.24\% con  un nivel de confianza del 95\%. 
