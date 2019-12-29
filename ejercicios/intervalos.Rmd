@@ -119,18 +119,21 @@ Esta función calcula el intervalo de confianza aproximado  de Wilson.
 
 1. Esta estimación no está en el código. El estimador insesgado de la media poblacional de notas es la media aritmética. Así que la calculamos manualmente
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \overline{x}&=\frac{`r paste(data,collapse="+")`}{18}\\
 &=\frac{`r sum(data)`}{18}=`r round(sum(data)/18,5)`
 \end{aligned}
 $$
+
 
 2. Como se ve en cada salida  de los resultados del código se estima la proporción muestral, que es el estimador insesgado de la proporción poblacional. Notemos que la entrada es `sum(data>70)` que nos da el número de observaciones mayores que $70$ en la muestra. Por lo tanto la respuesta es que el estimador insesgado es 
 $$\hat{p}=\frac{8}{18}=`r round(8/18,4)`$$.
 
 3. Ahora necesitamos calcular la desviación típica muestral. Calculemos primero la media de los cuadrados de la muestra (de forma manual)
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \frac{\sum_{i}^n x_i^2}{n}&=\frac{`r paste(data,collapse="^2+")`}{18}\\
 &=\frac{`r format(sum(data^2),5)`}{18}=`r sum(data^2)/18`
 \end{aligned}
@@ -161,7 +164,9 @@ sd(data)
 qt(0.975,17)
 c(mean(data)-qt(0.975,17)*sd(data)/sqrt(18),mean(data)+qt(0.975,17)*sd(data)/sqrt(18))
 ```
+
 4. Para el intervalo de las proporciones sí utilizamos el código. Como la muestra es pequeña  no es mayor que 100 no podemos utilizar Laplace  y al no ser mayor que 40 no podemos utilizar  Wilson. Así que el resultado debe de ser el intervalo exacto  o de Clopper-Pearson que se calcula con la siguiente función
+
 ```{r}
 sum(data>70)
 binom.exact(sum(data>70),length(data),0.95)
