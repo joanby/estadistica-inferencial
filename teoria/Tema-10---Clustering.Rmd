@@ -217,6 +217,7 @@ Como ya hemos comentado, el algoritmo anterior no tiene porque dar un clustering
 
 ## Ejemplo
 <div class="center">
+```{tikz, tikz-ex, fig.cap = "EJEMPLO JB", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
 \begin{tikzpicture}[thick,>=stealth,scale=2]
 \filldraw [black] (0.8, 1.3) circle (1pt);  
 \filldraw [black] (0.8 , 1.8) circle (1pt);  
@@ -267,4 +268,5 @@ Como ya hemos comentado, el algoritmo anterior no tiene porque dar un clustering
 \draw (1.5,1.5) node[rectangle,fill=blue,draw] {};
 \draw (1.5,3) node[rectangle,fill=green,draw] {};
 \end{tikzpicture}
+```
 </div>
