@@ -680,7 +680,7 @@ Como el p-valor es pequeño, podemos concluir que la regresión tiene sentido en
 
 </div>
 
-## Contraste para el pendiente $\beta_1$ en `R`
+## Contraste para la pendiente $\beta_1$ en `R`
 Para realizar el contraste anterior en `R`, hay que estudiar la salida de la función `summary` aplicada a la función `lm`:
 
 ```{r,eval=FALSE}
@@ -1159,7 +1159,7 @@ donde $MS_T=\frac{SS_T}{n-1},\quad MS_E=\frac{SS_E}{n-k-1}.$
 
 Fijarse ahora que si aumentamos $k$, el valor de $MS_E$ aumenta y el valor de $R^2_{adj}$ disminuirá. Por tanto, con el $R^2_{adj}$ penalizamos el aumento de variables independientes.
 
-Si aumentamos el nombre de variables independientes con variables explicativas que aporten mucha información a la regresión, el valor de $SS_E$ disminuirá haciendo que se mantenga estable el valor de $MS_E$ y el valor de $R^2_{adj}$ no disminuirá.
+Si aumentamos el número de variables independientes con variables explicativas que aporten mucha información a la regresión, el valor de $SS_E$ disminuirá haciendo que se mantenga estable el valor de $MS_E$ y el valor de $R^2_{adj}$ no disminuirá.
 
 La relación entre el **coeficiente de determinación ajustado** y el **coeficiente de determinación** es la siguiente:
 $$

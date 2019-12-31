@@ -3934,7 +3934,7 @@ p=2\cdot P(t_{n-2}&gt;|t_0|),
 
 <p>Como el p-valor es pequeño, podemos concluir que la regresión tiene sentido en este caso.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Contraste para el pendiente \(\beta_1\) en <code>R</code></h2></hgroup><article  id="contraste-para-el-pendiente-beta_1-en-r">
+</article></slide><slide class=""><hgroup><h2>Contraste para la pendiente \(\beta_1\) en <code>R</code></h2></hgroup><article  id="contraste-para-la-pendiente-beta_1-en-r">
 
 <p>Para realizar el contraste anterior en <code>R</code>, hay que estudiar la salida de la función <code>summary</code> aplicada a la función <code>lm</code>:</p>
 
@@ -4468,7 +4468,7 @@ R^2_{adj}=\frac{MS_T-MS_E}{MS_T},
 
 <p>Fijarse ahora que si aumentamos \(k\), el valor de \(MS_E\) aumenta y el valor de \(R^2_{adj}\) disminuirá. Por tanto, con el \(R^2_{adj}\) penalizamos el aumento de variables independientes.</p>
 
-<p>Si aumentamos el nombre de variables independientes con variables explicativas que aporten mucha información a la regresión, el valor de \(SS_E\) disminuirá haciendo que se mantenga estable el valor de \(MS_E\) y el valor de \(R^2_{adj}\) no disminuirá.</p>
+<p>Si aumentamos el número de variables independientes con variables explicativas que aporten mucha información a la regresión, el valor de \(SS_E\) disminuirá haciendo que se mantenga estable el valor de \(MS_E\) y el valor de \(R^2_{adj}\) no disminuirá.</p>
 
 <p>La relación entre el <strong>coeficiente de determinación ajustado</strong> y el <strong>coeficiente de determinación</strong> es la siguiente: \[
 R^2_{adj}=1-(1-R^2)\frac{n-1}{n-k-1}.
