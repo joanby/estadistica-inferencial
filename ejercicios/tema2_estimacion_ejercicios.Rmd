@@ -2,7 +2,10 @@
 title: "Ejercicios Tema 2 - Estimación"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -14,11 +17,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 1.  El fabricante SMART_LED fabrica bombillas led  inteligentes y de alta gama. Supongamos que la vida de  de estas bombillas sigue una distribución exponencial de parámetro $\lambda$. Si tomamos  una muestra aleatoria 
-de  tamaño $n$ de estas bombillas y representamos por  $X_i$ la duración de la $i-$ésima bombilla para $i=1,\ldots,n$, ¿cuál es la función 
-de densidad conjunta de la muestra?
+de  tamaño $n$ de estas bombillas y representamos por  $X_i$ la duración de la $i-$ésima bombilla para $i=1,\ldots,n$, ¿cuál es la función de densidad conjunta de la muestra?
 
 2. Sean $X_1,X_2,\ldots,X_{10}$  variables aleatorias que son una muestra aleatoria simple de una v.a. $X$. 
-   a. Dividimos la muestra en dos partes: de forma que la primera son los $5$ primeros valores y la segunda los restantes.
+   a. Dividimos la muestra en dos partes: de forma que la primera son los $5$ primeros valores y la segunda los restantes. 
   ¿Son  independientes las dos partes?
    b. Volvemos a dividir la muestra en dos partes: la primera  está formada por los $5$ valores más pequeños y
   la segunda por el resto. ¿Son independientes las dos partes?
@@ -30,25 +32,21 @@ Las velocidades máximas en 10 vueltas al circuito  de cada motor tras la prueba
    c. Mediana.
    d. $X_{(4)}$ (valor que ocupa el  cuarto lugar ordenados los valores de menor a mayor).
 
-4. ¿Cuál es  la probabilidad de que el  máximo de  de una muestra de tamaño $n=10$ de una v.a. uniforme en el intervalo $(0,1)$ sea mayor que $0.9$? ¿Cuál es la probabilidad de sea menor  que ${1\over 2}$?
+4. ¿Cuál es  la probabilidad de que el  máximo de  de una muestra de tamaño $n=10$ de una v.a. uniforme en el intervalo $(0,1)$ sea mayor que $0.9$? ¿Cuál es la probabilidad de sea menor  que $\frac12$?
 
 5. Sea $X_1,X_2,\ldots,X_n$ una muestra aleatoria simple de una
-variable aleatoria  normal de parámetros $\mu$ y $\sigma$. Sea $X_{(1)}\leq X_{(2)}\leq ,\ldots,\leq X_{(n)}$, la muestra ordenada de menor a mayor.
+variable aleatoria  normal de parámetros $\mu$ y $\sigma$. Denotemos por $X_{(1)}\leq X_{(2)}\leq ,\ldots,\leq X_{(n)}$ la muestra ordenada de menor a mayor.
    a. Calcular la funciones de densidad del mínimo $X_{(1)}$ y del máximo $X_{(n)}$
    b. ¿Alguna de estas variables sigue una distribución normal?
 
-6. Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de una v.a $X$  de media $\mu$ y  varianza $\sigma^2$ desconocidas. Definimos 
-$$\overline{X}={1\over n}\sum\limits_{i=1}^n X_i$$.
+6. Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de una v.a $X$  de media $\mu$ y  varianza $\sigma^2$ desconocidas. Definimos $$\overline{X}=\frac1n \sum\limits_{i=1}^n X_i\mbox{ y } T=\frac{\sqrt{n}\cdot(\overline{X}-\mu)}{\sigma}.$$
 
-   a. ¿Cuál es la distribución de ${\sqrt{n}(\overline{X}-\mu)\over
-\sigma}$?
-   b. ¿Es ${\sqrt{n}(\overline{X}-\mu)\over \sigma}$ una estadístico?
+   a. ¿Cuál es la distribución de $T$?
+   b. ¿Es $T$ un estadístico?
 
-7. Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de una v.a $X$ normal estándar. Calculad
-$P\left(2.56<\sum\limits_{i=1}^{10} X_i^2 <18.31\right)$.
+7. Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de tamaño $n=10$ de una v.a $X$ normal estándar. Calculad $P\left(2.56<\sum\limits_{i=1}^{10} X_i^2 <18.31\right)$.
 
-8.  Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de una v.a $X$ normal $N(\mu=2,\sigma=4)$.
-Definimos  la  siguiente variable aleatoria $Y=\frac{\sum\limits_{i=1}^{10}{(X_i-2)}^2}{16}$. 
+8. Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_{n}$ de tamaño $n=10$  de una v.a $X$ normal $N(\mu=2,\sigma=4)$. Definimos  la  siguiente variable aleatoria $Y=\frac{\sum\limits_{i=1}^{10}{(X_i-2)}^2}{16}$. 
 Calculad $P(Y\leq 2.6)$
 
 # Soluciones
@@ -100,14 +98,17 @@ $P(\max\{X_1,\ldots,X_n\}\geq 0.9)=1-P(\max\{X_1,\ldots,X_n\}\leq 0.9)=1-P(X_1\l
 La segunda es 
 $P(\max\{X_1,\ldots,X_n\}\leq 0.1)=P(X_1\leq 0.1,X_2\leq 0.1,\ldots, X_n\leq 0.1)=P(X_1\leq 0.1)\cdot P(X_2\leq 0.1)\cdot\ldots\cdot P(X_n\leq 0.1)=0.1^{10}= `r round(0.1^10,12)`$
 
-Hemos utiliado que la distribución uniforme  
-$P(X_i\leq x)=
+Hemos utilizado que la distribución uniforme  
+
+$$
+P(X_i\leq x)=
 \left\{\begin{array}{ll}
 0 & \mbox{ si } x\leq 0\\
 x & \mbox{ si } 0<x < 1\\
 1 & \mbox{ si }  x\geq 1
 \end{array}
-\right.$
+\right.
+$$
 
 5. Sea $F_X$ la distribución de la variable que se muestrea entonces $F_{X_i}=F_X$ para $i=1,2,\ldots,n$. 
 
@@ -118,6 +119,80 @@ $P(\min\{X_1,\ldots,X_n\}\leq x)=1-P(\min\{X_1,\ldots,X_n\}\geq x)=
 1-\left(1-P(X_1\leq x)\right) \cdot \left(1-P(X_1\leq x)\right)\cdot\ldots\cdot\left(1-P(X_1\leq x)\right)=
 1-\left(1-F_{X}(x)\right)\cdot \left(1-F_{X}(x)\right)\ldots\cdot \left(1-F_{X}(x)\right)=1-  (1-F_{X}(x))^n.$
 
-No  son normales en general.
+No son normales. Se deja como ejercicio  derivar la función de distribución del máximo (o del mínimo) para el caso $n=2$ y comprobar que no es una gaussiana.
+
+
+6. Ahora tenemos una muestra aleatoria simple de una distribución de media $\mu$ y desviación típica sigma y como siempre  tenemos el estadśitico $\overline{X}$.
+
+   a. Nos piden la distribución de 
+ $T=\frac{\sqrt{n}\cdot (\overline{X}-\mu)}{\sigma}$
+operando 
+ $$T=\frac{\sqrt{n}\cdot(\overline{X}-\mu)}{\sigma}=
+\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}$$
+
+Ahora sabemos que la distribución de $T$ por el Teorema Central de Límite  converge en distribución a una normal estándar cuando $n\to\infty$.
+
+Además  si las variables fueran normales  $T$ seguirá distribución  normal estándar. 
+
+   b. Claro que $T$ es un estadístico, ya que estadístico es cualquier función de una muestra. Además si nos fijamos bienes simplemente la tipificación del estadístico $\overline{X}$.
+
+7.  Como se una muestra de una normal estándar  tenemos que $\mu=0$ y $sigma=1$
+
+Así que si denotamos por  $Y=\sum_{i=1}^{n}$ , resulta que $Y$ es la suma de normales estándar $N(\mu=0,\sigma=1)$,  idénticamente distribuidas y por lo tanto sabemos que $Y$ sigue una ley $N(n\cdot 0=0, n\cdot \sqrt\cdot \sigma=\sqrt{10})$. Ahora podemos operar
+
+
+
+$P\left(1.56< \sum_{i=1}^{n}< 18.31\right)=P(2.56< Y < 18.31)=P(Y< 18.31)-P(Y< 2.56)=`r pnorm(18.31/sqrt(10),mean=0,sd=sqrt(10))`-
+`r pnorm(2.56/sqrt(10),mean=0,sd=sqrt(10))`=
+`r pnorm(18.31/sqrt(10),,mean=0,sd=sqrt(10))-pnorm(2.56/sqrt(10),,mean=0,sd=sqrt(10))`.$
+
+
+```{r}
+pnorm(18.31,mean=0,sd=sqrt(10))
+pnorm(2.56,mean=0,sd=sqrt(10))
+pnorm(18.31,mean=0,sd=sqrt(10))-pnorm(2.56,mean=0,sd=sqrt(10))
+```
+
+
+o también, tipificando $Z=\frac{Y}{\sqrt{10}}$ es una $N(0,1)$
+
+```{r}
+pnorm(18.31/sqrt(10),mean=0,sd=1)
+pnorm(2.56/sqrt(10),mean=0,sd=1)
+pnorm(18.31/sqrt(10),mean=0,sd=1)-pnorm(2.56/sqrt(10),mean=0,sd=1)
+```
+
+obtenemos el mismo resultado.
+
+
+
+8.  Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_{n}$de tamaño $n=10$  de una v.a $X$ normal $N(\mu=2,\sigma=4)$. Definimos  la  siguiente variable aleatoria $Y=\frac{\sum\limits_{i=1}^{10}{(X_i-2)}^2}{16}$. 
+Calculad $P(Y\leq 2.6)$
+
+
+ Notemos que $Z_i=\frac{X_i-2}{4}$ son variables $N(0,1)$ para $i=1.2,\ldots,10$
+
+
+Ahora 
+$$
+Y=\frac{\sum\limits_{i=1}^{10}{(X_i-2)}^2}{16}=
+\sum\limits_{i=1}^{10}\left(\frac{X_i-2}{4}\right)^2=
+\sum\limits_{i=1}^{10} Z_i^2=\chi_{10}^2.
+$$
+
+
+Luego $Y=\chi_{10}^2$ es una v.a. $\chi^2$ con 10 grados de libertad. Ya podemos calcular la probabilidad pedida $P(Y\leq 2.6)=P(\chi_{10}^2\leq 2.6)=`r pchisq(2.6,df=10)`.$
+
+El cálculo lo hemos hecho con 
+
+```{r}
+pchisq(2.6,df=10)
+```
+
+
+
+
+
+
 
 

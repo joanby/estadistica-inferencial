@@ -1,0 +1,580 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Ejercicios Tema 2 - Estimación (continuación)},
+            pdfauthor={Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{Ejercicios Tema 2 - Estimación (continuación)}
+\author{Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir}
+\date{Curso completo de estadística inferencial con R y Python}
+
+\begin{document}
+\maketitle
+
+\hypertarget{estimaciuxf3n-continuaciuxf3n}{%
+\section{Estimación
+(continuación)}\label{estimaciuxf3n-continuaciuxf3n}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Supongamos que la cantidad de lluvia registrada en una cierta estación
+  meteorológica en un día determinado está distribuida uniformemente en
+  el intervalo \((0,b)\). Nos dan la siguiente muestra de los registros
+  de los últimos 10 años en ese día: \[0,0,0.7,1,0.1,0,0.2,0.5,0,0.6\]
+\end{enumerate}
+
+\begin{quote}
+Estimar el parámetro \(b\) a partir de su estimador \(\tilde b\).
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  Supongamos que el grado de crecimiento de unos pinos jóvenes en metros
+  de altura en un año es una variable aleatoria normal con media y
+  varianza desconocidas. Se registran los crecimientos de 5 árboles y
+  los resultados son: \(0.9144,1.524,0.6096,0.4572\) y \(1.0668\)
+  metros. Calcular los valores estimados de \(\mu\) y \(\sigma^2\) para
+  esta muestra.
+\item
+  \(X\) es una variable geométrica con parámetro \(p\). Dada una muestra
+  aleatoria de \(n\) observaciones de \(X\), cuál es el estimador de
+  \(p\) por método de los momentos?
+\item
+  Se supone que el número de horas que funciona una bombilla LED es una
+  variable exponencial con parámetro \(\lambda\). Dada una muestra de
+  \(n\) duraciones, calcular el estimador por método de los momentos
+  para \(\lambda\).
+\item
+  Si se supone que \(X\) esta distribuida uniformemente en el intervalo
+  \((b-\frac14,b+5)\), ¿cuál es el estimador por método de los momentos
+  para a \(b\) en base a una muestra aleatoria de \(n\) observaciones?
+\item
+  Supongamos que \(X\) es una variable aleatoria de Poisson con
+  parámetro \(\lambda\). Dada una muestra aleatoria de \(n\)
+  observaciones de \(X\), cuál es el estimador de máxima verosimilitud
+  para a \(\lambda\)?
+\item
+  Supongamos que \(X\) está distribuida uniformemente en el intervalo
+  \hbox{$\left(b-\frac12,b+\frac12\right)$.} ¿Cuál es el estimador de
+  máxima verosimilitud para a \(b\) Dada una muestra aleatoria de tamaño
+  \(n\) para \(X\)?
+\item
+  ¿Cuál es el estimador de máxima verosimilitud para al parámetro
+  \(\lambda\) de una variable exponencial para a una muestra de tamaño
+  \(n\)?
+\item
+  Se registran los tiempos de duración de 30 bombillas. Supongamos que
+  el tiempo de duración de estas bombillas es una variable exponencial.
+  Si la suma de los tiempos \(\sum x_i =32916\) horas, ¿cuál es el
+  estimador de máxima verosimilitud para al parámetro de la distribución
+  exponencial de duración de les bombillas?
+\item
+  Supongamos que \(X_1,X_2,\ldots,X_6\) es una muestra aleatoria de una
+  variable aleatoria normal con media \(\mu\) y varianza \(\sigma^2\).
+  Hallar la constante \(C\) tal que
+  \[C\cdot\bigl({(X_1 -X_2)}^2 +{(X_3 -X_4)}^2 + 
+   {(X_5 -X_6)}^2\bigr),\] sea un estimador sin sesgo de \(\sigma^2\).
+\item
+  Un vendedor de coches piensa que el número de ventas de coches nuevos
+  que hace en un día no festivo\\
+  es una variable aleatoria de Poisson con parámetro \(\lambda\).
+  Examinando los registros del año anterior (que tuvo 310 días no
+  festivos), observa que vendió un total de 279 coches. Calcular por
+  método de la máxima verosimilitud la probabilidad que no venda ningún
+  coche el próximo día de trabajo.
+\item
+  Supongamos que los años de vida de los hombres de los Estados Unidos
+  Mexicanos están distribuidos normalmente con media \(\mu\) y varianza
+  \(\sigma^2\). Una muestra aleatoria de \(n=10000\) antecedentes de
+  mortalidad de hombres en México se obtuvo como resultado
+  \(\overline{x}=72.1\) hombres , \textbackslash{}hbox\{\(s^2 =144\)
+  años. Estimar por método de máxima verosimilitud la probabilidad que
+  un hombre mexicano viva hasta los 50 años de edad y la probabilidad
+  que un hombre no llegue a los 90 años.
+\item
+  Supongamos que \(\Theta_1\) y \(\Theta_2\) son estimadores sin sesgo
+  de un parámetro desconocido \(\theta\), con varianzas conocidas
+  \(\sigma_1^2\) y \(\sigma_2^2\), respectivamente. Se pide:
+\end{enumerate}
+
+\begin{quote}
+a.) Demostrar que \(\Theta =(1-a)\cdot\Theta_1 +a\cdot \Theta_2\)
+también es insesgado para cualquier valor de \(a\).
+\end{quote}
+
+\begin{quote}
+b.) Hallar el valor de \(a\) que minimiza \(Var(\Theta)\).
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{13}
+\tightlist
+\item
+  Sea \(X\) una variable aleatoria \(N(\mu,\sigma)\) con \(\sigma\)
+  conocida y \(X_1,\ldots, X_n\) una muestra aleatoria simple de \(X\).
+  Consideremos los siguientes estimadores del parámetro
+  \(\lambda =\mu^2\):
+\end{enumerate}
+
+\begin{eqnarray*}
+T_1 & = & \overline{X}^2 = {\Biggl({\sum\limits_{i=1}^n
+X_i\over n}\Biggr)}^2,\\  T_2 & = & {\sum\limits_{i=1}^n X_i^2 \over
+n}-\sigma^2.
+\end{eqnarray*}
+
+\begin{quote}
+Se pide:
+\end{quote}
+
+\begin{quote}
+\begin{quote}
+a.) Demostrar que \(T_1\) y \(T_2\) son estimadores consistentes.
+\end{quote}
+\end{quote}
+
+\begin{quote}
+\begin{quote}
+b.) ¿Cuál estimador es más eficiente?
+\end{quote}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{14}
+\item
+  Sea \(X_1,\ldots,X_{2n}\) una muestra aleatoria simple de una variable
+  aleatoria \(N(\mu,\sigma)\). Sea: \[
+  T=C\left({\left(\sum_{i=1}^{2n} X_i\right)}^2- 4 n\sum_{i=1}^{n}
+  X_{2i} X_{2i-1}\right)
+  \] un estimador del parámetro \(\sigma^2\). ¿Cuál es el valor de \(C\)
+  para que \(T\) sea un estimador insesgado?
+\item
+  Una variable aleatoria \(X\) sigue la distribución de Rayleigh con
+  parámetro \(\theta >0\) si es una variable aleatoria con valores
+  \(x>0\) y función de densidad: \[
+  f(x)=\frac{x}{\theta} e^{-\frac{x^2}{2\theta}}.
+  \]
+\end{enumerate}
+
+\begin{quote}
+Hallar estimadores del parámetro \(\theta\):
+\end{quote}
+
+\begin{quote}
+\begin{quote}
+a.) El método de los momentos.
+\end{quote}
+\end{quote}
+
+\begin{quote}
+\begin{quote}
+b.) El método de la máxima verosimilitud.
+\end{quote}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{16}
+\tightlist
+\item
+  Consideremos una variable aleatoria \(X\) que es \(Exp(\lambda)\). Sea
+  \(X_1,\ldots,X_n\) una muestra aleatoria simple de \(X\). Consideremos
+  los siguientes estimadores del parámetro \(\frac{1}{\lambda^2}\):
+\end{enumerate}
+
+\begin{eqnarray*}
+T_1 & = & \overline{X}^2,\\
+T_2 & = & \frac{1}{2n}\sum\limits_{i=1}^n X_i^2.
+\end{eqnarray*}
+
+\begin{quote}
+a.) ¿Son estimadores insesgados?
+\end{quote}
+
+\begin{quote}
+b.) ¿Cuál de los dos estimadores es más eficiente? Indicación: La
+variable aleatoria \(2\lambda \sum\limits_{i=1}^n X_i\) es una variable
+\(\chi_{2n}^2\).
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{17}
+\item
+  Sea \(X_1,\ldots,X_n\) una muestra aleatoria simple de una variable
+  aleatoria \(X\) uniforme en el intervalo \([0,b]\). Consideremos el
+  siguiente estimador del parámetro \(b\): \[
+  \tilde{b}=a\sum\limits_{i=1}^n X_i,
+  \] donde \(a\) es una constante. Calcular \(a\) para que \(\tilde{b}\)
+  sea un estimador insesgado de \(b\), en este caso calcular
+  \(Var(\tilde{b})\).
+\item
+  Hallar los estimadores por método de los momentos y por máxima
+  verosimilitud del parámetro \(\alpha\) de la distribución de Maxwell:
+  \[
+  f(x)=\frac{4}{\alpha^3 \sqrt{\pi}} x^2 
+  e^{-\frac{x^2}{\alpha^2}},\ x\geq 0,\ \alpha >0.
+  \]
+\item
+  Sea \(X_1,\cdots,X_n\) una muestra aleatoria simple de una variable
+  aleatoria \(X\) con \(E(X)=\mu\) y \(Var(X)=\sigma^2\). Consideremos
+  los siguientes estimadores del parámetro \(\mu\): \[
+  T_1 = \overline{X}=\frac{\sum\limits_{i=1}^n X_i}{n},\quad
+  T_2 = k \sum_{i=1}^n y  X_i.
+  \]
+\end{enumerate}
+
+\begin{quote}
+Se pide:
+\end{quote}
+
+\begin{quote}
+\begin{quote}
+a.) El valor de la constante \(k\) para que \(T_2\) sea insesgado.
+\end{quote}
+\end{quote}
+
+\begin{quote}
+\begin{quote}
+b.) Demostrar que \(T_1\) y \(T_2\) son consistentes.
+\end{quote}
+\end{quote}
+
+\begin{quote}
+\begin{quote}
+c.) ¿Cuál estimador es más eficiente? Ayuda:
+\(\sum\limits_{i=1}^n i^2 = \frac{n (n+1) (2n+1)}{6}\).
+\end{quote}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{20}
+\tightlist
+\item
+  Sea \(X_1,\ldots,X_{n}\) una muestra aleatoria simple de una variable
+  aleatoria \(X\) tal que \(F_X\) depende de un parámetro desconocido
+  \(\lambda\) con \(E(X)=\lambda\) y \(Var(X)=\lambda^2\). Consideremos
+  el siguiente estimador de \(\lambda\): \[
+  \tilde{\lambda}=
+  \frac{1}{2}\left(\frac{1}{m}(X_1+\cdots X_m)+\frac{1}{n-m}(X_{m+1}+
+  \cdots X_n)\right),\]
+\end{enumerate}
+
+con \(m=\frac{n}{3}\), en el que suponemos que \(n\) es múltiplo de
+\(3\). Hallar la varianza de \(\tilde{\lambda}\).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{21}
+\tightlist
+\item
+  Sea \(X\) una variable aleatoria tal que \(E(X)=\mu\) y
+  \(Var(X)=\sigma^2\). Sea \(X_1,X_2\) una muestra aleatoria simple de
+  \(X\) de tamaño \(2\). Consideremos el siguiente estimador del
+  parámetro \(\mu\): \(\tilde{\mu}=2 a X_1 + (1-2 a) X_2\). Hallar el
+  valor de \(a\) que hace que el estadístico\\
+  \(\tilde{\mu}\) sea el más eficiente posible.
+\end{enumerate}
+
+\hypertarget{soluciones}{%
+\section{Soluciones}\label{soluciones}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cargemos los datos en R
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{muestra_lluvia=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\FloatTok{0.7}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\FloatTok{0.6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Nos dicen que los datos de la muestra provienen de una población modela
+da pir una v.a. \(X\) con distribución \(U(0,b)\). Entonces
+\(E(X)=\frac{1}{b-0}=\frac1b.\) por el método de los momentos estimamos
+\(E(X)\) por \(\overline{X}\) luego \(\frac{1b}=E(X)\) de donde
+\(b=\frac{1}{E(X)}\) y por lo tanto un estimador del parámetro \(b\) es
+\(\hat{b}=\frac{1}{\overline{X}}.\) En nuestro caso y con R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{media_lluvia=}\KeywordTok{mean}\NormalTok{(muestra_lluvia)}
+\NormalTok{media_lluvia}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.31
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bhat=}\DecValTok{1}\OperatorTok{/}\NormalTok{media_lluvia}
+\NormalTok{bhat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.225806
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Tenemos que \(X=\) crecimiento en metros de un pino joven en un año
+  sigue una ley \(N(\mu,\sigma)\) de parámetros desconocidos. Tenemos un
+  muestra que cargamos con R
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{muestra_pinos=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.9144}\NormalTok{, }\FloatTok{1.524}\NormalTok{, }\FloatTok{0.6096}\NormalTok{, }\FloatTok{0.4572}\NormalTok{ ,}\FloatTok{1.0668}\NormalTok{)}
+\KeywordTok{mean}\NormalTok{(muestra_pinos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9144
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(muestra_pinos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1741932
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n=}\KeywordTok{length}\NormalTok{(muestra_pinos)}
+\NormalTok{n}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{media_pinos=}\KeywordTok{sum}\NormalTok{(muestra_pinos)}\OperatorTok{/}\NormalTok{n}
+\NormalTok{media_pinos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9144
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{varianza_pinos=}\KeywordTok{sum}\NormalTok{(muestra_pinos}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{n}\OperatorTok{-}\NormalTok{media_pinos}\OperatorTok{^}\DecValTok{2}
+\NormalTok{varianza_pinos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1393546
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Si \(X\) una v.a. discreta con distribución \(Ge(p)\) con
+  \(D_X=\{0,1,2,\ldots\}\) en este caso sabemos que
+  \(E(X)=\frac{1}{p}\), como \(\overline{X}\) es un estimador de
+  \(E(X)\) podemos operar y \(\hat{p}=\frac{1}{\overline{X}}\) es un
+  estimador por el método de los momentos del parámetro \(p\).
+\item
+  Ahora \(X\) una \(Exp(\lambda)\). La solución es similar que el caso
+  anterior (no en vano la exponencial es la versión contniua de la v.a.
+  geométrica).
+\end{enumerate}
+
+Sabemos que \(E(X)=\frac{1}{\lambda}\) luego un estimador del parámetro
+\(\lambda\) de una población exponencial es
+\(\hat{\lambda}=\frac{1}{\overline{X}}.\)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  Ahora \(X\) es sigue una ley \(U(b-\frac{1}{4},b+5)\) entonces
+  \(E(X)=\frac{b-\frac{1}{4}+b+5}{2}=\frac{2\cdot b+\frac{19}{4}}{2}=b+\frac{19}{8}\).
+  Así \(\hat{b}=\overline{X}-\frac{19}{8}.\)
+\item
+  Si \(X\) es una variable \(Po(\lambda)\) y tenemos una m.a.s
+  \(X_1,X_2,\ldots,X_n\) de esa v.a; así su función de probabilidad es
+  \(P(X_i=x_i)=\frac{\lambda^{x_i}}{x_i!}\cdot \mathrm{e}^{-\lambda}\)
+  si \$x\_i=0,1,2,\ldots. La distribución de la muestra es
+\end{enumerate}
+
+\[
+\begin{array}{lll}
+P\left(X_1=x_1,X_2=x_2,\ldots,X_n=x_n\right)&=& P(X_1=x_1)\cdot P(X_2=x_2)\cdot\ldots \cdot P(X_n=x_n)\\
+&=&\frac{\lambda^{x_1}}{x_1!}\cdot \mathrm{e}^{-\lambda}\cdot \frac{\lambda^{x_2}}{x_2!}\cdot \mathrm{e}^{-\lambda}\cdot \ldots \frac{\lambda^{x_n}}{x_n!}\cdot \mathrm{e}^{-\lambda}\\
+&=&\frac{\lambda^{\sum_{i=1}^n}x_i}{x_1!\cdot x_2!\cdot\ldots\cdot x_n!} \mathrm{e}^{-n\cdot \lambda}.
+\end{array}
+\]
+
+Así la función de verosimilitud es
+
+\[
+L(\lambda| x_1,x_2\ldots,x_n)=\frac{\lambda^{\displaystyle\sum_{i=1}^n x_i}}{x_1!\cdot x_2!\cdot\ldots\cdot x_n!}\cdot e^{-n\cdot \lambda}
+\]
+
+Queremos encontrar el valor de \(\lambda\) que máximiza
+\(L(\lambda| x_1,x_2,\ldots, x_n)\) es decir
+
+\[{\arg\, \max}_{\lambda} L(\lambda| x_1,x_2,\ldots,x_n)\] tomando
+logaritmos tenemos que
+
+\[
+\begin{array}{lll}
+\ln\left(L(\lambda| x_1,x_2\ldots , x_n)\right) &=&\ln\left(\frac{\lambda^{\displaystyle\sum_{i=1}^n x_i}}{x_1!\cdot x_2!\cdot\ldots\cdot x_n!}+ e^{-n\cdot \lambda}\right)\\
+&=& \ln\left(\frac{\lambda^{\displaystyle\sum_{i=1}^n x_i}}{x_1!\cdot x_2!\cdot\ldots\cdot x_n!}\right)-n\cdot \lambda\\ 
+&=& \ln\left(\lambda^{\displaystyle\sum_{i=1}^n x_i}\right)-\ln\left(x_1!\cdot x_2!\cdot\ldots\cdot x_n!\right)-n\cdot \lambda\\
+&=& \left(\sum_{i=1}^n x_i\right)\cdot \ln(\lambda)-\ln\left(x_1!\cdot x_2!\cdot\ldots\cdot x_n!\right)-n\cdot \lambda
+\end{array}
+\]
+
+derivando respecto de \(\lambda\)
+
+\[
+\frac{\partial}{\partial \lambda }\ln\left(L(\lambda| x_1,x_2\ldots , x_n)\right)=
+\frac{\partial}{\partial \lambda } \left(\left(\sum_{i=1}^n x_i\right)\cdot \ln(\lambda)-\ln\left(x_1!\cdot x_2!\cdot\ldots\cdot x_n!\right)-n\cdot \lambda\right)=\frac{\left(\sum_{i=1}^n x_i}{\lambda}-n.
+\]
+
+el máximo se alacanza para el \$\lambda que cumpla la ecuación
+
+\(\frac{\left(\sum_{i=1}^n x_i}{\lambda}-n=0\) de donde
+\(\lambda =\frac{\sum_{i=1}^n x_i}}{n}=\overline{x}\).
+
+Luego el estimador máximo verosimil de \$\lambda es \(\overline{X}\).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Si \(X\) es \(U\left(b-\frac12,b+\frac12\right)\) su densidad es
+  \(f_X(x)=\left\{\begin{array}{ll} \frac{1}{6} & \mbox{ si } b-\frac12<x<b+\frac12\\ 0 & \mbox{ en otro caso } \end{array}\righgt.\)
+  su función de verosimilitud es constante NO TIENE EMV.
+\end{enumerate}
+
+\end{document}

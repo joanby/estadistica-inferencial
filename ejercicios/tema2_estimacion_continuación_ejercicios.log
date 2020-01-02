@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.12.27)  30 DEC 2019 04:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.12.27)  3 JAN 2020 00:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tema2_estimacion.tex
-(./tema2_estimacion.tex
+**tema2_estimacion_continuación_ejercicios.tex
+(./tema2_estimacion_continuación_ejercicios.tex
 LaTeX2e <2018-12-01>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
@@ -493,8 +493,8 @@ Package grffile Info: Option `multidot' is set to `true'.
 Package grffile Info: Option `extendedchars' is set to `false'.
 Package grffile Info: Option `space' is set to `true'.
 Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 494.
-) (./tema2_estimacion.aux)
-\openout1 = `tema2_estimacion.aux'.
+) (./tema2_estimacion_continuación_ejercicios.aux)
+\openout1 = `tema2_estimacion_continuación_ejercicios.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
 LaTeX Font Info:    ... okay on input line 111.
@@ -549,9 +549,10 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 111.
 LaTeX Info: Redefining \pageref on input line 111.
 LaTeX Info: Redefining \nameref on input line 111.
-(./tema2_estimacion.out) (./tema2_estimacion.out)
+(./tema2_estimacion_continuación_ejercicios.out) (./tema2_estimacion_continuac
+ión_ejercicios.out)
 \@outlinefile=\write4
-\openout4 = `tema2_estimacion.out'.
+\openout4 = `tema2_estimacion_continuación_ejercicios.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -654,70 +655,40 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 122.
+(Font)              <10> on input line 124.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 122.
+(Font)              <7> on input line 124.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 122.
-
-Package amsmath Warning: Foreign command \over;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 170.
-
+(Font)              <5> on input line 124.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (45.27646pt too wide) detected at line 240
-\OML/lmm/m/it/10 f\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 x[]; x[]; [] x[]\OT1/lmr/m/
-n/10 ) = \OML/lmm/m/it/10 f[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 x[]\OT1/lmr/m/n/
-10 ) \OMS/lmsy/m/n/10 ^^A \OML/lmm/m/it/10 f[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10
- x[]\OT1/lmr/m/n/10 ) \OMS/lmsy/m/n/10 ^^A [] ^^A \OML/lmm/m/it/10 f[]\OT1/lmr/
-m/n/10 (\OML/lmm/m/it/10 x[]\OT1/lmr/m/n/10 ) = \OML/lmm/m/it/10 f[]\OT1/lmr/m/
-n/10 (\OML/lmm/m/it/10 x[]\OT1/lmr/m/n/10 ) = [] \OML/lmm/m/it/10 :
- []
 
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 256.
+Package amsmath Warning: Foreign command \over;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 226.
+
+[2]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 396.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 257.
-[2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 367.
-[3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 367.
-(./tema2_estimacion.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 367.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 367.
-Package rerunfilecheck Info: File `tema2_estimacion.out' has not changed.
-(rerunfilecheck)             Checksum: 6A7B21BE4525BBE1DBB2C2472E24A10F;191.
- ) 
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 397.
+[3] [4]
+! Missing \right. inserted.
+<inserted text> 
+                \right .
+l.560 ...t)=\frac{\left(\sum_{i=1}^n x_i}{\lambda}
+                                                  -n. 
 Here is how much of TeX's memory you used:
- 12815 strings out of 492609
- 186557 string characters out of 6131461
- 305132 words of memory out of 5000000
- 16489 multiletter control sequences out of 15000+600000
- 46331 words of font info for 74 fonts, out of 8000000 for 9000
+ 12849 strings out of 492609
+ 187161 string characters out of 6131461
+ 304376 words of memory out of 5000000
+ 16488 multiletter control sequences out of 15000+600000
+ 47340 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,8n,38p,824b,412s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
-ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share
-/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
--mathex.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texm
-f/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi
-10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/font
-s/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb><
-/usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/
-public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/
-lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/
-fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb>
-Output written on tema2_estimacion.pdf (3 pages, 245232 bytes).
-PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
- 10257 words of extra memory for PDF output out of 12000 (max. 10000000)
+ 35i,11n,38p,849b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 
+!  ==> Fatal error occurred, no output PDF file produced!
