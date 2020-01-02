@@ -1,6 +1,9 @@
 ---
-title: "Tema 14 - Introducción al Clustering"
-author: "Juan Gabriel Gomila, Arnau Mir y Ricardo Alberich"
+title: "Tema 9 - Introducción al Clustering"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+header-includes: 
+  - \usepackage{tikz}
+  - \usepackage{pgfplots}
 date: 
 output: 
   ioslides_presentation:
@@ -13,26 +16,257 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Introducción
 
-<div class="exercise">
+## Introducción al clustering
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Uno de los problemas que más se presentan en el ámbito del **machine learning** es la clasificación de objetos.
 
+Más concretamente, nos planteamos el problema siguiente: dado un conjunto de objetos, clasificarlos en grupos (*clusters*)  basándonos en sus parecidos y diferencias.
+
+## Introducción al clustering
+Algunas aplicaciones del **clustering** son las siguientes:
+
+* En Biología: clasificación jerárquica de organismos (relacionada con una filogènia), agrupamiento de genes y agrupamiento de proteínas por parecido estructural.
+
+* En Marketing: identificación de individuos por comportamientos similares (de compras, ocio, etc.)
+
+* En Tratamiento de imágenes (en particular imágenes médicas): eliminación de ruido, detección de bordes, etc.
+
+* En Biometría: identificación de individuos a partir de sus caras, huellas dactilares, etc.
+
+
+## Principios básicos
+
+Los **algoritmos de clasificación o clustering** deben verificar dos principios básicos:
+
+* **Homogeneidad**: los **clusters** deben ser homogéneos en el sentido de que objetos dentro de un mismo **cluster** tienen que ser **próximos o parecidos**.
+
+* **Separación**: los objectos que pertenezcan a **clusters** diferentes tienen que estar **alejados**.
+
+En los dos gráficos de la figura siguiente vemos un ejemplo de dos algoritmos de clústering donde en el de la izquierda, los clusters cumplen los principios anteriores pero en el de la derecha se violan los dos principios.
+
+
+## Principios básicos
+
+```{r,echo=FALSE,fig.align='center'}
+par(mfrow=c(1,2))
+xp=c(1,1.2,1.4,1.5,1.6,1.7,1.8,1.9,1.1,1.3,1.4,1.5,1.5,1.6,1.7,1.75)
+yp=c(5,5.2,5.3,5.1,5.6,4.9,5.7,5.4,0.5,0.4,0.6,0.55,0.6,0.62,0.5,0.45)
+color=c(rep("black",8),rep("red",8))
+plot(xp,yp,xlim=c(0.75,2.25),ylim=c(0,8),axes= FALSE,pch=19,xlab="",ylab="",col=color,main="Clustering bien realizado")
+xc <- mean(xp[1:8]) # center x_c or h
+yc <- mean(yp[1:8]) # y_c or k
+a <- (max(xp[1:8])-min(xp[1:8]))*0.65 # major axis length
+b <- (max(yp[1:8])-min(yp[1:8]))*0.85 # minor axis length
+phi <- 0 # angle of major axis with x axis phi or tau
+
+t <- seq(0, 2*pi, 0.01) 
+x <- xc + a*cos(t)*cos(phi) - b*sin(t)*sin(phi)
+y <- yc + a*cos(t)*cos(phi) + b*sin(t)*cos(phi)
+lines(x,y,pch=19, col='blue')
+
+xc <- mean(xp[9:16]) # center x_c or h
+yc <- mean(yp[9:16]) # y_c or k
+a <- (max(xp[9:16])-min(xp[9:16]))*0.55 # major axis length
+b <- (max(yp[9:16])-min(yp[9:16]))*3 # minor axis length
+phi <- -15 # angle of major axis with x axis phi or tau
+
+t <- seq(0, 2*pi, 0.01) 
+x <- xc + a*cos(t)*cos(phi) - b*sin(t)*sin(phi)
+y <- yc + a*cos(t)*cos(phi) + b*sin(t)*cos(phi)
+lines(x,y,pch=19, col='red')
+
+plot(xp,yp,xlim=c(0.75,2.25),ylim=c(0,8),axes= FALSE,pch=19,xlab="",ylab="",col=color,main="Clustering mal realizado")
+library(graphics)
+rect(min(xp)-0.1,min(yp)-0.2,max(c(xp[1:4],xp[9:12]))+0.05,max(yp)+0.1,col=NA,border="blue")
+rect(min(xp[14:16])-0.025,min(yp[14:16])-0.25,max(xp[5:8])+0.05,max(yp[5:8])+0.25,col=NA,border="red")
+```
+
+## Tipos de algoritmos de clustering
+
+Vamos a intentar **formalizar** los principios anteriores de cara a definir **algoritmos de clustering** que los verifiquen.
+
+Existen dos tipos de **algoritmos de clustering**:
+
+* **De partición:** el número de clusters con los que vamos a clasificar nuestro conjunto de objetos es un valor conocido y prefijado de entrada. 
+
+Sin embargo, veremos métodos que nos dirán como calcular el número **óptimo de cantidad de clusters** con los que dividir o clasificar nuestros objectos de nuestra tabla de datos. Por ejemplo, si consideramos los objetos de la figura anterior, se observa gráficamente que el número óptimo de clusters con los que clasificar dichos puntos es 2.
+
+## Tipos de algoritmos de clustering
+
+* **Jerárquico**: el **algoritmo de clustering** se compone de un número finito de pasos donde usualmente dicho número coincide con el número de objetos menos uno. 
+
+Los métodos **jerárquicos** a su vez se subclasifican en dos tipos más:
+
+  * **métodos aglomerativos**, donde en el paso inicial todos los objetos están separados y forman un cluster de un sólo objeto y en cada paso, se van agrupando aquellos objetos o clusters más **próximos** hasta llegar a un único cluster formado por todos los objetos.
+  * **métodos divisivos**, donde en el paso inicial existe un único cluster formado por todos los objetos y en cada paso se van dividiendo aquellos clusters más heterogéneos hasta llegar a tantos clusters como objetos existían inicialmente. 
+
+## Tipos de algoritmos de clustering
+Los métodos **jerárquicos** tanto **aglomerativos** como **divisivos** producen un árbol binario de clasificación donde cada nodo de dicho árbol indica una **agrupación** de un cluster en dos en el caso de los métodos **aglomerativos** y una **partición** de un cluster en dos en el caso de los métodos **divisivos**.
+
+En el siguiente gráfico, se observa cómo se han clasificado los 31 árboles de la tabla de datos `trees` de `R` a partir de los valores de las tres variables de dicha tabla de datos usando un método **jerárquico aglomerativo**:
+
+* `Girth`: el valor del contorno del diámetro del árbol en pulgadas.
+* `Height`: la altura del árbol en pies.
+* `Volume`: el volumen del tronco del árbol en pies cúbicos.
+
+Fijaos cómo al principio en la base del árbol todos los árboles forman un cluster y en la cima del árbol hay un único cluster formado por todos los árboles.
+
+## Tipos de algoritmos de clustering
+
+```{r,echo=FALSE,fig.align='center'}
+plot(hclust(dist(trees)))
+```
+
+# Métodos de partición
+
+## Algoritmo de las $k$-medias (*$k$-means*)
+
+El **algoritmos de las $k$-medias** o *$k$-means* en inglés es el algoritmo de **partición** más conocido y más usado.
+
+Recordemos que, al ser un **algoritmo de partición**, el número de clusters $k$ se ha prefijado de entrada.
+
+Dicho algoritmo busca una **partición** del conjunto de objetos, donde suponemos que conocemos un conjunto de características o variables que tienen valores contínuos. 
+
+Concretamente, tenemos una tabla de datos de $n$ filas y $m$ columnas, donde cada fila representa un objeto u individuo y cada columna representa una característica de dicho individuo.
+
+
+
+## Algoritmo de las $k$-medias (*$k$-means*)
+
+<div class="center">
+|Individuos/Variables| $X_1$|$X_2$|$\ldots$|$X_m$|
+|:---:|:---:|:---:|:---:|:---:|
+|1|$x_{11}$|$x_{12}$|$\ldots$|$x_{1m}$|
+|2|$x_{21}$|$x_{22}$|$\ldots$|$x_{2m}$|
+|$\vdots$|$\vdots$|$\vdots$|$\vdots$|$\vdots$|
+|$i$|$x_{i1}$|$x_{i2}$|$\ldots$|$x_{im}$|
+|$\vdots$|$\vdots$|$\vdots$|$\vdots$|$\vdots$|
+|$n$|$x_{n1}$|$x_{n2}$|$\ldots$|$x_{nm}$|
 </div>
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Algoritmo de las $k$-medias (*$k$-means*)
+Por tanto, podemos identificar el individuo $i$-ésimo con un vector $\mathbf{x}_i =(x_{i1},x_{i2},\ldots,x_{im})$ de $\mathbb{R}^m$.
 
-```{r cars}
-summary(cars)
+El **algoritmo de las $k$-medias** va a clasificar los $n$ individuos usando la información de la tabla anterior, es decir, la información de las $m$ variables continuas.
+
+Para realizar dicha clasificación, necesitamos definir cuándo dos objetos están **próximos**. 
+
+Una manera de definir la proximidad entre dos individuos, (no es la única) es a partir de la **distancia euclídea**. 
+
+## Algoritmo de las $k$-medias (*$k$-means*)
+
+Dados dos objetos $\mathbf{x}$ y $\mathbf{y}$ en $\mathbb{R}^m$, se define la **distancia euclídea** entre los dos como:
+$$
+\|\mathbf{x}-\mathbf{y}\|=\sqrt{\sum_{i=1}^m (x_i-y_i)^2}.
+$$
+Para $m=2$ o $m=3$, la **distancia euclídea** es la longitud del segmento que une los puntos $\mathbf{x}$ e $\mathbf{y}$.
+
+Por tanto, dos objectos estarán más **próximos**, cuánto más pequeña sea la **distancia euclídea** entre ambos.
+
+## Algoritmo de las $k$-medias (*$k$-means*)
+Una vez establecidos las bases para el algoritmo, enunciemos el objetivo del mismo:
+
+El objetivo del **algoritmo de las $k$-medias** es, a partir de la tabla de datos anterior de $n$ filas (los individuos u objetos) y $m$ columnas (las variables), hallar $k$ puntos $\mathbf{c}_1,\ldots,\mathbf{c}_k\in \mathbb{R}^n$ que minimicen
+$$
+SS_C(\mathbf{x}_1,\ldots,\mathbf{x}_n; k)=\sum_{i=1}^n\min_{j=1,\ldots,k} \|\mathbf{x}_i-\mathbf{c}_j\|^2.
+$$
+La cantidad $SS_C$ se denomina suma de cuadrados dentro de los clusters.
+
+Estos $k$ puntos $\mathbf{c}_1,\ldots,\mathbf{c}_k$ serán los centros de los clusters $C_1,\ldots,C_k$ que queremos hallar.
+
+
+## Algoritmo de las $k$-medias (*$k$-means*)
+Fijaos que, una vez hallados dichos centros $\mathbf{c}_1,\ldots,\mathbf{c}_k$, los clusters quedan definidos por:
+$$
+C_j=\{\mathbf{x}_i\mbox{ tal que} \|\mathbf{x}_i-\mathbf{c}_j\|<\|\mathbf{x}_i-\mathbf{c}_l\|\mbox{ para todo }l\neq j\}
+$$
+Es decir, el cluster $i$-ésimo estará formado por los objetos $\mathbf{x}_l$ más próximos al centro $\mathbf{c}_i$.
+
+
+Desgraciadamente, el problema anterior es un **problema abierto**, es decir, no se sabe hallar la solución para cualquier tabla de datos.
+
+El **algoritmo de las $k$-medias** es un intento de hallar una solución local del mismo. Es decir, halla unos centros 
+$\mathbf{c}_1,\ldots,\mathbf{c}_k$ que solucionan el problema parcialmente pero no tenemos asegurado que los centros que halla el algoritmo minimicen globalmente $SS_C$.
+
+## Algoritmo de las $k$-medias (*$k$-means*)
+Una vez establecidos las bases y el objetivo del algoritmo, vamos a explicar los pasos de los que consta.
+
+Existen bastantes variantes del **algoritmo de las $k$-medias**, básicamente se diferencian en cómo iniciamos el algoritmo. En este curso, explicaremos el **algoritmo de Lloyd**:
+
+* Paso 1: escogemos aleatoriamente los centros $\mathbf{c}_1,\ldots,\mathbf{c}_k$.
+
+* Paso 2: para cada $i=1,\ldots,n$, asignamos el individuo $i$-ésimo, $\mathbf{x}_i$, al cluster $C_j$ definido por el centro $\mathbf{c}_j$ más próximo. Dicho en otras palabras, definimos los clusters a partir de los centros como hemos explicado antes.
+
+## Algoritmo de las $k$-medias (*$k$-means*)
+
+* Paso 3: una vez hallados los clusters, hallamos los nuevos centros $\mathbf{c}_j$ calculando el valor medio de los objetos que forman el cluster $C_j$:
+$$
+\mathbf{c}_j= \Big(\sum_{\mathbf{x}_i\in C_j} \mathbf{x}_i\Big)/|C_j|.
+$$
+
+* Paso 4: se repiten los pasos 2 y 3 hasta que los clusters estabilizan, o se llega a un número prefijado de iteraciones ya que el algoritmo anterior puede entrar en un "bucle infinito".
+
+## Algoritmo de las $k$-medias (*$k$-means*)
+<l class="observ"> Observación: </l> 
+el resultado final, es decir, los clusters obtenidos, depende de cómo inicializemos el algorimo, es decir, de cómo definamos los centros iniciales $\mathbf{c}_1,\ldots,\mathbf{c}_k$.
+
+Como ya hemos comentado, el algoritmo anterior no tiene porque dar un clustering óptimo, es decir, los centros obtenidos $\mathbf{c}_1,\ldots,\mathbf{c}_k$ no tienen por qué minimizar la suma de cuadrados de los clusters $SS_C$. Por este motivo, conviene repetirlo varias veces con diferentes inicializaciones.
+
+
+## Ejemplo
+<div class="center">
+```{tikz, tikz-ex, fig.cap = "EJEMPLO JB", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
+\begin{tikzpicture}[thick,>=stealth,scale=2]
+\filldraw [black] (0.8, 1.3) circle (1pt);  
+\filldraw [black] (0.8 , 1.8) circle (1pt);  
+\filldraw [black] (1.0,0.9) circle (1pt);  
+\filldraw [black] (1.1,0.1) circle (1pt);  
+\filldraw [black] (1.1, 1.6) circle (1pt);  
+\filldraw [black] (1.4, 0.6) circle (1pt);  
+\filldraw [black] (1.5 ,0.1) circle (1pt);  
+\filldraw [black] (2 ,2.1) circle (1pt);  
+\filldraw [black] (1.5,2.3) circle (1pt);  
+\filldraw [black] (1.8,1.8) circle (1pt);  
+\filldraw [black] (2.3,0.5) circle (1pt);  
+\filldraw [black] (0.3,2.2) circle (1pt);  
+\filldraw [black] (1,2.5) circle (1pt);  
+\filldraw [black] (2,0.5) circle (1pt);  
+\filldraw [black] (2,1.5) circle (1pt);  
+\filldraw [black] (2.5,1) circle (1pt);  
+\filldraw [black] (0.5,0.5) circle (1pt);  
+\filldraw [black] (1,2) circle (1pt);  
+\draw (0,-0.2)--(0,3);
+\draw (-0.2,0)--(3,0);
+\draw (0.5,0)--(0.5,-0.1);
+\draw (0.5,-0.2) node {\footnotesize 0.5};
+\draw (1,0)--(1,-0.1);
+\draw (1,-0.2) node {\footnotesize 1};
+\draw (1.5,0)--(1.5,-0.1);
+\draw (1.5,-0.2) node {\footnotesize 1.5};
+\draw (2,0)--(2,-0.1);
+\draw (2,-0.2) node {\footnotesize 2};
+\draw (2.5,0)--(2.5,-0.1);
+\draw (2.5,-0.2) node {\footnotesize 2.5};
+\draw (-0.1,0.5)--(0,0.5);
+\draw (-0.2,0.5) node {\footnotesize 0.5};
+\draw (-0.1,1)--(0,1);
+\draw (-0.2,1) node {\footnotesize 1};
+\draw (-0.1,1.5)--(0,1.5);
+\draw (-0.2,1.5) node {\footnotesize 1.5};
+\draw (-0.1,2)--(0,2);
+\draw (-0.2,2) node {\footnotesize 2};
+\draw (-0.1,2.5)--(0,2.5);
+\draw (-0.2,2.5) node {\footnotesize 2.5};
+
+%\filldraw [black] (1.5,0) rectangle (1,1);  
+%\filldraw [black] (1.5,1.5) rectangle (1,1);  
+%\filldraw [black] (1.5,3) rectangle (1,1);  
+%\draw (1.5,0) node[rectangle,fill=green!50,draw] {};
+\draw (1.5,0) node[rectangle,fill=red,draw] {};
+\draw (1.5,1.5) node[rectangle,fill=blue,draw] {};
+\draw (1.5,3) node[rectangle,fill=green,draw] {};
+\end{tikzpicture}
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+</div>
