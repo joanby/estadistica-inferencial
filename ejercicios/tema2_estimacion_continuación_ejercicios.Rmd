@@ -283,21 +283,38 @@ derivando respecto de $\lambda$
 
 $$
 \frac{\partial}{\partial \lambda }\ln\left(L(\lambda| x_1,x_2\ldots , x_n)\right)=
-\frac{\partial}{\partial \lambda } \left(\left(\sum_{i=1}^n x_i\right)\cdot \ln(\lambda)-\ln\left(x_1!\cdot x_2!\cdot\ldots\cdot x_n!\right)-n\cdot \lambda\right)=\frac{\left(\sum_{i=1}^n x_i}{\lambda}-n.
+\frac{\partial}{\partial \lambda } \left(\left(\sum_{i=1}^n x_i\right)\cdot \ln(\lambda)-\ln\left(x_1!\cdot x_2!\cdot\ldots\cdot x_n!\right)-n\cdot \lambda\right)=\frac{\sum_{i=1}^n x_i}{\lambda}-n.
 $$
 
 
-el máximo se alacanza para el $\lambda que cumpla la ecuación
+el máximo se alacanza para el $\lambda$ que cumpla la ecuación
 
-$\frac{\left(\sum_{i=1}^n x_i}{\lambda}-n=0$ de donde $\lambda =\frac{\sum_{i=1}^n x_i}}{n}=\overline{x}$.
+$\frac{\sum_{i=1}^n x_i}{\lambda}-n=0$ de donde $\lambda =\frac{\sum_{i=1}^n x_i}{n}=\overline{x}$.
 
 
-Luego el estimador máximo verosimil de $\lambda es $\overline{X}$.
+Luego el estimador máximo verosimil de $\lambda$ es $\overline{X}$.
 
 
 7.  Si $X$ es $U\left(b-\frac12,b+\frac12\right)$ su densidad es $f_X(x)=\left\{\begin{array}{ll}
 \frac{1}{6} & \mbox{ si } b-\frac12<x<b+\frac12\\
 0  & \mbox{ en otro caso }
-\end{array}\righgt.$
+\end{array}\right.$
 su función de verosimilitud es constante NO TIENE EMV.
 
+8. Las v.a. de la muestra son $X_i$y  tienen distribución $Exp(\lambda)$. Sus densidades son 
+$f_{X_i}(x_i)=\lambda \cdot \mathrm{e}^{-\lambda x_i}$ si $x_i>0$ y cero en el resto de casos.
+
+La función de verosimilitu de la muestra para una realización  de la muestra $x_i,x_2,\ldots,x_n$ es 
+
+$$
+\begin{array}{lll}
+L(\lambda|x_1,x_2,\ldots,x_n)&=&f_{X_1,X_2,\ldots,X_n}(x_1,x_2,\ldots x_n)=f_{X_1}(x_1)\cdot f_{X_1}(x_1)\cdot \ldots\cdot f_{X_n}(x_n)\\
+&=& 
+\lambda \mathrm{e}^{-\lambda x_1}\cdot \lambda \mathrm{e}^{-\lambda x_2}\cdot \ldots\cdot \lambda \mathrm{e}^{-\lambda x_n}\\
+&=& \lambda^n\cdot \mathrm{e}^{-\lambda\cdot (x_1+x_2+\cdots +x_n)}=\lambda^n\cdot \mathrm{e}^{-\lambda\sum_{i=1}^n x_i}
+\end{array}
+$$
+Ahora $\ln\left(L(\lambda|x_1,x_2,\ldots,x_n)\right)=n\cdot \ln(\lambda)-\lambda\sum_{i=1}^n x_i$ derivando e igualando a cero obtenemos 
+$\frac{n}{\lambda}-\sum_{i=1}^n x_i=$ de donde $\lambda=\frac{n}{\sum_{i=1}^n x_i}=\frac{1}{\overline{x}}$.
+
+Luego el estimador MV de $\lambda$ es $\hat{lambda}=\frac{1}{\overline{X}}$.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.12.27)  3 JAN 2020 00:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.12.27)  3 JAN 2020 00:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -677,18 +677,42 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 397.
 [3] [4]
-! Missing \right. inserted.
-<inserted text> 
-                \right .
-l.560 ...t)=\frac{\left(\sum_{i=1}^n x_i}{\lambda}
-                                                  -n. 
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 603.
+[5] [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 603.
+(./tema2_estimacion_continuación_ejercicios.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 603.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 603.
+Package rerunfilecheck Info: File `tema2_estimacion_continuación_ejercicios.ou
+t' has not changed.
+(rerunfilecheck)             Checksum: C3221289945507245B460D209937D854;278.
+ ) 
 Here is how much of TeX's memory you used:
- 12849 strings out of 492609
- 187161 string characters out of 6131461
+ 12859 strings out of 492609
+ 187319 string characters out of 6131461
  304376 words of memory out of 5000000
  16488 multiletter control sequences out of 15000+600000
- 47340 words of font info for 89 fonts, out of 8000000 for 9000
+ 47506 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,11n,38p,849b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
+ips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share
+/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
+-mathex.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi
+10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/font
+s/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/
+public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/
+fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10
+.pfb>
+Output written on tema2_estimacion_continuación_ejercicios.pdf (6 pages, 25542
+3 bytes).
+PDF statistics:
+ 147 PDF objects out of 1000 (max. 8388607)
+ 123 compressed objects within 2 object streams
+ 41 named destinations out of 1000 (max. 500000)
+ 10257 words of extra memory for PDF output out of 12000 (max. 10000000)
 
-!  ==> Fatal error occurred, no output PDF file produced!
