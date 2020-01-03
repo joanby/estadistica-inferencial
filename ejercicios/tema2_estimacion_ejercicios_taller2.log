@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.12.27)  3 JAN 2020 00:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.12.27)  3 JAN 2020 20:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tema2_estimacion_continuación_ejercicios.tex
-(./tema2_estimacion_continuación_ejercicios.tex
+**tema2_estimacion_ejercicios_taller2.tex
+(./tema2_estimacion_ejercicios_taller2.tex
 LaTeX2e <2018-12-01>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
@@ -493,8 +493,8 @@ Package grffile Info: Option `multidot' is set to `true'.
 Package grffile Info: Option `extendedchars' is set to `false'.
 Package grffile Info: Option `space' is set to `true'.
 Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 494.
-) (./tema2_estimacion_continuación_ejercicios.aux)
-\openout1 = `tema2_estimacion_continuación_ejercicios.aux'.
+) (./tema2_estimacion_ejercicios_taller2.aux)
+\openout1 = `tema2_estimacion_ejercicios_taller2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
 LaTeX Font Info:    ... okay on input line 111.
@@ -549,10 +549,10 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 111.
 LaTeX Info: Redefining \pageref on input line 111.
 LaTeX Info: Redefining \nameref on input line 111.
-(./tema2_estimacion_continuación_ejercicios.out) (./tema2_estimacion_continuac
-ión_ejercicios.out)
+(./tema2_estimacion_ejercicios_taller2.out) (./tema2_estimacion_ejercicios_tall
+er2.out)
 \@outlinefile=\write4
-\openout4 = `tema2_estimacion_continuación_ejercicios.out'.
+\openout4 = `tema2_estimacion_ejercicios_taller2.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -680,21 +680,21 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 603.
 [5] [6]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 603.
-(./tema2_estimacion_continuación_ejercicios.aux)
+(./tema2_estimacion_ejercicios_taller2.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 603.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 603.
-Package rerunfilecheck Info: File `tema2_estimacion_continuación_ejercicios.ou
-t' has not changed.
+Package rerunfilecheck Info: File `tema2_estimacion_ejercicios_taller2.out' has
+ not changed.
 (rerunfilecheck)             Checksum: C3221289945507245B460D209937D854;278.
  ) 
 Here is how much of TeX's memory you used:
  12859 strings out of 492609
- 187319 string characters out of 6131461
- 304376 words of memory out of 5000000
+ 187241 string characters out of 6131461
+ 304309 words of memory out of 5000000
  16488 multiletter control sequences out of 15000+600000
  47506 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,11n,38p,849b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,11n,38p,843b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
 ips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share
 /texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
@@ -708,8 +708,8 @@ e/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/
 lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/
 fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10
 .pfb>
-Output written on tema2_estimacion_continuación_ejercicios.pdf (6 pages, 25542
-3 bytes).
+Output written on tema2_estimacion_ejercicios_taller2.pdf (6 pages, 255220 byte
+s).
 PDF statistics:
  147 PDF objects out of 1000 (max. 8388607)
  123 compressed objects within 2 object streams
