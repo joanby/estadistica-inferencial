@@ -214,10 +214,24 @@ el resultado final, es decir, los clusters obtenidos, depende de cómo inicializ
 
 Como ya hemos comentado, el algoritmo anterior no tiene porque dar un clustering óptimo, es decir, los centros obtenidos $\mathbf{c}_1,\ldots,\mathbf{c}_k$ no tienen por qué minimizar la suma de cuadrados de los clusters $SS_C$. Por este motivo, conviene repetirlo varias veces con diferentes inicializaciones.
 
+## Ejemplo
+<div class="example">
+**Ejemplo**
+
+Veamos un ejemplo de aplicación del algoritmo de $k$-medias.
+
+La figura siguiente nos muestra los valores de un conjunto de puntos en el plano y queremos clasificarlos en 3 clusters usando el **algoritmo de $k$-medias**.
+
+En la figura se observa el paso 1: una elección inicial de los centros $\mathbf{c}_1,\mathbf{c}_2$ y $\mathbf{c}_3$ representados con tres cuadrados de color verde, azul y rojo.
+
+Por tanto, las dos coordenadas de los puntos serían las variables. Como consecuencia, tendríamos que $m=2$.
+
+</div>
 
 ## Ejemplo
+<div class="example">
 <div class="center">
-```{tikz, tikz-ex, fig.cap = "EJEMPLO JB", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
+```{tikz, tikz-ex1, fig.cap = "Configuración inicial o paso 1", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
 \begin{tikzpicture}[thick,>=stealth,scale=2]
 \filldraw [black] (0.8, 1.3) circle (1pt);  
 \filldraw [black] (0.8 , 1.8) circle (1pt);  
@@ -270,3 +284,520 @@ Como ya hemos comentado, el algoritmo anterior no tiene porque dar un clustering
 \end{tikzpicture}
 ```
 </div>
+</div>
+
+## Ejemplo
+<div class="example">
+
+En la figura siguiente, observamos el paso 2 del algoritmo, es decir, la creación de los clusters correspondientes a los tres centros iniciales. 
+
+Los puntos de color verde son los puntos más cercanos al centro de color verde, los puntos de color azul son los puntos más cercanos al centro de color azul y los puntos de color rojo son los puntos más cercanos al centro de color rojo.
+</div>
+
+## Ejemplo
+<div class="example">
+<div class="center">
+```{tikz, tikz-ex2, fig.cap = "Paso 2", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
+\begin{tikzpicture}[thick,>=stealth,scale=2]
+\filldraw [red] (1.1,0.1) circle (1pt);  
+\filldraw [red] (1.4, 0.6) circle (1pt);  
+\filldraw [red] (1.5 ,0.1) circle (1pt);  
+\filldraw [red] (2.3,0.5) circle (1pt);  
+\filldraw [red] (2,0.5) circle (1pt);  
+\filldraw [red] (0.5,0.5) circle (1pt);  
+\filldraw [blue] (0.8, 1.3) circle (1pt);  
+\filldraw [blue] (0.8 , 1.8) circle (1pt);  
+\filldraw [blue] (1.0,0.9) circle (1pt);  
+\filldraw [blue] (1.1, 1.6) circle (1pt);  
+\filldraw [blue] (2 ,2.1) circle (1pt);  
+\filldraw [blue] (1.8,1.8) circle (1pt);  
+\filldraw [blue] (0.3,2.2) circle (1pt);  
+\filldraw [blue] (2,1.5) circle (1pt);  
+\filldraw [blue] (2.5,1) circle (1pt);  
+\filldraw [blue] (1,2) circle (1pt);  
+\filldraw [green] (1,2.5) circle (1pt);  
+\filldraw [green] (1.5,2.3) circle (1pt);  
+\draw (0,-0.2)--(0,3);
+\draw (-0.2,0)--(3,0);
+\draw (0.5,0)--(0.5,-0.1);
+\draw (0.5,-0.2) node {\footnotesize 0.5};
+\draw (1,0)--(1,-0.1);
+\draw (1,-0.2) node {\footnotesize 1};
+\draw (1.5,0)--(1.5,-0.1);
+\draw (1.5,-0.2) node {\footnotesize 1.5};
+\draw (2,0)--(2,-0.1);
+\draw (2,-0.2) node {\footnotesize 2};
+\draw (2.5,0)--(2.5,-0.1);
+\draw (2.5,-0.2) node {\footnotesize 2.5};
+\draw (-0.1,0.5)--(0,0.5);
+\draw (-0.2,0.5) node {\footnotesize 0.5};
+\draw (-0.1,1)--(0,1);
+\draw (-0.2,1) node {\footnotesize 1};
+\draw (-0.1,1.5)--(0,1.5);
+\draw (-0.2,1.5) node {\footnotesize 1.5};
+\draw (-0.1,2)--(0,2);
+\draw (-0.2,2) node {\footnotesize 2};
+\draw (-0.1,2.5)--(0,2.5);
+\draw (-0.2,2.5) node {\footnotesize 2.5};
+\draw (1.5,0) node[rectangle,fill=red,draw] {};
+\draw (1.5,1.5) node[rectangle,fill=blue,draw] {};
+\draw (1.5,3) node[rectangle,fill=green,draw] {};
+%\draw (2.266667, 0.6666667) node[rectangle,fill=red,draw] {};
+%\draw (1.100000, 0.4400000) node[rectangle,fill=blue,draw] {};
+%\draw (1.230000, 1.9100000) node[rectangle,fill=green,draw] {};
+\end{tikzpicture}
+```
+</div>
+</div>
+
+## Ejemplo
+<div class="example">
+
+En el tercer paso de aplicación del algoritmo, recalculamos los centros a partir del valor medios de los puntos que forman cada cluster $C_j$, $j=1,2,3$ en la siguiente figura.
+
+Por ejemplo, el centro de los dos puntos que forman el cluster de color verde está situado en medio de dichos puntos.
+
+</div>
+
+
+
+## Ejemplo
+<div class="example">
+<div class="center">
+```{tikz, tikz-ex3, fig.cap = "Paso 3", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
+\begin{tikzpicture}[thick,>=stealth,scale=2]
+\filldraw [red] (1.1,0.1) circle (1pt);  
+\filldraw [red] (1.4, 0.6) circle (1pt);  
+\filldraw [red] (1.5 ,0.1) circle (1pt);  
+\filldraw [red] (2.3,0.5) circle (1pt);  
+\filldraw [red] (2,0.5) circle (1pt);  
+\filldraw [red] (0.5,0.5) circle (1pt);  
+\filldraw [blue] (0.8, 1.3) circle (1pt);  
+\filldraw [blue] (0.8 , 1.8) circle (1pt);  
+\filldraw [blue] (1.0,0.9) circle (1pt);  
+\filldraw [blue] (1.1, 1.6) circle (1pt);  
+\filldraw [blue] (2 ,2.1) circle (1pt);  
+\filldraw [blue] (1.8,1.8) circle (1pt);  
+\filldraw [blue] (0.3,2.2) circle (1pt);  
+\filldraw [blue] (2,1.5) circle (1pt);  
+\filldraw [blue] (2.5,1) circle (1pt);  
+\filldraw [blue] (1,2) circle (1pt);  
+\filldraw [green] (1,2.5) circle (1pt);  
+\filldraw [green] (1.5,2.3) circle (1pt);  
+\draw (0,-0.2)--(0,3);
+\draw (-0.2,0)--(3,0);
+\draw (0.5,0)--(0.5,-0.1);
+\draw (0.5,-0.2) node {\footnotesize 0.5};
+\draw (1,0)--(1,-0.1);
+\draw (1,-0.2) node {\footnotesize 1};
+\draw (1.5,0)--(1.5,-0.1);
+\draw (1.5,-0.2) node {\footnotesize 1.5};
+\draw (2,0)--(2,-0.1);
+\draw (2,-0.2) node {\footnotesize 2};
+\draw (2.5,0)--(2.5,-0.1);
+\draw (2.5,-0.2) node {\footnotesize 2.5};
+\draw (-0.1,0.5)--(0,0.5);
+\draw (-0.2,0.5) node {\footnotesize 0.5};
+\draw (-0.1,1)--(0,1);
+\draw (-0.2,1) node {\footnotesize 1};
+\draw (-0.1,1.5)--(0,1.5);
+\draw (-0.2,1.5) node {\footnotesize 1.5};
+\draw (-0.1,2)--(0,2);
+\draw (-0.2,2) node {\footnotesize 2};
+\draw (-0.1,2.5)--(0,2.5);
+\draw (-0.2,2.5) node {\footnotesize 2.5};
+\draw (1.4667,0.3833) node[rectangle,fill=red,draw] {};
+\draw (1.34,1.62) node[rectangle,fill=blue,draw] {};
+\draw (1.26,2.41) node[rectangle,fill=green,draw] {};
+%\draw (2.266667, 0.6666667) node[rectangle,fill=red,draw] {};
+%\draw (1.100000, 0.4400000) node[rectangle,fill=blue,draw] {};
+%\draw (1.230000, 1.9100000) node[rectangle,fill=green,draw] {};
+\end{tikzpicture}
+```
+</div>
+</div>
+
+
+## Ejemplo
+<div class="example">
+En el paso 4 repetimos los pasos 2 y 3 hasta que el algoritmo se estabiliza.
+
+En la figuras siguientes repetimos los pasos 2 y 3. 
+
+Recordemos que en los pasos 2, recalculamos los clusters para los nuevos centros recalculados, es decir, asignamos a cada punto al cluster cuyo centro sea más cercano a dicho punto.
+
+En los pasos 3, calculamos los nuevos centros para los clusters calculados en el paso 2.
+</div>
+
+
+## Ejemplo
+<div class="example">
+<div class="center">
+```{tikz, tikz-ex4, fig.cap = "Paso 4: repetimos paso 2", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
+\begin{tikzpicture}[thick,>=stealth,scale=2]
+\filldraw [blue] (0.8, 1.3) circle (1pt);  
+\filldraw [blue] (0.8 , 1.8) circle (1pt);  
+\filldraw [red] (1.0,0.9) circle (1pt);  
+\filldraw [red] (1.1,0.1) circle (1pt);  
+\filldraw [blue] (1.1, 1.6) circle (1pt);  
+\filldraw [red] (1.4, 0.6) circle (1pt);  
+\filldraw [red] (1.5 ,0.1) circle (1pt);  
+\filldraw [green] (2 ,2.1) circle (1pt);  
+\filldraw [green] (1.5,2.3) circle (1pt);  
+\filldraw [blue] (1.8,1.8) circle (1pt);  
+\filldraw [red] (2.3,0.5) circle (1pt);  
+\filldraw [green] (0.3,2.2) circle (1pt);  
+\filldraw [green] (1,2.5) circle (1pt);  
+\filldraw [red] (2,0.5) circle (1pt);  
+\filldraw [blue] (2,1.5) circle (1pt);  
+\filldraw [red] (2.5,1) circle (1pt);  
+\filldraw [red] (0.5,0.5) circle (1pt);  
+\filldraw [blue] (1,2) circle (1pt);  
+\draw (0,-0.2)--(0,3);
+\draw (-0.2,0)--(3,0);
+\draw (0.5,0)--(0.5,-0.1);
+\draw (0.5,-0.2) node {\footnotesize 0.5};
+\draw (1,0)--(1,-0.1);
+\draw (1,-0.2) node {\footnotesize 1};
+\draw (1.5,0)--(1.5,-0.1);
+\draw (1.5,-0.2) node {\footnotesize 1.5};
+\draw (2,0)--(2,-0.1);
+\draw (2,-0.2) node {\footnotesize 2};
+\draw (2.5,0)--(2.5,-0.1);
+\draw (2.5,-0.2) node {\footnotesize 2.5};
+\draw (-0.1,0.5)--(0,0.5);
+\draw (-0.2,0.5) node {\footnotesize 0.5};
+\draw (-0.1,1)--(0,1);
+\draw (-0.2,1) node {\footnotesize 1};
+\draw (-0.1,1.5)--(0,1.5);
+\draw (-0.2,1.5) node {\footnotesize 1.5};
+\draw (-0.1,2)--(0,2);
+\draw (-0.2,2) node {\footnotesize 2};
+\draw (-0.1,2.5)--(0,2.5);
+\draw (-0.2,2.5) node {\footnotesize 2.5};
+\draw (1.4667,0.3833) node[rectangle,fill=red,draw] {};
+\draw (1.34,1.62) node[rectangle,fill=blue,draw] {};
+\draw (1.26,2.41) node[rectangle,fill=green,draw] {};
+\end{tikzpicture}
+```
+</div>
+</div>
+
+
+
+## Ejemplo
+<div class="example">
+<div class="center">
+```{tikz, tikz-ex5, fig.cap = "Repetimos paso 3", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
+\begin{tikzpicture}[thick,>=stealth,scale=2]
+\filldraw [red] (1.0,0.9) circle (1pt);  
+\filldraw [red] (1.1,0.1) circle (1pt);  
+\filldraw [red] (1.4, 0.6) circle (1pt);  
+\filldraw [red] (1.5 ,0.1) circle (1pt);  
+\filldraw [red] (2.3,0.5) circle (1pt);  
+\filldraw [red] (2,0.5) circle (1pt);  
+\filldraw [red] (2.5,1) circle (1pt);  
+\filldraw [red] (0.5,0.5) circle (1pt);  
+\filldraw [blue] (0.8, 1.3) circle (1pt);  
+\filldraw [blue] (0.8 , 1.8) circle (1pt);  
+\filldraw [blue] (1.1, 1.6) circle (1pt);  
+\filldraw [blue] (1.8,1.8) circle (1pt);  
+\filldraw [blue] (2,1.5) circle (1pt);  
+\filldraw [blue] (1,2) circle (1pt);  
+\filldraw [green] (2 ,2.1) circle (1pt);  
+\filldraw [green] (1.5,2.3) circle (1pt);  
+\filldraw [green] (0.3,2.2) circle (1pt);  
+\filldraw [green] (1,2.5) circle (1pt);  
+\draw (0,-0.2)--(0,3);
+\draw (-0.2,0)--(3,0);
+\draw (0.5,0)--(0.5,-0.1);
+\draw (0.5,-0.2) node {\footnotesize 0.5};
+\draw (1,0)--(1,-0.1);
+\draw (1,-0.2) node {\footnotesize 1};
+\draw (1.5,0)--(1.5,-0.1);
+\draw (1.5,-0.2) node {\footnotesize 1.5};
+\draw (2,0)--(2,-0.1);
+\draw (2,-0.2) node {\footnotesize 2};
+\draw (2.5,0)--(2.5,-0.1);
+\draw (2.5,-0.2) node {\footnotesize 2.5};
+\draw (-0.1,0.5)--(0,0.5);
+\draw (-0.2,0.5) node {\footnotesize 0.5};
+\draw (-0.1,1)--(0,1);
+\draw (-0.2,1) node {\footnotesize 1};
+\draw (-0.1,1.5)--(0,1.5);
+\draw (-0.2,1.5) node {\footnotesize 1.5};
+\draw (-0.1,2)--(0,2);
+\draw (-0.2,2) node {\footnotesize 2};
+\draw (-0.1,2.5)--(0,2.5);
+\draw (-0.2,2.5) node {\footnotesize 2.5};
+\draw (1.5375,0.525) node[rectangle,fill=red,draw] {};
+\draw (1.25,1.6667) node[rectangle,fill=blue,draw] {};
+\draw (1.2,2.275) node[rectangle,fill=green,draw] {};
+\end{tikzpicture}
+```
+</div>
+</div>
+
+
+
+## Ejemplo
+<div class="example">
+<div class="center">
+```{tikz, tikz-ex6, fig.cap = "Repetimos paso 2", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
+\begin{tikzpicture}[thick,>=stealth,scale=2]
+\filldraw [blue] (0.8, 1.3) circle (1pt);  
+\filldraw [blue] (0.8 , 1.8) circle (1pt);  
+\filldraw [red] (1.0,0.9) circle (1pt);  
+\filldraw [red] (1.1,0.1) circle (1pt);  
+\filldraw [blue] (1.1, 1.6) circle (1pt);  
+\filldraw [red] (1.4, 0.6) circle (1pt);  
+\filldraw [red] (1.5 ,0.1) circle (1pt);  
+\filldraw [green] (2 ,2.1) circle (1pt);  
+\filldraw [green] (1.5,2.3) circle (1pt);  
+\filldraw [blue] (1.8,1.8) circle (1pt);  
+\filldraw [red] (2.3,0.5) circle (1pt);  
+\filldraw [green] (0.3,2.2) circle (1pt);  
+\filldraw [green] (1,2.5) circle (1pt);  
+\filldraw [red] (2,0.5) circle (1pt);  
+\filldraw [blue] (2,1.5) circle (1pt);  
+\filldraw [red] (2.5,1) circle (1pt);  
+\filldraw [red] (0.5,0.5) circle (1pt);  
+\filldraw [green] (1,2) circle (1pt);  
+\draw (0,-0.2)--(0,3);
+\draw (-0.2,0)--(3,0);
+\draw (0.5,0)--(0.5,-0.1);
+\draw (0.5,-0.2) node {\footnotesize 0.5};
+\draw (1,0)--(1,-0.1);
+\draw (1,-0.2) node {\footnotesize 1};
+\draw (1.5,0)--(1.5,-0.1);
+\draw (1.5,-0.2) node {\footnotesize 1.5};
+\draw (2,0)--(2,-0.1);
+\draw (2,-0.2) node {\footnotesize 2};
+\draw (2.5,0)--(2.5,-0.1);
+\draw (2.5,-0.2) node {\footnotesize 2.5};
+\draw (-0.1,0.5)--(0,0.5);
+\draw (-0.2,0.5) node {\footnotesize 0.5};
+\draw (-0.1,1)--(0,1);
+\draw (-0.2,1) node {\footnotesize 1};
+\draw (-0.1,1.5)--(0,1.5);
+\draw (-0.2,1.5) node {\footnotesize 1.5};
+\draw (-0.1,2)--(0,2);
+\draw (-0.2,2) node {\footnotesize 2};
+\draw (-0.1,2.5)--(0,2.5);
+\draw (-0.2,2.5) node {\footnotesize 2.5};
+\draw (1.5375,0.525) node[rectangle,fill=red,draw] {};
+\draw (1.25,1.6667) node[rectangle,fill=blue,draw] {};
+\draw (1.2,2.275) node[rectangle,fill=green,draw] {};
+\end{tikzpicture}
+```
+</div>
+</div>
+
+
+## Ejemplo
+<div class="example">
+<div class="center">
+```{tikz, tikz-ex7, fig.cap = "Repetimos paso 3", fig.ext = 'png', cache=TRUE, echo=FALSE, fig.width = 5}
+\begin{tikzpicture}[thick,>=stealth,scale=2]
+\filldraw [red] (1.0,0.9) circle (1pt);  
+\filldraw [red] (1.1,0.1) circle (1pt);  
+\filldraw [red] (1.4, 0.6) circle (1pt);  
+\filldraw [red] (1.5 ,0.1) circle (1pt);  
+\filldraw [red] (2.3,0.5) circle (1pt);  
+\filldraw [red] (2,0.5) circle (1pt);  
+\filldraw [red] (2.5,1) circle (1pt);  
+\filldraw [red] (0.5,0.5) circle (1pt);  
+\filldraw [blue] (0.8, 1.3) circle (1pt);  
+\filldraw [blue] (0.8 , 1.8) circle (1pt);  
+\filldraw [blue] (1.1, 1.6) circle (1pt);  
+\filldraw [blue] (1.8,1.8) circle (1pt);  
+\filldraw [blue] (2,1.5) circle (1pt);  
+\filldraw [green] (0.3,2.2) circle (1pt);  
+\filldraw [green] (1,2.5) circle (1pt);  
+\filldraw [green] (2 ,2.1) circle (1pt);  
+\filldraw [green] (1.5,2.3) circle (1pt);  
+\filldraw [green] (1,2) circle (1pt);  
+\draw (0,-0.2)--(0,3);
+\draw (-0.2,0)--(3,0);
+\draw (0.5,0)--(0.5,-0.1);
+\draw (0.5,-0.2) node {\footnotesize 0.5};
+\draw (1,0)--(1,-0.1);
+\draw (1,-0.2) node {\footnotesize 1};
+\draw (1.5,0)--(1.5,-0.1);
+\draw (1.5,-0.2) node {\footnotesize 1.5};
+\draw (2,0)--(2,-0.1);
+\draw (2,-0.2) node {\footnotesize 2};
+\draw (2.5,0)--(2.5,-0.1);
+\draw (2.5,-0.2) node {\footnotesize 2.5};
+\draw (-0.1,0.5)--(0,0.5);
+\draw (-0.2,0.5) node {\footnotesize 0.5};
+\draw (-0.1,1)--(0,1);
+\draw (-0.2,1) node {\footnotesize 1};
+\draw (-0.1,1.5)--(0,1.5);
+\draw (-0.2,1.5) node {\footnotesize 1.5};
+\draw (-0.1,2)--(0,2);
+\draw (-0.2,2) node {\footnotesize 2};
+\draw (-0.1,2.5)--(0,2.5);
+\draw (-0.2,2.5) node {\footnotesize 2.5};
+\draw (1.5375,0.525) node[rectangle,fill=red,draw] {};
+\draw (1.3,1.6) node[rectangle,fill=blue,draw] {};
+\draw (1.16,2.2) node[rectangle,fill=green,draw] {};
+\end{tikzpicture}
+```
+</div>
+</div>
+
+
+## Ejemplo
+<div class="example">
+En la última figura el algoritmo se ha estabilizado con un valor de la suma de cuadrados de los clusters de $SS_C=7.25375$.
+</div>
+
+
+## Limitación del algoritmo de $k$-medias
+El **algoritmo de $k$-medias** tiene las limitaciones siguientes:
+
+* No existe un método **eficiente y universal** de elegir los **centros de partida**.
+
+* Como ya hemos comentado anteriormente, no se puede garantizar un **óptimo global**.
+
+* No se puede determinar de manera efectiva el número $k$ de clusters **a priori** aunque existe algún método como veremos más adelante.
+
+* Si no queremos que la variación de los datos intervenga en el análisis, conviene estandarizar dichos datos ya que el algoritmo **no es invariante** a **cambio de escala**. De esta manera todas las variables tendrán media 0 y varianza 1.
+
+## Limitación del algoritmo de $k$-medias
+
+* El algoritmo es sensible a **outliers** o datos atípicos.
+
+* Si nuestra tabla de datos contiene variables no numéricas tipo **factor, ordinales**, etc., el algoritmo no se puede aplicar. Es decir, sólo es aplicable para variables continuas que tengan valores en $\mathbb{R}^n$ usando la **distancia euclídea**.
+
+* Los clústers que encuentra son esféricos debido a que usa la **distancia euclídea**.
+
+## Metodos para hallar el número de clusters $k$. Método del codo
+Vamos a ver el método más usado para determinar el número óptimo de clusters a calcular con el **algoritmo de las $k$ medias**. 
+
+Uno de dichos métodos se denomina el **método del codo**. Dicho método se basa en observar como varía la **suma de cuadrados de los clusters $SS_C$** como función del número de clusters $k$ y escoger aquel valor $k$ que haga que la variación de dicha función sea lo más pronunciada posible.
+
+La idea es que dicho $k$ es el valor óptimo en el sentido que hace que la disminución de $SS_C$ sea lo más "óptima" posible.
+
+## Metodos para hallar el número de clusters $k$. Método del codo
+Veamos un ejemplo para ver cómo aplicar el **método del codo** para hallar el número óptimo de clusters $k$.
+
+<div class="example">
+**Ejemplo**
+
+Consideremos la tabla de datos `trees` de `R` que ya hemos comentado anteriormente.
+
+En la figura siguiente observamos como evoluciona el valor de la suma de cuadrados de los clusters $SS_C$ con el número de clusters $k$:
+
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+ssc=c()
+repeticions=50
+for (i in 2:10){
+  aux=c()
+  for (j in 1:repeticions){
+    aux=c(aux,kmeans(trees,i)$tot.withinss)
+  }
+  ssc=c(ssc,min(aux))
+}
+pendientes=ssc[-1]-ssc[-length(ssc)]
+variación.pendientes = pendientes[-1]-pendientes[-length(pendientes)]
+plot(2:10,ssc,type="o",xlim=c(2,10),ylab=expression(SS[C]),xlab="k",xaxp=c(2,10,8),pch=19)
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Vemos que la función $SS_C(k)$ es una función cóncava. 
+
+El método del codo elige el valor $k$ a partir del cual $SS_C$ disminuye mucho más lentamente que antes de él.
+
+Dicho matemáticamente, el valor $k$ óptimo es aquel en el que la variación de la pendiente antes de $k$ y después de $k$ es más pronunciada.
+
+Los valores de las pendientes en el gráfico anterior son los siguientes:
+<div class="center">
+| $k$'s | 2-3 | 3-4 | 4-5 | 5-6 | 6-7 | 7-8 | 8-9 | 9-10|
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| | `r round(pendientes[1],3)` | `r round(pendientes[2],3)` | `r round(pendientes[3],3)` | `r round(pendientes[4],3)` | `r round(pendientes[5],3)` | `r round(pendientes[6],3)` | `r round(pendientes[7],3)` | `r round(pendientes[8],3)`|
+</div>
+
+Entonces el $k$ óptimo es $k=3$ en este caso.
+</div>
+
+## Algoritmo de $k$-medias con `R`
+Para ejecutar el algoritmo de $k$-medias con `R` hay que usar la función `kmeans`:
+```{r,eval=FALSE}
+kmeans(x, centers=..., iter.max=..., algorithm =...)
+```
+donde:
+
+* `x` es la matriz o el data frame cuyas filas representan los objetos; en ambos casos, todas las variables han de ser numéricas como ya hemos indicado.
+
+* `centers` sirve para especificar los centros iniciales, y se puede usar de dos maneras: igualado a un número $k$, `R` escoge aleatoriamente los $k$ centros iniciales, mientras que igualado a una matriz de $k$ filas y el mismo número de columnas que `x`, `R` toma las filas de esta matriz como centros de partida.
+
+## Algoritmo de $k$-medias con `R`
+
+* `iter.max` permite especificar el número máximo de iteraciones a realizar; su valor por defecto es 10. Al llegar a este número máximo de iteraciones, si el algoritmo aún no ha acabado porque los clusters aún no hayan estabilizado, se para y da como resultado los clusters que se han obtenido en la última iteración.
+
+* `algorithm` indica el algoritmo a usar. Los algoritmos pueden ser los siguientes:
+  * **Lloyd**: es el que hemos explicado.
+  * **Hartigan-Wong**: este algoritmo empieza igual que el de Lloyd: se escogen $k$ centros, se calculan las distancias euclídeas de cada punto a cada centro, y se asigna a cada centro el cluster de puntos que están más cerca de él que de los otros centros. A continuación, en pasos sucesivos se itera el bucle 1–5 siguiente hasta que en una iteración del mismo los clusters no cambian:
+
+## Algoritmo de $k$-medias con `R`
+
+  (1) Se sustituye cada centro por el punto medio de los puntos asignados a su cluster.
+
+  (1) Se calculan las distancias euclídeas de cada punto a cada centro.
+
+  (1) Se asigna (temporalmente) a cada centro el cluster formado por los puntos que están más cerca de él que de los otros centros.
+
+  (1) Si en esta asignación algún punto ha cambiado de cluster, digamos que el punto $\mathbf{x}_i$ se ha incorporado al cluster $C_j$ de centro $\mathbf{c}_j$, entonces:
+
+## Algoritmo de $k$-medias con `R`
+  * Se calcula el valor $SSE_j$ que se obtiene multiplicando $SS_{C_j}=\sum\limits_{l=1}^{n_j} \|\mathbf{x}_l-\mathbf{c}_j\|^2$, donde $\mathbf{x}_l$ son los puntos del cluster $C_j$ por $n_j/(n_j−1)$ (donde $n_j$ indica el número de elementos del cluster $C_j$).
+
+  * Se calcula, para todo otro cluster $C_k$, el correspondiente valor $SSE_{i,k}$ como si $\mathbf{x}_i$ hubiera ido a parar a $C_k$.
+
+  * Si algún $SSE_{i,k}$ resulta menor que $SSE_j$, $\mathbf{x}_i$ se asigna definitivamente al cluster $C_k$ que da valor mínimo de $SSE_{i,k}$.
+
+5.Una vez realizado el procedimiento anterior para todos los puntos que han cambiado de cluster, éstos se asignan a sus clusters definitivos y se da el bucle por completado.
+
+## Algoritmo de $k$-medias con `R`
+
+* **MacQueen**: es el mismo método que el de Lloyd salvo por el hecho de que no se recalculan todos los clusters y sus centros de golpe, sino elemento a elemento. Es decir, se empieza igual que en los dos algoritmos anteriores: se escogen $k$ centros, se calculan las distancias euclídeas de cada punto a cada centro, se asigna a cada centro el cluster de puntos que están más cerca de él que de los otros centros, y se sustituye cada centro por el punto medio de los puntos asignados a su cluster. A partir de aquí, en pasos sucesivos se itera el bucle siguiente (recordemos que los puntos a clasificar son $\mathbf{x}_1,\ldots,\mathbf{x}_n$, y los supondremos ordenados por su fila en la tabla de datos):
+
+## Algoritmo de $k$-medias con `R`
+  * Para cada $i=1,\ldots,n$, se mira si el punto $\mathbf{x}_i$ está más cerca del centro de otro cluster que del centro del cluster al que está asignado.
+  * Si no lo está, se mantiene en su cluster y se pasa al punto siguiente, $\mathbf{x}_{i+1}$. Si se llega al final de la lista de puntos y todos se mantienen en sus clusters, el algoritmo se para.
+  * Si $\mathbf{x}_i$ está más cerca de otro centro, se traslada al cluster definido por este centro, se recalculan los centros de los dos clusters afectados (el que ha abandonado $\mathbf{x}_i$ y aquél al que se ha incorporado), y se reinicia el bucle, empezando de nuevo con $\mathbf{x}_1$.
+
+El clustering resultante está formado por los clusters existentes en el momento de parar.
+
+## Ejemplo
+<div class="example">
+**Ejemplo**
+
+Apliquemos el algoritmo de $k$-medias en `R` a la tabla de datos `trees` usando la variante del algoritmo de **McQueen** con $k=3$ clusters
+
+```{r,eval = FALSE}
+kmeans(trees,centers=3,algorithm = 'MacQueen')
+```
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo = FALSE}
+resultado.km=kmeans(trees,centers=3,algorithm = 'MacQueen')
+resultado.km
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Vemos que `R` nos ha dado 
+</div>
+
