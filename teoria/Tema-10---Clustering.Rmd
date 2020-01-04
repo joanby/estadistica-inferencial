@@ -758,12 +758,13 @@ donde:
   (1) Si en esta asignación algún punto ha cambiado de cluster, digamos que el punto $\mathbf{x}_i$ se ha incorporado al cluster $C_j$ de centro $\mathbf{c}_j$, entonces:
 
 ## Algoritmo de $k$-medias con `R`
-  * Se calcula el valor $SSE_j$ que se obtiene multiplicando $SS_{C_j}=\sum\limits_{l=1}^{n_j} \|\mathbf{x}_l-\mathbf{c}_j\|^2$, donde $\mathbf{x}_l$ son los puntos del cluster $C_j$ por $n_j/(n_j−1)$ (donde $n_j$ indica el número de elementos del cluster $C_j$).
+  * Se calcula el valor $SSE_j$ que se obtiene multiplicando la suma de cuadrados de cada cluster $SS_{C_j}=\sum\limits_{l=1}^{n_j} \|\mathbf{x}_{jl}-\mathbf{c}_j\|^2$, donde $\mathbf{x}_{jl}$ son los puntos del cluster $C_j$, para $l=1,\ldots,n_j$, por $n_j/(n_j−1)$ (donde $n_j$ indica el número de elementos del cluster $C_j$).
 
   * Se calcula, para todo otro cluster $C_k$, el correspondiente valor $SSE_{i,k}$ como si $\mathbf{x}_i$ hubiera ido a parar a $C_k$.
 
   * Si algún $SSE_{i,k}$ resulta menor que $SSE_j$, $\mathbf{x}_i$ se asigna definitivamente al cluster $C_k$ que da valor mínimo de $SSE_{i,k}$.
 
+## Algoritmo de $k$-medias con `R`
 5.Una vez realizado el procedimiento anterior para todos los puntos que han cambiado de cluster, éstos se asignan a sus clusters definitivos y se da el bucle por completado.
 
 ## Algoritmo de $k$-medias con `R`
@@ -777,6 +778,40 @@ donde:
 
 El clustering resultante está formado por los clusters existentes en el momento de parar.
 
+
+## Algoritmo de $k$-medias con `R`
+La salida del algoritmo de $k$-medias con `R` tiene las componentes siguientes: (supongamos que hemos guardado en el objeto `resultado.km` la salida del algoritmo de $k$-medias aplicado a nuestra tabla de datos)
+
+* `resultado.km$size`: nos da los números de objetos, es decir, los tamaños de cada cluster.
+* `resultado.km$cluster`: nos dice qué cluster pertenece cada uno de los objetos de nuestra tabla de datos.
+* `resultado.km$centers`: nos da los centros de cada cluster en filas. Es decir, la fila 1 sería el centro del cluster 1, la fila 2, del cluster 2 y así sucesivamente. 
+* `resultado.km$withinss`: nos da las sumas de cuadrados de cada cluster, lo que antes hemos denominado $SS_{C_j}$, para $j=1,\ldots,k$.
+
+
+## Algoritmo de $k$-medias con `R`
+* `resultado.km$tot.withinss`: la suma de cuadrados de todos los clusters, lo que antes hemos denominado $SS_C$. También se puede calcular sumando las sumas de los cuadrados de cada cluster: `sum(resultado.km$withinss)`. 
+* `resultado.km$totss`: es la suma de los cuadrados de las distancias de los puntos en su punto medio de todos estos puntos. Es decir, seria la suma de los cuadrados $SS_C$ pero suponiendo que sólo hubiera un sólo cluster.
+* `resultado.km$betweenss` es la diferencia entre `resultado.km$totss` y `resultado.km$tot.withinss` y puede demostrarse (es un cálculo bastante tedioso) que es igual a la suma, ponderada por el número de objetos del cluster correspondiente, de los cuadrados de las distancias de los centros de los clusters al punto medio de todos los puntos.
+
+## Algoritmo de $k$-medias con `R`
+Es decir:
+
+* sean $n_1,\ldots, n_k$ los números de objectos de los clusters $C_1,\ldots, C_k$,
+* sean $\mathbf{x}_{i1},\ldots,\mathbf{x}_{in_i}$ los objectos pertenecientes al cluster $C_i$,
+* sean $\mathbf{\overline{x}}_1,\ldots,\mathbf{\overline{x}}_k$, los centros de los clusters $C_1,\ldots, C_k$: $\mathbf{\overline{x}}_i =\frac{1}{n_i}\sum\limits_{j=1}^{n_i}\mathbf{x}_{ij},\ i=1,\ldots,k,$
+* sea $\mathbf{x}$ el punto medio de todos los puntos: $\overline{x}=\frac{1}{n}\sum\limits_{i=1}^k\sum\limits_{j=1}^{n_i} \mathbf{x}_{ij}$.
+
+## Algoritmo de $k$-medias con `R`
+Entonces:
+$$
+\verb+resultado.km$betweenss+=\sum_{i=1}^{n_i} n_i \|\mathbf{\overline{x}}_i-\mathbf{x}\|^2.
+$$
+
+Podríamos considerar la medida anterior como una medida de dispersión de los centros o una medida de cuan separados están los clusters ya que cuanto mayor sea `resultado.km$betweenss` más separados estarán los centros del punto medio global de todos los puntos y mayor separación habrá entre los clusters.
+
+Entonces, nos interesa el cociente `resultado.km$betweenss/resultado.km$totss`, que mide la fracción de la variabilidad de los datos que explican los clusters. Cuanto mayor mejor.
+
+
 ## Ejemplo
 <div class="example">
 **Ejemplo**
@@ -784,20 +819,117 @@ El clustering resultante está formado por los clusters existentes en el momento
 Apliquemos el algoritmo de $k$-medias en `R` a la tabla de datos `trees` usando la variante del algoritmo de **McQueen** con $k=3$ clusters
 
 ```{r,eval = FALSE}
-kmeans(trees,centers=3,algorithm = 'MacQueen')
+resultado.km.trees=kmeans(trees,centers=3,algorithm = 'MacQueen')
+resultado.km.trees
 ```
 </div>
 
 ## Ejemplo
 <div class="example">
 ```{r,echo = FALSE}
-resultado.km=kmeans(trees,centers=3,algorithm = 'MacQueen')
-resultado.km
+resultado.km.trees=kmeans(trees,centers=3,algorithm = 'MacQueen')
+resultado.km.trees
 ```
 </div>
 
 ## Ejemplo
 <div class="example">
-Vemos que `R` nos ha dado 
+Vemos que `R` nos ha dado 3 clusters de `r table(resultado.km.trees$cluster)[1]`, `r table(resultado.km.trees$cluster)[2]` y `r table(resultado.km.trees$cluster)[3]` elementos cada uno.
+
+Recordemos que el vector `resultado.km.trees$cluster` nos dice a qué cluster pertenece cada uno de los 31 árboles de nuestra tabla de datos.
+
+Por ejemplo los árboles enumerados como 
+```{r}
+which(resultado.km.trees$cluster==1)
+```
+están en el cluster número 1, los árboles enumerados como
+```{r}
+which(resultado.km.trees$cluster==2)
+```
+están en el cluster número 2
+</div>
+
+## Ejemplo
+<div class="example">
+y los árboles enumerados como
+```{r}
+which(resultado.km.trees$cluster==3)
+```
+están en el cluster número 3.
+
+El centro del cluster número 1 ha sido:
+```{r}
+resultado.km.trees$centers[1,]
+```
+</div>
+
+## Ejemplo
+<div class="example">
+El centro del cluster número 2 ha sido:
+```{r}
+resultado.km.trees$centers[2,]
+```
+y el del cluster 3,
+```{r}
+resultado.km.trees$centers[3,]
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+Las sumas de cuadrados de cada cluster $SS_{C_1}$, $SS_{C_2}$ y $SS_{C_3}$ son las siguientes:
+```{r}
+resultado.km.trees$withinss
+```
+
+La suma de cuadrados de todos los clusters vale, en nuestro caso:
+```{r}
+sum(resultado.km.trees$withinss)
+resultado.km.trees$tot.withinss
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+El valor `resultado.km.trees$totss` nos da la suma de los cuadrados $SS_C$ pero suponiendo que sólo hubiera un cluster:
+```{r}
+resultado.km.trees$totss
+```
+
+La dispersión de los centros de los clusters respecto del punto medio de todos los árboles vale:
+```{r}
+resultado.km.trees$betweenss
+```
+</div>
+
+## Ejemplo
+<div class="example">
+
+Comprobemos la expresión vista anteriormente:
+```{r}
+(centro.global=apply(trees,2,mean))
+sum(resultado.km.trees$size*apply((t(resultado.km.trees$centers)-centro.global)^2,2,sum))
+```
+En este caso, los clusters han explicado un `r round(100*resultado.km.trees$betweenss/resultado.km.trees$totss,2)`% de la variabilidad total de los puntos.
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+Tal como hemos indicado anteriormente, ejecutar sólo una vez el algoritmo de $k$-means no es aconsejable ya que no tenemos asegurado que hemos llegado al mínimo. 
+
+Por dicho motivo, ejecutemos el algoritmo de $k$-means sobre la tabla de datos `trees` 50 veces a ver si podemos obtener un mínimo más óptimo:
+```{r}
+veces=50
+SSCs=c()
+for (i in 1:veces){
+  SSCs=c(SSCs,kmeans(trees,3,algorithm = "MacQueen")$tot.withinss)
+}
+(min(SSCs))
+```
+¡Uy!, no habíamos llegado al mínimo. Ahora sabemos que hay un mínimo más óptimo que el hallado anteriormente.
 </div>
 

@@ -3667,20 +3667,22 @@ Los valores de las pendientes en el gráfico anterior son los siguientes:
 </article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-3">
 
 <ul>
-<li><p>Se calcula el valor \(SSE_j\) que se obtiene multiplicando \(SS_{C_j}=\sum\limits_{l=1}^{n_j} \|\mathbf{x}_l-\mathbf{c}_j\|^2\), donde \(\mathbf{x}_l\) son los puntos del cluster \(C_j\) por \(n_j/(n_j−1)\) (donde \(n_j\) indica el número de elementos del cluster \(C_j\)).</p></li>
+<li><p>Se calcula el valor \(SSE_j\) que se obtiene multiplicando la suma de cuadrados de cada cluster \(SS_{C_j}=\sum\limits_{l=1}^{n_j} \|\mathbf{x}_{jl}-\mathbf{c}_j\|^2\), donde \(\mathbf{x}_{jl}\) son los puntos del cluster \(C_j\), para \(l=1,\ldots,n_j\), por \(n_j/(n_j−1)\) (donde \(n_j\) indica el número de elementos del cluster \(C_j\)).</p></li>
 <li><p>Se calcula, para todo otro cluster \(C_k\), el correspondiente valor \(SSE_{i,k}\) como si \(\mathbf{x}_i\) hubiera ido a parar a \(C_k\).</p></li>
 <li><p>Si algún \(SSE_{i,k}\) resulta menor que \(SSE_j\), \(\mathbf{x}_i\) se asigna definitivamente al cluster \(C_k\) que da valor mínimo de \(SSE_{i,k}\).</p></li>
 </ul>
 
+</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-4">
+
 <p>5.Una vez realizado el procedimiento anterior para todos los puntos que han cambiado de cluster, éstos se asignan a sus clusters definitivos y se da el bucle por completado.</p>
 
-</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-4">
+</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-5">
 
 <ul>
 <li><strong>MacQueen</strong>: es el mismo método que el de Lloyd salvo por el hecho de que no se recalculan todos los clusters y sus centros de golpe, sino elemento a elemento. Es decir, se empieza igual que en los dos algoritmos anteriores: se escogen \(k\) centros, se calculan las distancias euclídeas de cada punto a cada centro, se asigna a cada centro el cluster de puntos que están más cerca de él que de los otros centros, y se sustituye cada centro por el punto medio de los puntos asignados a su cluster. A partir de aquí, en pasos sucesivos se itera el bucle siguiente (recordemos que los puntos a clasificar son \(\mathbf{x}_1,\ldots,\mathbf{x}_n\), y los supondremos ordenados por su fila en la tabla de datos):</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-5">
+</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-6">
 
 <ul>
 <li>Para cada \(i=1,\ldots,n\), se mira si el punto \(\mathbf{x}_i\) está más cerca del centro de otro cluster que del centro del cluster al que está asignado.</li>
@@ -3690,6 +3692,46 @@ Los valores de las pendientes en el gráfico anterior son los siguientes:
 
 <p>El clustering resultante está formado por los clusters existentes en el momento de parar.</p>
 
+</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-7">
+
+<p>La salida del algoritmo de \(k\)-medias con <code>R</code> tiene las componentes siguientes: (supongamos que hemos guardado en el objeto <code>resultado.km</code> la salida del algoritmo de \(k\)-medias aplicado a nuestra tabla de datos)</p>
+
+<ul>
+<li><code>resultado.km$size</code>: nos da los números de objetos, es decir, los tamaños de cada cluster.</li>
+<li><code>resultado.km$cluster</code>: nos dice qué cluster pertenece cada uno de los objetos de nuestra tabla de datos.</li>
+<li><code>resultado.km$centers</code>: nos da los centros de cada cluster en filas. Es decir, la fila 1 sería el centro del cluster 1, la fila 2, del cluster 2 y así sucesivamente.</li>
+<li><code>resultado.km$withinss</code>: nos da las sumas de cuadrados de cada cluster, lo que antes hemos denominado \(SS_{C_j}\), para \(j=1,\ldots,k\).</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-8">
+
+<ul>
+<li><code>resultado.km$tot.withinss</code>: la suma de cuadrados de todos los clusters, lo que antes hemos denominado \(SS_C\). También se puede calcular sumando las sumas de los cuadrados de cada cluster: <code>sum(resultado.km$withinss)</code>.</li>
+<li><code>resultado.km$totss</code>: es la suma de los cuadrados de las distancias de los puntos en su punto medio de todos estos puntos. Es decir, seria la suma de los cuadrados \(SS_C\) pero suponiendo que sólo hubiera un sólo cluster.</li>
+<li><code>resultado.km$betweenss</code> es la diferencia entre <code>resultado.km$totss</code> y <code>resultado.km$tot.withinss</code> y puede demostrarse (es un cálculo bastante tedioso) que es igual a la suma, ponderada por el número de objetos del cluster correspondiente, de los cuadrados de las distancias de los centros de los clusters al punto medio de todos los puntos.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-9">
+
+<p>Es decir:</p>
+
+<ul>
+<li>sean \(n_1,\ldots, n_k\) los números de objectos de los clusters \(C_1,\ldots, C_k\),</li>
+<li>sean \(\mathbf{x}_{i1},\ldots,\mathbf{x}_{in_i}\) los objectos pertenecientes al cluster \(C_i\),</li>
+<li>sean \(\mathbf{\overline{x}}_1,\ldots,\mathbf{\overline{x}}_k\), los centros de los clusters \(C_1,\ldots, C_k\): \(\mathbf{\overline{x}}_i =\frac{1}{n_i}\sum\limits_{j=1}^{n_i}\mathbf{x}_{ij},\ i=1,\ldots,k,\)</li>
+<li>sea \(\mathbf{x}\) el punto medio de todos los puntos: \(\overline{x}=\frac{1}{n}\sum\limits_{i=1}^k\sum\limits_{j=1}^{n_i} \mathbf{x}_{ij}\).</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Algoritmo de \(k\)-medias con <code>R</code></h2></hgroup><article  id="algoritmo-de-k-medias-con-r-10">
+
+<p>Entonces: \[
+\verb+resultado.km$betweenss+=\sum_{i=1}^{n_i} n_i \|\mathbf{\overline{x}}_i-\mathbf{x}\|^2.
+\]</p>
+
+<p>Podríamos considerar la medida anterior como una medida de dispersión de los centros o una medida de cuan separados están los clusters ya que cuanto mayor sea <code>resultado.km$betweenss</code> más separados estarán los centros del punto medio global de todos los puntos y mayor separación habrá entre los clusters.</p>
+
+<p>Entonces, nos interesa el cociente <code>resultado.km$betweenss/resultado.km$totss</code>, que mide la fracción de la variabilidad de los datos que explican los clusters. Cuanto mayor mejor.</p>
+
 </article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-14">
 
 <div class="example">
@@ -3697,7 +3739,8 @@ Los valores de las pendientes en el gráfico anterior son los siguientes:
 
 <p>Apliquemos el algoritmo de \(k\)-medias en <code>R</code> a la tabla de datos <code>trees</code> usando la variante del algoritmo de <strong>McQueen</strong> con \(k=3\) clusters</p>
 
-<pre class = 'prettyprint lang-r'>kmeans(trees,centers=3,algorithm = &#39;MacQueen&#39;)</pre></div>
+<pre class = 'prettyprint lang-r'>resultado.km.trees=kmeans(trees,centers=3,algorithm = &#39;MacQueen&#39;)
+resultado.km.trees</pre></div>
 
 </article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-15">
 
@@ -3726,26 +3769,126 @@ Los valores de las pendientes en el gráfico anterior son los siguientes:
 </article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-16">
 
 <div class="example">
-<pre >## K-means clustering with 3 clusters of sizes 7, 6, 18
-## 
-## Cluster means:
-##      Girth   Height   Volume
-## 1 14.45714 78.85714 34.94286
-## 2 18.21667 81.66667 58.15000
-## 3 11.12222 73.00000 18.98889
-## 
-## Clustering vector:
-##  [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 3 3 1 1 1 1 1 2 2 2 2 2 2
-## 
-## Within cluster sum of squares by cluster:
-## [1]  315.3314  508.8167 1036.8089
-##  (between_SS / total_SS =  80.7 %)
-## 
-## Available components:
-## 
-## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    
-## [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        
-## [9] &quot;ifault&quot;</pre></div></article></slide>
+<p>Vemos que <code>R</code> nos ha dado 3 clusters de 7, 17 y 7 elementos cada uno.</p>
+
+<p>Recordemos que el vector <code>resultado.km.trees$cluster</code> nos dice a qué cluster pertenece cada uno de los 31 árboles de nuestra tabla de datos.</p>
+
+<p>Por ejemplo los árboles enumerados como</p>
+
+<pre class = 'prettyprint lang-r'>which(resultado.km.trees$cluster==1)</pre>
+
+<pre >## [1]  1  2  3  4  7 14 20</pre>
+
+<p>están en el cluster número 1, los árboles enumerados como</p>
+
+<pre class = 'prettyprint lang-r'>which(resultado.km.trees$cluster==2)</pre>
+
+<pre >##  [1]  5  6  8  9 10 11 12 13 15 16 17 18 19 21 22 23 24</pre>
+
+<p>están en el cluster número 2</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-17">
+
+<div class="example">
+<p>y los árboles enumerados como</p>
+
+<pre class = 'prettyprint lang-r'>which(resultado.km.trees$cluster==3)</pre>
+
+<pre >## [1] 25 26 27 28 29 30 31</pre>
+
+<p>están en el cluster número 3.</p>
+
+<p>El centro del cluster número 1 ha sido:</p>
+
+<pre class = 'prettyprint lang-r'>resultado.km.trees$centers[1,]</pre>
+
+<pre >##    Girth   Height   Volume 
+## 10.38571 67.00000 15.57143</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-18">
+
+<div class="example">
+<p>El centro del cluster número 2 ha sido:</p>
+
+<pre class = 'prettyprint lang-r'>resultado.km.trees$centers[2,]</pre>
+
+<pre >##    Girth   Height   Volume 
+## 12.49412 77.64706 25.57647</pre>
+
+<p>y el del cluster 3,</p>
+
+<pre class = 'prettyprint lang-r'>resultado.km.trees$centers[3,]</pre>
+
+<pre >##    Girth   Height   Volume 
+## 17.94286 81.00000 55.92857</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-19">
+
+<div class="example">
+<p>Las sumas de cuadrados de cada cluster \(SS_{C_1}\), \(SS_{C_2}\) y \(SS_{C_3}\) son las siguientes:</p>
+
+<pre class = 'prettyprint lang-r'>resultado.km.trees$withinss</pre>
+
+<pre >## [1]  296.7829 1080.3624  737.8914</pre>
+
+<p>La suma de cuadrados de todos los clusters vale, en nuestro caso:</p>
+
+<pre class = 'prettyprint lang-r'>sum(resultado.km.trees$withinss)</pre>
+
+<pre >## [1] 2115.037</pre>
+
+<pre class = 'prettyprint lang-r'>resultado.km.trees$tot.withinss</pre>
+
+<pre >## [1] 2115.037</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-20">
+
+<div class="example">
+<p>El valor <code>resultado.km.trees$totss</code> nos da la suma de los cuadrados \(SS_C\) pero suponiendo que sólo hubiera un cluster:</p>
+
+<pre class = 'prettyprint lang-r'>resultado.km.trees$totss</pre>
+
+<pre >## [1] 9619.521</pre>
+
+<p>La dispersión de los centros de los clusters respecto del punto medio de todos los árboles vale:</p>
+
+<pre class = 'prettyprint lang-r'>resultado.km.trees$betweenss</pre>
+
+<pre >## [1] 7504.485</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-21">
+
+<div class="example">
+<p>Comprobemos la expresión vista anteriormente:</p>
+
+<pre class = 'prettyprint lang-r'>(centro.global=apply(trees,2,mean))</pre>
+
+<pre >##    Girth   Height   Volume 
+## 13.24839 76.00000 30.17097</pre>
+
+<pre class = 'prettyprint lang-r'>sum(resultado.km.trees$size*apply((t(resultado.km.trees$centers)-centro.global)^2,2,sum))</pre>
+
+<pre >## [1] 7504.485</pre>
+
+<p>En este caso, los clusters han explicado un 78.01% de la variabilidad total de los puntos.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-22">
+
+<div class="example">
+<p>Tal como hemos indicado anteriormente, ejecutar sólo una vez el algoritmo de \(k\)-means no es aconsejable ya que no tenemos asegurado que hemos llegado al mínimo.</p>
+
+<p>Por dicho motivo, ejecutemos el algoritmo de \(k\)-means sobre la tabla de datos <code>trees</code> 50 veces a ver si podemos obtener un mínimo más óptimo:</p>
+
+<pre class = 'prettyprint lang-r'>veces=50
+SSCs=c()
+for (i in 1:veces){
+  SSCs=c(SSCs,kmeans(trees,3,algorithm = &quot;MacQueen&quot;)$tot.withinss)
+}
+(min(SSCs))</pre>
+
+<pre >## [1] 1860.957</pre>
+
+<p>¡Uy!, no habíamos llegado al mínimo. Ahora sabemos que hay un mínimo más óptimo que el hallado anteriormente.</p></div></article></slide>
 
 
   <slide class="backdrop"></slide>
