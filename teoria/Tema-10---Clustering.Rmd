@@ -989,4 +989,343 @@ La primera decisión a tomar cuando queramos realizar un **clustering jerárquic
 
 Es una decisión muy importante ya que dicha decisión determinará el **árbol binario** que vamos a obtener y dará un significado u otro a los clusters que se deriven del mismo.
 
-A continuación, vamos a estudiar los datos **binarios** y más adelante, los datos **continuos**, debido a que el significado de las **distancias** es distinto dependiendo del tipo de datos.
+La **distancia** a elegir dependerá del tipo de datos con los que trabajemos. Más concretamente, vamos a distinguir dos tipos de datos: **binarios** y **continuos**.
+
+El significado de las distancias dependerá del tipo de datos con los que trabajemos.
+
+## Datos binarios
+
+Supongamos que las variables de nuestra matriz de datos sólo contiene datos **binarios**, es decir, datos con sólo dos posibles valores: 0/1, ausencia/presencia, éxito/fracaso, etc.
+
+Usar por ejemplo la distancia euclídea en este tipo de datos no tendría ningún sentido ya que los valores 0 y 1 no tienen ningún significado numérico. 
+
+Para fijar ideas, supongamos que nuestra tabla de datos tiene $n$ filas (objetos) y $m$ columnas (variables), donde los valores $x_{ij}$ valen 0 o 1, $i=1\ldots,n$, $j=1,\ldots,m$.
+
+Consideramos los valores de dos objectos cualesquiera $\mathbf{x}_i =(x_{i1},\ldots,x_{im})$, $\mathbf{x}_j =(x_{j1},\ldots,x_{jm})$ y queremos **medir** de alguna manera lo parecidos que son dichos objetos.
+
+## Datos binarios
+Para ello, definimos primeramente las cantidades siguientes:
+$$
+\begin{array}{l}
+a_0 = \left|\{k\mid x_{ik}=x_{jk}=0\}\right|,\\
+a_1 =\left|\{k\mid x_{ik}=x_{jk}=1\}\right|, \\
+a_2 = \left|\{k\mid x_{ik}\neq x_{jk}\}\right|. 
+\end{array}
+$$
+Es decir, $a_0$ serían el número de variables en los que los objetos $i$ y $j$ tienen el valor 0, $a_1$, el número de variables en los que los objetos $i$ y $j$ tienen el valor $1$ y $a_2$, el número de variables en los que los objetos $i$ y $j$ difieren.
+
+Intuitivamente, cuanto mayores sean $a_0$ y $a_1$ y cuanto menor sea $a_2$, más parecidos deben ser los objetos $i$ y $j$.
+
+## Datos binarios
+Basándonos en la consideración anterior, definimos el "parecido" o la **distancia** entre los objetos $i$ y $j$ como:
+$$
+\sigma_{ij}=\frac{a_1 + \delta a_0}{\alpha a_1 + \beta a_0 +\lambda a_2},
+$$
+donde los parámetros $\alpha$, $\beta$, $\delta$ y $\lambda$ son valores a elegir que nos determinarán la distancia entre los objetos $i$ y $j$.
+
+Fijarse que el numerador de la distancia $\sigma_{ij}$ sólo depende del número de variables coincidentes $a_0$ y $a_1$ y el denominador depende de todas, tanto las coincidentes $a_0$ y $a_1$ como la disidente $a_2$.
+
+Los valores más comunes de los parámetros anteriores junto con sus nombres se presentan en la tabla siguiente:
+
+## Datos binarios
+<div class="center">
+|Nombre|$\delta$|$\lambda$| $\alpha$ | $\beta$ | Definición|
+|:---|:--:|:--:|:--:|:--:|:---:|
+|Hamming|$1$|$1$|1 | 1| $\dfrac{a_1 + a_0}{a_0+a_1+a_2}$|
+|Jaccard|$0$|$1$| 1|0 | $\dfrac{a_1}{a_1 + a_2}$ |
+|Tanimoto|$1$|$2$|1 |1 | $\dfrac{a_1+a_0}{a_1+2a_2+a_0}$|
+</div>
+
+## Datos binarios
+<div class="center">
+|Nombre|$\delta$|$\lambda$| $\alpha$ | $\beta$ | Definición|
+|:---|:--:|:--:|:--:|:--:|:---:|
+|Rusell--Rao|0 |1| 1| 1| $\dfrac{a_1}{a_0+a_1+a_2}$|
+|Dice|$0$|$0.5$| 1| 0| $\dfrac{2a_1}{2a_1 + a_2}$ |
+|Kulczynski|0|1| 0| 0| $\dfrac{a_1}{a_2}$|
+</div>
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo**
+
+La tabla de datos `Arrests` de la librería `car` nos da la información de 5226 arrestos en Toronto por posesión de cantidades pequeñas de marihuana.
+
+En este ejemplo nos interesan las siguientes variables binarias:
+
+* `colour`: la raza del arrestado/a con niveles `Black` y `White`.
+* `sex`: el sexo del arrestado/a con niveles `Female` y `Male`.
+* `employed`: si el arrestado/a tenía empleo con niveles `No` y `Yes`.
+* `citizen`: si el arrestado/a era ciudadano/a de Toronto con niveles `No` y `Yes`.
+
+Como dicha tabla de datos contiene muchos individuos, vamos a considerar sólo una muestra de 30 individuos:
+```{r,message=FALSE,warning=FALSE}
+library(car)
+set.seed(2020)  # Fijamos la semilla
+individuos.elegidos = sample(1:5226,30)
+tabla.arrestados = Arrests[individuos.elegidos,c("colour","sex","employed","citizen")]
+```
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+Los primeros individuos de nuestra tabla de datos son:
+```{r}
+head(tabla.arrestados)
+```
+Vamos a hallar la matriz de **distancias de Hamming** entre los 30 individuos.
+
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+En primer lugar, codificamos los valores de los niveles de las variables de nuestra tabla de datos de la forma siguiente:
+
+* `colour`: `White`=0, `Black`=1.
+* `sex`: `Male`=0, `Female`=1.
+* `employed`: `No`=0, `Yes`=1.
+* `citizen`: `No`=0, `Yes`=1.
+
+```{r}
+tabla.arrestados$colour = ifelse(tabla.arrestados$colour=="White",0,1)
+tabla.arrestados$sex = ifelse(tabla.arrestados$sex=="Male",0,1)
+tabla.arrestados$employed = ifelse(tabla.arrestados$employed=="No",0,1)
+tabla.arrestados$citizen = ifelse(tabla.arrestados$citizen=="No",0,1)
+```
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+En segundo lugar, definimos la función siguientes para que nos dé los valores $a_0$, $a_1$ y $a_2$ dados un par de individuos $i$ y $j$:
+```{r}
+as = function(xi,xj){
+  n=length(xi)
+  a0 = length(which(xi==xj & xi==0))
+  a1 = length(which(xi==xj & xi==1))
+  a2 = length(which(xi!=xj))
+  return(c(a0,a1,a2))
+  }
+```
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+Recordemos que la distancia de Hamming vale $\sigma_{ij}=\frac{a_1+a_0}{a_0+a_1+a_2}$:
+```{r}
+n=dim(tabla.arrestados)[1]
+matriz.dist.hamming=matrix(1,n,n)
+for (i in 1:(n-1)){
+  for (j in (i+1):n){
+    aux=as(tabla.arrestados[i,],tabla.arrestados[j,])
+    matriz.dist.hamming[i,j]=(aux[1]+aux[2])/sum(aux)
+    matriz.dist.hamming[j,i]=matriz.dist.hamming[i,j]
+  }
+}
+
+```
+</div>
+
+
+## Ejemplo
+<div class="example">
+La distancia de Hamming de los 10 primeros individuos vale:
+```{r}
+matriz.dist.hamming[1:10,1:10]
+```
+
+
+</div>
+
+
+## Datos continuos
+
+Supongamos ahora que nuestra matriz de datos contiene datos continuos, es decir, los objectos a clasificar se pueden considerar elementos de $\mathbb{R}^m$, donde recordemos que tenemos $n$ individuos u objetos y $m$ variables.
+
+El significado de **distancia** en este caso es el opuesto al significado de **distancia** en el caso de datos **binarios**. 
+
+Ahora en el caso de datos continuos, cuanto mayor sea la distancia entre dos objetos, más disimilares son y cuanto menor sea, más similares serán.
+
+En este caso, las **distancias** que se definen entre los objectos se basan en las llamadas **normas $L_r$**.
+
+## Datos continuos
+
+Más concretamente, dados dos objectos $\mathbf{x}_i$ y $\mathbf{x}_j$ de componentes,
+$$
+\mathbf{x}_i=(x_{i1},\ldots,x_{im}),\  \mathbf{x}_j=(x_{j1},\ldots,x_{jm}),
+$$
+la **distancia $L_r$** entre dichos objetos se define como:
+$$
+d_{ij}=\|\mathbf{x_i} - \mathbf{x_j}\|_r = \left(\sum_{k=1}^m |x_{ik} - x_{jk}|^r\right)^{1/r}
+$$
+
+
+## Datos continuos
+Cuando $r=1$, la distancia anterior:
+$d_{ij}= \sum\limits_{k=1}^m |x_{ik} - x_{jk}|,$
+se  denomina **distancia de Manhattan** y
+cuando $r=2$, $d_{ij}= \sqrt{\sum\limits_{k=1}^m (x_{ik} - x_{jk})^2}$, **distancia euclídea**.
+
+## Ejemplo
+<div class="example">
+**Ejemplo**
+
+Para ilustrar el cálculo de distancias en caso de variables continuas, vamos a considerar la tabla de datos `iris` vista ya anteriormente y vamos a elegir aleatoriamente 30 flores al azar:
+```{r}
+set.seed(2020)
+flores.elegidas = sample(1:150,30)
+tabla.iris = iris[flores.elegidas,]
+```
+
+Vamos a calcular la matriz de distancias euclídeas entre las 30 flores anteriores usando las 4 variables continuas de la tabla de datos: la longitud y la amplitud del sépalo y del pétalo.
+</div>
+
+## Ejemplo
+<div class="example">
+En primer lugar definimos una función que nos calcula la distancia euclídea entre dos vectores:
+
+```{r}
+dist.euclidea = function(x,y){
+  n=length(x)
+  d = sqrt(sum((x-y)^2))
+  return(d)
+}
+
+```
+
+La matriz de distancias será la siguiente:
+```{r}
+n=dim(tabla.iris)[1]
+matriz.dist.iris = matrix(0,n,n)
+for (i in 1:(n-1)){
+  for (j in (i+1):n){
+    matriz.dist.iris[i,j]=dist.euclidea(tabla.iris[i,1:4],tabla.iris[j,1:4])
+    matriz.dist.iris[j,i]=matriz.dist.iris[i,j]
+  }
+}
+```
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+Las distancias entre las 10 primeras flores vale:
+```{r}
+round(matriz.dist.iris[1:10,1:10],2)
+```
+
+</div>
+
+## Cálculo de distancias en `R`
+
+La matriz de distancias $\mathbf{D}$  entre los objetos de nuestra tabla de datos se puede calcular con la función `dist`, cuya sintaxis básica es:
+```{r,eval=FALSE}
+dist(x, method=...)
+```
+donde:
+
+* `x` es nuestra tabla de datos (una matriz o un data frame de variables cuantitativas).
+* `method` sirve para indicar la distancia que queremos usar, cuyo nombre se ha de entrar entrecomillado. La distancia por defecto es la euclídea que hemos venido usando hasta ahora. Otros posibles valores son (en lo que sigue, $\mathbf{x}=(x_1,\ldots,x_m)$ e $y=(y_1,\ldots,y_m)$ son dos vectores de $\mathbb{R}^m$):
+
+## Cálculo de distancias en `R`
+  * La distancia de Manhattan, `manhattan`, que recordemos que vale $\sum\limits_{i=1}^m |x_i-y_i|$.
+  * La distancia del máximo, `maximum`, que vale: $\max_{i=1,\ldots,m}|x_i-y_i|$.
+  * La distancia de Canberra, `canberra`, que vale $\sum\limits_{i=1}^m \frac{|x_i-y_i|}{|x_i|+|y_i|}$.
+  * La distancia de Minkowski, `minkowski`, que depende de un parámetro $p>0$ (que se ha de especificar en la función `dist` con `p` igual a su valor), y que vale: $\left(\sum_{i=1}^m |x_{i} - y_{i}|^p\right)^{1/p}$. Observad que cuando $p=1$ se obtiene la distancia de Manhattan y cuando $p=2$, la distancia euclídea usual.
+  
+## Cálculo de distancias en `R`
+  * La distancia binaria, `binary`, que sirve básicamente para comparar vectores binarios (si los vectores no son binarios, `R` los entiende como binarios sustituyendo cada entrada diferente de 0 por 1). La distancia binaria entre `x` e `y` binarios es el número de posiciones en las que estos vectores tienen entradas diferentes, dividido por el número de posiciones en las que alguno de los dos vectores tiene un 1.
+
+
+La salida de aplicar la función `dist` a nuestra tabla de datos es un objeto `dist` de `R`, no es una matriz de distancias usual.
+
+Calculemos la matriz de distancias en el ejemplo anterior.
+
+## Ejemplo
+<div class="example">
+La matriz de distancias con la distancia euclídea de la tabla de datos de las 30 flores anteriores vale:
+```{r}
+round(dist(tabla.iris[,1:4]),2)
+```
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+Si queremos transformar la salida de la matriz de distancias anterior a una matriz de distancias "usual" hay que aplicarle la función `as.matrix`: (mostramos las distancias entre las 10 primeras flores)
+```{r}
+round(as.matrix(dist(tabla.iris[,1:4]))[1:10,1:10],2)
+```
+
+
+</div>
+
+## Escalado de los datos
+En el caso de que no queramos que la variación de las variables no influya en el posterior análisis del cálculo del **árbol binario** debido a que los datos están en escalas diferentes o para que la contribución a la matriz de distancias de cada una de las variables sea parecida, es conveniente que los datos estén en la misma escala.
+
+En este caso, se escalan los datos de la forma siguiente: a los datos de la variable $k$ o columna $k$, $x_{ik}$, $i=1,\ldots,n$ se les resta la media de dicha variable $\overline{x}_k =\frac{\sum\limits_{i=1}^n x_{ik}}{n}$ y se dividen por su desviación estándar $\tilde{s}_k=\sqrt{\frac{n}{n-1}\left(\frac{\sum\limits_{i=1}^n x_{ik}^2}{n}-\overline{x}_k^2\right)}$:
+
+## Escalado de los datos
+$$
+\tilde{x}_{ik}=\frac{x_{ik}-\overline{x}_k}{\tilde{s}_k},
+$$
+donde $\tilde{x}_{ik}$ serían los nuevos valores de la tabla de datos escalada.
+
+De esta forma, todas las $m$ variables o columnas de nuestra tabla de datos tendrán media 0 y desviación estándar 1.
+
+<l class="observ">Observación:</l>
+Cuando usamos la distancia euclídea, la distancia entre los objetos $i$ y $j$ escalados puede calcularse a partir de los valores iniciales $x_{ik}$ y $y_{jk}$, $k=1,\ldots,m$ de la forma siguiente:
+$$
+d_{ij}= \sqrt{\sum_{k=1}^n \frac{(x_{ik} - x_{jk})^2}{\tilde{s}^2_{k}}}.
+$$
+
+## Escalado de los datos en `R`
+Para escalar los datos en `R` hemos de usar la función `scale`:
+```{r, eval = FALSE}
+scale(x, center = TRUE, scale = TRUE)
+```
+donde:
+
+* `x`: nuestra tabla de datos.
+* `center`: es un parámetro lógico o un vector numérico de longitud el número de columnas de `x` indicando la cantidad que queremos restar a los valores de cada variable o columna. Si vale `TRUE` que es su valor por defecto, a cada columna se le resta la media de dicha columna.
+* `scale`: es un parámetro lógico o un vector numérico de longitud el número de columnas de `x` indicando la cantidad por la que queremos dividir los valores de cada variable o columna. Si vale `TRUE` que es su valor por defecto, a los valores de cada columna se les divide por la desviación estándar de dicha columna.
+
+
+## Ejemplo
+<div class="example">
+Las desviaciones estándar de las variables de la tabla de datos de la muestra de flores iris que hemos trabajado son bastante diferentes:
+```{r}
+apply(tabla.iris[,1:4],2,sd)
+```
+
+Si no queremos que la variación de los datos intervenga en el análisis posterior que vamos a hacer, tenemos que escalar los datos:
+```{r}
+tabla.iris.escalada = scale(tabla.iris[,1:4])
+```
+</div>
+
+
+## Ejemplo
+<div class="example">
+Comprobemos que las variables de la tabla de datos nueva tienen media 0 y desviación estándar 1:
+```{r}
+apply(tabla.iris.escalada,2,mean)
+apply(tabla.iris.escalada,2,sd)
+```
+
+</div>
+
+## Clustering jerárquico aglomerativo
+Una vez explicado con todo detalle cómo realizar el cálculo de una matriz de distancias a partir de una tabla de datos, vamos a desarrollar los pasos de los que consta el **clustering jerárquico aglomerativo**.
+
+Recordemos que la salida del **algoritmo del clustering jerárquico aglormerativo** es un árbol binario donde se va indicando cómo se van agrupando los clusters partiendo de una configuración inicial en la que cada objeto forma un cluster.

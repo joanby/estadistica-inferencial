@@ -3947,7 +3947,513 @@ d_{n1} &amp; d_{n2} &amp; \ldots &amp; d_{nn}
 
 <p>Es una decisión muy importante ya que dicha decisión determinará el <strong>árbol binario</strong> que vamos a obtener y dará un significado u otro a los clusters que se deriven del mismo.</p>
 
-<p>A continuación, vamos a tratar los datos <strong>binarios</strong> y los datos <strong>continuos</strong> de forma diferente debido a que el significado de las <strong>distancias</strong> es distinto para un tipo de datos y para el otro.</p></article></slide>
+<p>La <strong>distancia</strong> a elegir dependerá del tipo de datos con los que trabajemos. Más concretamente, vamos a distinguir dos tipos de datos: <strong>binarios</strong> y <strong>continuos</strong>.</p>
+
+<p>El significado de las distancias dependerá del tipo de datos con los que trabajemos.</p>
+
+</article></slide><slide class=""><hgroup><h2>Datos binarios</h2></hgroup><article  id="datos-binarios">
+
+<p>Supongamos que las variables de nuestra matriz de datos sólo contiene datos <strong>binarios</strong>, es decir, datos con sólo dos posibles valores: 0/1, ausencia/presencia, éxito/fracaso, etc.</p>
+
+<p>Usar por ejemplo la distancia euclídea en este tipo de datos no tendría ningún sentido ya que los valores 0 y 1 no tienen ningún significado numérico.</p>
+
+<p>Para fijar ideas, supongamos que nuestra tabla de datos tiene \(n\) filas (objetos) y \(m\) columnas (variables), donde los valores \(x_{ij}\) valen 0 o 1, \(i=1\ldots,n\), \(j=1,\ldots,m\).</p>
+
+<p>Consideramos los valores de dos objectos cualesquiera \(\mathbf{x}_i =(x_{i1},\ldots,x_{im})\), \(\mathbf{x}_j =(x_{j1},\ldots,x_{jm})\) y queremos <strong>medir</strong> de alguna manera lo parecidos que son dichos objetos.</p>
+
+</article></slide><slide class=""><hgroup><h2>Datos binarios</h2></hgroup><article  id="datos-binarios-1">
+
+<p>Para ello, definimos primeramente las cantidades siguientes: \[
+\begin{array}{l}
+a_0 = \left|\{k\mid x_{ik}=x_{jk}=0\}\right|,\\
+a_1 =\left|\{k\mid x_{ik}=x_{jk}=1\}\right|, \\
+a_2 = \left|\{k\mid x_{ik}\neq x_{jk}\}\right|. 
+\end{array}
+\] Es decir, \(a_0\) serían el número de variables en los que los objetos \(i\) y \(j\) tienen el valor 0, \(a_1\), el número de variables en los que los objetos \(i\) y \(j\) tienen el valor \(1\) y \(a_2\), el número de variables en los que los objetos \(i\) y \(j\) difieren.</p>
+
+<p>Intuitivamente, cuanto mayores sean \(a_0\) y \(a_1\) y cuanto menor sea \(a_2\), más parecidos deben ser los objetos \(i\) y \(j\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Datos binarios</h2></hgroup><article  id="datos-binarios-2">
+
+<p>Basándonos en la consideración anterior, definimos el &ldquo;parecido&rdquo; o la <strong>distancia</strong> entre los objetos \(i\) y \(j\) como: \[
+\sigma_{ij}=\frac{a_1 + \delta a_0}{\alpha a_1 + \beta a_0 +\lambda a_2},
+\] donde los parámetros \(\alpha\), \(\beta\), \(\delta\) y \(\lambda\) son valores a elegir que nos determinarán la distancia entre los objetos \(i\) y \(j\).</p>
+
+<p>Fijarse que el numerador de la distancia \(\sigma_{ij}\) sólo depende del número de variables coincidentes \(a_0\) y \(a_1\) y el denominador depende de todas, tanto las coincidentes \(a_0\) y \(a_1\) como la disidente \(a_2\).</p>
+
+<p>Los valores más comunes de los parámetros anteriores junto con sus nombres se presentan en la tabla siguiente:</p>
+
+</article></slide><slide class=""><hgroup><h2>Datos binarios</h2></hgroup><article  id="datos-binarios-3">
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Nombre</th>
+<th align="center">\(\delta\)</th>
+<th align="center">\(\lambda\)</th>
+<th align="center">\(\alpha\)</th>
+<th align="center">\(\beta\)</th>
+<th align="center">Definición</th>
+</tr>
+<tr class="odd">
+<td align="left">Hamming</td>
+<td align="center">\(1\)</td>
+<td align="center">\(1\)</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">\(\dfrac{a_1 + a_0}{a_0+a_1+a_2}\)</td>
+</tr>
+<tr class="even">
+<td align="left">Jaccard</td>
+<td align="center">\(0\)</td>
+<td align="center">\(1\)</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">\(\dfrac{a_1}{a_1 + a_2}\)</td>
+</tr>
+<tr class="odd">
+<td align="left">Tanimoto</td>
+<td align="center">\(1\)</td>
+<td align="center">\(2\)</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">\(\dfrac{a_1+a_0}{a_1+2a_2+a_0}\)</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Datos binarios</h2></hgroup><article  id="datos-binarios-4">
+
+<div class="center">
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Nombre</th>
+<th align="center">\(\delta\)</th>
+<th align="center">\(\lambda\)</th>
+<th align="center">\(\alpha\)</th>
+<th align="center">\(\beta\)</th>
+<th align="center">Definición</th>
+</tr>
+<tr class="odd">
+<td align="left">Rusell–Rao</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">\(\dfrac{a_1}{a_0+a_1+a_2}\)</td>
+</tr>
+<tr class="even">
+<td align="left">Dice</td>
+<td align="center">\(0\)</td>
+<td align="center">\(0.5\)</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">\(\dfrac{2a_1}{2a_1 + a_2}\)</td>
+</tr>
+<tr class="odd">
+<td align="left">Kulczynski</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">\(\dfrac{a_1}{a_2}\)</td>
+</tr>
+</table></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-23">
+
+<div class="example">
+<p><strong>Ejemplo</strong></p>
+
+<p>La tabla de datos <code>Arrests</code> de la librería <code>car</code> nos da la información de 5226 arrestos en Toronto por posesión de cantidades pequeñas de marihuana.</p>
+
+<p>En este ejemplo nos interesan las siguientes variables binarias:</p>
+
+<ul>
+<li><code>colour</code>: la raza del arrestado/a con niveles <code>Black</code> y <code>White</code>.</li>
+<li><code>sex</code>: el sexo del arrestado/a con niveles <code>Female</code> y <code>Male</code>.</li>
+<li><code>employed</code>: si el arrestado/a tenía empleo con niveles <code>No</code> y <code>Yes</code>.</li>
+<li><code>citizen</code>: si el arrestado/a era ciudadano/a de Toronto con niveles <code>No</code> y <code>Yes</code>.</li>
+</ul>
+
+<p>Como dicha tabla de datos contiene muchos individuos, vamos a considerar sólo una muestra de 30 individuos:</p>
+
+<pre class = 'prettyprint lang-r'>library(car)
+set.seed(2020)  # Fijamos la semilla
+individuos.elegidos = sample(1:5226,30)
+tabla.arrestados = Arrests[individuos.elegidos,c(&quot;colour&quot;,&quot;sex&quot;,&quot;employed&quot;,&quot;citizen&quot;)]</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-24">
+
+<div class="example">
+<p>Los primeros individuos de nuestra tabla de datos son:</p>
+
+<pre class = 'prettyprint lang-r'>head(tabla.arrestados)</pre>
+
+<pre >##      colour  sex employed citizen
+## 1436  White Male      Yes     Yes
+## 1260  White Male      Yes     Yes
+## 728   White Male      Yes     Yes
+## 4417  White Male      Yes     Yes
+## 273   White Male      Yes     Yes
+## 1188  White Male      Yes     Yes</pre>
+
+<p>Vamos a hallar la matriz de <strong>distancias de Hamming</strong> entre los 30 individuos.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-25">
+
+<div class="example">
+<p>En primer lugar, codificamos los valores de los niveles de las variables de nuestra tabla de datos de la forma siguiente:</p>
+
+<ul>
+<li><code>colour</code>: <code>White</code>=0, <code>Black</code>=1.</li>
+<li><code>sex</code>: <code>Male</code>=0, <code>Female</code>=1.</li>
+<li><code>employed</code>: <code>No</code>=0, <code>Yes</code>=1.</li>
+<li><code>citizen</code>: <code>No</code>=0, <code>Yes</code>=1.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>tabla.arrestados$colour = ifelse(tabla.arrestados$colour==&quot;White&quot;,0,1)
+tabla.arrestados$sex = ifelse(tabla.arrestados$sex==&quot;Male&quot;,0,1)
+tabla.arrestados$employed = ifelse(tabla.arrestados$employed==&quot;No&quot;,0,1)
+tabla.arrestados$citizen = ifelse(tabla.arrestados$citizen==&quot;No&quot;,0,1)</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-26">
+
+<div class="example">
+<p>En segundo lugar, definimos la función siguientes para que nos dé los valores \(a_0\), \(a_1\) y \(a_2\) dados un par de individuos \(i\) y \(j\):</p>
+
+<pre class = 'prettyprint lang-r'>as = function(xi,xj){
+  n=length(xi)
+  a0 = length(which(xi==xj &amp; xi==0))
+  a1 = length(which(xi==xj &amp; xi==1))
+  a2 = length(which(xi!=xj))
+  return(c(a0,a1,a2))
+  }</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-27">
+
+<div class="example">
+<p>Recordemos que la distancia de Hamming vale \(\sigma_{ij}=\frac{a_1+a_0}{a_0+a_1+a_2}\):</p>
+
+<pre class = 'prettyprint lang-r'>n=dim(tabla.arrestados)[1]
+matriz.dist.hamming=matrix(1,n,n)
+for (i in 1:(n-1)){
+  for (j in (i+1):n){
+    aux=as(tabla.arrestados[i,],tabla.arrestados[j,])
+    matriz.dist.hamming[i,j]=(aux[1]+aux[2])/sum(aux)
+    matriz.dist.hamming[j,i]=matriz.dist.hamming[i,j]
+  }
+}</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-28">
+
+<div class="example">
+<p>La distancia de Hamming de los 10 primeros individuos vale:</p>
+
+<pre class = 'prettyprint lang-r'>matriz.dist.hamming[1:10,1:10]</pre>
+
+<pre >##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+##  [1,] 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.75 0.50  1.00
+##  [2,] 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.75 0.50  1.00
+##  [3,] 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.75 0.50  1.00
+##  [4,] 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.75 0.50  1.00
+##  [5,] 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.75 0.50  1.00
+##  [6,] 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.75 0.50  1.00
+##  [7,] 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.75 0.50  1.00
+##  [8,] 0.75 0.75 0.75 0.75 0.75 0.75 0.75 1.00 0.25  0.75
+##  [9,] 0.50 0.50 0.50 0.50 0.50 0.50 0.50 0.25 1.00  0.50
+## [10,] 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.75 0.50  1.00</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Datos continuos</h2></hgroup><article  id="datos-continuos">
+
+<p>Supongamos ahora que nuestra matriz de datos contiene datos continuos, es decir, los objectos a clasificar se pueden considerar elementos de \(\mathbb{R}^m\), donde recordemos que tenemos \(n\) individuos u objetos y \(m\) variables.</p>
+
+<p>El significado de <strong>distancia</strong> en este caso es el opuesto al significado de <strong>distancia</strong> en el caso de datos <strong>binarios</strong>.</p>
+
+<p>Ahora en el caso de datos continuos, cuanto mayor sea la distancia entre dos objetos, más disimilares son y cuanto menor sea, más similares serán.</p>
+
+<p>En este caso, las <strong>distancias</strong> que se definen entre los objectos se basan en las llamadas <strong>normas \(L_r\)</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Datos continuos</h2></hgroup><article  id="datos-continuos-1">
+
+<p>Más concretamente, dados dos objectos \(\mathbf{x}_i\) y \(\mathbf{x}_j\) de componentes, \[
+\mathbf{x}_i=(x_{i1},\ldots,x_{im}),\  \mathbf{x}_j=(x_{j1},\ldots,x_{jm}),
+\] la <strong>distancia \(L_r\)</strong> entre dichos objetos se define como: \[
+d_{ij}=\|\mathbf{x_i} - \mathbf{x_j}\|_r = \left(\sum_{k=1}^m |x_{ik} - x_{jk}|^r\right)^{1/r}
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Datos continuos</h2></hgroup><article  id="datos-continuos-2">
+
+<p>Cuando \(r=1\), la distancia anterior: \(d_{ij}= \sum\limits_{k=1}^m |x_{ik} - x_{jk}|,\) se denomina <strong>distancia de Manhattan</strong> y cuando \(r=2\), \(d_{ij}= \sqrt{\sum\limits_{k=1}^m (x_{ik} - x_{jk})^2}\), <strong>distancia euclídea</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-29">
+
+<div class="example">
+<p><strong>Ejemplo</strong></p>
+
+<p>Para ilustrar el cálculo de distancias en caso de variables continuas, vamos a considerar la tabla de datos <code>iris</code> vista ya anteriormente y vamos a elegir aleatoriamente 30 flores al azar:</p>
+
+<pre class = 'prettyprint lang-r'>set.seed(2020)
+flores.elegidas = sample(1:150,30)
+tabla.iris = iris[flores.elegidas,]</pre>
+
+<p>Vamos a calcular la matriz de distancias euclídeas entre las 30 flores anteriores usando las 4 variables continuas de la tabla de datos: la longitud y la amplitud del sépalo y del pétalo.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-30">
+
+<div class="example">
+<p>En primer lugar definimos una función que nos calcula la distancia euclídea entre dos vectores:</p>
+
+<pre class = 'prettyprint lang-r'>dist.euclidea = function(x,y){
+  n=length(x)
+  d = sqrt(sum((x-y)^2))
+  return(d)
+}</pre>
+
+<p>La matriz de distancias será la siguiente:</p>
+
+<pre class = 'prettyprint lang-r'>n=dim(tabla.iris)[1]
+matriz.dist.iris = matrix(0,n,n)
+for (i in 1:(n-1)){
+  for (j in (i+1):n){
+    matriz.dist.iris[i,j]=dist.euclidea(tabla.iris[i,1:4],tabla.iris[j,1:4])
+    matriz.dist.iris[j,i]=matriz.dist.iris[i,j]
+  }
+}</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-31">
+
+<div class="example">
+<p>Las distancias entre las 10 primeras flores vale:</p>
+
+<pre class = 'prettyprint lang-r'>round(matriz.dist.iris[1:10,1:10],2)</pre>
+
+<pre >##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+##  [1,] 0.00 3.79 1.58 3.89 1.29 0.71 1.08 4.30 1.71  3.86
+##  [2,] 3.79 0.00 2.47 0.41 4.94 3.87 3.31 1.54 2.44  0.39
+##  [3,] 1.58 2.47 0.00 2.67 2.54 1.48 0.91 2.80 0.45  2.54
+##  [4,] 3.89 0.41 2.67 0.00 5.09 4.03 3.51 1.84 2.64  0.58
+##  [5,] 1.29 4.94 2.54 5.09 0.00 1.19 1.74 5.23 2.63  5.00
+##  [6,] 0.71 3.87 1.48 4.03 1.19 0.00 0.78 4.27 1.71  3.97
+##  [7,] 1.08 3.31 0.91 3.51 1.74 0.78 0.00 3.60 1.06  3.38
+##  [8,] 4.30 1.54 2.80 1.84 5.23 4.27 3.60 0.00 2.62  1.31
+##  [9,] 1.71 2.44 0.45 2.64 2.63 1.71 1.06 2.62 0.00  2.44
+## [10,] 3.86 0.39 2.54 0.58 5.00 3.97 3.38 1.31 2.44  0.00</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Cálculo de distancias en <code>R</code></h2></hgroup><article  id="calculo-de-distancias-en-r">
+
+<p>La matriz de distancias \(\mathbf{D}\) entre los objetos de nuestra tabla de datos se puede calcular con la función <code>dist</code>, cuya sintaxis básica es:</p>
+
+<pre class = 'prettyprint lang-r'>dist(x, method=...)</pre>
+
+<p>donde:</p>
+
+<ul>
+<li><code>x</code> es nuestra tabla de datos (una matriz o un data frame de variables cuantitativas).</li>
+<li><code>method</code> sirve para indicar la distancia que queremos usar, cuyo nombre se ha de entrar entrecomillado. La distancia por defecto es la euclídea que hemos venido usando hasta ahora. Otros posibles valores son (en lo que sigue, \(\mathbf{x}=(x_1,\ldots,x_m)\) e \(y=(y_1,\ldots,y_m)\) son dos vectores de \(\mathbb{R}^m\)):</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Cálculo de distancias en <code>R</code></h2></hgroup><article  id="calculo-de-distancias-en-r-1">
+
+<ul>
+<li>La distancia de Manhattan, <code>manhattan</code>, que recordemos que vale \(\sum\limits_{i=1}^m |x_i-y_i|\).</li>
+<li>La distancia del máximo, <code>maximum</code>, que vale: \(\max_{i=1,\ldots,m}|x_i-y_i|\).</li>
+<li>La distancia de Canberra, <code>canberra</code>, que vale \(\sum\limits_{i=1}^m \frac{|x_i-y_i|}{|x_i|+|y_i|}\).</li>
+<li>La distancia de Minkowski, <code>minkowski</code>, que depende de un parámetro \(p&gt;0\) (que se ha de especificar en la función <code>dist</code> con <code>p</code> igual a su valor), y que vale: \(\left(\sum_{i=1}^m |x_{i} - y_{i}|^p\right)^{1/p}\). Observad que cuando \(p=1\) se obtiene la distancia de Manhattan y cuando \(p=2\), la distancia euclídea usual.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Cálculo de distancias en <code>R</code></h2></hgroup><article  id="calculo-de-distancias-en-r-2">
+
+<ul>
+<li>La distancia binaria, <code>binary</code>, que sirve básicamente para comparar vectores binarios (si los vectores no son binarios, <code>R</code> los entiende como binarios sustituyendo cada entrada diferente de 0 por 1). La distancia binaria entre <code>x</code> e <code>y</code> binarios es el número de posiciones en las que estos vectores tienen entradas diferentes, dividido por el número de posiciones en las que alguno de los dos vectores tiene un 1.</li>
+</ul>
+
+<p>La salida de aplicar la función <code>dist</code> a nuestra tabla de datos es un objeto <code>dist</code> de <code>R</code>, no es una matriz de distancias usual.</p>
+
+<p>Calculemos la matriz de distancias en el ejemplo anterior.</p>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-32">
+
+<div class="example">
+<p>La matriz de distancias con la distancia euclídea de la tabla de datos de las 30 flores anteriores vale:</p>
+
+<pre class = 'prettyprint lang-r'>round(dist(tabla.iris[,1:4]),2)</pre>
+
+<pre >##       87   22   65   17  109  128   56   42   80   29   98  131   66   93
+## 22  3.79                                                                 
+## 65  1.58 2.47                                                            
+## 17  3.89 0.41 2.67                                                       
+## 109 1.29 4.94 2.54 5.09                                                  
+## 128 0.71 3.87 1.48 4.03 1.19                                             
+## 56  1.08 3.31 0.91 3.51 1.74 0.78                                        
+## 42  4.30 1.54 2.80 1.84 5.23 4.27 3.60                                   
+## 80  1.71 2.44 0.45 2.64 2.63 1.71 1.06 2.62                              
+## 29  3.86 0.39 2.54 0.58 5.00 3.97 3.38 1.31 2.44                         
+## 98  0.70 3.24 0.92 3.38 1.71 0.79 0.55 3.64 1.03 3.30                    
+## 131 1.64 5.43 3.14 5.52 0.82 1.78 2.41 5.85 3.24 5.49 2.25               
+## 66  0.32 3.51 1.38 3.60 1.57 0.88 1.05 4.04 1.49 3.57 0.56 1.93          
+## 93  1.28 2.93 0.55 3.13 2.10 1.19 0.56 3.14 0.55 2.96 0.59 2.74 1.12     
+## 120 1.18 4.06 1.63 4.26 1.14 0.87 0.86 4.17 1.66 4.09 1.03 1.92 1.29 1.14
+## 132 2.25 5.87 3.80 5.90 1.88 2.48 3.15 6.54 3.96 5.97 2.93 1.16 2.51 3.50
+## 114 1.30 4.08 1.62 4.28 1.30 0.68 0.91 4.25 1.81 4.15 1.18 2.05 1.44 1.29
+## 78  0.37 4.12 1.83 4.23 0.95 0.62 1.20 4.58 1.97 4.20 0.95 1.33 0.68 1.49
+## 76  0.35 3.49 1.29 3.59 1.54 0.81 0.93 3.96 1.39 3.54 0.44 1.95 0.14 1.00
+## 133 1.22 4.75 2.34 4.89 0.62 0.88 1.58 5.10 2.53 4.84 1.60 1.16 1.50 1.99
+## 7   4.10 0.60 2.66 0.95 5.18 4.11 3.49 1.11 2.60 0.61 3.50 5.73 3.84 3.11
+## 18  3.88 0.24 2.54 0.52 5.02 3.97 3.39 1.35 2.46 0.17 3.31 5.52 3.60 2.98
+## 116 1.05 4.47 2.15 4.59 1.04 0.73 1.51 4.94 2.40 4.59 1.46 1.40 1.31 1.90
+## 85  1.32 3.28 0.95 3.50 1.93 0.86 0.41 3.60 1.22 3.39 0.85 2.60 1.31 0.81
+## 52  0.37 3.49 1.26 3.60 1.54 0.62 0.83 4.01 1.45 3.57 0.46 1.97 0.35 1.03
+## 48  4.12 0.74 2.67 1.09 5.18 4.14 3.49 0.92 2.57 0.63 3.50 5.74 3.85 3.09
+## 44  3.67 0.32 2.28 0.67 4.79 3.71 3.14 1.37 2.25 0.50 3.10 5.31 3.40 2.75
+## 123 2.31 6.10 3.81 6.18 1.39 2.42 3.05 6.52 3.91 6.16 2.92 0.68 2.60 3.40
+## 118 2.45 6.09 3.95 6.14 1.91 2.57 3.26 6.73 4.14 6.20 3.10 1.24 2.72 3.65
+## 82  1.78 2.66 0.60 2.89 2.55 1.67 0.96 2.69 0.35 2.65 1.09 3.22 1.61 0.51
+##      120  132  114   78   76  133    7   18  116   85   52   48   44  123
+## 22                                                                       
+## 65                                                                       
+## 17                                                                       
+## 109                                                                      
+## 128                                                                      
+## 56                                                                       
+## 42                                                                       
+## 80                                                                       
+## 29                                                                       
+## 98                                                                       
+## 131                                                                      
+## 66                                                                       
+## 93                                                                       
+## 120                                                                      
+## 132 2.89                                                                 
+## 114 0.66 2.91                                                            
+## 78  1.08 2.03 1.16                                                       
+## 76  1.17 2.59 1.33 0.68                                                  
+## 133 1.17 1.98 0.99 0.86 1.47                                             
+## 7   4.22 6.24 4.23 4.41 3.79 4.98                                        
+## 18  4.11 5.98 4.15 4.21 3.57 4.84 0.51                                   
+## 116 1.37 1.98 1.08 0.76 1.30 0.51 4.74 4.58                              
+## 85  1.12 3.28 0.92 1.41 1.21 1.66 3.44 3.37 1.52                         
+## 52  1.19 2.54 1.22 0.65 0.32 1.36 3.79 3.58 1.13 1.02                    
+## 48  4.20 6.28 4.23 4.43 3.81 5.00 0.22 0.59 4.78 3.46 3.81               
+## 44  3.88 5.79 3.87 3.99 3.36 4.58 0.55 0.37 4.32 3.10 3.36 0.67          
+## 123 2.53 1.06 2.64 2.00 2.63 1.71 6.40 6.18 1.97 3.23 2.63 6.41 5.98     
+## 118 2.97 0.41 2.94 2.19 2.79 1.97 6.44 6.21 2.00 3.36 2.72 6.49 6.00 1.02
+## 82  1.49 4.00 1.66 1.99 1.49 2.45 2.75 2.67 2.39 1.12 1.53 2.72 2.46 3.87
+##      118
+## 22      
+## 65      
+## 17      
+## 109     
+## 128     
+## 56      
+## 42      
+## 80      
+## 29      
+## 98      
+## 131     
+## 66      
+## 93      
+## 120     
+## 132     
+## 114     
+## 78      
+## 76      
+## 133     
+## 7       
+## 18      
+## 116     
+## 85      
+## 52      
+## 48      
+## 44      
+## 123     
+## 118     
+## 82  4.15</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-33">
+
+<div class="example">
+<p>Si queremos transformar la salida de la matriz de distancias anterior a una matriz de distancias &ldquo;usual&rdquo; hay que aplicarle la función <code>as.matrix</code>: (mostramos las distancias entre las 10 primeras flores)</p>
+
+<pre class = 'prettyprint lang-r'>round(as.matrix(dist(tabla.iris[,1:4]))[1:10,1:10],2)</pre>
+
+<pre >##       87   22   65   17  109  128   56   42   80   29
+## 87  0.00 3.79 1.58 3.89 1.29 0.71 1.08 4.30 1.71 3.86
+## 22  3.79 0.00 2.47 0.41 4.94 3.87 3.31 1.54 2.44 0.39
+## 65  1.58 2.47 0.00 2.67 2.54 1.48 0.91 2.80 0.45 2.54
+## 17  3.89 0.41 2.67 0.00 5.09 4.03 3.51 1.84 2.64 0.58
+## 109 1.29 4.94 2.54 5.09 0.00 1.19 1.74 5.23 2.63 5.00
+## 128 0.71 3.87 1.48 4.03 1.19 0.00 0.78 4.27 1.71 3.97
+## 56  1.08 3.31 0.91 3.51 1.74 0.78 0.00 3.60 1.06 3.38
+## 42  4.30 1.54 2.80 1.84 5.23 4.27 3.60 0.00 2.62 1.31
+## 80  1.71 2.44 0.45 2.64 2.63 1.71 1.06 2.62 0.00 2.44
+## 29  3.86 0.39 2.54 0.58 5.00 3.97 3.38 1.31 2.44 0.00</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Escalado de los datos</h2></hgroup><article  id="escalado-de-los-datos">
+
+<p>En el caso de que no queramos que la variación de las variables no influya en el posterior análisis del cálculo del <strong>árbol binario</strong> debido a que los datos están en escalas diferentes o para que la contribución a la matriz de distancias de cada una de las variables sea parecida, es conveniente que los datos estén en la misma escala.</p>
+
+<p>En este caso, se escalan los datos de la forma siguiente: a los datos de la variable \(k\) o columna \(k\), \(x_{ik}\), \(i=1,\ldots,n\) se les resta la media de dicha variable \(\overline{x}_k =\frac{\sum\limits_{i=1}^n x_{ik}}{n}\) y se dividen por su desviación estándar \(\tilde{s}_k=\sqrt{\frac{n}{n-1}\left(\frac{\sum\limits_{i=1}^n x_{ik}^2}{n}-\overline{x}_k^2\right)}\):</p>
+
+</article></slide><slide class=""><hgroup><h2>Escalado de los datos</h2></hgroup><article  id="escalado-de-los-datos-1">
+
+<p>\[
+\tilde{x}_{ik}=\frac{x_{ik}-\overline{x}_k}{\tilde{s}_k},
+\] donde \(\tilde{x}_{ik}\) serían los nuevos valores de la tabla de datos escalada.</p>
+
+<p>De esta forma, todas las \(m\) variables o columnas de nuestra tabla de datos tendrán media 0 y desviación estándar 1.</p>
+
+<p><l class="observ">Observación:</l> Cuando usamos la distancia euclídea, la distancia entre los objetos \(i\) y \(j\) escalados puede calcularse a partir de los valores iniciales \(x_{ik}\) y \(y_{jk}\), \(k=1,\ldots,m\) de la forma siguiente: \[
+d_{ij}= \sqrt{\sum_{k=1}^n \frac{(x_{ik} - x_{jk})^2}{\tilde{s}^2_{k}}}.
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Escalado de los datos en <code>R</code></h2></hgroup><article  id="escalado-de-los-datos-en-r">
+
+<p>Para escalar los datos en <code>R</code> hemos de usar la función <code>scale</code>:</p>
+
+<pre class = 'prettyprint lang-r'>scale(x, center = TRUE, scale = TRUE)</pre>
+
+<p>donde:</p>
+
+<ul>
+<li><code>x</code>: nuestra tabla de datos.</li>
+<li><code>center</code>: es un parámetro lógico o un vector numérico de longitud el número de columnas de <code>x</code> indicando la cantidad que queremos restar a los valores de cada variable o columna. Si vale <code>TRUE</code> que es su valor por defecto, a cada columna se le resta la media de dicha columna.</li>
+<li><code>scale</code>: es un parámetro lógico o un vector numérico de longitud el número de columnas de <code>x</code> indicando la cantidad por la que queremos dividir los valores de cada variable o columna. Si vale <code>TRUE</code> que es su valor por defecto, a los valores de cada columna se les divide por la desviación estándar de dicha columna.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-34">
+
+<div class="example">
+<p>Las desviaciones estándar de las variables de la tabla de datos de la muestra de flores iris que hemos trabajado son bastante diferentes:</p>
+
+<pre class = 'prettyprint lang-r'>apply(tabla.iris[,1:4],2,sd)</pre>
+
+<pre >## Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+##    0.9296211    0.4549725    1.7794775    0.6695770</pre>
+
+<p>Si no queremos que la variación de los datos intervenga en el análisis posterior que vamos a hacer, tenemos que escalar los datos:</p>
+
+<pre class = 'prettyprint lang-r'>tabla.iris.escalada = scale(tabla.iris[,1:4])</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-35">
+
+<div class="example">
+<p>Comprobemos que las variables de la tabla de datos nueva tienen media 0 y desviación estándar 1:</p>
+
+<pre class = 'prettyprint lang-r'>apply(tabla.iris.escalada,2,mean)</pre>
+
+<pre >##  Sepal.Length   Sepal.Width  Petal.Length   Petal.Width 
+##  1.397085e-16  3.997128e-16  6.682932e-17 -1.355461e-16</pre>
+
+<pre class = 'prettyprint lang-r'>apply(tabla.iris.escalada,2,sd)</pre>
+
+<pre >## Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+##            1            1            1            1</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Clustering jerárquico aglomerativo</h2></hgroup><article  id="clustering-jerarquico-aglomerativo">
+
+<p>Una vez explicado con todo detalle cómo realizar el cálculo de una matriz de distancias a partir de una tabla de datos, vamos a desarrollar los pasos de los que consta el <strong>clustering jerárquico aglomerativo</strong>.</p>
+
+<p>Recordemos que la salida del <strong>algoritmo del clustering jerárquico aglormerativo</strong> es un árbol binario donde se va indicando cómo se van agrupando los clusters partiendo de una configuración inicial en la que cada objeto forma un cluster.</p></article></slide>
 
 
   <slide class="backdrop"></slide>
