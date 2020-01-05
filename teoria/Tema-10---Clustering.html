@@ -3888,7 +3888,66 @@ for (i in 1:veces){
 
 <pre >## [1] 1860.957</pre>
 
-<p>¡Uy!, no habíamos llegado al mínimo. Ahora sabemos que hay un mínimo más óptimo que el hallado anteriormente.</p></div></article></slide>
+<p>¡Uy!, no habíamos llegado al mínimo. Ahora sabemos que hay un mínimo más óptimo que el hallado anteriormente.</p></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Clustering jerárquico</h2></hgroup><article  id="clustering-jerarquico">
+
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-1">
+
+<p>En esta parte vamos a introducir un tipo de clustering que, en lugar de darnos los clusters de la partición de objetos, va a darnos un árbol binario que nos va a indicar cómo se van agrupando los objetos de nuestra tabla de datos.</p>
+
+<p>De cara a no extendernos demasiado, vamos a describir con todo detalle los <strong>métodos aglomerativos</strong> al ser los más usados tanto en técnicas de <strong>machine learning</strong> como en la literatura.</p>
+
+<p>Otra diferencia a tener en cuenta con respecto a los <strong>métodos de partición</strong> es que los métodos de <strong>clustering jerárquico</strong> dan el árbol binario de clasificación a partir de una matriz de distancias entre los objetos de nuestra tabla de datos, no a partir de la tabla de datos misma, tal como hacíamos con el <strong>algoritmo de \(k\)-medias</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-2">
+
+<p>Por tanto, antes de empezar a aplicar las técnicas del <strong>clustering jerárquico</strong>, hemos de hallar una matriz de distancias entre los objectos de nuestra tabla de datos.</p>
+
+<p>En resumen, los <strong>métodos jerárquicos</strong> parten de una matriz \(\mathbf{D}\) de distancias entre los \(n\) objetos de nuestra tabla de datos. \[
+\mathbf{D}=\left(\begin{array}{cccc}
+d_{11} &amp; d_{12} &amp; \ldots &amp; d_{1n}\\
+d_{21} &amp; d_{22} &amp; \ldots &amp; d_{2n}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+d_{n1} &amp; d_{n2} &amp; \ldots &amp; d_{nn}
+\end{array}
+\right),
+\] dónde cada \(d_{ij}\) es la distancia o el parecido entre el objeto \(i\) y lo objeto \(j\).</p>
+
+</article></slide><slide class=""><hgroup><h2>Distancias</h2></hgroup><article  id="distancias">
+
+<p>A continuación, especifiquemos la definición general de <strong>distancia</strong> en un conjunto \(X\):</p>
+
+<p><l class="definition">Definición. </l> Una <strong>distancia</strong> sobre un conjunto \(X\) de objetos es una aplicación \(d:X\times X\to [0,\infty[\) que satisface las condiciones siguientes:</p>
+
+<ul>
+<li><p><strong>Separación</strong>: \(d(x,y)=0\) si, y sólo si, \(x=y\).</p></li>
+<li><p><strong>Simetría</strong>: dados dos objectos cualesquiera \(x,y\in X\), \(d(x,y)=d(y,x)\).</p></li>
+<li><p><strong>Desigualdad triangular</strong>: dados tres objectos cualesquiera \(x,y,z\in X\), se verifica \(d(x,z)\leq d(x,y)+d(y,z)\).</p></li>
+</ul>
+
+<p>Diremos que dos objetos \(x,y\) son más parecidos o más cercanos cuanto más pequeña es \(d(x,y)\), la distancias entre ellos.</p>
+
+</article></slide><slide class=""><hgroup><h2>Distancias</h2></hgroup><article  id="distancias-1">
+
+<p>Si tenemos una tabla de datos, el conjunto \(X\) será un conjunto finito formado por los \(n\) objetos o las \(n\) filas de la tabla de datos: \(X=\{\mathbf{x}_1,\ldots,\mathbf{x}_n\}\).</p>
+
+<p>Por tanto, dar una distancia sobre \(X\) es equivalente a dar una matriz \(\mathbf{D}\) de \(n\) filas y \(n\) columnas, donde la componente \(i,j\) de dicha matriz, \(d_{ij}=d(\mathbf{x}_i,\mathbf{x}_j)\), sería la distancia entre el objeto \(i\) y el objeto \(j\)-ésimo.</p>
+
+<p>Usando la definición de distancia vista anteriormente, tendremos que dicha matriz \(\mathbf{D}\) debe ser</p>
+
+<ul>
+<li>simétrica: \(d(\mathbf{x}_i,\mathbf{x}_j)=d(\mathbf{x}_j,\mathbf{x}_i)\), para cualquier \(i\) y \(j\),</li>
+<li>cumplir la desigualdad triangular: \(d(\mathbf{x}_i,\mathbf{x}_k)\leq d(\mathbf{x}_i,\mathbf{x}_j)+d(\mathbf{x}_j,\mathbf{x}_k)\), para cualquier \(i, j, k\).</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Distancias</h2></hgroup><article  id="distancias-2">
+
+<p>La primera decisión a tomar cuando queramos realizar un <strong>clustering jerárquico</strong> es elegir la <strong>distancia</strong> que vamos a usar.</p>
+
+<p>Es una decisión muy importante ya que dicha decisión determinará el <strong>árbol binario</strong> que vamos a obtener y dará un significado u otro a los clusters que se deriven del mismo.</p>
+
+<p>A continuación, vamos a tratar los datos <strong>binarios</strong> y los datos <strong>continuos</strong> de forma diferente debido a que el significado de las <strong>distancias</strong> es distinto para un tipo de datos y para el otro.</p></article></slide>
 
 
   <slide class="backdrop"></slide>
