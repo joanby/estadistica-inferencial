@@ -1178,10 +1178,10 @@ cuando $r=2$, $d_{ij}= \sqrt{\sum\limits_{k=1}^m (x_{ik} - x_{jk})^2}$, **distan
 <div class="example">
 **Ejemplo**
 
-Para ilustrar el cálculo de distancias en caso de variables continuas, vamos a considerar la tabla de datos `iris` vista ya anteriormente y vamos a elegir aleatoriamente 30 flores al azar:
+Para ilustrar el cálculo de distancias en caso de variables continuas, vamos a considerar la tabla de datos `iris` vista ya anteriormente y vamos a elegir aleatoriamente 10 flores al azar:
 ```{r}
 set.seed(2020)
-flores.elegidas = sample(1:150,30)
+flores.elegidas = sample(1:150,10)
 tabla.iris = iris[flores.elegidas,]
 ```
 
@@ -1220,7 +1220,7 @@ for (i in 1:(n-1)){
 <div class="example">
 Las distancias entre las 10 primeras flores vale:
 ```{r}
-round(matriz.dist.iris[1:10,1:10],2)
+round(matriz.dist.iris,2)
 ```
 
 </div>
@@ -1264,7 +1264,7 @@ round(dist(tabla.iris[,1:4]),2)
 <div class="example">
 Si queremos transformar la salida de la matriz de distancias anterior a una matriz de distancias "usual" hay que aplicarle la función `as.matrix`: (mostramos las distancias entre las 10 primeras flores)
 ```{r}
-round(as.matrix(dist(tabla.iris[,1:4]))[1:10,1:10],2)
+round(as.matrix(dist(tabla.iris[,1:4])),2)
 ```
 
 
@@ -1372,3 +1372,102 @@ Por tanto, la distancia del nuevo cluster $C_1+C_2$ a un cluster $C$ sería:
 $$
 d(C,C_1+ C_2)=\frac{|C_1|}{|C_1|+|C_2|}d(C,C_1)+\frac{|C_2|}{|C_1|+|C_2|}d(C,C_2).
 $$
+
+
+## Clustering jerárquico aglomerativo
+Las expresiones anteriores son casos particulares de la siguiente regla general: suponiendo conocidas las distancias siguientes:
+$$
+d(C,C_1),\quad d(C,C_2),\quad d(C_1,C_2),
+$$
+la formula genérica para hallar $d(C,C_1+ C_2)$ es la siguiente:
+$$
+\begin{array}{rl}
+d(C,C_1+C_2)  = &  \delta_1 d(C,C_1)+\delta_2 d(C,C_2)+\delta_3 d(C_1,C_2) \\ &  + \delta_0 |d(C,C_1)-d(C,C_2)|,
+\end{array}
+$$
+donde los $\delta_i$ son parámetros a elegir.  Cada elección da lugar a un algoritmo diferente, con resultados posiblemente diferentes como se muestra en la tabla siguiente:
+
+## Clustering jerárquico aglomerativo
+
+|Nombre|$\delta_1$|$\delta_2$|$\delta_3$|$\delta_0$|
+|:---|:--:|:--:|:--:|:--|
+|Enlace simple|$1/2$|$1/2$|$0$|$-1/2$|
+|Enlace completo|$1/2$|$1/2$|$0$|$1/2$|
+|Enlace medio|$\frac{|C_1|}{|C_1| + |C_2|}$|$\frac{|C_2|}{|C_1|+ |C_2|}$|$0$|$0$|
+|Centroide |$\frac{|C_1|}{|C_1| + |C_2|}$|$\frac{|C_2|}{|C_1| + |C_2|}$|$-\frac{|C_1| |C_2|}{(|C_1| + |C_2|)^2}$|$0$|
+|Mediana |$1/2$|$1/2$|$-1/4$|$0$|
+|**Ward** |$\frac{|C| + |C_1|}{|C| + |C_1| + |C_2|}$|$\frac{|C| + |C_2|}{|C| + |C_1|+ |C_2|}$|$-\frac{|C|}{|C| + |C_1| + |C_2|}$|$0$|
+
+## Clustering jerárquico aglomerativo
+<div class="exercise">
+**Ejercicio**
+
+Demostrar que para el **enlace simple** y para el **enlace completo** las fórmulas dadas anteriormente y la fórmulas dadas por la tabla anterior son equivalentes. 
+
+Más concretamente, demostrar que dados $C_1,C_2$ y $C$ clusters,
+
+* **Enlace simple**: 
+$$
+d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}=\frac{1}{2}d(C,C_1)+\frac{1}{2} d(C,C_2)-\frac{1}{2} |d(C,C_1)-d(C,C_2)|.
+$$
+* **Enlace completo**: 
+$$
+d(C,C_1+ C_2)=\max\{d(C,C_1),d(C,C_2)\}=\frac{1}{2}d(C,C_1)+\frac{1}{2} d(C,C_2)+\frac{1}{2} |d(C,C_1)-d(C,C_2)|.
+$$
+</div>
+
+## Ejemplo
+<div class="example">
+**Ejemplo de la muestra de flores iris**
+
+Vamos a aplicar el método del enlace simple a la muestra de flores de la tabla de datos `iris`. 
+
+Usaremos los datos sin escalar. Dejamos como ejercicio repetir este ejemplo con los datos escalados.
+
+Recordemos que la matriz de distancias estaba en la matriz `matriz.dist.iris`.
+
+Hallemos las dos flores distintas que tienen distancia mínima que no estén en la diagonal ya que los valores de la diagonal en la matriz de distancias valen 0 y éstas no nos interesan ya que corresponden a las distancias entre todas las flores iguales.
+
+</div>
+
+## Ejemplo
+<div class="example">
+
+Una forma de hacerlo (no la única) es definir otra matriz asignando el valor máximo de nuestra matriz de distancias a los valores de la diagonal y hallar el mínimo de la nueva matriz. De esta manera, no nos saldrán los valores de la diagonal:
+```{r}
+matriz.nueva=matriz.dist.iris
+diag(matriz.nueva)=max(matriz.dist.iris)
+(flores.min=which(matriz.nueva == min(matriz.nueva), arr.ind = TRUE))
+```
+Vemos que las flores `r flores.min[1,1]` y flores `r flores.min[1,2]` son las más cercanas.
+
+Definimos el cluster nuevo $\{`r flores.min[1,1]`,`r flores.min[1,2]`\}$ y eliminamos las flores `r flores.min[1,1]` y flores `r flores.min[1,2]`.
+
+</div>
+
+## Ejemplo
+<div class="example">
+Los nuevos clusters serán:
+```{r,echo=FALSE}
+flores.restantes = setdiff(1:10,c(flores.min[1,1],flores.min[1,2]))
+for (i in 1:length(flores.restantes)){
+  print(flores.restantes[i])
+}
+print(c(flores.min[1,1],flores.min[1,2]))
+```
+
+A continuación tenemos que hallar la distancia del nuevo cluster $\{`r flores.min[1,1]`,`r flores.min[1,2]`\}$ a los demás clusters que en este caso serán clusters con una sola flor usando la expresión del **enlace simple**: 
+$d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}:$
+
+</div>
+
+## Ejemplo
+<div class="example">
+
+* $d(\{`r flores.restantes[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[1]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[1]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[1],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[1],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[1],flores.min[1,1]],matriz.dist.iris[flores.restantes[1],flores.min[1,2]])`$.
+
+* $d(\{`r flores.restantes[2]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[2]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[2]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[2],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[2],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[2],flores.min[1,1]],matriz.dist.iris[flores.restantes[2],flores.min[1,2]])`$.
+</div>
+
