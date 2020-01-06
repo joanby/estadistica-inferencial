@@ -4453,7 +4453,55 @@ d_{ij}= \sqrt{\sum_{k=1}^n \frac{(x_{ik} - x_{jk})^2}{\tilde{s}^2_{k}}}.
 
 <p>Una vez explicado con todo detalle cómo realizar el cálculo de una matriz de distancias a partir de una tabla de datos, vamos a desarrollar los pasos de los que consta el <strong>clustering jerárquico aglomerativo</strong>.</p>
 
-<p>Recordemos que la salida del <strong>algoritmo del clustering jerárquico aglormerativo</strong> es un árbol binario donde se va indicando cómo se van agrupando los clusters partiendo de una configuración inicial en la que cada objeto forma un cluster.</p></article></slide>
+<p>Recordemos que la salida del <strong>algoritmo del clustering jerárquico aglomerativo</strong> es un árbol binario donde se va indicando cómo se van agrupando los clusters partiendo de una configuración inicial en la que cada objeto forma un cluster.</p>
+
+</article></slide><slide class=""><hgroup><h2>Clustering jerárquico aglomerativo</h2></hgroup><article  id="clustering-jerarquico-aglomerativo-1">
+
+<p>Los pasos del algoritmo son los siguientes:</p>
+
+<ul>
+<li>Suponemos que partimos de \(n\) objetos, y de una matriz de <strong>distancias</strong> \(\mathbf{D}\) de dimensiones \(n\times n\), es decir, \(n\) filas y \(n\) columnas.</li>
+<li>En el primer paso, suponemos que cada objeto forma un cluster inicial.</li>
+<li>En el segundo paso, hallamos los dos clusters \(C_1\) y \(C_2\) cuya distancia sea la más pequeña de entre todos los pares de clusters. Si hay pares de clusters que empatan en la distancia mínima, escogemos un par al azar. Seguidamente, unimos \(C_1\) y \(C_2\) en un cluster nuevo que denotamos \(C_1+C_2\). ¡Ojo, la suma no significa sumar en el sentido clásico sino unir!</li>
+<li>Los clusters \(C_1\) y \(C_2\) que hemos unido en el paso anterior ya no existen. Por tanto, en el tercer paso, los eliminamos de la lista de clusters.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Clustering jerárquico aglomerativo</h2></hgroup><article  id="clustering-jerarquico-aglomerativo-2">
+
+<ul>
+<li>En el cuarto paso, recalculamos la distancia del nuevo cluster \(C_1+C_2\) a los demás clusters tal como indicaremos más adelante. Tendremos una matriz de distancias \(\mathbf{D&#39;}\) con una fila menos y una columna menos.</li>
+<li>Repetimos los pasos 2, 3 y 4 hasta que sólo queda un único cluster y una matriz de distancias que sea un único número.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Clustering jerárquico aglomerativo</h2></hgroup><article  id="clustering-jerarquico-aglomerativo-3">
+
+<p>Tal como hemos comentado en el algoritmo anterior, falta indicar en el cuarto paso cómo se calcula la distancia del nuevo cluster \(C_1+C_2\) a los demás clusters. Dicha distancia se puede calcular de varias maneras, dando lugar a resultados diferentes o a tipos de clusters diferentes:</p>
+
+<ul>
+<li>Por <strong>enlace simple</strong>: la distancia entre dos clusters \(C\) y \(C&#39;\) cualquiera se calcula como: \(d(C,C&#39;)=\min\{d(a,b)\mid a\in C,b\in C&#39;\}\).</li>
+</ul>
+
+<p>Por tanto, la distancia del nuevo cluster \(C_1+C_2\) a un cluster \(C\) sería: \[
+d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}.
+\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Clustering jerárquico aglomerativo</h2></hgroup><article  id="clustering-jerarquico-aglomerativo-4">
+
+<ul>
+<li>Por <strong>enlace completo</strong>: la distancia entre dos clusters \(C\) y \(C&#39;\) cualquiera se calcula como: \(d(C,C&#39;)=\max\{d(a,b)\mid a\in C,b\in C&#39;\}\).</li>
+</ul>
+
+<p>Por tanto, la distancia del nuevo cluster \(C_1+C_2\) a un cluster \(C\) sería: \[d(C,C_1+ C_2)=\max\{d(C,C_1),d(C,C_2)\}.\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Clustering jerárquico aglomerativo</h2></hgroup><article  id="clustering-jerarquico-aglomerativo-5">
+
+<ul>
+<li>Por enlace <strong>medio</strong>: la distancia entre dos clusters \(C\) y \(C&#39;\) cualquiera se calcula como: \(\displaystyle d(C,C&#39;)=\displaystyle\frac{\sum\limits_{a\in C, b\in C&#39;} d(a,b)}{|C|\cdot |C&#39;|},\) donde \(|C|\) indica el tamaño del cluster \(C\) o el número de elementos del mismo.</li>
+</ul>
+
+<p>Por tanto, la distancia del nuevo cluster \(C_1+C_2\) a un cluster \(C\) sería: \[
+d(C,C_1+ C_2)=\frac{|C_1|}{|C_1|+|C_2|}d(C,C_1)+\frac{|C_2|}{|C_1|+|C_2|}d(C,C_2).
+\]</p></article></slide>
 
 
   <slide class="backdrop"></slide>
