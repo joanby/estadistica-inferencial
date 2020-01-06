@@ -3219,7 +3219,7 @@ font-size: 0.5em
 <p>Algunas aplicaciones del <strong>clustering</strong> son las siguientes:</p>
 
 <ul>
-<li><p>En Biología: clasificación jerárquica de organismos (relacionada con una filogènia), agrupamiento de genes y agrupamiento de proteínas por parecido estructural.</p></li>
+<li><p>En Biología: clasificación jerárquica de organismos (relacionada con una filogenia), agrupamiento de genes y agrupamiento de proteínas por parecido estructural.</p></li>
 <li><p>En Marketing: identificación de individuos por comportamientos similares (de compras, ocio, etc.)</p></li>
 <li><p>En Tratamiento de imágenes (en particular imágenes médicas): eliminación de ruido, detección de bordes, etc.</p></li>
 <li><p>En Biometría: identificación de individuos a partir de sus caras, huellas dactilares, etc.</p></li>
@@ -3234,7 +3234,7 @@ font-size: 0.5em
 <li><p><strong>Separación</strong>: los objectos que pertenezcan a <strong>clusters</strong> diferentes tienen que estar <strong>alejados</strong>.</p></li>
 </ul>
 
-<p>En los dos gráficos de la figura siguiente vemos un ejemplo de dos algoritmos de clústering donde en el de la izquierda, los clusters cumplen los principios anteriores pero en el de la derecha se violan los dos principios.</p>
+<p>En los dos gráficos de la figura siguiente vemos un ejemplo de dos algoritmos de clustering donde en el de la izquierda, los clusters cumplen los principios anteriores pero en el de la derecha se violan los dos principios.</p>
 
 </article></slide><slide class=""><hgroup><h2>Principios básicos</h2></hgroup><article  id="principios-basicos-1">
 
@@ -3291,7 +3291,7 @@ font-size: 0.5em
 
 <p>Recordemos que, al ser un <strong>algoritmo de partición</strong>, el número de clusters \(k\) se ha prefijado de entrada.</p>
 
-<p>Dicho algoritmo busca una <strong>partición</strong> del conjunto de objetos, donde suponemos que conocemos un conjunto de características o variables que tienen valores contínuos.</p>
+<p>Dicho algoritmo busca una <strong>partición</strong> del conjunto de objetos, donde suponemos que conocemos un conjunto de características o variables que tienen valores continuos.</p>
 
 <p>Concretamente, tenemos una tabla de datos de \(n\) filas y \(m\) columnas, donde cada fila representa un objeto u individuo y cada columna representa una característica de dicho individuo.</p>
 
@@ -3410,7 +3410,7 @@ C_j=\{\mathbf{x}_i\mbox{ tal que} \|\mathbf{x}_i-\mathbf{c}_j\|&lt;\|\mathbf{x}_
 
 </article></slide><slide class=""><hgroup><h2>Algoritmo de las \(k\)-medias (<em>\(k\)-means</em>)</h2></hgroup><article  id="algoritmo-de-las-k-medias-k-means-8">
 
-<p><l class="observ"> Observación: </l> el resultado final, es decir, los clusters obtenidos, depende de cómo inicializemos el algorimo, es decir, de cómo definamos los centros iniciales \(\mathbf{c}_1,\ldots,\mathbf{c}_k\).</p>
+<p><l class="observ"> Observación: </l> el resultado final, es decir, los clusters obtenidos, depende de cómo inicializemos el algoritmo, es decir, de cómo definamos los centros iniciales \(\mathbf{c}_1,\ldots,\mathbf{c}_k\).</p>
 
 <p>Como ya hemos comentado, el algoritmo anterior no tiene porque dar un clustering óptimo, es decir, los centros obtenidos \(\mathbf{c}_1,\ldots,\mathbf{c}_k\) no tienen por qué minimizar la suma de cuadrados de los clusters \(SS_C\). Por este motivo, conviene repetirlo varias veces con diferentes inicializaciones.</p>
 
@@ -3564,10 +3564,10 @@ Repetimos paso 3
 <ul>
 <li><p>El algoritmo es sensible a <strong>outliers</strong> o datos atípicos.</p></li>
 <li><p>Si nuestra tabla de datos contiene variables no numéricas tipo <strong>factor, ordinales</strong>, etc., el algoritmo no se puede aplicar. Es decir, sólo es aplicable para variables continuas que tengan valores en \(\mathbb{R}^n\) usando la <strong>distancia euclídea</strong>.</p></li>
-<li><p>Los clústers que encuentra son esféricos debido a que usa la <strong>distancia euclídea</strong>.</p></li>
+<li><p>Los clusters que encuentra son esféricos debido a que usa la <strong>distancia euclídea</strong>.</p></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Metodos para hallar el número de clusters \(k\). Método del codo</h2></hgroup><article  id="metodos-para-hallar-el-numero-de-clusters-k.-metodo-del-codo">
+</article></slide><slide class=""><hgroup><h2>Métodos para hallar el número de clusters \(k\). Método del codo</h2></hgroup><article  id="metodos-para-hallar-el-numero-de-clusters-k.-metodo-del-codo">
 
 <p>Vamos a ver el método más usado para determinar el número óptimo de clusters a calcular con el <strong>algoritmo de las \(k\) medias</strong>.</p>
 
@@ -3575,7 +3575,7 @@ Repetimos paso 3
 
 <p>La idea es que dicho \(k\) es el valor óptimo en el sentido que hace que la disminución de \(SS_C\) sea lo más &ldquo;óptima&rdquo; posible.</p>
 
-</article></slide><slide class=""><hgroup><h2>Metodos para hallar el número de clusters \(k\). Método del codo</h2></hgroup><article  id="metodos-para-hallar-el-numero-de-clusters-k.-metodo-del-codo-1">
+</article></slide><slide class=""><hgroup><h2>Métodos para hallar el número de clusters \(k\). Método del codo</h2></hgroup><article  id="metodos-para-hallar-el-numero-de-clusters-k.-metodo-del-codo-1">
 
 <p>Veamos un ejemplo para ver cómo aplicar el <strong>método del codo</strong> para hallar el número óptimo de clusters \(k\).</p>
 
@@ -4840,7 +4840,7 @@ diag(matriz.nueva)=max(matriz.dist.iris3)
 
 <ul>
 <li><code>hang</code> es un parámetro que controla la situación de las hojas del dendrograma respecto del margen inferior.</li>
-<li><code>labels</code> es un vector de carácteres que permite poner nombres a los objetos; por defecto, se identifican en la representación gráfica por medio de sus números de fila en la matriz o el data frame que contiene los datos.</li>
+<li><code>labels</code> es un vector de caracteres que permite poner nombres a los objetos; por defecto, se identifican en la representación gráfica por medio de sus números de fila en la matriz o el data frame que contiene los datos.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-52">

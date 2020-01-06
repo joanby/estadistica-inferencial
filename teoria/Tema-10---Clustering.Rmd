@@ -27,7 +27,7 @@ Más concretamente, nos planteamos el problema siguiente: dado un conjunto de ob
 ## Introducción al clustering
 Algunas aplicaciones del **clustering** son las siguientes:
 
-* En Biología: clasificación jerárquica de organismos (relacionada con una filogènia), agrupamiento de genes y agrupamiento de proteínas por parecido estructural.
+* En Biología: clasificación jerárquica de organismos (relacionada con una filogenia), agrupamiento de genes y agrupamiento de proteínas por parecido estructural.
 
 * En Marketing: identificación de individuos por comportamientos similares (de compras, ocio, etc.)
 
@@ -44,7 +44,7 @@ Los **algoritmos de clasificación o clustering** deben verificar dos principios
 
 * **Separación**: los objectos que pertenezcan a **clusters** diferentes tienen que estar **alejados**.
 
-En los dos gráficos de la figura siguiente vemos un ejemplo de dos algoritmos de clústering donde en el de la izquierda, los clusters cumplen los principios anteriores pero en el de la derecha se violan los dos principios.
+En los dos gráficos de la figura siguiente vemos un ejemplo de dos algoritmos de clustering donde en el de la izquierda, los clusters cumplen los principios anteriores pero en el de la derecha se violan los dos principios.
 
 
 ## Principios básicos
@@ -127,7 +127,7 @@ El **algoritmos de las $k$-medias** o *$k$-means* en inglés es el algoritmo de 
 
 Recordemos que, al ser un **algoritmo de partición**, el número de clusters $k$ se ha prefijado de entrada.
 
-Dicho algoritmo busca una **partición** del conjunto de objetos, donde suponemos que conocemos un conjunto de características o variables que tienen valores contínuos. 
+Dicho algoritmo busca una **partición** del conjunto de objetos, donde suponemos que conocemos un conjunto de características o variables que tienen valores continuos. 
 
 Concretamente, tenemos una tabla de datos de $n$ filas y $m$ columnas, donde cada fila representa un objeto u individuo y cada columna representa una característica de dicho individuo.
 
@@ -210,7 +210,7 @@ $$
 
 ## Algoritmo de las $k$-medias (*$k$-means*)
 <l class="observ"> Observación: </l> 
-el resultado final, es decir, los clusters obtenidos, depende de cómo inicializemos el algorimo, es decir, de cómo definamos los centros iniciales $\mathbf{c}_1,\ldots,\mathbf{c}_k$.
+el resultado final, es decir, los clusters obtenidos, depende de cómo inicializemos el algoritmo, es decir, de cómo definamos los centros iniciales $\mathbf{c}_1,\ldots,\mathbf{c}_k$.
 
 Como ya hemos comentado, el algoritmo anterior no tiene porque dar un clustering óptimo, es decir, los centros obtenidos $\mathbf{c}_1,\ldots,\mathbf{c}_k$ no tienen por qué minimizar la suma de cuadrados de los clusters $SS_C$. Por este motivo, conviene repetirlo varias veces con diferentes inicializaciones.
 
@@ -671,16 +671,16 @@ El **algoritmo de $k$-medias** tiene las limitaciones siguientes:
 
 * Si nuestra tabla de datos contiene variables no numéricas tipo **factor, ordinales**, etc., el algoritmo no se puede aplicar. Es decir, sólo es aplicable para variables continuas que tengan valores en $\mathbb{R}^n$ usando la **distancia euclídea**.
 
-* Los clústers que encuentra son esféricos debido a que usa la **distancia euclídea**.
+* Los clusters que encuentra son esféricos debido a que usa la **distancia euclídea**.
 
-## Metodos para hallar el número de clusters $k$. Método del codo
+## Métodos para hallar el número de clusters $k$. Método del codo
 Vamos a ver el método más usado para determinar el número óptimo de clusters a calcular con el **algoritmo de las $k$ medias**. 
 
 Uno de dichos métodos se denomina el **método del codo**. Dicho método se basa en observar como varía la **suma de cuadrados de los clusters $SS_C$** como función del número de clusters $k$ y escoger aquel valor $k$ que haga que la variación de dicha función sea lo más pronunciada posible.
 
 La idea es que dicho $k$ es el valor óptimo en el sentido que hace que la disminución de $SS_C$ sea lo más "óptima" posible.
 
-## Metodos para hallar el número de clusters $k$. Método del codo
+## Métodos para hallar el número de clusters $k$. Método del codo
 Veamos un ejemplo para ver cómo aplicar el **método del codo** para hallar el número óptimo de clusters $k$.
 
 <div class="example">
@@ -1775,7 +1775,7 @@ plot(estudio.clustering,hang=...,labels=...)
 donde
 
 * `hang` es un parámetro que controla la situación de las hojas del dendrograma respecto del margen inferior.
-* `labels` es un vector de carácteres que permite poner nombres a los objetos; por defecto, se identifican en la representación gráfica por medio de sus números de fila en la matriz o el data frame que contiene los datos.
+* `labels` es un vector de caracteres que permite poner nombres a los objetos; por defecto, se identifican en la representación gráfica por medio de sus números de fila en la matriz o el data frame que contiene los datos.
 
 
 ## Ejemplo
