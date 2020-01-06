@@ -1059,11 +1059,11 @@ En este ejemplo nos interesan las siguientes variables binarias:
 * `employed`: si el arrestado/a tenía empleo con niveles `No` y `Yes`.
 * `citizen`: si el arrestado/a era ciudadano/a de Toronto con niveles `No` y `Yes`.
 
-Como dicha tabla de datos contiene muchos individuos, vamos a considerar sólo una muestra de 30 individuos:
+Como dicha tabla de datos contiene muchos individuos, vamos a considerar sólo una muestra de 10 individuos:
 ```{r,message=FALSE,warning=FALSE}
 library(car)
 set.seed(2020)  # Fijamos la semilla
-individuos.elegidos = sample(1:5226,30)
+individuos.elegidos = sample(1:5226,10)
 tabla.arrestados = Arrests[individuos.elegidos,c("colour","sex","employed","citizen")]
 ```
 
@@ -1076,7 +1076,7 @@ Los primeros individuos de nuestra tabla de datos son:
 ```{r}
 head(tabla.arrestados)
 ```
-Vamos a hallar la matriz de **distancias de Hamming** entre los 30 individuos.
+Vamos a hallar la matriz de **distancias de Hamming** entre los 10 individuos.
 
 
 </div>
@@ -1139,7 +1139,7 @@ for (i in 1:(n-1)){
 <div class="example">
 La distancia de Hamming de los 10 primeros individuos vale:
 ```{r}
-matriz.dist.hamming[1:10,1:10]
+matriz.dist.hamming
 ```
 
 
@@ -1183,6 +1183,7 @@ Para ilustrar el cálculo de distancias en caso de variables continuas, vamos a 
 set.seed(2020)
 flores.elegidas = sample(1:150,10)
 tabla.iris = iris[flores.elegidas,]
+rownames(tabla.iris)=1:10
 ```
 
 Vamos a calcular la matriz de distancias euclídeas entre las 30 flores anteriores usando las 4 variables continuas de la tabla de datos: la longitud y la amplitud del sépalo y del pétalo.
@@ -1393,7 +1394,7 @@ donde los $\delta_i$ son parámetros a elegir.  Cada elección da lugar a un alg
 |:---|:--:|:--:|:--:|:--|
 |Enlace simple|$1/2$|$1/2$|$0$|$-1/2$|
 |Enlace completo|$1/2$|$1/2$|$0$|$1/2$|
-|Enlace medio|$\frac{|C_1|}{|C_1| + |C_2|}$|$\frac{|C_2|}{|C_1|+ |C_2|}$|$0$|$0$|
+|Enlace promedio|$\frac{|C_1|}{|C_1| + |C_2|}$|$\frac{|C_2|}{|C_1|+ |C_2|}$|$0$|$0$|
 |Centroide |$\frac{|C_1|}{|C_1| + |C_2|}$|$\frac{|C_2|}{|C_1| + |C_2|}$|$-\frac{|C_1| |C_2|}{(|C_1| + |C_2|)^2}$|$0$|
 |Mediana |$1/2$|$1/2$|$-1/4$|$0$|
 |**Ward** |$\frac{|C| + |C_1|}{|C| + |C_1| + |C_2|}$|$\frac{|C| + |C_2|}{|C| + |C_1|+ |C_2|}$|$-\frac{|C|}{|C| + |C_1| + |C_2|}$|$0$|
@@ -1439,7 +1440,7 @@ matriz.nueva=matriz.dist.iris
 diag(matriz.nueva)=max(matriz.dist.iris)
 (flores.min=which(matriz.nueva == min(matriz.nueva), arr.ind = TRUE))
 ```
-Vemos que las flores `r flores.min[1,1]` y flores `r flores.min[1,2]` son las más cercanas.
+Vemos que las flores `r flores.min[1,1]` y flores `r flores.min[1,2]` son las más cercanas con una distancia de `r matriz.dist.iris[flores.min[1,1],flores.min[1,2]]`.
 
 Definimos el cluster nuevo $\{`r flores.min[1,1]`,`r flores.min[1,2]`\}$ y eliminamos las flores `r flores.min[1,1]` y flores `r flores.min[1,2]`.
 
@@ -1469,5 +1470,516 @@ $d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}:$
 
 * $d(\{`r flores.restantes[2]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[2]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[2]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[2],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[2],flores.min[1,2]]`\} =
 `r min(matriz.dist.iris[flores.restantes[2],flores.min[1,1]],matriz.dist.iris[flores.restantes[2],flores.min[1,2]])`$.
+
+* $d(\{`r flores.restantes[3]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[3]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[3]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[3],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[3],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[3],flores.min[1,1]],matriz.dist.iris[flores.restantes[3],flores.min[1,2]])`$.
+
+* $d(\{`r flores.restantes[4]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[4]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[4]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[4],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[4],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[4],flores.min[1,1]],matriz.dist.iris[flores.restantes[4],flores.min[1,2]])`$.
+
+* $d(\{`r flores.restantes[5]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[5]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[5]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[5],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[5],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[5],flores.min[1,1]],matriz.dist.iris[flores.restantes[5],flores.min[1,2]])`$.
+
+* $d(\{`r flores.restantes[6]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[6]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[6]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[6],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[6],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[6],flores.min[1,1]],matriz.dist.iris[flores.restantes[6],flores.min[1,2]])`$.
+
+* $d(\{`r flores.restantes[7]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[7]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[7]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[7],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[7],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[7],flores.min[1,1]],matriz.dist.iris[flores.restantes[7],flores.min[1,2]])`$.
+
+* $d(\{`r flores.restantes[8]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[8]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[8]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[8],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[8],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[8],flores.min[1,1]],matriz.dist.iris[flores.restantes[8],flores.min[1,2]])`$.
+
+```{r,echo=FALSE}
+n=n-1
+matriz.dist.iris2 = matrix(0,n,n)
+matriz.dist.iris2[1:(n-1),1:(n-1)]=matriz.dist.iris[flores.restantes,flores.restantes]
+matriz.dist.iris2[n,]=c(min(matriz.dist.iris[flores.restantes[1],flores.min[1,1]],matriz.dist.iris[flores.restantes[1],flores.min[1,2]]),min(matriz.dist.iris[flores.restantes[2],flores.min[1,1]],matriz.dist.iris[flores.restantes[2],flores.min[1,2]]),min(matriz.dist.iris[flores.restantes[3],flores.min[1,1]],matriz.dist.iris[flores.restantes[3],flores.min[1,2]]),min(matriz.dist.iris[flores.restantes[4],flores.min[1,1]],matriz.dist.iris[flores.restantes[4],flores.min[1,2]]),min(matriz.dist.iris[flores.restantes[5],flores.min[1,1]],matriz.dist.iris[flores.restantes[5],flores.min[1,2]]),min(matriz.dist.iris[flores.restantes[6],flores.min[1,1]],matriz.dist.iris[flores.restantes[6],flores.min[1,2]]),min(matriz.dist.iris[flores.restantes[7],flores.min[1,1]],matriz.dist.iris[flores.restantes[7],flores.min[1,2]]),min(matriz.dist.iris[flores.restantes[8],flores.min[1,1]],matriz.dist.iris[flores.restantes[8],flores.min[1,2]]),0)
+matriz.dist.iris2[,n]=matriz.dist.iris2[n,]
+```
 </div>
 
+## Ejemplo
+<div class="example">
+La nueva matriz de distancias entre los clusters: 
+$$
+\{`r flores.restantes[1]`\},\ \{`r flores.restantes[2]`\},\ \{`r flores.restantes[3]`\},\ \{`r flores.restantes[4]`\},\ \{`r flores.restantes[5]`\},\ \{`r flores.restantes[6]`\},\ \{`r flores.restantes[7]`\},\ \{`r flores.restantes[8]`\},\ \{`r flores.min[1,1]`,`r flores.min[1,2]`\},
+$$
+es la siguiente:
+```{r,echo=FALSE}
+round(matriz.dist.iris2,3)
+```
+
+Observamos que tiene una dimensión menor y es una matriz de `r n` filas y `r n` columnas.
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+El siguiente paso es hallar los dos clusters siguientes con distancia mínima.
+
+Haremos el mismo truco que hemos hecho anteriormente: (la nueva matriz de distancias la hemos guardado en `matriz.dist.iris2`)
+```{r}
+matriz.nueva=matriz.dist.iris2
+diag(matriz.nueva)=max(matriz.dist.iris2)
+(flores.min2 = which(matriz.nueva == min(matriz.nueva),arr.ind=TRUE))
+```
+Vemos que los clusters $\{`r flores.min[1,1]`,`r flores.min[1,2]`\}$ y $\{`r 4`\}$ son las más cercanos con una distancia de `r matriz.dist.iris2[flores.min2[1,1],flores.min2[1,2]]`. Acordarse que la fila `r flores.min2[1,1]` correspondía al cluster que hemos unido en el paso anterior $\{`r flores.min[1,1]`,`r flores.min[1,2]`\}$.
+
+Definimos el cluster nuevo $\{`r flores.min[1,1]`,`r flores.min[1,2]`, 4\}$ y eliminamos los clusters $\{`r flores.min[1,1]`,`r flores.min[1,2]`\}$ y $\{4\}$.
+</div>
+
+## Ejemplo
+<div class="example">
+Los nuevos clusters serán:
+```{r,echo=FALSE}
+flores.restantes2 = setdiff(1:9,c(flores.min2[1,1],flores.min2[1,2]))
+for (i in c(1,3,5:9)){print(i)}
+print(sort(c(flores.min[1,1],flores.min[1,2],4)))
+```
+
+A continuación tenemos que hallar la distancia del nuevo cluster $\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\}$ a los demás clusters que en este caso serán clusters con una sola flor usando la expresión del **enlace simple**: 
+$d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}:$
+
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+
+* $d(\{`r flores.restantes2[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{`r flores.restantes2[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{`r flores.restantes2[1]`\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[1],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[1],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[1],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[1],flores.min2[1,2]])`$.
+
+* $d(\{3\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{3\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{3\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[2],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[2],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[2],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[2],flores.min2[1,2]])`$.
+
+* $d(\{5\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{5\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{5\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[3],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[3],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[3],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[3],flores.min2[1,2]])`$.
+
+* $d(\{6\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{6\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(6\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[4],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[4],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[4],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[4],flores.min2[1,2]])`$.
+
+* $d(\{7\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{7\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{7\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[5],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[5],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[5],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[5],flores.min2[1,2]])`$.
+
+* $d(\{8\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{8\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{8\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[6],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[6],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[6],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[6],flores.min2[1,2]])`$.
+
+* $d(\{9\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{9\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{9\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[7],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[7],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[7],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[7],flores.min2[1,2]])`$.
+
+```{r,echo=FALSE}
+n=n-1
+matriz.dist.iris3 = matrix(0,n,n)
+matriz.dist.iris3[1:(n-1),1:(n-1)]=matriz.dist.iris2[flores.restantes2,flores.restantes2]
+matriz.dist.iris3[n,]=c(min(matriz.dist.iris2[flores.restantes2[1],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[1],flores.min2[1,2]]),min(matriz.dist.iris2[flores.restantes2[2],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[2],flores.min2[1,2]]),min(matriz.dist.iris2[flores.restantes2[3],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[3],flores.min2[1,2]]),min(matriz.dist.iris2[flores.restantes2[4],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[4],flores.min2[1,2]]),min(matriz.dist.iris2[flores.restantes2[5],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[5],flores.min2[1,2]]),min(matriz.dist.iris2[flores.restantes2[6],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[6],flores.min2[1,2]]),min(matriz.dist.iris2[flores.restantes2[7],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[7],flores.min2[1,2]]),0)
+matriz.dist.iris3[,n]=matriz.dist.iris3[n,]
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+La nueva matriz de distancias entre los clusters: 
+$$
+\{`r flores.restantes2[1]`\},\ \{`r 3`\},\ \{`r flores.restantes2[4]`\},\ \{`r flores.restantes2[5]`\},\ \{`r flores.restantes2[6]`\},\ \{`r flores.restantes2[7]`\},\ \{9\},\ \{`r flores.min[1,1]`,`r flores.min[1,2]`,4\},
+$$
+es la siguiente:
+```{r,echo=FALSE}
+round(matriz.dist.iris3,3)
+```
+
+Observamos que tiene una dimensión menor y es una matriz de `r n` filas y `r n` columnas.
+
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+El siguiente paso es hallar los dos clusters siguientes con distancia mínima.
+
+Haremos el mismo truco que hemos hecho en los dos pasos anteriores: (la nueva matriz de distancias la hemos guardado en `matriz.dist.iris3`)
+```{r}
+matriz.nueva=matriz.dist.iris3
+diag(matriz.nueva)=max(matriz.dist.iris3)
+(flores.min3 = which(matriz.nueva == min(matriz.nueva),arr.ind=TRUE))
+```
+Vemos que los clusters $\{9\}$ y $\{3\}$ son las más cercanos con una distancia de `r matriz.dist.iris3[flores.min3[1,1],flores.min3[1,2]]`.
+
+Definimos el cluster nuevo $\{3,9\}$ y eliminamos los clusters $\{3\}$ y $\{9\}$ 
+</div>
+
+
+## Ejemplo
+<div class="example">
+Los nuevos clusters serán:
+```{r,echo=FALSE}
+flores.restantes3 = setdiff(1:8,c(flores.min3[1,1],flores.min3[1,2]))
+for (i in c(1,5,6,7,8)){
+  print(i)
+}
+print(sort(c(flores.min[1,1],flores.min[1,2],4)))
+print(sort(c(3,9)))
+```
+
+A continuación tenemos que hallar la distancia del nuevo cluster $\{3,9\}$ a los demás clusters que en este caso serán clusters con una sola flor usando la expresión del **enlace simple**: 
+$d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}:$
+
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+
+* $d(\{`r flores.restantes3[1]`\},\{3,9\})=\min\{d(\{`r flores.restantes3[1]`\},\{3\}),d(\{`r flores.restantes3[1]`\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[1],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[1],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[1],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[1],flores.min3[1,2]])`$.
+
+* $d(\{5\},\{3,9\})=\min\{d(\{5\},\{3\}),d(\{5\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[2],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[2],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[2],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[2],flores.min3[1,2]])`$.
+
+* $d(\{6\},\{3,9\})=\min\{d(\{6\},\{3\}),d(\{6\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[3],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[3],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[3],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[3],flores.min3[1,2]])`$.
+
+* $d(\{7\},\{3,9\})=\min\{d(\{7\},\{3\}),d(\{7\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[4],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[4],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[4],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[4],flores.min3[1,2]])`$.
+
+* $d(\{8\},\{3,9\})=\min\{d(\{8\},\{3\}),d(\{8\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[5],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[5],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[5],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[5],flores.min3[1,2]])`$.
+
+* $d(\{2,4,10\},\{3,9\})=\min\{d(\{2,4,10\},\{3\}),d(\{2,4,10\},\{9\})\}=\min\{`r matriz.dist.iris3[8,flores.min3[1,1]]`,`r matriz.dist.iris3[8,flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[8,flores.min3[1,1]],matriz.dist.iris3[8,flores.min3[1,2]])`$.
+
+```{r,echo=FALSE}
+n=n-1
+matriz.dist.iris4 = matrix(0,n,n)
+matriz.dist.iris4[1:(n-1),1:(n-1)]=matriz.dist.iris3[flores.restantes3,flores.restantes3]
+matriz.dist.iris4[n,]=c(min(matriz.dist.iris3[flores.restantes3[1],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[1],flores.min3[1,2]]),min(matriz.dist.iris3[flores.restantes3[2],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[2],flores.min3[1,2]]),min(matriz.dist.iris3[flores.restantes3[3],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[3],flores.min3[1,2]]),min(matriz.dist.iris3[flores.restantes3[4],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[4],flores.min3[1,2]]),min(matriz.dist.iris3[flores.restantes3[5],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[5],flores.min3[1,2]]),min(matriz.dist.iris3[8,flores.min3[1,1]],matriz.dist.iris3[8,flores.min3[1,2]]),0)
+matriz.dist.iris4[,n]=matriz.dist.iris4[n,]
+```
+</div>
+
+## Ejemplo
+<div class="example">
+La nueva matriz de distancias entre los clusters: 
+$$
+\{`r flores.restantes3[1]`\},\ \{5\},\ \{6\},\ \{7\},\ \{8\},\ \{2,4,10\},\ \{3,9\},
+$$
+es la siguiente:
+```{r,echo=FALSE}
+round(matriz.dist.iris4,3)
+```
+
+Observamos que tiene una dimensión menor y es una matriz de `r n` filas y `r n` columnas.
+
+Y así sucesivamente hasta tener un solo cluster.
+
+</div>
+
+## Clustering jerárquico aglomerativo con `R`
+La función de `R` para realizar un clustering jerárquico aglomerativo es `hclust`:
+```{r,eval=FALSE}
+hclust(d, method = ...)
+```
+donde:
+
+* `d` es la matriz de distancias entre nuestros objetos calculada con la función `dist`.
+
+* `method` sirve para especificar cómo se define la distancia de la unión de dos clusters al resto de los clusters. El nombre del método se ha de entrar entrecomillado. Los más populares son los siguientes:
+
+## Clustering jerárquico aglomerativo con `R`
+  * Método de enlace completo, `complete`,
+  * Método de enlace simple, `single`,
+  * Método de enlace promedio, `average`,
+  * Método de la mediana, `median`,
+  * Método del centroide, `centroid`,
+  * Método de Ward clásico, `ward.D`.
+
+
+## Clustering jerárquico aglomerativo con `R`
+
+Para la interpretación de la salida, imaginemos que hemos guardado en el objeto `estudio.clustering` el resultado de la función `hclust`:
+```{r,eval=FALSE}
+estudio.clustering = hclust(d,method=...)
+```
+entonces:
+
+* `estudio.clustering$merge` nos indica cómo ha ido agrupando los clusters. Es una matriz de $n-1$ filas y 2 columnas, donde $n$ es el número de objetos.
+En esta matriz, los objetos originales se representan con números negativos, y los nuevos clusters con números positivos que indican el paso en el que se han creado. 
+
+* `estudio.clustering$height` es un vector que contiene las distancias a las que se han ido agrupando los pares de clusters.
+
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de la muestra de flores iris**
+
+Para realizar el estudio de la muestra de flores de la tabla de datos `iris` hacemos los siguiente:
+```{r}
+estudio.clustering.iris = hclust(dist(tabla.iris[,1:4]),method="single")
+```
+
+Veamos cómo ha realizado los agrupamientos:
+```{r}
+estudio.clustering.iris$merge
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+`R` primero agrupa las flores 2 y 10 tal como hemos hecho anteriormente a mano.
+
+Seguidamente agrupa la flor número 4 con el cluster creado en el paso 1 ($\{2,10\}$) creando el nuevo cluster $\{2,4,10\}$.
+
+Seguidamente agrupa las flores 3 y 9 creando el cluster $\{3,9\}$.
+
+Fijarse que los tres pasos coinciden con los pasos hechos a mano.
+
+En el cuarto paso agrupa las flores 1 y 6 creando el cluster $\{1,6\}$.
+
+En el quinto, la flor 7 con el cluster creado en el paso 4 ($\{1,6\}$) creando el cluster $\{1,6,7\}$.
+
+En el sexto paso agrupa los clusters creados en el paso 3 $\{3,9\}$ y en el paso 5 $\{1,6,7\}$ creando el cluster $\{1,3,6,7,9\}$.
+
+En el séptimo paso agrupa la flor número 5 con el cluster creado en el sexto paso ($\{1,3,6,7,9\}$) creando el cluster $\{1,3,5,6,7,9\}$.
+
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+En el octavo paso agrupa la flor número 8 con el cluster creado en el segundo paso ($\{2,10,4\}$) creando el cluster $\{2,4,8,10\}$.
+
+Por último, en el noveno paso, agrupa los clusters creados en el paso 7 ($\{1,3,5,6,7,9\}$) y en el paso 8 ($\{2,4,8,10\}$) creando el cluster formado por todas las flores de la muestra.
+
+Para ver a qué distancias ha realizado los agrupamientos, hacemos lo siguiente:
+```{r}
+estudio.clustering.iris$height
+```
+
+Fijarse que las tres primeras distancias corresponden a las distancias con las que hemos creado los nuevos clusters en los tres primeros pasos realizados a mano.
+</div>
+
+## Gráfico del árbol binario o **dendrograma**
+La visualización de los pasos del **clustering aglomerativo** se realiza mediante un árbol binario denominado **dendrograma**. 
+
+Para visualizarlo en `R` basta usar la función `plot`:
+```{r,eval=FALSE}
+plot(estudio.clustering,hang=...,labels=...)
+```
+donde
+
+* `hang` es un parámetro que controla la situación de las hojas del dendrograma respecto del margen inferior.
+* `labels` es un vector de carácteres que permite poner nombres a los objetos; por defecto, se identifican en la representación gráfica por medio de sus números de fila en la matriz o el data frame que contiene los datos.
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de la muestra de flores iris**
+
+El **dendrograma** para estudio del clustering aglomerativo de los datos de la muestra de flores iris es el siguiente:
+```{r,eval=FALSE}
+plot(estudio.clustering.iris,hang=-1,xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+```
+
+Fijaos como los agrupamientos comentados anteriormente se visualizan en el **dendrograma**.
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+plot(estudio.clustering.iris,hang=-1,xlab="muestra de flores tabla de datos iris",sub="", ylab="distancias",labels=1:10)
+```
+</div>
+
+## ¿Cómo calcular los clusters definidos por un clustering jerárquico?
+Un **clustering jerárquico** puede usarse para definir un clustering ordinario, es decir, una clasificación de los objetos bajo estudio dando los clusters correspondientes.
+
+Dichos clusters se pueden hallar de dos maneras: indicando cuántos clusters deseamos, o indicando a qué altura queremos cortar el dendrograma, de manera que clusters que se unan a una distancia mayor que dicha altura queden separados. 
+
+
+## ¿Cómo calcular los clusters definidos por un clustering jerárquico?
+
+En el dendrograma del ejemplo anterior, si sólo queremos tres clusters, éstos deben ser:
+$$
+\{1,3,5,6,7,9\},\ \{8\},\ \{2,4,10\}.
+$$
+
+En cambio, si cortamos por una distancia de 1.5, sólo aparecerán dos clusters:
+$$
+\{1,3,5,6,7,9\},\ \{2,4,8,10\}.
+$$
+
+## ¿Cómo calcular los clusters definidos por un clustering jerárquico en `R`?
+Para calcular los clusters en `R` debemos usar la función `cutree`:
+```{r,eval=FALSE}
+cutree(estudio.clustering,k=...,h=...)
+```
+donde:
+
+* `k` es un parámetro que indica el número de clusters deseado
+* `h` es un parámetro que indica la altura a la que queremos cortar. 
+
+
+## Ejemplo
+<div class="example">
+**Ejemplo de la muestra de flores iris**
+
+En el ejemplo de la muestra de flores iris, si sólo queremos tres clusters para el estudio de **clustering aglomerativo**, hemos de hacer lo siguiente:
+```{r}
+cutree(estudio.clustering.iris,k=3)
+```
+Observamos que `R` nos ha dado los mismos clusters que hemos indicado anteriormente.
+</div>
+
+## Ejemplo
+<div class="example">
+Si cortamos a una distancia de 1.5, los clusters serán:
+```{r}
+cutree(estudio.clustering.iris,h=1.5)
+```
+dando los mismos clusters vistos anteriormente.
+
+</div>
+
+## ¿Cómo calcular los clusters definidos por un clustering jerárquico en `R`?
+Para visualizar los clusters en el **dendrograma** hemos de usar la función `rect.hclust`:
+```{r,eval=FALSE}
+plot(estudio.clustering,...)
+rect.hclust(estudio.clustering,h=...,k=...)
+```
+Fijarse que antes de llamar a la función `rect.hclust` hemos de realizar el **dendrograma** usando la función `plot`.
+
+## Ejemplo
+<div class="example">
+**Ejemplo de la muestra de flores iris**
+
+Visualicemos los clusters anteriores:
+```{r,eval=FALSE}
+plot(estudio.clustering.iris,hang=-1,xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+rect.hclust(estudio.clustering.iris,k=3)
+```
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+plot(estudio.clustering.iris,hang=-1,xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+rect.hclust(estudio.clustering.iris,k=3)
+```
+</div>
+
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,eval=FALSE}
+plot(estudio.clustering.iris,hang=-1,xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+rect.hclust(estudio.clustering.iris,h=1.5)
+```
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+plot(estudio.clustering.iris,hang=-1,xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+rect.hclust(estudio.clustering.iris,h=1.5)
+```
+</div>
+
+
+## Propiedades de los métodos en el clustering jerárquico
+
+Si usamos el método del **enlace simple**, donde recordemos que
+$$
+d(C,C_1+C_2)=\min \left(d(C,C_1),d(C,C_2)\right),
+$$
+tiende a construir clusters grandes: clusters que tendrían que ser diferentes pero que tienen dos individuos próximos se unen en un único cluster.
+
+
+Si usamos el método del **enlace completo**, donde recordemos que 
+$$
+d(C,C_1+C_2)=\max \left(d(C,C_1),d(C,C_2)\right),
+$$
+se comporta de forma totalmente diferente agrupando  clusters solo cuando todos los puntos están próximos.
+
+
+
+
+
+## Propiedades de los métodos en el clustering jerárquico
+
+Si usamos el método de **enlace promedio**,
+donde recordemos que
+$$
+d(C,C_1+C_2)=\frac{|C_1|}{|C_1|+ |C_2|} d(C,C_1)+\frac{|C_2|}{|C_1| + |C_2|} d(C,C_2),
+$$
+se comportaría como una solución intermedia entre los dos métodos anteriores.
+
+Dicho método es muy usado en la reconstrucción de árboles filogenéticos a partir de matrices de distancias (método *UPGMA*, *Unweighted Pair Group Method Using Arithmetic Averages*)
+
+## Ejemplo
+<div class="example">
+**Ejemplo de la muestra de flores iris**
+
+Si en lugar de usar el método del **enlace simple** usamos el método del **enlace completo** en la muestra de la tabla de datos de flores iris, obtenemos el dendrograma siguiente:
+```{r,eval=FALSE}
+estudio.clustering.iris.completo=hclust(dist(tabla.iris[,1:4],method="complete"))
+plot(estudio.clustering.iris.completo,hang=-1,xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+estudio.clustering.iris.completo=hclust(dist(tabla.iris[,1:4]),method="complete")
+plot(estudio.clustering.iris.completo,hang=-1,xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Si cortamos a la misma distancia que antes, `h=1.5` obtenemos los clusters siguientes:
+```{r}
+cutree(estudio.clustering.iris.completo,h=1.5)
+```
+Observamos que ahora nos ha creado 4 clusters:
+$$
+\{1,5,6\},\ \{2,4,10\},\ \{7,9\},\ \{8\},
+$$
+comportándose tal como hemos indicado, es decir, "le cuesta" hacer clusters grandes.
+
+Visualicemos el resultado:
+
+```{r,eval=FALSE}
+plot(estudio.clustering.iris.completo,hang=-1,
+     xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+rect.hclust(estudio.clustering.iris,h=1.5)
+```
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+plot(estudio.clustering.iris.completo,hang=-1,
+     xlab="muestra de flores tabla de datos iris",
+     sub="", ylab="distancias",labels=1:10)
+rect.hclust(estudio.clustering.iris.completo,h=1.5)
+```
+</div>
+
+
+
+</div>
