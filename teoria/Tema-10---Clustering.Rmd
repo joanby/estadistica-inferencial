@@ -1059,12 +1059,13 @@ En este ejemplo nos interesan las siguientes variables binarias:
 * `employed`: si el arrestado/a tenía empleo con niveles `No` y `Yes`.
 * `citizen`: si el arrestado/a era ciudadano/a de Toronto con niveles `No` y `Yes`.
 
-Como dicha tabla de datos contiene muchos individuos, vamos a considerar sólo una muestra de 10 individuos:
+Como dicha tabla de datos contiene muchos individuos, vamos a considerar sólo una muestra de 25 individuos:
 ```{r,message=FALSE,warning=FALSE}
 library(car)
-set.seed(2020)  # Fijamos la semilla
-individuos.elegidos = sample(1:5226,10)
+set.seed(888)  # Fijamos la semilla
+individuos.elegidos = sample(1:5226,25)
 tabla.arrestados = Arrests[individuos.elegidos,c("colour","sex","employed","citizen")]
+rownames(tabla.arrestados)=1:25
 ```
 
 </div>
@@ -1072,11 +1073,11 @@ tabla.arrestados = Arrests[individuos.elegidos,c("colour","sex","employed","citi
 
 ## Ejemplo
 <div class="example">
-Los primeros individuos de nuestra tabla de datos son:
+Los 10 primeros individuos de nuestra tabla de datos son:
 ```{r}
-head(tabla.arrestados)
+head(tabla.arrestados,10)
 ```
-Vamos a hallar la matriz de **distancias de Hamming** entre los 10 individuos.
+Vamos a hallar la matriz de **distancias de Hamming** entre los 25 individuos.
 
 
 </div>
@@ -1139,7 +1140,7 @@ for (i in 1:(n-1)){
 <div class="example">
 La distancia de Hamming de los 10 primeros individuos vale:
 ```{r}
-matriz.dist.hamming
+matriz.dist.hamming[1:10,1:10]
 ```
 
 
@@ -1263,7 +1264,7 @@ round(dist(tabla.iris[,1:4]),2)
 
 ## Ejemplo
 <div class="example">
-Si queremos transformar la salida de la matriz de distancias anterior a una matriz de distancias "usual" hay que aplicarle la función `as.matrix`: (mostramos las distancias entre las 10 primeras flores)
+Si queremos transformar la salida de la matriz de distancias anterior a una matriz de distancias "usual" hay que aplicarle la función `as.matrix`: 
 ```{r}
 round(as.matrix(dist(tabla.iris[,1:4])),2)
 ```
@@ -1465,29 +1466,26 @@ $d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}:$
 ## Ejemplo
 <div class="example">
 
-* $d(\{`r flores.restantes[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[1]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[1]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[1],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[1],flores.min[1,2]]`\} =
-`r min(matriz.dist.iris[flores.restantes[1],flores.min[1,1]],matriz.dist.iris[flores.restantes[1],flores.min[1,2]])`$.
-
-* $d(\{`r flores.restantes[2]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[2]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[2]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[2],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[2],flores.min[1,2]]`\} =
-`r min(matriz.dist.iris[flores.restantes[2],flores.min[1,1]],matriz.dist.iris[flores.restantes[2],flores.min[1,2]])`$.
-
-* $d(\{`r flores.restantes[3]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[3]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[3]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[3],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[3],flores.min[1,2]]`\} =
-`r min(matriz.dist.iris[flores.restantes[3],flores.min[1,1]],matriz.dist.iris[flores.restantes[3],flores.min[1,2]])`$.
-
-* $d(\{`r flores.restantes[4]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[4]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[4]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[4],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[4],flores.min[1,2]]`\} =
-`r min(matriz.dist.iris[flores.restantes[4],flores.min[1,1]],matriz.dist.iris[flores.restantes[4],flores.min[1,2]])`$.
-
-* $d(\{`r flores.restantes[5]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[5]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[5]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[5],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[5],flores.min[1,2]]`\} =
-`r min(matriz.dist.iris[flores.restantes[5],flores.min[1,1]],matriz.dist.iris[flores.restantes[5],flores.min[1,2]])`$.
-
-* $d(\{`r flores.restantes[6]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[6]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[6]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[6],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[6],flores.min[1,2]]`\} =
-`r min(matriz.dist.iris[flores.restantes[6],flores.min[1,1]],matriz.dist.iris[flores.restantes[6],flores.min[1,2]])`$.
-
-* $d(\{`r flores.restantes[7]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[7]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[7]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[7],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[7],flores.min[1,2]]`\} =
-`r min(matriz.dist.iris[flores.restantes[7],flores.min[1,1]],matriz.dist.iris[flores.restantes[7],flores.min[1,2]])`$.
-
-* $d(\{`r flores.restantes[8]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})=\min\{d(\{`r flores.restantes[8]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[8]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[8],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[8],flores.min[1,2]]`\} =
-`r min(matriz.dist.iris[flores.restantes[8],flores.min[1,1]],matriz.dist.iris[flores.restantes[8],flores.min[1,2]])`$.
+$$
+\begin{array}{rl}
+d(\{`r flores.restantes[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}) & =\min\{d(\{`r flores.restantes[1]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[1]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[1],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[1],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[1],flores.min[1,1]],matriz.dist.iris[flores.restantes[1],flores.min[1,2]])`,\\
+d(\{`r flores.restantes[2]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}) & =\min\{d(\{`r flores.restantes[2]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[2]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[2],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[2],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[2],flores.min[1,1]],matriz.dist.iris[flores.restantes[2],flores.min[1,2]])`,\\
+d(\{`r flores.restantes[3]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}) & =\min\{d(\{`r flores.restantes[3]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[3]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[3],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[3],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[3],flores.min[1,1]],matriz.dist.iris[flores.restantes[3],flores.min[1,2]])`,\\
+d(\{`r flores.restantes[4]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}) & =\min\{d(\{`r flores.restantes[4]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[4]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[4],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[4],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[4],flores.min[1,1]],matriz.dist.iris[flores.restantes[4],flores.min[1,2]])`,\\
+d(\{`r flores.restantes[5]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}) & =\min\{d(\{`r flores.restantes[5]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[5]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[5],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[5],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[5],flores.min[1,1]],matriz.dist.iris[flores.restantes[5],flores.min[1,2]])`,\\
+d(\{`r flores.restantes[6]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}) & =\min\{d(\{`r flores.restantes[6]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[6]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[6],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[6],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[6],flores.min[1,1]],matriz.dist.iris[flores.restantes[6],flores.min[1,2]])`,\\
+d(\{`r flores.restantes[7]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\})& =\min\{d(\{`r flores.restantes[7]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[7]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[7],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[7],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[7],flores.min[1,1]],matriz.dist.iris[flores.restantes[7],flores.min[1,2]])`,\\
+d(\{`r flores.restantes[8]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}) & =\min\{d(\{`r flores.restantes[8]`\},\{`r flores.min[1,1]`\}),d(\{`r flores.restantes[8]`\},\{`r flores.min[1,2]`\})\}=\min\{`r matriz.dist.iris[flores.restantes[8],flores.min[1,1]]`,`r matriz.dist.iris[flores.restantes[8],flores.min[1,2]]`\} =
+`r min(matriz.dist.iris[flores.restantes[8],flores.min[1,1]],matriz.dist.iris[flores.restantes[8],flores.min[1,2]])`.
+\end{array}
+$$
 
 ```{r,echo=FALSE}
 n=n-1
@@ -1547,27 +1545,24 @@ $d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}:$
 
 ## Ejemplo
 <div class="example">
-
-* $d(\{`r flores.restantes2[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{`r flores.restantes2[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{`r flores.restantes2[1]`\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[1],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[1],flores.min2[1,2]]`\} =
-`r min(matriz.dist.iris2[flores.restantes2[1],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[1],flores.min2[1,2]])`$.
-
-* $d(\{3\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{3\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{3\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[2],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[2],flores.min2[1,2]]`\} =
-`r min(matriz.dist.iris2[flores.restantes2[2],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[2],flores.min2[1,2]])`$.
-
-* $d(\{5\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{5\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{5\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[3],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[3],flores.min2[1,2]]`\} =
-`r min(matriz.dist.iris2[flores.restantes2[3],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[3],flores.min2[1,2]])`$.
-
-* $d(\{6\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{6\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(6\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[4],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[4],flores.min2[1,2]]`\} =
-`r min(matriz.dist.iris2[flores.restantes2[4],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[4],flores.min2[1,2]])`$.
-
-* $d(\{7\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{7\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{7\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[5],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[5],flores.min2[1,2]]`\} =
-`r min(matriz.dist.iris2[flores.restantes2[5],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[5],flores.min2[1,2]])`$.
-
-* $d(\{8\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{8\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{8\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[6],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[6],flores.min2[1,2]]`\} =
-`r min(matriz.dist.iris2[flores.restantes2[6],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[6],flores.min2[1,2]])`$.
-
-* $d(\{9\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\})=\min\{d(\{9\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{9\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[7],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[7],flores.min2[1,2]]`\} =
-`r min(matriz.dist.iris2[flores.restantes2[7],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[7],flores.min2[1,2]])`$.
+$$
+\begin{array}{rl}
+d(\{`r flores.restantes2[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\}) & =\min\{d(\{`r flores.restantes2[1]`\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{`r flores.restantes2[1]`\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[1],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[1],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[1],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[1],flores.min2[1,2]])`,\\
+d(\{3\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\}) & =\min\{d(\{3\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{3\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[2],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[2],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[2],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[2],flores.min2[1,2]])`,\\
+d(\{5\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\}) & =\min\{d(\{5\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{5\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[3],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[3],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[3],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[3],flores.min2[1,2]])`,\\
+d(\{6\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\}) & =\min\{d(\{6\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(6\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[4],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[4],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[4],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[4],flores.min2[1,2]])`,\\
+d(\{7\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\}) & =\min\{d(\{7\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{7\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[5],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[5],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[5],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[5],flores.min2[1,2]])`,\\
+d(\{8\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\}) & =\min\{d(\{8\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{8\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[6],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[6],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[6],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[6],flores.min2[1,2]])`,\\
+d(\{9\},\{`r flores.min[1,1]`,`r flores.min[1,2]`,4\}) & =\min\{d(\{9\},\{`r flores.min[1,1]`,`r flores.min[1,2]`\}),d(\{9\},\{4\})\}=\min\{`r matriz.dist.iris2[flores.restantes2[7],flores.min2[1,1]]`,`r matriz.dist.iris2[flores.restantes2[7],flores.min2[1,2]]`\} =
+`r min(matriz.dist.iris2[flores.restantes2[7],flores.min2[1,1]],matriz.dist.iris2[flores.restantes2[7],flores.min2[1,2]])`.
+\end{array}
+$$
 
 ```{r,echo=FALSE}
 n=n-1
@@ -1633,24 +1628,22 @@ $d(C,C_1+ C_2)=\min\{d(C,C_1),d(C,C_2)\}:$
 
 ## Ejemplo
 <div class="example">
-
-* $d(\{`r flores.restantes3[1]`\},\{3,9\})=\min\{d(\{`r flores.restantes3[1]`\},\{3\}),d(\{`r flores.restantes3[1]`\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[1],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[1],flores.min3[1,2]]`\} =
-`r min(matriz.dist.iris3[flores.restantes3[1],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[1],flores.min3[1,2]])`$.
-
-* $d(\{5\},\{3,9\})=\min\{d(\{5\},\{3\}),d(\{5\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[2],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[2],flores.min3[1,2]]`\} =
-`r min(matriz.dist.iris3[flores.restantes3[2],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[2],flores.min3[1,2]])`$.
-
-* $d(\{6\},\{3,9\})=\min\{d(\{6\},\{3\}),d(\{6\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[3],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[3],flores.min3[1,2]]`\} =
-`r min(matriz.dist.iris3[flores.restantes3[3],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[3],flores.min3[1,2]])`$.
-
-* $d(\{7\},\{3,9\})=\min\{d(\{7\},\{3\}),d(\{7\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[4],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[4],flores.min3[1,2]]`\} =
-`r min(matriz.dist.iris3[flores.restantes3[4],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[4],flores.min3[1,2]])`$.
-
-* $d(\{8\},\{3,9\})=\min\{d(\{8\},\{3\}),d(\{8\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[5],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[5],flores.min3[1,2]]`\} =
-`r min(matriz.dist.iris3[flores.restantes3[5],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[5],flores.min3[1,2]])`$.
-
-* $d(\{2,4,10\},\{3,9\})=\min\{d(\{2,4,10\},\{3\}),d(\{2,4,10\},\{9\})\}=\min\{`r matriz.dist.iris3[8,flores.min3[1,1]]`,`r matriz.dist.iris3[8,flores.min3[1,2]]`\} =
-`r min(matriz.dist.iris3[8,flores.min3[1,1]],matriz.dist.iris3[8,flores.min3[1,2]])`$.
+$$
+\begin{array}{rl}
+d(\{`r flores.restantes3[1]`\},\{3,9\}) & =\min\{d(\{`r flores.restantes3[1]`\},\{3\}),d(\{`r flores.restantes3[1]`\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[1],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[1],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[1],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[1],flores.min3[1,2]])`,\\
+d(\{5\},\{3,9\}) & =\min\{d(\{5\},\{3\}),d(\{5\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[2],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[2],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[2],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[2],flores.min3[1,2]])`,\\
+d(\{6\},\{3,9\}) & =\min\{d(\{6\},\{3\}),d(\{6\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[3],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[3],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[3],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[3],flores.min3[1,2]])`,\\
+d(\{7\},\{3,9\}) & =\min\{d(\{7\},\{3\}),d(\{7\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[4],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[4],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[4],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[4],flores.min3[1,2]])`,\\
+d(\{8\},\{3,9\}) & =\min\{d(\{8\},\{3\}),d(\{8\},\{9\})\}=\min\{`r matriz.dist.iris3[flores.restantes3[5],flores.min3[1,1]]`,`r matriz.dist.iris3[flores.restantes3[5],flores.min3[1,2]]`\} =
+`r min(matriz.dist.iris3[flores.restantes3[5],flores.min3[1,1]],matriz.dist.iris3[flores.restantes3[5],flores.min3[1,2]])`,\\
+d(\{2,4,10\},\{3,9\}) & =\min\{d(\{2,4,10\},\{3\}),d(\{2,4,10\},\{9\})\}=\min\{`r matriz.dist.iris3[8,flores.min3[1,1]]`,`r matriz.dist.iris3[8,flores.min3[1,2]]`\} \\ & =
+`r min(matriz.dist.iris3[8,flores.min3[1,1]],matriz.dist.iris3[8,flores.min3[1,2]])`.
+\end{array}
+$$
 
 ```{r,echo=FALSE}
 n=n-1
@@ -1722,6 +1715,10 @@ Para realizar el estudio de la muestra de flores de la tabla de datos `iris` hac
 estudio.clustering.iris = hclust(dist(tabla.iris[,1:4]),method="single")
 ```
 
+</div>
+
+## Ejemplo
+<div class="example">
 Veamos cómo ha realizado los agrupamientos:
 ```{r}
 estudio.clustering.iris$merge
@@ -1934,7 +1931,8 @@ Dicho método es muy usado en la reconstrucción de árboles filogenéticos a pa
 Si en lugar de usar el método del **enlace simple** usamos el método del **enlace completo** en la muestra de la tabla de datos de flores iris, obtenemos el dendrograma siguiente:
 ```{r,eval=FALSE}
 estudio.clustering.iris.completo=hclust(dist(tabla.iris[,1:4],method="complete"))
-plot(estudio.clustering.iris.completo,hang=-1,xlab="muestra de flores tabla de datos iris",
+plot(estudio.clustering.iris.completo,hang=-1,
+     xlab="muestra de flores tabla de datos iris",
      sub="", ylab="distancias",labels=1:10)
 ```
 
@@ -1981,5 +1979,54 @@ rect.hclust(estudio.clustering.iris.completo,h=1.5)
 </div>
 
 
+## Ejemplo
+<div class="example">
+**Ejemplo de los arrestados por posesión de cantidades pequeñas de marihuana**
 
+Realizemos el análisis de clustering aglomerativo usando el algoritmo de Ward para los datos binarios de este ejemplo.
+
+Como la matriz de distancias es una matriz de **similaridad** y la matriz de distancias que tenemos que considerar es una matriz de **disimilaridad** al usar la función `hclust`, hacemos `1-matriz.dist.hamming` para tener una matriz de **disimilaridad**. 
+
+Otra cosa a tener en cuenta es que la función `hclust` sólo admite objetos tipo `dist`, por tanto, tenemos que transformar la matriz de distancias en un objeto `dist`.
+
+Sin más preámbulos, guardamos en el objeto `estudio.clustering.arrestados` el análisis del clustering jerárquico:
+```{r}
+estudio.clustering.arrestados=hclust(as.dist(1-matriz.dist.hamming),method="ward.D")
+```
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+La visualización de los resultados es la siguiente:
+```{r,eval=FALSE}
+plot(estudio.clustering.arrestados,hang=-1,xlab="muestra de arrestados",
+     sub="", ylab="distancias")
+```
+Observamos que, como hay muchas distancias con valores 0, tenemos 12 arrestados en un cluster inicial que se unen a distancia 0:  $\{2,3,4,5,6,7,11,13,21,23,24,25\}.$
+También se unen a dicha distancia los arrestados 20 y 22 en el cluster $\{20,22\}$, los arrestados 8 y 17 en el cluster $\{8,17\}$, los arrestados 1, 14 y 19 en el cluster $\{1,14,19\}$ y los arrestados 9, 10 y 15 en el cluster $\{9,10,15\}$.
+
+A continuación a distancia $\frac{1}{3}$, se unen los clusters $\{18\}$, y $\{8,17\}$ en el cluster $\{8,17, 18\}$.
+
+Después, a distancia 0.375, se unen los clusters $\{12\}$ y $\{1,14,19\}$ en el cluster $\{1,12,14,19\}$ y los clusters $\{16\}$ y $\{9, 10, 15\}$ en el cluster $\{9,10,15,16\}$.
+
+El siguiente paso es la unión a distancia 0.7083333 de los clusters $\{20,22\}$ y $\{1,12,14,19\}$ en el cluster $\{1,12,14,19,20,22\}$.
+</div>
+
+## Ejemplo
+<div class="example">
+El siguiente paso es la unión a distancia 1.25 de los clusters $\{8,17, 18\}$ y $\{1,12,14,19,20,22\}$ en el cluster $\{1,8,12,14,18,19,20,22\}$.
+
+El penúltimo paso es la unión a distancia 1.59375 de los clusters $\{2,3,4,5,6,7,11,13,21,23,24,25\}$ y $\{9,10,15,16\}$ en el cluster $\{2,3,4,5,6,7,9,10,11,13,15,16,21,23,24,25\}$.
+
+El último paso es la unión a distancia 2.6045833 de los clusters $\{1,8,12,14,18,19,20,22\}$ y $\{2,3,4,5,6,7,9,10,11,13,15,16,21,23,24,25\}$ en el cluster formado por todos los arrestados.
+</div>
+
+## Ejemplo
+<div class="example">
+```{r,echo=FALSE,fig.align='center'}
+plot(estudio.clustering.arrestados,hang=-1,xlab="muestra de arrestados",
+     sub="", ylab="distancias")
+```
 </div>
