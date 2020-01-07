@@ -2030,3 +2030,93 @@ plot(estudio.clustering.arrestados,hang=-1,xlab="muestra de arrestados",
      sub="", ylab="distancias")
 ```
 </div>
+
+
+## Guía rápida 
+
+* `kmeans(x, centers=..., iter.max=..., algorithm =...)`: aplica el algoritmo de $k$-medias a una tabla de datos,
+donde:
+
+  * `x` es la matriz o el data frame cuyas filas representan los objetos; en ambos casos, todas las variables han de ser numéricas como ya hemos indicado.
+
+  * `centers` sirve para especificar los centros iniciales, y se puede usar de dos maneras: igualado a un número $k$, `R` escoge aleatoriamente los $k$ centros iniciales, mientras que igualado a una matriz de $k$ filas y el mismo número de columnas que `x`, `R` toma las filas de esta matriz como centros de partida.
+
+## Guía rápida 
+  * `iter.max` permite especificar el número máximo de iteraciones a realizar; su valor por defecto es 10. Al llegar a este número máximo de iteraciones, si el algoritmo aún no ha acabado porque los clusters aún no hayan estabilizado, se para y da como resultado los clusters que se han obtenido en la última iteración.
+
+  * `algorithm` indica el algoritmo a usar. Los algoritmos pueden ser los siguientes:  `Hartigan-Wong`, `Lloyd`, `MacQueen`.
+
+## Guía rápida 
+
+* Salida de `kmeans` (suponemos que hemos guardado en el objeto `resultado.km` la salida del algoritmo):
+  * `resultado.km$size`: nos da los números de objetos, es decir, los tamaños de cada cluster.
+  * `resultado.km$cluster`: nos dice qué cluster pertenece cada uno de los objetos de nuestra tabla de datos.
+  * `resultado.km$centers`: nos da los centros de cada cluster en filas. Es decir, la fila 1 sería el centro del cluster 1, la fila 2, del cluster 2 y así sucesivamente. 
+  * `resultado.km$withinss`: nos da las sumas de cuadrados de cada cluster, lo que antes hemos denominado $SS_{C_j}$, para $j=1,\ldots,k$.
+  
+## Guía rápida 
+  * `resultado.km$tot.withinss`: la suma de cuadrados de todos los clusters, lo que antes hemos denominado $SS_C$. También se puede calcular sumando las sumas de los cuadrados de cada cluster: `sum(resultado.km$withinss)`. 
+  * `resultado.km$totss`: es la suma de los cuadrados de las distancias de los puntos en su punto medio de todos estos puntos. Es decir, seria la suma de los cuadrados $SS_C$ pero suponiendo que sólo hubiera un sólo cluster.
+  * `resultado.km$betweenss` es la diferencia entre `resultado.km$totss` y `resultado.km$tot.withinss` y puede demostrarse (es un cálculo bastante tedioso) que es igual a la suma, ponderada por el número de objetos del cluster correspondiente, de los cuadrados de las distancias de los centros de los clusters al punto medio de todos los puntos.
+
+## Guía rápida 
+
+* `dist(x, method=...)`: calcula la matriz de distancias de una tabla de datos, donde:
+
+  * `x` es nuestra tabla de datos (una matriz o un data frame de variables cuantitativas).
+  * `method` sirve para indicar la distancia que queremos usar, cuyo nombre se ha de entrar entrecomillado. La distancia por defecto es la euclídea que hemos venido usando hasta ahora. Otros posibles valores son (en lo que sigue, $\mathbf{x}=(x_1,\ldots,x_m)$ e $y=(y_1,\ldots,y_m)$ son dos vectores de $\mathbb{R}^m$):
+
+## Guía rápida
+  * La distancia de Manhattan, `manhattan`, que recordemos que vale $\sum\limits_{i=1}^m |x_i-y_i|$.
+  * La distancia del máximo, `maximum`, que vale: $\max_{i=1,\ldots,m}|x_i-y_i|$.
+  * La distancia de Canberra, `canberra`, que vale $\sum\limits_{i=1}^m \frac{|x_i-y_i|}{|x_i|+|y_i|}$.
+  * La distancia de Minkowski, `minkowski`, que depende de un parámetro $p>0$ (que se ha de especificar en la función `dist` con `p` igual a su valor), y que vale: $\left(\sum_{i=1}^m |x_{i} - y_{i}|^p\right)^{1/p}$. Observad que cuando $p=1$ se obtiene la distancia de Manhattan y cuando $p=2$, la distancia euclídea usual.
+
+## Guía rápida 
+  * La distancia binaria, `binary`, que sirve básicamente para comparar vectores binarios (si los vectores no son binarios, `R` los entiende como binarios sustituyendo cada entrada diferente de 0 por 1). La distancia binaria entre `x` e `y` binarios es el número de posiciones en las que estos vectores tienen entradas diferentes, dividido por el número de posiciones en las que alguno de los dos vectores tiene un 1.
+
+La salida de aplicar la función `dist` a nuestra tabla de datos es un objeto `dist` de `R`, no es una matriz de distancias usual.
+
+## Guía rápida
+* `scale(x, center = TRUE, scale = TRUE)`: escala los datos de una tabla de datos, donde:
+
+  * `x`: nuestra tabla de datos.
+  * `center`: es un parámetro lógico o un vector numérico de longitud el número de columnas de `x` indicando la cantidad que queremos restar a los valores de cada variable o columna. Si vale `TRUE` que es su valor por defecto, a cada columna se le resta la media de dicha columna.
+  * `scale`: es un parámetro lógico o un vector numérico de longitud el número de columnas de `x` indicando la cantidad por la que queremos dividir los valores de cada variable o columna. Si vale `TRUE` que es su valor por defecto, a los valores de cada columna se les divide por la desviación estándar de dicha columna.
+  
+## Guía rápida
+
+* `hclust(d, method = ...)`: aplica el algoritmo de clustering aglomerativo a una tabla de datos, donde:
+
+  * `d` es la matriz de distancias entre nuestros objetos calculada con la función `dist`.
+
+  * `method` sirve para especificar cómo se define la distancia de la unión de dos clusters al resto de los clusters. El nombre del método se ha de entrar entrecomillado. Los más populares son los siguientes:
+
+## Guía rápida
+  * Método de enlace completo, `complete`,
+  * Método de enlace simple, `single`,
+  * Método de enlace promedio, `average`,
+  * Método de la mediana, `median`,
+  * Método del centroide, `centroid`,
+  * Método de Ward clásico, `ward.D`.
+
+## Guía rápida
+* Salida de `hclust`: imaginemos que hemos guardado en el objeto `estudio.clustering` la salida del algoritmo:
+
+  * `estudio.clustering$merge` nos indica cómo ha ido agrupando los clusters. Es una matriz de $n-1$ filas y 2 columnas, donde $n$ es el número de objetos.
+En esta matriz, los objetos originales se representan con números negativos, y los nuevos clusters con números positivos que indican el paso en el que se han creado. 
+
+  * `estudio.clustering$height` es un vector que contiene las distancias a las que se han ido agrupando los pares de clusters.
+
+## Guía rápida
+  * `plot(estudio.clustering,hang=...,labels=...)`: dibuja el dendrograma o el árbol binario del clustering aglomerativo realizado, donde:
+
+    * `hang` es un parámetro que controla la situación de las hojas del dendrograma respecto del margen inferior.
+    * `labels` es un vector de caracteres que permite poner nombres a los objetos; por defecto, se identifican en la representación gráfica por medio de sus números de fila en la matriz o el data frame que contiene los datos.
+  
+  * `cutree(estudio.clustering,k=...,h=...)`: calcula los clusters del clustering aglomerativo realizado, donde:
+    * `k` es un parámetro que indica el número de clusters deseado
+    * `h` es un parámetro que indica la altura a la que queremos cortar.
+
+## Guía rápida
+* `rect.hclust(estudio.clustering,h=...,k=...)`: dibuja los clusters hallados en el algoritmo de clustering aglomerativo realizado según el valor del parámetro `h` o el parámetro `k`. Antes de llamar a esta función, se tiene que haber llamado a la función `plot` para dibujar el dendrograma. En caso contrario, `R` da error.
