@@ -311,9 +311,11 @@ $$
 $$
 
 
-Despejando $\lambda$   la ecuación
+Despejando $\lambda$   de la ecuación
 
-$\frac{\sum_{i=1}^n x_i}{\lambda}-n=0$ de obtiene $\lambda =\frac{\sum_{i=1}^n x_i}{n}=\overline{x}$.
+$$\frac{\sum_{i=1}^n x_i}{\lambda}-n=0$$
+
+se obtiene  que $\lambda =\frac{\sum_{i=1}^n x_i}{n}=\overline{x}.$
 
 
 Luego el estimador máximo verosímil de $\lambda$ es $\overline{X}$.
