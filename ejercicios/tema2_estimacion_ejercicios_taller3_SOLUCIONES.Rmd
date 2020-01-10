@@ -1,0 +1,164 @@
+---
+title: "Ejercicios Tema 2 - Estimación SOLUCIONES. Taller 3"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "Curso completo de estadística inferencial con R y Python"
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+toccolor: blue
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Estimación taller 3
+
+## Ejercicio 1
+Supongamos  que $X_1,X_2,\ldots,X_6$ es una muestra aleatoria de una
+variable aleatoria normal con media  $\mu$ y  varianza $\sigma^2$.
+ Hallar  la constante $C$ tal que $$C\cdot\bigl({(X_1 -X_2)}^2 +{(X_3 -X_4)}^2 + 
+ {(X_5 -X_6)}^2\bigr),$$ sea  un estimador sin sesgo de $\sigma^2$.
+
+## Ejercicio 2
+Supongamos  que $\Theta_1$ y  $\Theta_2$ son estimadores sin sesgo
+de un parámetro desconocido $\theta$, con varianzas conocidas $\sigma_1^2$ y
+$\sigma_2^2$, respectivamente. Demostrar  que $\Theta =(1-a)\cdot\Theta_1 +a\cdot \Theta_2$ también es insesgado para cualquier valor de $a\not=0$.
+
+## Ejercicio 3
+Sea $X_1,\ldots,X_{2n}$ una muestra aleatoria simple de una variable
+aleatoria $N(\mu,\sigma)$. Sea:
+\[
+T=C\left({\left(\sum_{i=1}^{2n} X_i\right)}^2- 4 n\sum_{i=1}^{n}
+X_{2i} X_{2i-1}\right)
+\]
+un estimador del parámetro $\sigma^2$. ¿Cuál es el valor de $C$ para que 
+$T$ sea un estimador insesgado?
+
+## Ejercicio 4
+Una variable aleatoria $X$ sigue la  distribución de 
+Rayleigh con parámetro $\theta >0$ si es una variable 
+aleatoria con valores $x>0$ y  función  de densidad:
+$$
+f(x)=\frac{x}{\theta} e^{-\frac{x^2}{2\theta}}.
+$$
+Hallar el estimador máximo verosímil del parámetro $\theta$.
+
+# Soluciones
+
+## Solución ejercicio 1
+Recordemos que $E(X_i)=\mu$,  y que $\sigma^2=E(X_i^2)-\left(E(X_i)\right)^2=E(X_i^2)-\mu^2$ luego $E(X_i^2)=\sigma^2+\mu^2$ para $i=1,2,3$. Además al ser independientes  
+$E(X_1\cdot X_{2})=E(X_1)\cdot E(X_2)\mu\cdot\mu=\mu^2$  y lo mismo para  $E(X_3\cdot X_{4})=E(X_5\cdot X_{6})=\mu^2.$
+
+Ahora
+
+$$
+\begin{array}{rl}
+E\left(\left(X_{1}-X_{2}\right)^2\right) & =
+E\left(X_{1}^2-2\cdot X_1\cdot X_{2}+X_{2}^2\right)\\
+& = E\left(X_{1}^2\right)-2\cdot E(X_1\cdot X_{2})+E\left(X_{2}^2\right)\\
+& = (\sigma^2+\mu^2)-2\cdot (\mu\cdot\mu)+ (\sigma^2+\mu^2)\\
+& =2\cdot\sigma^2. 
+\end{array}
+$$
+
+
+Utilizando adecuadamente los cálculos anteriores
+$$
+E\left(C\cdot\bigl({(X_1 -X_2)}^2 +{(X_3 -X_4)}^2 + {(X_5 -X_6)}^2\bigr)\right)=C\cdot 3\cdot 2\cdot \sigma^2.
+$$
+
+Luego el valor de $C$ para que el estimador sea insesgado es  la solución de la ecuación 
+
+$$C\cdot 3\cdot 2\cdot \sigma^2=\sigma^2$$
+
+Así que el valor buscado es $C=\frac16.$ 
+
+
+## Solución ejercicio 2
+
+Supongamos  que $\Theta_1$ y  $\Theta_2$ son estimadores sin sesgo
+de un parámetro desconocido $\theta$, con varianzas conocidas $\sigma_1^2$ y
+$\sigma_2^2$, respectivamente. Demostrar  que $\Theta =(1-a)\cdot\Theta_1 +a\cdot \Theta_2$ también es insesgado para cualquier valor de $a$.
+
+
+
+Tenemos que $E(\Theta_1)=E(\Theta_2)=\theta$ y que $Var(\Theta_1)=\sigma_1$ y $Var(\Theta_2)=\sigma_2$.
+
+Nos piden que demostremos que  para cualquier $a\not=0$
+
+$$
+E(\Theta) =E\left((1-a)\cdot\Theta_1 +a\cdot \Theta_2\right)=\theta.
+$$
+
+efectivamente 
+
+$E(\Theta)=(1-a)\cdot E(\Theta_1) +a\cdot E(\Theta_2)=(1-a)\cdot theta +a\cdot theta=\theta.$
+
+## Solución ejercicio 3
+Como $X_1,\ldots,X_{2n}$ una muestra aleatoria simple de una variable
+aleatoria $N(\mu,\sigma)$. Sabemos que  $\sum_{i=1}^{2\cdot n} X_i$ sigue una ley $N\left(2\cdot n\cdot\mu, \sqrt{n \cdot\sigma^2}\right)$ luego $E\left(\sum_{i=1}^{2\cdot n} X_i\right)=2\cdot n\cdot \mu$, $Var(\sum_{i=1}^{2\cdot n} X_i)=2\cdot n\cdot \sigma^2$ y $E\left(\left(\sum_{i=1}^{2\cdot n}\right)^2\right)=2\cdot n\cdot \sigma^2+2\cdot n\mu^2.$ Ademas como $X_{2\cdot i}$ y $X_{2\cdot i-1}$ son independientes $E(X_{2\cdot i}\cdot X_{2\cdot i-1})=E(X_{2\cdot i})\cdot E(X_{2\cdot i-1})=\mu\cdot \mu=\mu^2.$
+
+Entonces 
+
+$$
+\begin{array}{rl}
+E(T)&=E\left(C\cdot\left(\left(\sum_{i=1}^{2n} X_i\right)^2- 4 n\sum_{i=1}^{n}
+X_{2i} X_{2i-1}\right)\right)\\
+& =C\cdot \left(2\cdot n\cdot\sigma^2+(2\cdot n\cdot\mu)^2-4\cdot n\cdot n\cdot \mu^2\right)\\
+& = C\cdot2\cdot n\cdot\sigma^2
+\end{array}
+$$
+
+Por lo que el valor de $C$ pedido es la solución de la ecuación 
+$$
+C\cdot 2\cdot n\cdot\sigma^2=\sigma^2$$
+
+
+despejando $C$ obtenemos que el valor buscado es $C=\frac{1}{2\cdot n}.$
+
+
+
+## Solución ejercicio 4
+
+
+Sea $x_1,x_2,\ldots,x_n$ la realización de una más de una  variable aleatoria $X$ con distribución Rayleigh de parámetro $\theta >0$. Su función de verosimilitud es 
+
+$$ 
+\begin{array}{rl}
+L(\theta|x_1,,x_2,\ldots,x_n)&=   f_X(x_1;\theta)\cdot f_X(x_1;\theta)\cdot \ldots \cdot f_x(x_n;\theta)\\
+& =\frac{x_1}{\theta}\mathrm{e}^{-\frac{x_1^2}{2\theta}}\cdot\frac{x_2}{\theta} \mathrm{e}^{-\frac{x_2^2}{2\theta}}\cdot\ldots\cdot \frac{x_n}{\theta} \mathrm{e}^{-\frac{x_n^2}{2\theta}}\\
+& = \frac{\prod_{i=1}^n x_i}{\theta^n} \cdot \mathrm{e}^{-\frac{ \sum_{i=1}^n x_i^2}{2\theta}}.
+\end{array}
+$$
+Buscamos el $\theta$ que maximiza $L(\theta|x_1,,x_2,\ldots,x_n)$ que es el mismo que maximiza su logaritmo, es decir 
+
+$$
+\ln(L(\theta|x_1,,x_2,\ldots,x_n))=\ln\left(\frac{\prod_{i=1}^n x_i}{\theta^n} \cdot \mathrm{e}^{-\frac{\sum_{i=1}^n x_i^2}{2\theta}}\right)=
+\ln\left(\prod_{i=1}^n x_i\right)-\ln(\theta^n)-\frac{ \sum_{i=1}^n x_i^2}{2\theta}.
+$$
+
+
+
+Ahora derivamos la expresión respecto de $\theta$, la igualamos a  cero y despejamos $\theta$
+
+$$
+\ln(L(\theta|x_1,,x_2,\ldots,x_n))'=\left(
+\ln\left(\prod_{i=1}^n x_i\right)-\ln(\theta^n)-\frac{ \sum_{i=1}^n x_i^2}{2\theta}\right)'= -\frac{n}{\theta}+\frac{ \sum_{i=1}^n x_i^2}{2\theta^2}=0.
+$$
+
+
+de donde   multiplicando los dos términos de la última igualdad por $\theta^2.$
+
+$-n\cdot \theta+\frac{ \sum_{i=1}^n x_i^2}{2}=0$
+
+resolviendo la ecuación  obtenemos que el estimador máximo verosímil de $\theta$ es $$\hat{\theta}= \frac{ \sum_{i=1}^n x_i^2}{2\cdot n}.$$
