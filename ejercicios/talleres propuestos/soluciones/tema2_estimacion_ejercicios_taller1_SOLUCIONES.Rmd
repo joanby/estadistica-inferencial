@@ -6,9 +6,6 @@ output:
   pdf_document:
     number_sections: yes
     toc: yes
-  html_document:
-    df_print: paged
-    toc: yes
 toccolor: blue
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
