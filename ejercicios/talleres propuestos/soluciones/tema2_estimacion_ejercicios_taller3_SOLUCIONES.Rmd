@@ -102,7 +102,7 @@ $$
 
 efectivamente 
 
-$E(\Theta)=(1-a)\cdot E(\Theta_1) +a\cdot E(\Theta_2)=(1-a)\cdot theta +a\cdot theta=\theta.$
+$E(\Theta)=(1-a)\cdot E(\Theta_1) +a\cdot E(\Theta_2)=(1-a)\cdot \theta +a\cdot \theta=\theta.$
 
 ## Solución ejercicio 3
 Como $X_1,\ldots,X_{2n}$ una muestra aleatoria simple de una variable
