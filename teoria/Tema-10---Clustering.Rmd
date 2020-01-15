@@ -804,7 +804,7 @@ Es decir:
 ## Algoritmo de $k$-medias con `R`
 Entonces:
 $$
-\verb+resultado.km$betweenss+=\sum_{i=1}^{n_i} n_i \|\mathbf{\overline{x}}_i-\mathbf{x}\|^2.
+\verb+resultado.km$betweenss+=\sum_{i=1}^{k} n_i \|\mathbf{\overline{x}}_i-\mathbf{x}\|^2.
 $$
 
 Podríamos considerar la medida anterior como una medida de dispersión de los centros o una medida de cuan separados están los clusters ya que cuanto mayor sea `resultado.km$betweenss` más separados estarán los centros del punto medio global de todos los puntos y mayor separación habrá entre los clusters.
