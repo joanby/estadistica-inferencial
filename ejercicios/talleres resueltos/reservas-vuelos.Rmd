@@ -1,0 +1,60 @@
+---
+title: "Reservas de Vuelos"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "1/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## El tiempo entre Reservas de Vuelos
+
+Se cree que el tiempo en segundos entre dos reservas de vuelo en un portal web en un mismo día podría ser una distribución exponencial con parámetro $\lambda = 1/5$. Una muestra de 10 tiempos entre reservas consecutivas de vuelos medidos en segundos es la siguiente
+
+```{r}
+x = c(1.6, 1.8, 2.8, 3.9, 4.3, 4.7, 4.8, 7.3, 8.7, 11.1)
+```
+
+* ¿Cuál es la distribución teórica propuesta?
+
+$$
+F_X(x) = \left\{ 
+\begin{array}{ll}
+1-e^{-\frac{x}{5}} & \textrm{si}\ x>0\\
+0 & \textrm{en otro caso}
+\end{array} \right.
+$$
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \textrm{Los datos provienen de una distribución } Exp(\frac{1}{5})\\
+H_1: & \textrm{Los datos NO provienen de tal distribución}
+\end{array}
+\right.
+$$
+
+* Contrastar la hipótesis del enunciado con un test KS al nivel de significación de $\alpha=0.1$.
+
+
+$$D_{10} = \max_{1\leq i \leq 10} \left(\max\{|F_X(x_i) - \frac{i-1}{10}|, |F_X(x_i) - \frac{i}{10}|\}\right)$$
+
+
+```{r}
+i = 1:10
+Fxt = 1-exp(-x/5)
+df = data.frame(i = i, xi = x, 
+                Fx = Fxt, 
+                Fx1 = abs(Fxt - (i-1)/10),
+                Fx2 = abs(Fxt - i/10))
+df$FxM = pmax(df$Fx1, df$Fx2)
+
+knitr::kable(df)
+
+D = max(df$FxM)
+D
+ks.test(x, "pexp", 1/5)
+```
+

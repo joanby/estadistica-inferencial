@@ -1,0 +1,55 @@
+---
+title: "Las ventas del producto"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "1/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tamaño de la muestra
+
+Nuestro jefe nos has dicho que pagará una encuesta para saber cu ál es el porcentaje de sus clientes que están interesados en un nuevo producto. Desconocemos totalmente el posible porcentaje de clientes interesados. El jefe se pregunta cuál debe ser el tamaño de la muestra para tener un error del $\pm 1$% con un nivel de confianza del $95$%. Se pide que contestemos suponiendo el peor de los casos el que $p = 0.5$.
+
+$$A_0 = 2\cdot Error = 0.02,\ \alpha = 0.05,\ z_{1-\alpha/2} = z_{0.975} = `r qnorm(0.975)` $$
+
+$$n = \left[ \frac{z_{1-\alpha/2}^2}{A_0^2}  \right] = `r ceiling(qnorm(0.975)^2/0.02^2)`$$
+
+
+# Contraste de hipótesis
+
+Continuando con la encuesta el jefe ha decidido, por el momento, pagar una muestra de tamaño 200. En esa muestra 108 clientes están interesado en el producto. Ahora el jefe nos pregunta
+
+* Contrastad que la proporción de clientes interesados es mayor del $60$% contra que es menor. Resolved el contraste utilizando el p-valor.
+
+El contraste de proporciones a realizar es el siguiente:
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & p \geq 0.6\\
+H_1: & p < 0.6
+\end{array}
+\right.
+$$
+
+
+```{r}
+n = 200
+x = 108
+p_hat = x/n
+p0 = 0.6
+
+z0 = (p_hat - p0)/(sqrt(p0*(1-p0)/n))
+z0
+```
+
+$$P(Z < z_0) = `r pnorm(z0)` $$
+
+* Dad el intervalo de confianza del $95$% asociado al contraste, e interpretarlo
+
+$$\left( -\infty, \hat{p} + z_{1-\alpha}\sqrt{\frac{\hat p\cdot (1-\hat p)}{n}} \right) = \left(-\infty, `r p_hat + qnorm(1-0.05)*sqrt(p_hat*(1-p_hat)/n) ` \right)$$
+
+
