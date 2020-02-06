@@ -1,0 +1,80 @@
+---
+title: "Vuelos"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "1/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Anova
+
+\probl El \verb+data frame+ \verb+datos_vuelos+ contiene información del retraso en minutos de vuelos de varias compañías aéreas diferentes.
+
+```{r, echo=FALSE}
+set.seed(2018)
+retraso=c(rnorm(100,10,4),rnorm(150,30,4))
+compania=as.factor(rep(paste("C",1:5,sep=""),each=50))
+datos_vuelos=data.frame(retraso,compania)
+knitr::kable(head(datos_vuelos))
+str(datos_vuelos)
+```
+
+Contestad a las siguientes cuestiones justificando el código que utilizáis
+
+* Elaborar, interpretar y poner un título adecuado al diagrama de cajas ¿Qué nos dice el diagrama sobre la igualdad de medias del retraso?
+
+```{r}
+boxplot(retraso ~ compania, data = datos_vuelos, main = "Diagrama de caja")
+```
+
+
+* Escribid la hipótesis del contraste de ANOVA y discutid si se cumplen las condiciones necesarias para realizarlo.
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \mu_{C1} = \mu_{C2} = \mu_{C3} = \mu_{C4} = \mu_{C5}\\
+H_1: & \exists i, j:\ \mu_{Ci}\neq \mu_{Cj}
+\end{array}
+\right.
+$$
+
+```{r}
+library(nortest)
+sapply(levels(datos_vuelos$compania),
+       FUN = function(x){ # x = C_i
+         lillie.test(datos_vuelos[datos_vuelos$compania==x, "retraso"])
+       }
+       )
+```
+
+```{r}
+library(car)
+leveneTest(datos_vuelos$retraso, datos_vuelos$compania)
+bartlett.test(datos_vuelos$retraso, datos_vuelos$compania)
+```
+
+* Escribid la tabla estándar del ANOVA con toda la información de qué es y cómo se calcula cada valor. Concluid en base a ello el resultado del ANOVA
+
+```{r}
+anova_sol = aov(retraso~compania, data=datos_vuelos)
+summary(anova_sol)
+```
+
+* Sea cual sea el resultado del ANOVA, realizad el ajuste por Bonferroni para $\alpha = 0.1$ y discutid los resultados obtenidos a partir la salida del  código.
+
+```{r}
+pairwise.t.test(datos_vuelos$retraso, datos_vuelos$compania, p.adjust.method = "bonferroni")
+```
+
+* Discutid el resultado de la salida del código del test de Duncan.
+
+```{r}
+library(agricolae)
+duncan.test(anova_sol, "compania", group = TRUE)$groups
+duncan.test(anova_sol, "compania", group = FALSE)$comparison
+```
+
