@@ -1,0 +1,63 @@
+---
+title: "Ejercicios Tema 3 - Intervalos de Confianza. Taller 1"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "Curso completo de estadística inferencial con R y Python"
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+toccolor: blue
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Intervalos de confianza  taller 1
+
+
+## Ejercicio 1
+El fabricante SMART_LED fabrica bombillas led  inteligentes y de alta gama. Supongamos que la vida de  de estas bombillas sigue una distribución exponencial de parámetro $\lambda$. Si tomamos  una muestra aleatoria 
+de  tamaño $n$ de estas bombillas y representamos por  $X_i$ la duración de la $i-$ésima bombilla para $i=1,\ldots,n$, ¿cuál es la función de densidad conjunta de la muestra?
+
+## Ejercicio 2
+Sean $X_1,X_2,\ldots,X_{10}$  variables aleatorias que son una muestra aleatoria simple de una v.a. $X$. 
+   a. Dividimos la muestra en dos partes: de forma que la primera son los $5$ primeros valores y la segunda los restantes. 
+  ¿Son  independientes las dos partes?
+   b. Volvemos a dividir la muestra en dos partes: la primera  está formada por los $5$ valores más pequeños y
+  la segunda por el resto. ¿Son independientes las dos partes?
+
+## Ejercicio 3
+Un fabricante de motores  pone a prueba  $6$ motores sobre   el mismo prototipo  de coche de competición. Para probar que los motores tienes las mismas prestaciones se someten a distintas pruebas en un circuito. 
+Las velocidades máximas en 10 vueltas al circuito  de cada motor tras la prueba son  $190,195,193,177,201$ y $187$ en Km/h. Estos valores forman una muestra aleatoria simple de la variable $X=\mbox{velocidad máxima de un motor en 10 vueltas.}$ Se pide calcular los valores observados de los siguientes estadísticos de  la muestra:
+   a. $\overline{X}$.
+   b. $\tilde{S}^2$.
+   c. Mediana.
+   d. $X_{(4)}$ (valor que ocupa el  cuarto lugar ordenados los valores de menor a mayor).
+
+## Ejercicio 4
+¿Cuál es  la probabilidad de que el  máximo de  de una muestra de tamaño $n=10$ de una v.a. uniforme en el intervalo $(0,1)$ sea mayor que $0.9$? ¿Cuál es la probabilidad de sea menor  que $\frac12$?
+
+## Ejercicio 5
+Sea $X_1,X_2,\ldots,X_n$ una muestra aleatoria simple de una
+variable aleatoria  normal de parámetros $\mu$ y $\sigma$. Denotemos por $X_{(1)}\leq X_{(2)}\leq ,\ldots,\leq X_{(n)}$ la muestra ordenada de menor a mayor.
+   a. Calcular la funciones de densidad del mínimo $X_{(1)}$ y del máximo $X_{(n)}$
+   b. ¿Alguna de estas variables sigue una distribución normal?
+
+## Ejercicio 6
+Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de una v.a $X$  de media $\mu$ y  varianza $\sigma^2$ desconocidas. Definimos $$\overline{X}=\frac1n \sum\limits_{i=1}^n X_i\mbox{ y } T=\frac{\sqrt{n}\cdot(\overline{X}-\mu)}{\sigma}.$$
+
+   a. ¿Cuál es la distribución de $T$?
+   b. ¿Es $T$ un estadístico?
+
+## Ejercicio 7
+Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de tamaño $n=10$ de una v.a $X$ normal estándar. Calculad $P\left(2.56<\sum\limits_{i=1}^{10} X_i^2 <18.31\right)$.
+
+## Ejercicio 8
+Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_{n}$ de tamaño $n=10$  de una v.a $X$ normal $N(\mu=2,\sigma=4)$. Definimos  la  siguiente variable aleatoria $Y=\frac{\sum\limits_{i=1}^{10}{(X_i-2)}^2}{16}$. 
+Calculad $P(Y\leq 2.6)$
+
