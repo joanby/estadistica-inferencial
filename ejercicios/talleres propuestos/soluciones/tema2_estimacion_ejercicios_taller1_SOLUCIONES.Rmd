@@ -3,13 +3,16 @@ title: "Ejercicios con SOLUCIONES Tema 2 - Estimación. Taller 1"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
 output:
-  pdf_document:
+  pdf_document: 
     number_sections: yes
     toc: yes
-toccolor: blue
+  html_document:
+    df_print: paged
+    toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
 citecolor: blue
+toccolor: blue
 urlcolor: blue
 ---
 
@@ -112,10 +115,12 @@ sort(x)[4] # M_(4) el cuarto valor de la muestra ordenada
 
 ## Solución ejercicio 4
 La primera probabilidad es 
+
 $P(\max\{X_1,\ldots,X_n\}\geq 0.9)=1-P(\max\{X_1,\ldots,X_n\}\leq 0.9)=1-P(X_1\leq 0.9,X_2\leq 0.9,\ldots, X_n\leq 0.9)=1-P(X_1\leq 0.9)\cdot P(X_2\leq 0.9)\cdot\ldots\cdot P(X_n\leq 0.9)=1-0.9^10= `r round(1- 0.9^10,4)`.$ 
 
 La segunda es 
-$P(\max\{X_1,\ldots,X_n\}\leq 0.1)=P(X_1\leq 0.1,X_2\leq 0.1,\ldots, X_n\leq 0.1)=P(X_1\leq 0.1)\cdot P(X_2\leq 0.1)\cdot\ldots\cdot P(X_n\leq 0.1)=0.1^{10}= `r round(0.1^10,12)`$
+
+$P(\max\{X_1,\ldots,X_n\}\leq 0.5)=P(X_1\leq 0.5,X_2\leq 0.5,\ldots, X_n\leq 0.5)=P(X_1\leq 0.5)\cdot P(X_2\leq 0.5)\cdot\ldots\cdot P(X_n\leq 0.5)=0.5^{10}= `r round(0.5^10,12)`.$
 
 Hemos utilizado que la distribución uniforme  
 
@@ -136,7 +141,7 @@ Sea $F_X$ la distribución de la variable que se muestrea entonces $F_{X_i}=F_X$
 La distribucion del máximo es
 
 $$
-\begin{array}{lr}
+\begin{array}{rl}
 P(\max\{X_1,\ldots,X_n\}\leq x)&=P(X_1\leq x,X_2\leq x,\ldots, X_n\leq x)\\
 &=P(X_1\leq x)\cdot P(X_2\leq x)\cdot\ldots\cdot P(X_n\leq x)\\
 &=F_{X_1}(x)\cdot F_{X_1}(x)\ldots\cdot F_{X_n}(x)=F_{X}(x)^n
@@ -145,12 +150,33 @@ $$
 
 La distribucion del mínimo es 
 
-$P(\min\{X_1,\ldots,X_n\}\leq x)=1-P(\min\{X_1,\ldots,X_n\}\geq x)=
-1- P(X_1\geq x,X_2\leq x,\ldots, X_n\geq x)=1-\left(P(X_1\geq x)\cdot P(X_2\geq x)\cdot\ldots\cdot P(X_n\geq x)\right)=1-P(X_1\geq x)\cdot P(X_2\geq x)\cdot\ldots\cdot P(X_n\geq x)=
-1-\left(1-P(X_1\leq x)\right) \cdot \left(1-P(X_1\leq x)\right)\cdot\ldots\cdot\left(1-P(X_1\leq x)\right)=
-1-\left(1-F_{X}(x)\right)\cdot \left(1-F_{X}(x)\right)\ldots\cdot \left(1-F_{X}(x)\right)=1-  (1-F_{X}(x))^n.$
+$$
+\begin{array}{rl}
+P(\min\{X_1,\ldots,X_n\}\leq x)& =1-P(\min\{X_1,\ldots,X_n\}\geq x)\\
+& =1- P(X_1\geq x,X_2\leq x,\ldots, X_n\geq x)\\
+&=1-\left(P(X_1\geq x)\cdot P(X_2\geq x)\cdot\ldots\cdot P(X_n\geq x)\right)\\
+&=1-P(X_1\geq x)\cdot P(X_2\geq x)\cdot\ldots\cdot P(X_n\geq x)\\
+&=
+1-\left(1-P(X_1\leq x)\right) \cdot \left(1-P(X_1\leq x)\right)\cdot\ldots\cdot\left(1-P(X_1\leq x)\right)\\
+&=
+1-\left(1-F_{X}(x)\right)\cdot \left(1-F_{X}(x)\right)\ldots\cdot \left(1-F_{X}(x)\right)\\
+&=1-  (1-F_{X}(x))^n.
+\end{array}
+$$
 
-No son normales. Se deja como ejercicio  derivar la función de distribución del máximo (o del mínimo) para el caso $n=2$ y comprobar que no es una gaussiana.
+
+Obviamente las distinuciones del mínimo y del máximo no son gaussianas (para $n>1$); Las calculamos a continuación.
+
+Denotemos por   $F_Z=\int_{-\infty}^x f_Z(s) dx$  y $f_z(x)=\frac{1}{\sqrt{2\cdot \pi}} \cdot e^{-\frac{x^2}{2}}$ a las  funciones de distribución y de densidad de una $N(0,1)$ sabemos que  si $X$ sigue una ley $N(\mu,\sigma)$ entonces la función de distribución de $X$ es   $F_X(x)=F_Z(\frac{x-\mu}{\sigma})$ y la densidad es $f_X(x)=f_Z(\frac{x-\mu}{\sigma})$. 
+
+ Entonces la distribución del máximo $M$ es 
+ 
+ $F_M(x)=1-(1-F_{X}(x))^n=1-(1-F_{Z}(\frac{x-\mu}{\sigma}))^n$   y su densidad es  su derivada respecto de $x$
+ 
+ $f_M(x)=\left(F_M(x)\right)'=n\cdot (1-F_{Z}(\frac{x-\mu}{\sigma}))^{n-1}\cdot f_{Z}(\frac{x-\mu}{\sigma}).$
+ 
+ 
+De forma similar, se deja como ejercicio, se calcula la distribución del mínimo.
 
 
 ## Solución  ejercicio 6
