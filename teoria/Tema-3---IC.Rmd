@@ -573,7 +573,7 @@ El intervalo de confianza será, pues:
 media=9.5
 sd=0.5
 n=1000
-alpha=0.5
+alpha=0.05
 cuantil=qnorm(1-alpha/2)
 ```
 
