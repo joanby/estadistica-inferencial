@@ -3,11 +3,11 @@ title: "Ejercicios con SOLUCIONES Tema 2 - Estimación. Taller 1"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
 output:
-  pdf_document: 
-    number_sections: yes
-    toc: yes
   html_document:
     df_print: paged
+    toc: yes
+  pdf_document: 
+    number_sections: yes
     toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
