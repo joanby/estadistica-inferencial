@@ -80,12 +80,12 @@ Carguemos los datos en R
 muestra_lluvia=c(0,0,0.7,1,0.1,0,0.2,0.5,0,0.6)
 ```
 
-Nos dicen  que los datos de la muestra provienen de una población modelada por una  v.a. $X$ con distribución $U(0,b)$. Entonces $E(X)=\frac{1}{b-0}=\frac1b.$  por el método de los momentos  estimamos $E(X)$ por $\overline{X}$ luego $\frac{1b}=E(X)$ de donde $b=\frac{1}{E(X)}$ y por lo tanto  un estimador del parámetro  $b$ es $\hat{b}=\frac{1}{\overline{X}}.$ En nuestro caso y con R
+Nos dicen  que los datos de la muestra provienen de una población modelada por una  v.a. $X$ con distribución $U(0,b)$. Entonces $E(X)=\frac{b-0}{2}=\frac{b}{2}.$  Utilizaremos el el  método de los momentos  estimamos $E(X)$ por $\overline{X}$ luego $\frac{b}{2}=E(X)$ de donde $b=E(X)\cdot 2$ y por lo tanto  un estimador del parámetro  $b$ es $\hat{b}=2*\overline{X}.$ En nuestro caso y con R
 
 ```{r}
 media_lluvia=mean(muestra_lluvia)
 media_lluvia
-bhat=1/media_lluvia
+bhat=2*media_lluvia
 bhat
 ```
 
