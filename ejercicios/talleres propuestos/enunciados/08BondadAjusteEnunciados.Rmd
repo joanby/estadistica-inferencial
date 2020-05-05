@@ -8,3 +8,78 @@ output:
   html_document: default
 ---
 
+1. Se lanzaron un par de dados $500$ veces. 
+En la taula siguiente se muestran las sumas que se obtuvieron. Provar la hipótesis de que los dados no estaban
+trucados, es decir, comprobar que el p-valor para aceptar que los dados no estan trucados no es pequeño.
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Suma & Frecuencia \\\hline\hline
+$2,3$ o o o o. $4$&$\ 74$\\\hline $5$ 
+$6$&$120$\\\hline $7$&$\ 83$\\\hline $8$ 
+$9$&$135$\\\hline $10,11$  $12$&$\ 88$\\\hline
+\end{tabular}
+\end{center}
+1. El $1972$, el informe oficial dió la información siguiente sobre el número
+de días que fueron internados los enfermos en el hospital en el año $1971$.
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+Número de días & Número de enfermos
+\\\hline\hline
+$1$&$\ 89$\\\hline $2$&$152$\\\hline 
+$3$&$105$
+\\\hline $4-5$&$165$\\\hline 
+$6-9$&$221$\\\hline $10-14$&$124$\\\hline $15-30$
+&$106$\\\hline $31$ o más&$\ 38$\\\hline 
+\end{tabular}
+\end{center}
+Probar la hipótesis que estos datos se obtuvieron de una distribución $\chi^2$ con $4$ grados de libertad.
+1. Se realizó una prueba de inteligencia a $100$ estudiantes. En la tabla siguiente se muestran las calificaciones
+obtenidas:
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Calificación $x$&Frecuencia\\
+\hline\hline
+$70<x\leq 90$&$\ 8$\\\hline
+$90<x\leq 110$&$38$\\\hline
+$110<x\leq 130$&$45$\\\hline
+$130<x\leq 150$&$\ 9$\\\hline 
+\end{tabular}
+\end{center}
+Podéis suponer que las calificaciones anteriores son una muestra aleatoria de las que tendrien todas las personas
+posibles que hicieran la prueba. Probar la hipótesis de que las
+calificaciones obtenidas por la población (conceptualmente
+infinita) estarían distribuidas normalmente.
+1. Consideremos la muestra aleatoria siguiente de una variable aleatoria $X$ tal que $X(\Omega)=[0,1]$.
+Probar mediante el test $\chi^2$, que podemos considerar que
+$X$ sigue una distribución uniforme en $[0,1]$. (Considerar intervalos de amplitud $0.25$.)
+\begin{center}
+\begin{tabular}{cccccccccc}
+ 0.479, & 0.889, & 0.216, & 0.596, & 0.359, & 
+ 0.347, & 0.646, & 0.359, & 0.991, & 0.227\\
+ 0.774, & 0.760, & 0.448, & 0.992, & 0.742, & 
+ 0.402, & 0.049, & 0.213, & 0.296, & 0.711\\
+ \end{tabular}
+ \end{center}
+ 1. Sea $X$ la variable aleatòria que tiene
+como función de densidad: 
+$$
+f(x)=
+\left\{\begin{array}{ll}
+x+1, & \text{si $x\in [-1,0],$}\\ 1-x, & \text{si
+$x\in [0,1],$}\\
+0, & \text{en cas contrari.} 
+\end{array}\right.
+$$
+Comprobar mediante el test de la $\chi^2$ que la muestra aleatòria simple siguiente
+tiene la misma distribución que $X$:
+\begin{center}
+\begin{tabular}{r@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}l} 
+0&183,&0&647,&0&148,&-0&143,&-0&625,&0&858,&-0&177,&0&350,\\-0&188,&-0&059,&
+0&845,&0&031,&-0&156,&0&564,&-0&235,&0&237,\\0&294,&-0&257,&0&110,&0&478,&
+0&647,&0&276,&-0&528,&-0&075,\\-0&498,&0&395,&-0&163,&-0&075,&-0&623,&0&053,&
+-0&647,&0&348,\\-0&795,&-0&132,&-0&381,&-0&017,&-0&227,&0&277,&0&590,&-0&832\\
+\end{tabular}
+\end{center}

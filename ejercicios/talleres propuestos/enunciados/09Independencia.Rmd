@@ -1,0 +1,55 @@
+---
+title: "Problemas de independencia"
+author: ""
+date: ""
+geometry: "left=2cm,right=2cm,top=2cm,bottom=2cm"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+1. Se seleccionó una muestra de $3000$ naranjas de València. Cada
+naranja se clasificó según su color (claro, medio y oscuro) y se determinó su contenido de azúcar
+(dulce o no dulce). Los resultados fueron:
+\ \newline
+\begin{center}
+\begin{tabular}{|c||c|c||c|}
+\hline Color&Muy Dulce&No
+Dulce&Totales\\\hline\hline Claro&$1300$&$\ 200$&$1500$
+\\\hline Medio&$\ 500$&$\ 500$&$1000$\\\hline Oscuro
+&$\ 200$&$\ 300$&$\ 500$\\\hline Totales
+&$2000$&$1000$&$3000$\\\hline 
+\end{tabular}
+\end{center}
+\ \newline
+Probar la hipótesis de que la dulzura y el color son independientes.
+1. Nos dan las notas de cierta asignatura de 3 grupos de alumnos $A$, $B$ i $C$:
+\ \newline
+\begin{center}
+\begin{tabular}{|c||r@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}l
+r@{.}lr@{.}l|}
+\hline
+$A$&4&6&5&&5&1&5&6&4&6&5&&5&7&5&4&4&4&8&\\\hline
+$B$&4&6&3&4&5&3&4&&3&5&4&&5&&4&7&3&6&4&1\\\hline
+$C$&7&2&7&3&5&7&4&1&5&7&6&1&6&&7&8&7&&3&8\\\hline
+\end{tabular}
+\end{center}
+\ \newline
+Los clasificamos según $2$ criterios: por grupo y por nota teniendo en cuenta
+que: **Suspenso** significa una nota más pequeña que $5$ (nota $<5$) y **Aprobado** significa una nota entre $5$ y $6$ ($5\leq 6$), **Notable** significa una nota mayor que $6$ (nota $>\ 6$).
+\newline Hallar a partir del test $\chi^2$ el p-valor para aceptar que los dos criterios son
+independientes
+1. Clasificamos $N$ individuos según dos criterios. Cada criterio tiene dos
+niveles. La tabla de contingencia es la siguiente:
+\begin{center}
+\begin{tabular}{|c|r|r|}
+\hline
+$C_2\backslash C_1$&\multicolumn{1}{|c|}{$A_1$}&
+\multicolumn{1}{|c|}{$A_2$}\\\hline\hline
+$B_1$&10&5\\\hline
+$B_2$&5&10\\\hline
+\end{tabular}
+\end{center}
+\ \newline
+Hallar el p-valor para poder aceptar que los dos criterios son 
+independientes usando el test $\chi^2$.
