@@ -1,0 +1,10 @@
+---
+title: "Problemas de bondad de ajuste"
+author: ""
+date: ""
+geometry: "left=2cm,right=2cm,top=2cm,bottom=2cm"
+output:
+  pdf_document: default
+  html_document: default
+---
+
