@@ -1,13 +1,13 @@
 ---
-title: "Ejercicios Tema 3 SOLUCIONES - Intervalos de Confianza. Taller 1"
+title: "Ejercicios Tema 3 SOLUCIONES - Intervalos de Confianza. Taller 2"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   pdf_document:
     number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
     toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
@@ -18,6 +18,7 @@ urlcolor: blue
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
 ```
 
 # Estimación por intervalos taller 2
@@ -25,20 +26,40 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Ejercicio 1
 
- En una ciudad A de 400 propietarios de coches 125 tienen
-una marca $X$; y en otra población B, de 600 propietarios, 180 tienen la marca $X$. Calcular un intervalo de confianza del 95\% para la diferencia de proporciones entre la ciudad A y la B.
-\sol{ $\left(-0.111,0.136\right)$}
-
-## Ejercicio 2
-
-Una infección por un virus puede haber perjudicado a muchos ordenadores con
-\emph{Windwos}. Desde el
+Una infección por un virus puede haber perjudicado a muchos ordenadores. Desde el
 Centro de Alerta Temprana (CAT) se quiere calcular la
 proporción de ordenadores infectados. El jefe del centro  os pide que calculéis
 el tamaño de una muestra para que el intervalo de confianza de la proporción muestral de
 ordenadores infectados tenga amplitud de a lo sumo $0.01$ con una probabilidad del 90\%.
 
-## Ejercicio 3
+### Solución
+
+
+El el peor de los casos la proporción $p=0.5$. 
+La aproximación por el TLC del tamaño muestral que da una amplitud de la proporción en tanto por 1  del $0.01$ es en este caso 
+
+Recordemos que  la **Fórmula de Laplace**, En este caso la amplitud $A_0=0.01$
+
+$$
+A_0\geq 2z_{1-\frac{\alpha}{2}}\sqrt{\frac{0.5^2}{n}}=\frac{z_{1-\frac{\alpha}{2}}}{\sqrt{n}}
+\Rightarrow
+n\geq \left\lceil\frac{z_{1-\frac{\alpha}{2}}^2}{A_0^2}\right\rceil.
+$$
+
+por lo tanto
+
+
+```{r}
+A0=0.01
+alpha=1-0.9
+n=ceiling(qnorm(1-alpha/2)^2/A0^2)
+n
+```
+
+
+Para asegurar este error, y en el peor de los casos $p=0.5$,  necesitamos una muestra de tamaño $n=`r n`$. 
+
+## Ejercicio 2
 
 Se han medido los siguientes valores (en miles de personas) para la audiencia de un
 programa de televisión en distintos días (supuestos igualmente distribuidos e
@@ -50,8 +71,85 @@ Construir un intervalo de confianza del $90$\%, para la audiencia poblacional me
 para la varianza poblacional, bajo la hipótesis de que la población de audiencias sigue una
 ley normal.
 
-## Ejercicio 4
 
+### Solución
+
+Nos dicen que la población es normal así que todo es más fácil, Cargamos los datos de la muestra
+
+```{r}
+muestra=c(521, 742, 593, 635, 788, 717, 606, 639, 666, 624)
+muestra
+```
+
+
+
+El intervalos para $\mu$  lo calcularemos con la función `t.test`
+
+
+
+```{r}
+t.test(muestra,conf.level = 0.95)$conf.int
+```
+Con funciones básicas y utilizando la fórmula
+
+$$
+\left( 
+\overline{X}-t_{n-1,1-\frac{\alpha}{2}} \frac{\widetilde{S}_{X}}{\sqrt{n}},
+\overline{X}+t_{n-1,1-\frac{\alpha}{2}}\frac{\widetilde{S}_{X}}{\sqrt{n}} \right).
+$$
+
+```{r}
+n=length(muestra)
+n
+alpha=1-0.95
+alpha
+media=mean(muestra)
+media
+stilde=sd(muestra)
+stilde
+IC=c(media-qt(1-alpha/2,df=n-1)*stilde/sqrt(n),media+qt(1-alpha/2,df=n-1)*stilde/sqrt(n))
+IC
+```
+
+
+
+
+
+
+
+Lo calculamos con R
+
+El intervalo para $\sigma^2$ es 
+
+$$
+\left( \frac{(n-1)\widetilde{S}_{X}^2}{\chi_{n-1,1-\frac{\alpha}{2}}^2},
+\frac{(n-1)\widetilde{S}_{X}^2}{\chi_{n-1,\frac{\alpha}{2}}^2}
+\right),
+$$
+
+
+Lo calculamos con R y el  paquete `EnvStats`
+
+
+```{r}
+#install.packages("EnvStats")
+EnvStats::varTest(muestra,conf.level=0.95)$conf.int
+```
+
+Si hacemos  el cálculo  con funciones básicas 
+
+
+```{r}
+n=length(muestra)
+stilde=sd(muestra)
+alpha=1-0.95
+IC=c((n-1)*stilde^2/qchisq(1-alpha/2,df=n-1),(n-1)*stilde^2/qchisq(alpha/2,df=n-1))
+IC
+```
+
+ obtenemos  el mismo resultado:-).
+
+## Ejercicio 3
 
 Supongamos que la empresa para la que trabajamos está en un proyecto de investigación,
 financiado con fondos de la Comunidad Europea, que pretende extender una nueva aplicación
@@ -69,7 +167,67 @@ suponiendo el peor caso. Añade un comentario para que el equipo de dirección d
 en el que hay componentes ignorantes en  materia de encuestas, vea como quedarían redactado
 los datos técnicos de la encuesta, y pueda decidir  el tamaño muestral leyendo tu informe.
 
-## Ejercicio 5
+
+### Solución
+
+El tamaño de la muestra en el pero de los casos $p=0.5$ es 
+
+$$
+A_0\geq 2z_{1-\frac{\alpha}{2}}\sqrt{\frac{0.5^2}{n}}=\frac{z_{1-\frac{\alpha}{2}}}{\sqrt{n}}
+\Rightarrow
+n\geq \left\lceil\frac{z_{1-\frac{\alpha}{2}}^2}{A_0^2}\right\rceil.
+$$
+
+Donde $A_0 es la amplitud del intervalo que como sabemos es  dos veces el error $A_0=2\cdot \mbox{error}$.
+
+Definimos una función que calcule $n$ en función del error
+
+
+
+```{r}
+sample_size=function(error,p=0.5,alpha=1-0.95){
+  A0=2*error
+n=ceiling(qnorm(1-alpha/2)^2/A0^2)
+n
+}
+```
+
+Aplicamos la función
+
+```{r}
+sample_size(c(0.05,0.03,0.02,0.01))
+```
+
+
+Podemos presentar los resultados en una bonita tabla para  el nivel de confianza $0.95$
+
+
+
+
+
+```{r}
+tabla_n=data.frame(error=c(0.05,0.03,0.02,0.01),
+                   n=sample_size(c(0.05,0.03,0.02,0.01),alpha=1-0.95), conf.level=0.95)
+tabla_n
+```
+
+
+y otra bonita tabla para  el nivel de confianza $0.99$
+
+
+
+
+
+```{r}
+tabla_n=data.frame(error=c(0.05,0.03,0.02,0.01),
+                   n=sample_size(c(0.05,0.03,0.02,0.01),alpha=1-0.99), conf.level=0.99)
+tabla_n
+```
+
+
+
+
+## Ejercicio 4
 
 El número de reservas semanales de billetes de cierto vuelo de una compañía aérea sigue una
 distribución aproximadamente normal. Se toma un muestra aleatoria de $81$ observaciones de
@@ -86,11 +244,16 @@ poblacional de vuelos que llegan con un retraso de más de $15$ minutos.
 4. Calcular el tamaño muestral que asegura un intervalo de
 confianza de amplitud $0.1$ para la proporción de vuelos que llegan
 con un retraso de más de $15$ minutos al nivel de confianza $95\%$.
-\sol{a) $\left(104.16,119.84)\right)$; b) $\left(972.343,1814.08)\right)$; c)
-$\left(0.265,0.475)\right)$; d) $n=385$}
+
+### Solución
+
+1. $\left(104.16,119.84\right)$.
+2. $\left(972.343,1814.08\right)$.
+3. $\left(0.265,0.475\right)$.
+4. $n=385$.
 
 
-## Ejercicio 6
+## Ejercicio 5
 Una empresa cervecera sabe que las cantidades de cerveza que contienen
 sus latas sigue una distribución normal con desviación típica poblacional $0.03$ litros.
 
@@ -104,6 +267,11 @@ intervalo?
 $99\%$  que tenga una amplitud máxima de $0.03$ litros a cada lado de la
 media  muestral ¿Cuántas observaciones son necesarias, como mínimo,
 para alcanzar este objetivo?
-\sol{a) $90.3\%$; b) $n=7$}
+
+### Solución
+
+
+1. $90.3\%$
+2.  $n=7$
 
 
