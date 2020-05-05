@@ -3,11 +3,11 @@ title: "Ejercicios Tema 3 - Intervalos de Confianza. Taller 1"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
 output:
-  pdf_document:
-    number_sections: yes
-    toc: yes
   html_document:
     df_print: paged
+    toc: yes
+  pdf_document:
+    number_sections: yes
     toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
@@ -67,89 +67,4 @@ confianza para la proporción $p$ de rutinas de la población que presentan esa 
 con probabilidad del 95\%.
 
 \sol{$\left(0.1725,0.3275\right)$}
-
-
-## Ejercicio 6
-
- En una ciudad A de 400 propietarios de coches 125 tienen
-una marca $X$; y en otra población B, de 600 propietarios, 180 tienen la marca $X$. Calcular un intervalo de confianza del 95\% para la diferencia de proporciones entre la ciudad A y la B.
-\sol{ $\left(-0.111,0.136\right)$}
-
-## Ejercicio 7
-
-Una infección por un virus puede haber perjudicado a muchos ordenadores con
-\emph{Windwos}. Desde el
-Centro de Alerta Temprana (CAT) se quiere calcular la
-proporción de ordenadores infectados. El jefe del centro  os pide que calculéis
-el tamaño de una muestra para que el intervalo de confianza de la proporción muestral de
-ordenadores infectados tenga amplitud de a lo sumo $0.01$ con una probabilidad del 90\%.
-
-## Ejercicio 7
-
-Se han medido los siguientes valores (en miles de personas) para la audiencia de un
-programa de televisión en distintos días (supuestos igualmente distribuidos e
-independientes):
-
-$$521, 742, 593, 635, 788, 717, 606, 639, 666, 624.$$
-
-Construir un intervalo de confianza del $90$\%, para la audiencia poblacional media y otro
-para la varianza poblacional, bajo la hipótesis de que la población de audiencias sigue una
-ley normal.
-
-## Ejercicio 8
-
-
-Supongamos que la empresa para la que trabajamos está en un proyecto de investigación,
-financiado con fondos de la Comunidad Europea, que pretende extender una nueva aplicación
-de las TIC. Una de las tareas del proyecto es realizar una encuesta de opinión sobre el
-grado de aceptación que tendría esta nueva tecnología en el mercado europeo. De entre todas
-las universidades y empresas participantes en el proyecto, es a tu empresa a la que le toca
-hacer el protocolo de la encuesta, llevarla a cabo y redactar esta parte del informe final.
-Como eres el último que llegó a la empresa y el resto de miembros del equipo no se acuerda
-de la estadística que vio en la carrera, te toca a ti cargar con la responsabilidad. Claro
-que el coste de la encuesta depende del número $n$ de entrevistas que se realicen y el
-error de las proporciones de las contestaciones disminuye cuando $n$ aumenta. Como no sabes
-cuánto dinero está dispuesto a gastar tu jefe, tabula los tamaños muestrales para los
-errores $\pm 5\%, \pm 3\%, \pm 2\%,\pm 1\%$, y para niveles de confianza $0.95$ y $0.99$,
-suponiendo el peor caso. Añade un comentario para que el equipo de dirección del proyecto,
-en el que hay componentes ignorantes en  materia de encuestas, vea como quedarían redactado
-los datos técnicos de la encuesta, y pueda decidir  el tamaño muestral leyendo tu informe.
-
-## Ejercicio 9
-
-El número de reservas semanales de billetes de cierto vuelo de una compañía aérea sigue una
-distribución aproximadamente normal. Se toma un muestra aleatoria de $81$ observaciones de
-números de reservas de este vuelo: el número medio de reservas muestral resulta ser $112$,
-mientras que la desviación típica muestral es  $36$. Además de estos $81$ vuelos, $30$
-llegaron a su destino con un retraso de más de $15$ minutos.
-
-1. Calcular un intervalo de confianza del $95\%$ para el número medio
-poblacional de reservas en este vuelo.
-2. Calcular un intervalo de confianza de $95\%$ para la varianza
-poblacional de las reservas.
-3. Calcular un intervalo de confianza del $95\%$ para la proporción
-poblacional de vuelos que llegan con un retraso de más de $15$ minutos.
-4. Calcular el tamaño muestral que asegura un intervalo de
-confianza de amplitud $0.1$ para la proporción de vuelos que llegan
-con un retraso de más de $15$ minutos al nivel de confianza $95\%$.
-\sol{a) $\left(104.16,119.84)\right)$; b) $\left(972.343,1814.08)\right)$; c)
-$\left(0.265,0.475)\right)$; d) $n=385$}
-
-
-## Ejercicio 10
-Una empresa cervecera sabe que las cantidades de cerveza que contienen
-sus latas sigue una distribución normal con desviación típica poblacional $0.03$ litros.
-
-
-1. Se extrae una muestra aleatoria de $25$ latas y, a partir de la
-misma, un experto en estadística construye un  intervalo de confianza
-para la media poblacional del contenido en litros de las latas que
-discurre entre $0.32$ y $0.34$ ¿Cuál es el nivel de confianza de este
-intervalo?
-2. Un gerente de esta empresa exige un intervalo de confianza del
-$99\%$  que tenga una amplitud máxima de $0.03$ litros a cada lado de la
-media  muestral ¿Cuántas observaciones son necesarias, como mínimo,
-para alcanzar este objetivo?
-\sol{a) $90.3\%$; b) $n=7$}
-
 

@@ -1642,11 +1642,21 @@ summary {
 <div id="TOC">
 <ul>
 <li><a href="#estimación-por-intervalos-taller-1">Estimación por intervalos taller 1</a><ul>
-<li><a href="#ejercicio-1">Ejercicio 1</a></li>
-<li><a href="#ejercicio-2">Ejercicio 2</a></li>
-<li><a href="#ejercicio-3">Ejercicio 3</a></li>
-<li><a href="#ejercicio-4">Ejercicio 4</a></li>
-<li><a href="#ejercicio-5">Ejercicio 5</a></li>
+<li><a href="#ejercicio-1">Ejercicio 1</a><ul>
+<li><a href="#solución">Solución</a></li>
+</ul></li>
+<li><a href="#ejercicio-2">Ejercicio 2</a><ul>
+<li><a href="#solución-1">Solución</a></li>
+</ul></li>
+<li><a href="#ejercicio-3">Ejercicio 3</a><ul>
+<li><a href="#solución-2">Solución</a></li>
+</ul></li>
+<li><a href="#ejercicio-4">Ejercicio 4</a><ul>
+<li><a href="#solución-3">Solución</a></li>
+</ul></li>
+<li><a href="#ejercicio-5">Ejercicio 5</a><ul>
+<li><a href="#solución-4">Solución</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -1656,24 +1666,122 @@ summary {
 <div id="ejercicio-1" class="section level2">
 <h2>Ejercicio 1</h2>
 <p>De una población de barras de hierro se extrae una muestra de <span class="math inline">\(64\)</span> barras y se calcula la resistencia a la rotura por tracción se obtiene que <span class="math inline">\(\overline{X}=1012\ Kg/cm^{2}\)</span>. Se sabe por experiencia que en este tipo de barras <span class="math inline">\(\sigma=25\)</span>. Calcular un intervalo de confianza para <span class="math inline">\(\mu\)</span> al nivel 0.95.</p>
-
+<div id="solución" class="section level3">
+<h3>Solución</h3>
+<p>El intervalo para la media es</p>
+<pre class="r"><code>n=64
+xmedia=1012
+sigma=25
+alpha=1-0.95
+IC=c(xmedia-qnorm(1-alpha/2)*sigma/sqrt(n),xmedia+qnorm(1-alpha/2)*sigma/sqrt(n))
+IC</code></pre>
+<pre><code>## [1] 1005.875 1018.125</code></pre>
+<p>Con un nivel de confianza del <span class="math inline">\(95\%\)</span> el intervalo <span class="math inline">\((1005.8751125, 1018.1248875)\)</span> contiene el verddero valor de la ressitencia a la rotura de estas barras de hierro.</p>
+</div>
 </div>
 <div id="ejercicio-2" class="section level2">
 <h2>Ejercicio 2</h2>
-<p>Para investigar el C.I. medio de una cierta población de estudiantes, se realiza un test a <span class="math inline">\(400\)</span> estudiantes. La media y la desviación típica muestrales obtenidas son <span class="math inline">\(\overline{x}=86\)</span> y <span class="math inline">\(\tilde{s}_{X}=10.2\)</span>. Calcular un intervalo para <span class="math inline">\(\mu\)</span> con un nivel de significación del 98%. </p>
+<p>Para investigar el C.I. medio de una cierta población de estudiantes, se realiza un test a <span class="math inline">\(400\)</span> estudiantes. La media y la desviación típica muestrales obtenidas son <span class="math inline">\(\overline{x}=86\)</span> y <span class="math inline">\(\tilde{s}_{X}=10.2\)</span>. Calcular un intervalo para <span class="math inline">\(\mu\)</span> con un nivel de significación del 98%.</p>
+<div id="solución-1" class="section level3">
+<h3>Solución</h3>
+<p>Como el tamaño de la muestra es grande aproximaremos por una distribución normal aproximando la desviación típica poblacional por la muestral. El intervalo obtenido es</p>
+<pre class="r"><code>n=400
+xmedia=86
+stilde=10.2
+alpha=1-0.98
+IC=c(xmedia-qnorm(1-alpha/2)*stilde/sqrt(n),xmedia+qnorm(1-alpha/2)*stilde/sqrt(n))
+IC</code></pre>
+<pre><code>## [1] 84.81356 87.18644</code></pre>
+<p>Con un nivel de confianza del <span class="math inline">\(98\%\)</span> el intervalo <span class="math inline">\((84.8136, 87.1864)\)</span> contiene el verdadero valor de la resistencia a la rotura de estas barras de hierro.</p>
+</div>
 </div>
 <div id="ejercicio-3" class="section level2">
 <h2>Ejercicio 3</h2>
-<p>Para investigar un nuevo tipo de combustible para cohetes espaciales, se disparan cuatro unidades y se miden las velocidades iniciales. Los resultados obtenidos, expresados en Km/h, son :19600, 20300, 20500, 19800. Calcular un intervalo para la velocidad media <span class="math inline">\(\mu\)</span> con un nivel de confianza del 95%, suponiendo que las velocidades son normales.  20718.3</p>
+<p>Para investigar un nuevo tipo de combustible para cohetes espaciales, se disparan cuatro unidades y se miden las velocidades iniciales. Los resultados obtenidos, expresados en Km/h, son :19600, 20300, 20500, 19800. Calcular un intervalo para la velocidad media <span class="math inline">\(\mu\)</span> con un nivel de confianza del 95%, suponiendo que las velocidades son normales.</p>
+<div id="solución-2" class="section level3">
+<h3>Solución</h3>
+<p>En este caso nos dicen que la población sigue una distribución normal y que el tamañó de la muestra <span class="math inline">\(n=4\)</span> es pequeño, así que utilizremos la <span class="math inline">\(t\)</span> de Student para el cálculo de los cuantiles de intervalo.</p>
+<pre class="r"><code>n=4
+muestra=c(19600, 20300, 20500, 19800)
+xmedia=mean(muestra)
+xmedia</code></pre>
+<pre><code>## [1] 20050</code></pre>
+<pre class="r"><code>stilde=sd(muestra)
+stilde</code></pre>
+<pre><code>## [1] 420.3173</code></pre>
+<pre class="r"><code>alpha=1-0.95
+IC=c(xmedia-qt(1-alpha/2,df=n-1)*stilde/sqrt(n),xmedia+qt(1-alpha/2,df=n-1)*stilde/sqrt(n))
+IC</code></pre>
+<pre><code>## [1] 19381.18 20718.82</code></pre>
+<p>Al nivel de confianza del <span class="math inline">\(95\%\)</span> el intervalo <span class="math inline">\((19381.1813165, 20718.8186835)\)</span> contiene el verdadero valor de la velocidad media de estos cohetes.</p>
+</div>
 </div>
 <div id="ejercicio-4" class="section level2">
 <h2>Ejercicio 4</h2>
-<p>Un fabricante de cronómetros quiere calcular un intervalo de estimación de la desviación típica del tiempo marcado en <span class="math inline">\(100\)</span> horas por todos los cronómetros de un cierto modelo. Para ello pone en marcha <span class="math inline">\(10\)</span> cronómetros del modelo durante <span class="math inline">\(100\)</span> horas y encuentra que <span class="math inline">\(\tilde{s}_{X}=50\)</span> segundos. Encontrar un intervalo para el parámetro <span class="math inline">\(\sigma^2\)</span> con <span class="math inline">\(\alpha=0.01\)</span>, suponiendo que la población del tiempo marcado por los cronómetros es normal.  \end{prob}</p>
+<p>Un fabricante de cronómetros quiere calcular un intervalo de estimación de la desviación típica del tiempo marcado en <span class="math inline">\(100\)</span> horas por todos los cronómetros de un cierto modelo. Para ello pone en marcha <span class="math inline">\(10\)</span> cronómetros del modelo durante <span class="math inline">\(100\)</span> horas y encuentra que <span class="math inline">\(\tilde{s}_{X}=50\)</span> segundos. Encontrar un intervalo para el parámetro <span class="math inline">\(\sigma^2\)</span> con <span class="math inline">\(\alpha=0.01\)</span>, suponiendo que la población del tiempo marcado por los cronómetros es normal.</p>
+<div id="solución-3" class="section level3">
+<h3>Solución</h3>
+<p>Ekl tamaño de la muestra <span class="math inline">\(n=10\)</span> no es muy grande pero este caso la distribución poblacional del tiempo es normal .</p>
+<pre class="r"><code>n=10
+stilde=50
+alpha=0.01 # nivel de confianza del 99% 
+IC=c((n-1)*stilde^2/qchisq(1-alpha/2,df = n-1),(n-1)*stilde^2/qchisq(alpha/2,df = n-1))
+IC</code></pre>
+<pre><code>## [1]   953.8202 12968.8012</code></pre>
+<p>Al nivel de confianza del <span class="math inline">\(99\%\)</span> el intervalo <span class="math inline">\((953.8202305, 12968.8012344)\)</span> contiene el verdadero valor de la varianza <span class="math inline">\(\sigma^2\)</span> del tiempo.</p>
+</div>
 </div>
 <div id="ejercicio-5" class="section level2">
 <h2>Ejercicio 5</h2>
 <p>Un auditor informático quiere investigar la proporción de rutinas de un programa que presentan una determinada irregularidad. Para ello observa <span class="math inline">\(120\)</span> rutinas, resultando que <span class="math inline">\(30\)</span> de ellas presentan alguna irregularidad. Con estos datos buscar unos límites de confianza para la proporción <span class="math inline">\(p\)</span> de rutinas de la población que presentan esa irregularidad con probabilidad del 95%.</p>
-
+<div id="solución-4" class="section level3">
+<h3>Solución</h3>
+<p>En este problema podemos utilizar distintas aproximaciones el intervalo. Siempre es emjor la exacta pero es posible que, para muestras grandes, tengan menor error de cálculo las osluciones aproximadas.</p>
+<p>Calculemos varias de ellas</p>
+<p>Datos:</p>
+<pre class="r"><code>n=120
+n</code></pre>
+<pre><code>## [1] 120</code></pre>
+<pre class="r"><code>x=30# datos bernoulli a 1 
+x</code></pre>
+<pre><code>## [1] 30</code></pre>
+<pre class="r"><code>p_muestral=x/n  # proporción muestral
+p_muestral</code></pre>
+<pre><code>## [1] 0.25</code></pre>
+<ul>
+<li>Método exacto Cloper Pearson</li>
+</ul>
+<pre class="r"><code>#install.packages(&quot;epitools&quot;) # descomentar para intalar epitools
+epitools::binom.exact(x=x,n=n,conf.level=0.95)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["x"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["proportion"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["lower"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["upper"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["conf.level"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"30","2":"120","3":"0.25","4":"0.1754646","5":"0.3372692","6":"0.95"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<ul>
+<li>Método de Wilson</li>
+</ul>
+<pre class="r"><code>epitools::binom.wilson(x,n,conf.level=0.95)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["x"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["proportion"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["lower"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["upper"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["conf.level"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"30","2":"120","3":"0.25","4":"0.1810982","5":"0.3344114","6":"0.95"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<ul>
+<li>Aproximacón normal fórmula de Laplace</li>
+</ul>
+<pre class="r"><code>epitools::binom.approx(x,n,conf.level=0.95)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["x"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["proportion"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["lower"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["upper"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["conf.level"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"30","2":"120","3":"0.25","4":"0.1725256","5":"0.3274744","6":"0.95"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>En este caso la podemos reproducir de forma sencilla con funciones básicas de R</p>
+<pre class="r"><code>alpha=1-0.95
+IC=c(p_muestral-qnorm(1-alpha/2)*sqrt(p_muestral*(1-p_muestral)/n),p_muestral+qnorm(1-alpha/2)*sqrt(p_muestral*(1-p_muestral)/n))
+IC</code></pre>
+<pre><code>## [1] 0.1725256 0.3274744</code></pre>
+</div>
 </div>
 </div>
 
