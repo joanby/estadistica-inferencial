@@ -6,10 +6,13 @@ output:
   pdf_document:
     number_sections: yes
     toc: yes
-toccolor: blue
+  html_document:
+    df_print: paged
+    toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
 citecolor: blue
+toccolor: blue
 urlcolor: blue
 ---
 
@@ -17,47 +20,136 @@ urlcolor: blue
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Intervalos de confianza  taller 1
-
+# Estimación por intervalos taller 1
 
 ## Ejercicio 1
-El fabricante SMART_LED fabrica bombillas led  inteligentes y de alta gama. Supongamos que la vida de  de estas bombillas sigue una distribución exponencial de parámetro $\lambda$. Si tomamos  una muestra aleatoria 
-de  tamaño $n$ de estas bombillas y representamos por  $X_i$ la duración de la $i-$ésima bombilla para $i=1,\ldots,n$, ¿cuál es la función de densidad conjunta de la muestra?
+
+De una población de barras de hierro se extrae una muestra de $64$ barras y  se calcula la
+resistencia a la rotura por tracción se obtiene que $\overline{X}=1012\ Kg/cm^{2}$. Se sabe
+por experiencia que en este tipo de barras $\sigma=25$. Calcular un intervalo de confianza
+para $\mu$ al nivel 0.95. 
+
+\sol{$\left(1005.88 , 1018.13\right)$}
 
 ## Ejercicio 2
-Sean $X_1,X_2,\ldots,X_{10}$  variables aleatorias que son una muestra aleatoria simple de una v.a. $X$. 
-   a. Dividimos la muestra en dos partes: de forma que la primera son los $5$ primeros valores y la segunda los restantes. 
-  ¿Son  independientes las dos partes?
-   b. Volvemos a dividir la muestra en dos partes: la primera  está formada por los $5$ valores más pequeños y
-  la segunda por el resto. ¿Son independientes las dos partes?
+
+Para investigar el C.I. medio de una cierta población de estudiantes, se realiza un test a
+$400$ estudiantes. La media y la desviación típica  muestrales obtenidas son
+$\overline{x}=86$ y $\tilde{s}_{X}=10.2$. Calcular un intervalo para $\mu$ con un nivel de
+significación del 98\%. \sol{$\left(84.8117, 87.1883\right)$}
 
 ## Ejercicio 3
-Un fabricante de motores  pone a prueba  $6$ motores sobre   el mismo prototipo  de coche de competición. Para probar que los motores tienes las mismas prestaciones se someten a distintas pruebas en un circuito. 
-Las velocidades máximas en 10 vueltas al circuito  de cada motor tras la prueba son  $190,195,193,177,201$ y $187$ en Km/h. Estos valores forman una muestra aleatoria simple de la variable $X=\mbox{velocidad máxima de un motor en 10 vueltas.}$ Se pide calcular los valores observados de los siguientes estadísticos de  la muestra:
-   a. $\overline{X}$.
-   b. $\tilde{S}^2$.
-   c. Mediana.
-   d. $X_{(4)}$ (valor que ocupa el  cuarto lugar ordenados los valores de menor a mayor).
 
-## Ejercicio 4
-¿Cuál es  la probabilidad de que el  máximo de  de una muestra de tamaño $n=10$ de una v.a. uniforme en el intervalo $(0,1)$ sea mayor que $0.9$? ¿Cuál es la probabilidad de sea menor  que $\frac12$?
+Para investigar un nuevo tipo de combustible para cohetes espaciales, se disparan cuatro
+unidades y se miden las velocidades iniciales. Los resultados obtenidos, expresados en
+Km/h, son :19600, 20300, 20500, 19800. Calcular un intervalo para la velocidad media $\mu$
+con un nivel de confianza del 95\%, suponiendo que las velocidades son normales.
+\sol{$\left(19381.7, 20718.3\right)$} 20718.3
+
+
+## Ejercicio 4 
+
+Un fabricante de cronómetros quiere calcular un intervalo de estimación de la desviación
+típica del tiempo marcado en $100$ horas por todos los cronómetros  de un cierto modelo.
+Para ello pone en marcha $10$ cronómetros del modelo durante $100$ horas y encuentra que
+$\tilde{s}_{X}=50$ segundos. Encontrar un intervalo para el parámetro $\sigma^2$ con
+$\alpha=0.01$, suponiendo que la población del tiempo marcado por los cronómetros es
+normal. \sol{$\left(953.834,12968.3\right)$}
+\end{prob}
+
 
 ## Ejercicio 5
-Sea $X_1,X_2,\ldots,X_n$ una muestra aleatoria simple de una
-variable aleatoria  normal de parámetros $\mu$ y $\sigma$. Denotemos por $X_{(1)}\leq X_{(2)}\leq ,\ldots,\leq X_{(n)}$ la muestra ordenada de menor a mayor.
-   a. Calcular la funciones de densidad del mínimo $X_{(1)}$ y del máximo $X_{(n)}$
-   b. ¿Alguna de estas variables sigue una distribución normal?
+
+Un auditor informático quiere investigar la proporción de rutinas de un programa que
+presentan una determinada irregularidad. Para ello observa $120$ rutinas, resultando que
+$30$ de ellas presentan alguna irregularidad. Con estos datos buscar unos límites de
+confianza para la proporción $p$ de rutinas de la población que presentan esa irregularidad
+con probabilidad del 95\%.
+
+\sol{$\left(0.1725,0.3275\right)$}
+
 
 ## Ejercicio 6
-Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de una v.a $X$  de media $\mu$ y  varianza $\sigma^2$ desconocidas. Definimos $$\overline{X}=\frac1n \sum\limits_{i=1}^n X_i\mbox{ y } T=\frac{\sqrt{n}\cdot(\overline{X}-\mu)}{\sigma}.$$
 
-   a. ¿Cuál es la distribución de $T$?
-   b. ¿Es $T$ un estadístico?
+ En una ciudad A de 400 propietarios de coches 125 tienen
+una marca $X$; y en otra población B, de 600 propietarios, 180 tienen la marca $X$. Calcular un intervalo de confianza del 95\% para la diferencia de proporciones entre la ciudad A y la B.
+\sol{ $\left(-0.111,0.136\right)$}
 
 ## Ejercicio 7
-Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_n$  de tamaño $n=10$ de una v.a $X$ normal estándar. Calculad $P\left(2.56<\sum\limits_{i=1}^{10} X_i^2 <18.31\right)$.
+
+Una infección por un virus puede haber perjudicado a muchos ordenadores con
+\emph{Windwos}. Desde el
+Centro de Alerta Temprana (CAT) se quiere calcular la
+proporción de ordenadores infectados. El jefe del centro  os pide que calculéis
+el tamaño de una muestra para que el intervalo de confianza de la proporción muestral de
+ordenadores infectados tenga amplitud de a lo sumo $0.01$ con una probabilidad del 90\%.
+
+## Ejercicio 7
+
+Se han medido los siguientes valores (en miles de personas) para la audiencia de un
+programa de televisión en distintos días (supuestos igualmente distribuidos e
+independientes):
+
+$$521, 742, 593, 635, 788, 717, 606, 639, 666, 624.$$
+
+Construir un intervalo de confianza del $90$\%, para la audiencia poblacional media y otro
+para la varianza poblacional, bajo la hipótesis de que la población de audiencias sigue una
+ley normal.
 
 ## Ejercicio 8
-Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_{n}$ de tamaño $n=10$  de una v.a $X$ normal $N(\mu=2,\sigma=4)$. Definimos  la  siguiente variable aleatoria $Y=\frac{\sum\limits_{i=1}^{10}{(X_i-2)}^2}{16}$. 
-Calculad $P(Y\leq 2.6)$
+
+
+Supongamos que la empresa para la que trabajamos está en un proyecto de investigación,
+financiado con fondos de la Comunidad Europea, que pretende extender una nueva aplicación
+de las TIC. Una de las tareas del proyecto es realizar una encuesta de opinión sobre el
+grado de aceptación que tendría esta nueva tecnología en el mercado europeo. De entre todas
+las universidades y empresas participantes en el proyecto, es a tu empresa a la que le toca
+hacer el protocolo de la encuesta, llevarla a cabo y redactar esta parte del informe final.
+Como eres el último que llegó a la empresa y el resto de miembros del equipo no se acuerda
+de la estadística que vio en la carrera, te toca a ti cargar con la responsabilidad. Claro
+que el coste de la encuesta depende del número $n$ de entrevistas que se realicen y el
+error de las proporciones de las contestaciones disminuye cuando $n$ aumenta. Como no sabes
+cuánto dinero está dispuesto a gastar tu jefe, tabula los tamaños muestrales para los
+errores $\pm 5\%, \pm 3\%, \pm 2\%,\pm 1\%$, y para niveles de confianza $0.95$ y $0.99$,
+suponiendo el peor caso. Añade un comentario para que el equipo de dirección del proyecto,
+en el que hay componentes ignorantes en  materia de encuestas, vea como quedarían redactado
+los datos técnicos de la encuesta, y pueda decidir  el tamaño muestral leyendo tu informe.
+
+## Ejercicio 9
+
+El número de reservas semanales de billetes de cierto vuelo de una compañía aérea sigue una
+distribución aproximadamente normal. Se toma un muestra aleatoria de $81$ observaciones de
+números de reservas de este vuelo: el número medio de reservas muestral resulta ser $112$,
+mientras que la desviación típica muestral es  $36$. Además de estos $81$ vuelos, $30$
+llegaron a su destino con un retraso de más de $15$ minutos.
+
+1. Calcular un intervalo de confianza del $95\%$ para el número medio
+poblacional de reservas en este vuelo.
+2. Calcular un intervalo de confianza de $95\%$ para la varianza
+poblacional de las reservas.
+3. Calcular un intervalo de confianza del $95\%$ para la proporción
+poblacional de vuelos que llegan con un retraso de más de $15$ minutos.
+4. Calcular el tamaño muestral que asegura un intervalo de
+confianza de amplitud $0.1$ para la proporción de vuelos que llegan
+con un retraso de más de $15$ minutos al nivel de confianza $95\%$.
+\sol{a) $\left(104.16,119.84)\right)$; b) $\left(972.343,1814.08)\right)$; c)
+$\left(0.265,0.475)\right)$; d) $n=385$}
+
+
+## Ejercicio 10
+Una empresa cervecera sabe que las cantidades de cerveza que contienen
+sus latas sigue una distribución normal con desviación típica poblacional $0.03$ litros.
+
+
+1. Se extrae una muestra aleatoria de $25$ latas y, a partir de la
+misma, un experto en estadística construye un  intervalo de confianza
+para la media poblacional del contenido en litros de las latas que
+discurre entre $0.32$ y $0.34$ ¿Cuál es el nivel de confianza de este
+intervalo?
+2. Un gerente de esta empresa exige un intervalo de confianza del
+$99\%$  que tenga una amplitud máxima de $0.03$ litros a cada lado de la
+media  muestral ¿Cuántas observaciones son necesarias, como mínimo,
+para alcanzar este objetivo?
+\sol{a) $90.3\%$; b) $n=7$}
+
 

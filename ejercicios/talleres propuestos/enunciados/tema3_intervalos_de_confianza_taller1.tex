@@ -1,0 +1,250 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Ejercicios Tema 3 - Intervalos de Confianza. Taller 1},
+  pdfauthor={Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir},
+  colorlinks=true,
+  linkcolor=red,
+  filecolor=Maroon,
+  citecolor=blue,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\renewcommand{\contentsname}{Contenidos}
+
+\title{Ejercicios Tema 3 - Intervalos de Confianza. Taller 1}
+\author{Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir}
+\date{Curso completo de estadística inferencial con R y Python}
+
+\begin{document}
+\maketitle
+
+{
+\hypersetup{linkcolor=blue}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{estimaciuxf3n-por-intervalos-taller-1}{%
+\section{Estimación por intervalos taller
+1}\label{estimaciuxf3n-por-intervalos-taller-1}}
+
+\hypertarget{ejercicio-1}{%
+\subsection{Ejercicio 1}\label{ejercicio-1}}
+
+De una población de barras de hierro se extrae una muestra de \(64\)
+barras y se calcula la resistencia a la rotura por tracción se obtiene
+que \(\overline{X}=1012\ Kg/cm^{2}\). Se sabe por experiencia que en
+este tipo de barras \(\sigma=25\). Calcular un intervalo de confianza
+para \(\mu\) al nivel 0.95.
+
+\sol{$\left(1005.88 , 1018.13\right)$}
+
+\hypertarget{ejercicio-2}{%
+\subsection{Ejercicio 2}\label{ejercicio-2}}
+
+Para investigar el C.I. medio de una cierta población de estudiantes, se
+realiza un test a \(400\) estudiantes. La media y la desviación típica
+muestrales obtenidas son \(\overline{x}=86\) y \(\tilde{s}_{X}=10.2\).
+Calcular un intervalo para \(\mu\) con un nivel de significación del
+98\%. \sol{$\left(84.8117, 87.1883\right)$}
+
+\hypertarget{ejercicio-3}{%
+\subsection{Ejercicio 3}\label{ejercicio-3}}
+
+Para investigar un nuevo tipo de combustible para cohetes espaciales, se
+disparan cuatro unidades y se miden las velocidades iniciales. Los
+resultados obtenidos, expresados en Km/h, son :19600, 20300, 20500,
+19800. Calcular un intervalo para la velocidad media \(\mu\) con un
+nivel de confianza del 95\%, suponiendo que las velocidades son
+normales. \sol{$\left(19381.7, 20718.3\right)$} 20718.3
+
+\hypertarget{ejercicio-4}{%
+\subsection{Ejercicio 4}\label{ejercicio-4}}
+
+Un fabricante de cronómetros quiere calcular un intervalo de estimación
+de la desviación típica del tiempo marcado en \(100\) horas por todos
+los cronómetros de un cierto modelo. Para ello pone en marcha \(10\)
+cronómetros del modelo durante \(100\) horas y encuentra que
+\(\tilde{s}_{X}=50\) segundos. Encontrar un intervalo para el parámetro
+\(\sigma^2\) con \(\alpha=0.01\), suponiendo que la población del tiempo
+marcado por los cronómetros es normal.
+\sol{$\left(953.834,12968.3\right)$} \textbackslash end\{prob\}
+
+\hypertarget{ejercicio-5}{%
+\subsection{Ejercicio 5}\label{ejercicio-5}}
+
+Un auditor informático quiere investigar la proporción de rutinas de un
+programa que presentan una determinada irregularidad. Para ello observa
+\(120\) rutinas, resultando que \(30\) de ellas presentan alguna
+irregularidad. Con estos datos buscar unos límites de confianza para la
+proporción \(p\) de rutinas de la población que presentan esa
+irregularidad con probabilidad del 95\%.
+
+\sol{$\left(0.1725,0.3275\right)$}
+
+\hypertarget{ejercicio-6}{%
+\subsection{Ejercicio 6}\label{ejercicio-6}}
+
+En una ciudad A de 400 propietarios de coches 125 tienen una marca
+\(X\); y en otra población B, de 600 propietarios, 180 tienen la marca
+\(X\). Calcular un intervalo de confianza del 95\% para la diferencia de
+proporciones entre la ciudad A y la B.
+\sol{ $\left(-0.111,0.136\right)$}
+
+\hypertarget{ejercicio-7}{%
+\subsection{Ejercicio 7}\label{ejercicio-7}}
+
+Una infección por un virus puede haber perjudicado a muchos ordenadores
+con \emph{Windwos}. Desde el Centro de Alerta Temprana (CAT) se quiere
+calcular la proporción de ordenadores infectados. El jefe del centro os
+pide que calculéis el tamaño de una muestra para que el intervalo de
+confianza de la proporción muestral de ordenadores infectados tenga
+amplitud de a lo sumo \(0.01\) con una probabilidad del 90\%.
+
+\hypertarget{ejercicio-7-1}{%
+\subsection{Ejercicio 7}\label{ejercicio-7-1}}
+
+Se han medido los siguientes valores (en miles de personas) para la
+audiencia de un programa de televisión en distintos días (supuestos
+igualmente distribuidos e independientes):
+
+\[521, 742, 593, 635, 788, 717, 606, 639, 666, 624.\]
+
+Construir un intervalo de confianza del \(90\)\%, para la audiencia
+poblacional media y otro para la varianza poblacional, bajo la hipótesis
+de que la población de audiencias sigue una ley normal.
+
+\hypertarget{ejercicio-8}{%
+\subsection{Ejercicio 8}\label{ejercicio-8}}
+
+Supongamos que la empresa para la que trabajamos está en un proyecto de
+investigación, financiado con fondos de la Comunidad Europea, que
+pretende extender una nueva aplicación de las TIC. Una de las tareas del
+proyecto es realizar una encuesta de opinión sobre el grado de
+aceptación que tendría esta nueva tecnología en el mercado europeo. De
+entre todas las universidades y empresas participantes en el proyecto,
+es a tu empresa a la que le toca hacer el protocolo de la encuesta,
+llevarla a cabo y redactar esta parte del informe final. Como eres el
+último que llegó a la empresa y el resto de miembros del equipo no se
+acuerda de la estadística que vio en la carrera, te toca a ti cargar con
+la responsabilidad. Claro que el coste de la encuesta depende del número
+\(n\) de entrevistas que se realicen y el error de las proporciones de
+las contestaciones disminuye cuando \(n\) aumenta. Como no sabes cuánto
+dinero está dispuesto a gastar tu jefe, tabula los tamaños muestrales
+para los errores \(\pm 5\%, \pm 3\%, \pm 2\%,\pm 1\%\), y para niveles
+de confianza \(0.95\) y \(0.99\), suponiendo el peor caso. Añade un
+comentario para que el equipo de dirección del proyecto, en el que hay
+componentes ignorantes en materia de encuestas, vea como quedarían
+redactado los datos técnicos de la encuesta, y pueda decidir el tamaño
+muestral leyendo tu informe.
+
+\hypertarget{ejercicio-9}{%
+\subsection{Ejercicio 9}\label{ejercicio-9}}
+
+El número de reservas semanales de billetes de cierto vuelo de una
+compañía aérea sigue una distribución aproximadamente normal. Se toma un
+muestra aleatoria de \(81\) observaciones de números de reservas de este
+vuelo: el número medio de reservas muestral resulta ser \(112\),
+mientras que la desviación típica muestral es \(36\). Además de estos
+\(81\) vuelos, \(30\) llegaron a su destino con un retraso de más de
+\(15\) minutos.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Calcular un intervalo de confianza del \(95\%\) para el número medio
+  poblacional de reservas en este vuelo.
+\item
+  Calcular un intervalo de confianza de \(95\%\) para la varianza
+  poblacional de las reservas.
+\item
+  Calcular un intervalo de confianza del \(95\%\) para la proporción
+  poblacional de vuelos que llegan con un retraso de más de \(15\)
+  minutos.
+\item
+  Calcular el tamaño muestral que asegura un intervalo de confianza de
+  amplitud \(0.1\) para la proporción de vuelos que llegan con un
+  retraso de más de \(15\) minutos al nivel de confianza \(95\%\).
+  \sol{a) $\left(104.16,119.84)\right)$; b) $\left(972.343,1814.08)\right)$; c)
+  $\left(0.265,0.475)\right)$; d) $n=385$}
+\end{enumerate}
+
+\hypertarget{ejercicio-10}{%
+\subsection{Ejercicio 10}\label{ejercicio-10}}
+
+Una empresa cervecera sabe que las cantidades de cerveza que contienen
+sus latas sigue una distribución normal con desviación típica
+poblacional \(0.03\) litros.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Se extrae una muestra aleatoria de \(25\) latas y, a partir de la
+  misma, un experto en estadística construye un intervalo de confianza
+  para la media poblacional del contenido en litros de las latas que
+  discurre entre \(0.32\) y \(0.34\) ¿Cuál es el nivel de confianza de
+  este intervalo?
+\item
+  Un gerente de esta empresa exige un intervalo de confianza del
+  \(99\%\) que tenga una amplitud máxima de \(0.03\) litros a cada lado
+  de la media muestral ¿Cuántas observaciones son necesarias, como
+  mínimo, para alcanzar este objetivo? \sol{a) $90.3\%$; b) $n=7$}
+\end{enumerate}
+
+\end{document}
