@@ -3,11 +3,11 @@ title: "Ejercicios Tema 3 - Intervalos de Confianza. Taller 1"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   pdf_document:
     number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
     toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
@@ -29,14 +29,13 @@ resistencia a la rotura por tracción se obtiene que $\overline{X}=1012\ Kg/cm^{
 por experiencia que en este tipo de barras $\sigma=25$. Calcular un intervalo de confianza
 para $\mu$ al nivel 0.95. 
 
-\sol{$\left(1005.88 , 1018.13\right)$}
 
 ## Ejercicio 2
 
 Para investigar el C.I. medio de una cierta población de estudiantes, se realiza un test a
 $400$ estudiantes. La media y la desviación típica  muestrales obtenidas son
 $\overline{x}=86$ y $\tilde{s}_{X}=10.2$. Calcular un intervalo para $\mu$ con un nivel de
-significación del 98\%. \sol{$\left(84.8117, 87.1883\right)$}
+significación del 98\%.
 
 ## Ejercicio 3
 
@@ -44,7 +43,7 @@ Para investigar un nuevo tipo de combustible para cohetes espaciales, se dispara
 unidades y se miden las velocidades iniciales. Los resultados obtenidos, expresados en
 Km/h, son :19600, 20300, 20500, 19800. Calcular un intervalo para la velocidad media $\mu$
 con un nivel de confianza del 95\%, suponiendo que las velocidades son normales.
-\sol{$\left(19381.7, 20718.3\right)$} 20718.3
+
 
 
 ## Ejercicio 4 
@@ -54,9 +53,7 @@ típica del tiempo marcado en $100$ horas por todos los cronómetros  de un cier
 Para ello pone en marcha $10$ cronómetros del modelo durante $100$ horas y encuentra que
 $\tilde{s}_{X}=50$ segundos. Encontrar un intervalo para el parámetro $\sigma^2$ con
 $\alpha=0.01$, suponiendo que la población del tiempo marcado por los cronómetros es
-normal. \sol{$\left(953.834,12968.3\right)$}
-\end{prob}
-
+normal. 
 
 ## Ejercicio 5
 
@@ -66,5 +63,4 @@ $30$ de ellas presentan alguna irregularidad. Con estos datos buscar unos límit
 confianza para la proporción $p$ de rutinas de la población que presentan esa irregularidad
 con probabilidad del 95\%.
 
-\sol{$\left(0.1725,0.3275\right)$}
 
