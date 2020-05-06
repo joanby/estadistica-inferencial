@@ -125,6 +125,9 @@ Podéis suponer que las calificaciones anteriores son una muestra aleatoria de l
 posibles que hicieran la prueba. Probar la hipótesis de que las
 calificaciones obtenidas por la población (conceptualmente
 infinita) estarían distribuidas normalmente.
+
+
+
 ## Solución
 
 Ponemos las frecuencias empíricas en el vector `frecuencias.empíricas`:
@@ -181,6 +184,7 @@ $X$ sigue una distribución uniforme en $[0,1]$. (Considerar intervalos de ampli
  0.402, & 0.049, & 0.213, & 0.296, & 0.711\\
  \end{tabular}
  \end{center}
+ 
 ## Solución
 
 Calculemos las frecuencias empíricas considerando las clases siguientes:
@@ -223,7 +227,7 @@ f(x)=
 \left\{\begin{array}{ll}
 x+1, & \text{si $x\in [-1,0],$}\\ 1-x, & \text{si
 $x\in [0,1],$}\\
-0, & \text{en cas contrari.} 
+0, & \text{en caso contrario.} 
 \end{array}\right.
 $$
 Comprobar mediante el test de la $\chi^2$ que la muestra aleatòria simple siguiente
@@ -292,7 +296,8 @@ función.distribución= function(x){return(ifelse(x< -1,0,ifelse(x<=0,(x+1)^2/2,
 ```
 Las probabilidades teóricas serán:
 ```{r}
-probabilidades.teóricas = función.distribución(extremos.derecha)-función.distribución(extremos.izquierda)
+probabilidades.teóricas = función.distribución(extremos.derecha)-
+            función.distribución(extremos.izquierda)
 ```
 Apliquemos por último el test $\chi^2$:
 ```{r}

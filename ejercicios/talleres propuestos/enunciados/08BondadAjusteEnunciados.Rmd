@@ -9,7 +9,7 @@ output:
 ---
 
 1. Se lanzaron un par de dados $500$ veces. 
-En la taula siguiente se muestran las sumas que se obtuvieron. Provar la hipótesis de que los dados no estaban
+En la tabla siguiente se muestran las sumas que se obtuvieron. Provar la hipótesis de que los dados no estaban
 trucados, es decir, comprobar que el p-valor para aceptar que los dados no estan trucados no es pequeño.
 \begin{center}
 \begin{tabular}{|c|c|}
@@ -70,7 +70,7 @@ f(x)=
 \left\{\begin{array}{ll}
 x+1, & \text{si $x\in [-1,0],$}\\ 1-x, & \text{si
 $x\in [0,1],$}\\
-0, & \text{en cas contrari.} 
+0, & \text{en caso contrario.} 
 \end{array}\right.
 $$
 Comprobar mediante el test de la $\chi^2$ que la muestra aleatòria simple siguiente
