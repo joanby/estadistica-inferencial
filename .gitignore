@@ -25,3 +25,5 @@ vignettes/*.pdf
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 .DS_Store
+# cosas
+cajonRicardo/
