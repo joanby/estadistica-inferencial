@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}Contraste hipótesis taller 1.}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Ejercicio 1}{1}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Solución}{1}{subsubsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.2}Ejercicio 2}{3}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Solución}{3}{subsubsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.3}Ejercicio 3}{5}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Solución}{5}{subsubsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.4}Ejercicio 4}{6}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Solución}{6}{subsubsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.5}Ejercicio 5 EXTRA VOLUNTARIO}{7}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.5.1}Solución}{7}{subsubsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.6}Ejercicio 6 EXTRA VOLUNTARIO}{8}{subsection.1.6}%
+\contentsline {subsubsection}{\numberline {1.6.1}Solución}{8}{subsubsection.1.6.1}%
