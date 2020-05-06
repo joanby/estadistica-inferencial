@@ -1,0 +1,91 @@
+---
+title: "Problemas de Análisis de la varianza"
+author: ""
+date: ""
+geometry: "left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm"
+output:
+  pdf_document: default
+  html_document: default
+header-includes:
+   - \usepackage{multirow}
+---
+
+1. Doce personas son distribuidas en $4$
+grupos de personas $3$ cada uno. A cada grupo, se le
+asigna aleatoriamente un tiempo distinto de entrenamiento
+antes de realizar una tarea. Los resultados en
+la mencionada tarea, con el correspondiente tiempo
+de entrenamiento, son los siguientes:
+\ \newline
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$0.5$ horas&$1$ hora&$1.5$ horas&$2$ horas\\\hline\hline
+$1$&$4$&$3$&$\ \,8$\\\hline
+$3$&$6$&$5$&$10$\\\hline
+$5$&$2$&$7$&$\ \,6$\\\hline
+\end{tabular}
+\end{center}
+\ \newline
+Ver si podemos rechazar la hipótesis
+nula: $H_0:\mu_1=\mu_2=\mu_3=\mu_4.$
+1. Se registraron las frecuencias de los días que llovió a diferentes horas, durante los meses de enero, marzo, mayo
+y julio. Los datos obtenidos, durante un periodo de 10 años, fueron los siguientes:
+\ \newline
+\begin{center}
+\begin{tabular}{|c||c|c|c|c||c|}
+\hline
+Hora&enero&febrero&marzo&julio&Total\\\hline\hline
+$\ \,9$&$\ \,22$&$\ \,25$&$\ \,24$&$\ \,11$&$\ \,82$\\\hline
+$10$&$\ \,21$&$\ \,19$&$\ \,18$&$\ \,16$&$\ \,74$\\\hline
+$11$&$\ \,17$&$\ \,23$&$\ \,26$&$\ \,17$&$\ \,83$\\\hline
+$12$&$\ \,20$&$\ \,31$&$\ \,25$&$\ \,24$&$100$\\\hline
+$13$&$\ \,16$&$\ \,15$&$\ \,23$&$\ \,24$&$\ \,78$\\\hline
+$14$&$\ \,21$&$\ \,35$&$\ \,23$&$\ \,20$&$\ \,99$\\\hline\hline
+Total&$117$&$148$&$139$&$112$&$536$\\\hline
+\end{tabular}
+\end{center}
+\ \newline
+Estudiar la variabilidad entre meses y entre horas.
+1. Se realizó un estudio para  determinar el nivel de agua y el tipo de planta sobre la longitud global del tronco de las plantas de guisantes. Se utilizaron $3$ niveles de agua y $2$ tipos de plantas. Se dispone para el estudio de $18$ plantas  sin
+hojas. Las plantas se dividen aleatoriamente en $3$ subgrupos y después se los asigna los niveles de agua aleatoriamente. Se sigue un procedimiento parecido con $18$ plantas convencionales. Se obtuvieron
+los resultados siguientes (la longitud del tronco se da
+en centímetros):
+\ \newline
+\begin{center}
+\begin{tabular}{c|c|c|c|c|}
+&&\multicolumn{3}{c|}{FACTOR AGUA}\\\hline
+& &{bajo}&{medio}&{alto}\\\cline{3-5}
+\multirow{12}{1.75cm}{FACTOR PLANTA}&\multirow{6}{1cm}{Sin Hojas}&
+$69.0$&$\ \,96.1$&$121.0$\\\cline{3-5}
+&&$71.3$&$102.3$&$122.9$\\\cline{3-5}
+&&$73.2$&$107.5$&$123.1$\\\cline{3-5}
+&&$75.1$&$103.6$&$125.7$\\\cline{3-5}
+&&$74.4$&$100.7$&$125.2$\\\cline{3-5}
+&&$75.0$&$101.8$&$120.1$\\\cline{2-5}
+&\multirow{6}{1cm}{Con Hojas}&$71.1$&$\ \,81.0$&$101.1$\\\cline{3-5}
+&&$69.2$&$\ \,85.8$&$103.2$\\\cline{3-5}
+&&$70.4$&$\ \,86.0$&$106.1$\\\cline{3-5}
+&&$73.2$&$\ \,87.5$&$109.7$\\\cline{3-5}
+&&$71.2$&$\ \,88.1$&$109.0$\\\cline{3-5}
+&&$70.9$&$\ \,87.6$&$106.9$\\\hline
+\end{tabular}
+\end{center} 
+\ \newline
+Se desea saber si hay diferencias entre los niveles
+de agua y entre los diferentes tipos de planta. También se quiere saber si hay interacción entre los niveles de agua y el tipo de planta.
+1. Las variables aleatorias $X_i$ siguen la distribución
+$N(m_i,\sigma^2),\ i=1,2,3,4$. Consideramos las siguientes
+muestras de tamaños $n_i=7$ de las mencionadas variables aleatorias:
+\ \newline
+\begin{center}
+\begin{tabular}{cccccccc}
+$X_1$&$20$&$26$&$26$&$24$&$23$&$26$&$21$\\
+$X_2$&$24$&$22$&$20$&$21$&$21$&$22$&$20$\\
+$X_3$&$16$&$18$&$20$&$21$&$24$&$15$&$17$\\
+$X_4$&$19$&$15$&$13$&$16$&$12$&$11$&$14$\\
+\end{tabular}
+\end{center}
+\ \newline
+    a) Comprobar si las varianzas son iguales.
+    b) Contrastar la igualdad de medias.
