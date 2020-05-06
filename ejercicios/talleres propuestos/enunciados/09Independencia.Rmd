@@ -53,3 +53,35 @@ $B_2$&5&10\\\hline
 \ \newline
 Hallar el p-valor para poder aceptar que los dos criterios son 
 independientes usando el test $\chi^2$.
+1.En un estudio se quiso contrastar si había relación entre el grupo sanguíneo de una persona y el hecho que sea o no portador de un cierto antígeno raro. Para hacerlo, se eligieron 150 portadores del antígeno y 500 no portadores y se les miró el grupo sanguíneo. Los resultados son los de la tabla siguiente:
+\ \newline
+\begin{center}
+\begin{tabular}{lcc}
+Grupo & Portadores & No portadores\\ \hline
+0 & 72  & 230 \\
+A & 54 & 192\\
+B & 16 & 63\\
+AB & 8 & 15
+\end{tabular}
+\end{center}
+\ \newline
+Usar el test $\chi^2$ sobre estos datos para contrastar si las frecuencias de los diferentes tipos sanguíneos son diferentes en los portadores y los no portadores.
+1. La tabla siguiente da la distribución de la población de los EE. UU. por edades
+\ \newline
+\begin{center}
+\begin{tabular}{l|cccccccc}
+Edades & Menos de 18 & 18--24 & 25--34 & 35--44 & 45--64 & 65--79 & 80 o más\\ \hline
+Porcentaje \% &  25 & 9.6 & 13.4 & 14.4 & 25.4 & 9.4 & 2.8
+\end{tabular}
+\end{center}
+\ \newline
+Hemos estudiado una muestra de 130 habitantes de los EE. UU. sin seguro médico, y los resultados han sido los siguientes:
+\ \newline
+\begin{center}
+\begin{tabular}{l|cccccccc}
+Edades & Menos de 18 & 18--24 & 25--34 & 35--44 & 45--64 & 65--79 & 80 o más\\ \hline
+Frecuencia &  30 &  14 & 18 & 22 &  40  & 5 & 1
+\end{tabular}
+\end{center}
+\ \newline
+Usar el test $\chi^2$ para contrastar si hay evidencia con nivel de significación 0.01 que la distribución por edades de los habitantes de los EE. UU. sin seguro médico es diferente de la distribución por edades de todos los habitantes de los EE. UU.
