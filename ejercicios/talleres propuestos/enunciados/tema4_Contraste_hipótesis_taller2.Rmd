@@ -1,0 +1,141 @@
+---
+title: "Ejercicios Tema 4 - Contraste hipótesis. Taller 2"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "Curso completo de estadística inferencial con R y Python"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  pdf_document: 
+    number_sections: yes
+    toc: yes
+toccolor: blue
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
+contador=0
+cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
+library(tidyverse)
+```
+
+
+# Contraste hipótesis taller 2. 
+
+## Librerías  y datos necesarios
+
+Para este  taller necesitaremos los siguientes paquetes: `faraway, nortest, car` si no los tenéis instalados podéis ejecutar  lo siguiente:
+
+```
+install.packages("faraway")
+install.packages("nortest")
+install.packages("car")
+```
+
+Para utilizarlos, deberéis cargarlos ejecutando las siguientes instrucciones:
+
+```{r,warning=FALSE,message=FALSE,silent=TRUE}
+library("faraway")
+library("nortest")
+library("car")
+```
+
+
+También necesitáis el fichero "zinc.txt".
+
+
+
+
+## Ejercicio `r cuenta()` 
+
+El [iris data set](https://es.wikipedia.org/wiki/Conjunto_de_datos_flor_iris) es una tabla clásica de datos  que recopiló [Ronald Fisher](https://es.wikipedia.org/wiki/Ronald_Fisher) publicó en 1936.  En este data set hay 150 flores de tres especies  las que se mide la longitud  y anchura de sus pétalos y sépalos.
+
+
+La medias globales de  toda la población son 
+
+
+```{r}
+library(tidyverse)
+resumen1=iris %>% summarise(Media_muestral_Sepal.Length=mean(Sepal.Length),
+                            Desviacion_muestral_Sepal.Length=sd(Sepal.Length))
+resumen1
+```
+
+
+Consideremos una muestra de tamaño $n=50$ de la longitud del sépalo del data set iris  que generamos con el siguiente código
+
+
+```{r}
+set.seed(333)# por reproducibilidad, para fijar la muestra
+muestra_50=sample(iris$Sepal.Length,size=50,replace = TRUE)
+```
+
+
+1. Contrastar si podemos aceptar que  la media de la muestra  es igual a la media poblacional es igual a $5.5$ contra que es distinta, resolver utilizando el $p$-valor.
+2. Calcular un intervalo  de confianza   del tipo $(-\infty,x_0)$ para la media poblacional de la muestra  al nivel de confianza del 95%
+
+
+## Ejercicio `r cuenta()` 
+
+
+Si consideramos el data set iris la población la proporción poblacional $p$ de flores que tienen  la longitud del sépalo mayor que 5 es 
+
+```{r}
+Sepalo_mayor_5=prop.table(table(iris$Sepal.Length>5))["TRUE"]
+Sepalo_mayor_5
+```
+
+
+Tomamos una muestra de tamaño $n=30$ de la población de  iris y calculamos en ella  la proporción de flores con sépalo mayor que 5.
+
+```{r}
+set.seed(44)
+muestra_30=sample(iris$Sepal.Length,size=30,replace = TRUE)
+x=table(muestra_30>5)["TRUE"]
+x
+phat=as.numeric(prop.table(table(muestra_30>5))["TRUE"])
+phat
+```
+
+
+1. Queremos contrastar  si  esta muestra  confirma la proporción de flores   con sépalo  mayor que 5  es $0.75$ contra que es mayor de 0.75
+con el test exacto y el test aproximado. 
+2. Extraer de los dos test  los intervalos de confiaza asociados al contraste y decir qué fórmula se utiliza para cada intervalo.
+3. Extraer de los dos test el valor del estadístico de conytraste y el $p$  valor.
+
+
+## Ejercicio `r cuenta()` 
+
+**Concentración de zinc**
+
+El rastro de metales en al agua potable afecta el sabor y una concentración inusualmente alta puede representar un riesgo para la salud. El fichero *zinc.txt* contiene la concentración de zinc en el fondo y en la superficie de botellas de agua.
+
+Se cree que la concentración media de zinc del agua en el fondo de la botella es mayor que la de la superficie. Suponiendo que los datos siguen una ley normal, ¿hay evidencia suficiente para asegurarlo con un nivel de confianza del 95%?
+
+Plantea un contraste de hipótesis para estudiar si existe dicha evidencia.
+En particular, especifica la hipótesis nula $H_0$, la hipótesis alternativa $H_1$, la expresión del estadístico que se calculará a partir de los datos observados y la distribución de dicho estadístico.
+
+
+
+## Ejercicio `r cuenta()` 
+
+**Continuación ejercicio concentración de zinc**
+
+Carga el fichero en la variable `conc.zinc`. Utiliza la función de `R` que calcule el test de hipótesis definido. Interpreta los resultados.
+
+
+
+## Ejercicio `r cuenta()` 
+
+**Continuación ejercicio concentración de zinc**.
+
+Encuentra la región crítica (es decir el intervalo en el cual se rechaza la hipótesis nula) y la región de aceptación (es decir el intervalo de no rechazo de la hipótesis nula)
+
+
+
+

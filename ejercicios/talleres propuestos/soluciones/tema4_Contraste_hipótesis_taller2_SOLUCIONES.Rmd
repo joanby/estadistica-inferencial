@@ -1,0 +1,285 @@
+---
+title: "Ejercicios Tema 4 - Contraste hipótesis. Taller 2"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "Curso completo de estadística inferencial con R y Python"
+output:
+  pdf_document: 
+    number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+toccolor: blue
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
+contador=0
+cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
+library(tidyverse)
+```
+
+
+# Contraste hipótesis taller 2. 
+
+## Librerías  y datos necesarios
+
+Para este  taller necesitaremos los siguientes paquetes: `faraway, nortest, car` si no los tenéis instalados podéis ejecutar  lo siguiente:
+
+```
+install.packages("faraway")
+install.packages("nortest")
+install.packages("car")
+```
+
+Para utilizarlos, deberéis cargarlos ejecutando las siguientes instrucciones:
+
+
+```{r,warning=FALSE,message=FALSE,silent=TRUE}
+library("faraway")
+library("nortest")
+library("car")
+```
+
+
+También necesitáis el fichero "zinc.txt".
+
+
+
+
+## Ejercicio `r cuenta()` 
+
+El [iris data set](https://es.wikipedia.org/wiki/Conjunto_de_datos_flor_iris) es una tabla clásica de datos  que recopiló [Ronald Fisher](https://es.wikipedia.org/wiki/Ronald_Fisher) publicó en 1936.  En este data set hay 150 flores de tres especies  las que se mide la longitud  y anchura de sus pétalos y sépalos.
+
+
+La medias globales de  toda la población son 
+
+
+```{r}
+library(tidyverse)
+resumen1=iris %>% summarise(Media_muestral_Sepal.Length=mean(Sepal.Length),
+                            Desviacion_muestral_Sepal.Length=sd(Sepal.Length))
+resumen1
+```
+
+
+Consideremos una muestra de tamaño $n=50$ de la longitud del sépalo del data set iris  que generamos con el siguiente código
+
+
+```{r}
+set.seed(333)# por reproducibilidad, para fijar la muestra
+muestra_50=sample(iris$Sepal.Length,size=50,replace = TRUE)
+```
+
+
+1. Contrastar si podemos aceptar que  la media de la muestra  es igual a la media poblacional es igual a $5.5$ contra que es distinta, resolver utilizando el $p$-valor.
+2. Calcular un intervalo  de confianza   del tipo $(-\infty,x_0)$ para la media poblacional de la muestra  al nivel de confianza del 95%
+
+
+### Solución 
+
+Para la primera cuestión y bajo estas condiciones, $n=50$ muestra grande varianza desconocida podemos utilizar un $t$-test
+
+
+```{r}
+t.test(muestra_50,mu=5.5,alternative = "two.sided",conf.level = 0.95)
+```
+
+El $p$-valor del contraste  es `r t.test(muestra_50,mu=5.5,alternative = "two.sided")` muy pequeño así que no podemos rechazar que la media sea $5.5$ (fijémosnos que media real es $5.843333$)
+
+
+Para la segunda cuestión podemos utilizar la función t.test
+
+```{r}
+t.test(muestra_50,alternative="less",conf.level=0.95)$conf.int
+```
+
+
+
+
+## Ejercicio `r cuenta()` 
+
+
+Si consideramos el data set iris la población la proporción poblacional $p$ de flores que tienen  la longitud del sépalo mayor que 5 es 
+
+```{r}
+Sepalo_mayor_5=prop.table(table(iris$Sepal.Length>5))["TRUE"]
+Sepalo_mayor_5
+```
+
+
+Tomamos una muestra de tamaño $n=30$ de la población de  iris y calculamos en ella  la proporción de flores con sépalo mayor que 5.
+
+```{r}
+set.seed(44)
+muestra_30=sample(iris$Sepal.Length,size=30,replace = TRUE)
+x=table(muestra_30>5)["TRUE"]
+x
+phat=as.numeric(prop.table(table(muestra_30>5))["TRUE"])
+phat
+```
+
+
+1. Queremos contrastar  si  esta muestra  confirma la proporción de flores   con sépalo  mayor que 5  es $0.75$ contra que es mayor de 0.75
+con el test exacto y el test aproximado. 
+2. Extraer de los dos test  los intervalos de confiaza asociados al contraste y decir qué fórmula se utiliza para cada intervalo.
+3. Extraer de los dos test el valor del estadístico de conytraste y el $p$  valor.
+
+### Solución
+
+El contraste que nos piden es 
+
+
+$$
+\left\{
+\begin{array}{ll} H_0: &p\leq 0.75\\
+ H_1: & p > 0.75\\
+\end{array}
+\right.
+$$
+
+
+los datos son
+
+```{r}
+p0=0.75
+
+n=length(muestra_30)
+n
+x=as.numeric(table(muestra_30>5)["TRUE"])
+x
+```
+
+Para  resolver el test exacto  hacemos
+
+```{r}
+binom.test(x=25,n=30,p=0.75,alternative = "greater",conf.level = 0.95)
+```
+
+```{r}
+prop.test(x=25,n=30,p=0.75,alternative = "greater",conf.level = 0.95)
+```
+
+
+En ambos casos el $p$-valor no es pequeño así que no podemos rechazar la hipótesis nula. Fijémonos que estamos jugando con una dirfencia  pequeña sobre el valor real.
+
+Los apartados 2. y 3. se contestan con el siguiente código
+
+```{r}
+binom.test(x=25,n=30,p=0.75,alternative = "greater",conf.level = 0.95)$conf.int
+binom.test(x=25,n=30,p=0.75,alternative = "greater",conf.level = 0.95)$p.value
+binom.test(x=25,n=30,p=0.75,alternative = "greater",conf.level = 0.95)$statistic
+```
+
+```{r}
+prop.test(x=25,n=30,p=0.75,alternative = "greater",conf.level = 0.95,correct=FALSE)$conf.int
+prop.test(x=25,n=30,p=0.75,alternative = "greater",conf.level = 0.95)$p.value
+prop.test(x=25,n=30,p=0.75,alternative = "greater",conf.level = 0.95)$statistic
+```
+
+El intervalo de confianza del  test exacto`binom.test` es el  intervalo de Clopper-Pearson y del test aproximado `prop.test` es el intervalo asintótico  para muestras grandes de la proporción  con correccion de continuidad  (Yates)
+
+
+
+## Ejercicio `r cuenta()` 
+
+**Concentración de zinc**
+
+El rastro de metales en al agua potable afecta el sabor y una concentración inusualmente alta puede representar un riesgo para la salud. El fichero *zinc.txt* contiene la concentración de zinc en el fondo y en la superficie de botellas de agua.
+
+Se cree que la concentración media de zinc del agua en el fondo de la botella es mayor que la de la superficie. Suponiendo que los datos siguen una ley normal, ¿hay evidencia suficiente para asegurarlo con un nivel de confianza del 95%?
+
+Plantea un contraste de hipótesis para estudiar si existe dicha evidencia.
+En particular, especifica la hipótesis nula $H_0$, la hipótesis alternativa $H_1$, la expresión del estadístico que se calculará a partir de los datos observados y la distribución de dicho estadístico.
+
+
+### Solución
+
+Denotesmos por $\mu_F$ y $\mu_S$ las medias poblacionales del al concentración de zinc en el fondo y en la supercficie, respectivamente. No temos que  la muestras son emparajadas pues correcponden a la misma botella.
+
+Con esta notación  de finimos el contraste:
+
+$$
+\left\{
+  \begin{array}{l}
+    H_0: \mu_F \leq \mu_S \\ 
+    H_1: \mu_F > \mu_S, \\ 
+  \end{array}
+\right.
+$$
+o equivalentemente,
+
+$$
+\left\{
+  \begin{array}{l}
+    H_0: \mu_F - \mu_S \leq 0\\ 
+    H_1: \mu_F - \mu_S > 0\\ 
+  \end{array}
+\right.
+$$
+
+Sabemos que las mediciones siguen una ley normal y la muestra es de tamaño pequeño. Por tanto, se utiliza el test $t$ de muestras dependientes o emparejadas. 
+Sea $d$ la variable diferencia, el estadístico es:
+
+$$
+t = \frac{ \bar{d} }{ \frac{\tilde{S}_d}{\sqrt{n}}}
+$$
+
+Y cuya distribución (de ser cierto $H_0$) es la distribución $T$ de Student de $n-1$grados de libertad, es decir, de 10-1=9 grados de libertad.
+
+
+
+## Ejercicio `r cuenta()` 
+
+**Continuación ejercicio concentración de zinc**
+
+Carga el fichero en la variable `conc.zinc`. Utiliza la función de `R` que calcule el test de hipótesis definido. Interpreta los resultados.
+
+
+### Solución
+
+Con `R` calculamos el test  de comparación de medias emparejadas mediante la siguiente instrucción:
+
+```{r}
+conc.zinc = read.table("zinc.txt", header=TRUE)
+test = t.test(conc.zinc$bottom, conc.zinc$surface,
+              alternative="greater", 
+              paired=TRUE,
+              conf.level=0.95)
+test
+```
+
+
+El valor del estadístico es $t=$ `r test$statistic`. Observemos que el p-valor es de `r round(test$p.value,8)`, menor que el nivel de significación $\alpha = 0.05$, por lo que se rechaza la hipótesis nula. Hay suficiente evidencia para sugerir que la concentración media de zinc en el agua en el fondo de la botella es mayor que la de la superficie. También se podría llegar a la misma conclusión observando que el parámetro poblacional, $\mu_F - \mu_S = 0$, está fuera del intervalo de confianza.
+
+
+## Ejercicio `r cuenta()` 
+
+**Continuación ejercicio concentración de zinc**.
+
+Encuentra la región crítica (es decir el intervalo en el cual se rechaza la hipótesis nula) y la región de aceptación (es decir el intervalo de no rechazo de la hipótesis nula)
+
+
+### Solución
+
+Este es un test unilateral, por lo que el único valor crítico entre las regiones es el cuantil $1-\alpha$ de la distribución $t$ de Student. En este caso es:
+
+```{r}
+n=dim(conc.zinc)[1] # tamaño de la muestra: número de filas del data.frame
+n
+alpha=0.05
+nu = n-1 # grados de libertad de la t de Student
+nu
+cuantil_t=qt(1-alpha,nu)# cuantil de la t-student
+cuantil_t
+```
+
+Dado que la hipótesis alternativa es $H_1: \mu_F-\mu_S > 0$, la región crítica es $]`r cuantil_t`,\infty [$, y la de aceptación  $]-\infty, `r cuantil_t`[$
+
+
+
