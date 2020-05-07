@@ -1,0 +1,77 @@
+---
+title: "Ejercicios Tema 4 - Contraste hipótesis. Taller 1"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "Curso completo de estadística inferencial con R y Python"
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+toccolor: blue
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+contador=0
+cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
+```
+
+
+# Contraste hipótesis taller 1. 
+
+Los siguientes ejercicios son de puro cálculo. Seguid la teoría y utilizar R para el cálculo de los estadísticos y de los cuantiles de los $p$-valores.
+
+## Ejercicio `r cuenta()` 
+
+En   muestra aleatoria simple de tamaño $n=36$ extraída
+de una población normal con $\sigma^2=12^2$ hemos obtenido la siguiente media muestral $\overline{x}=62.5$, Contrastar al nivel de significación $\alpha=0.05$, la hipótesis
+ nula $\mu=61$ contra la   alternativa
+$\mu<60$. Resolver calculando el  $p$-valor del contraste.
+ 
+
+## Ejercicio `r cuenta()` 
+
+Hemos obtenido una media muestral de  $\overline{x}=72.5$ de una muestra aleatoria simple de tamaño $n=100$ extraída de una población normal con $\sigma^2=30^2$. Contrastar 
+ al   nivel de significación $\alpha=0.10$, la hipótesis
+ nula $\mu=77$ contra las siguientes tres alternativas
+ $\mu\not= 70$, $\mu>70$, $\mu<70$. Calcular el $p$-valor en cada caso.
+ 
+
+
+## Ejercicio `r cuenta()` 
+¿En un contraste bilateral, con $\alpha=0.01$, ¿para qué valores
+¿de $\overline{X}$ rechazaríamos  la hipótesis nula $H_{0}:\mu=70$, a
+¿partir de una muestra aleatoria simple de tamaño $n=64$ extraída de una
+¿población normal con $\sigma^2=16^2$?
+ 
+
+## Ejercicio `r cuenta()` 
+El salario anual medio de una muestra  de tamaño $n= 1600$ personas, elegidas aleatoria e
+independientemente de cierta población de profesionales de las Tecnologías de la Información y comunicación (TIC) ha sido de valido 45000 euros  tiene una desviación típica de  $\sigma=2000$ euros, ha
+¿valido 45000 euros  ¿Es compatible  con este resultado la hipótesis
+¿nula, $H_{0}:\mu=43500$, suponiendo $\alpha=.01$? ¿Cuál es el intervalo
+¿de confianza para $\mu$? Calcular el $p$-valor.
+ 
+
+## Ejercicio `r cuenta()` 
+
+Con los datos del ejercicio anterior, ¿hay evidencia sobre  para oponerse  la hipótesis nula en los siguientes casos
+
+1. $\left\{\begin{array}{ll} H_{0}:\mu=44000\\ H_{1}:\mu>44000\end{array}\right.$
+1. $\left\{\begin{array}{ll} H_{0}:\mu=46250\\ H_{1}:\mu>46250\end{array}\right.$
+ 
+ 
+
+## Ejercicio `r cuenta()` 
+El peso medio de los paquetes de mate  puestos a la venta por la casa comercial MATEASA es
+supuestamente de 1 Kg. Para comprobar esta suposición, elegimos una muestra aleatoria
+simple de 100 paquetes y encontramos que su peso  medio es de 0.978 Kg. y su desviación
+típica $s=0.10$ kg. Siendo $\alpha=0.05$ ¿es compatible este resultado con la hipótesis
+nula $H_{0}:\mu=1$ frente a $H_{1}:\mu\not=1$? ¿Lo es frente a $H_{1}:\mu>1$? Calcular el $p$-valor.
+ 

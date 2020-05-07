@@ -9,15 +9,15 @@ output:
 ---
 
 1. Se lanzaron un par de dados $500$ veces. 
-En la tabla siguiente se muestran las sumas que se obtuvieron. Provar la hipótesis de que los dados no estaban
+En la taula siguiente se muestran las sumas que se obtuvieron. Provar la hipótesis de que los dados no estaban
 trucados, es decir, comprobar que el p-valor para aceptar que los dados no estan trucados no es pequeño.
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
 Suma & Frecuencia \\\hline\hline
-$2,3,4$&$\ 74$\\\hline 
-$5,6$&$120$\\\hline $7$&$\ 83$\\\hline 
-$8,9$&$135$\\\hline $10,11,12$&$\ 88$\\\hline
+$2,3$ o o o o. $4$&$\ 74$\\\hline $5$ 
+$6$&$120$\\\hline $7$&$\ 83$\\\hline $8$ 
+$9$&$135$\\\hline $10,11$  $12$&$\ 88$\\\hline
 \end{tabular}
 \end{center}
 1. El $1972$, el informe oficial dió la información siguiente sobre el número
@@ -70,7 +70,7 @@ f(x)=
 \left\{\begin{array}{ll}
 x+1, & \text{si $x\in [-1,0],$}\\ 1-x, & \text{si
 $x\in [0,1],$}\\
-0, & \text{en caso contrario.} 
+0, & \text{en cas contrari.} 
 \end{array}\right.
 $$
 Comprobar mediante el test de la $\chi^2$ que la muestra aleatòria simple siguiente

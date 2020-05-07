@@ -1,0 +1,323 @@
+---
+title: "Ejercicios Tema 4 - Contraste hipótesis. Taller 1"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: "Curso completo de estadística inferencial con R y Python"
+output:
+  pdf_document: 
+    keep_tex: yes
+    number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+toccolor: blue
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
+contador=0
+cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
+```
+
+
+# Contraste hipótesis taller 1. 
+
+Los siguientes ejercicios son de puro cálculo. Seguid la teoría y utilizar R para el cálculo de los estadísticos y de los cuantiles de los $p$-valores.
+
+## Ejercicio `r cuenta()` 
+
+En   muestra aleatoria simple de tamaño $n=36$ extraída
+de una población normal con $\sigma^2=12^2$ hemos obtenido la siguiente media muestral $\overline{x}=62.5$, Contrastar al nivel de significación $\alpha=0.05$, la hipótesis
+ nula $\mu=61$ contra la   alternativa
+$\mu<60$. Resolver calculando el  $p$-valor del contraste.
+
+
+### Solución
+
+Tenemos que contrastar 
+
+$$
+\left\{
+\begin{array}{ll}
+H_{0}:\mu=60\\
+H_{1}:\mu<60
+\end{array}
+\right.
+$$
+
+
+```{r}
+sigma2=12^2
+sigma2
+n=36
+n
+media_muestral=62.5
+media_muestral
+alpha=0.05
+alpha
+mu0=60
+mu0
+z0 = (media_muestral-mu0)/sqrt(sigma2/n)
+z0
+#valor crítico para mu< 60
+valor_critico= qnorm(alpha)
+valor_critico
+```
+
+Bajo estas condiciones, normalidad muestra aleatoria simple y con los datos de la muestra el  estadístico de contraste es:
+
+
+$$z_0=\frac{\overline{x}-\mu_0}{\frac{\sigma}{\sqrt{n}}}=
+\frac{`r media_muestral`-`r mu0`}{\frac{`r sqrt(sigma2)`}{\sqrt{`r n`}}}
+=`r (media_muestral-mu0)/sqrt(sigma2/n)`$$
+
+La región de rechazo contra $H_1:\mu <60$  es  rechazar $H_0$ si 
+
+$$z_0=`r z0`\leq z_{\alpha}=z_{0.05}=`r qnorm(0.05)`,$$
+
+
+como NO se cumple la condición concluimos que NO podemos rechazar $H_0$ contra $H_1$; la muestra no da evidencias suficientes para   considerar que $\mu< 60$ al nivel de significación $\alpha=0.05$.
+
+
+Por último el $p$-valor para esta alternativa es
+
+```{r}
+p_valor=pnorm(z0) # 2 P(>>|z0|)
+p_valor
+```
+
+Como el nivel del significación $\alpha=0.05$ es menor que el $p$-valor=`r p_valor` no podemos rechazar la hipótesis nula.
+
+
+
+## Ejercicio `r cuenta()` 
+
+Hemos obtenido una media muestral de  $\overline{x}=72.5$ de una muestra aleatoria simple de tamaño $n=100$ extraída de una población normal con $\sigma^2=30^2$. Contrastar al   nivel de significación $\alpha=0.10$, la hipótesis nula $\mu=77$ contra las siguientes tres alternativas
+$\mu\not= 70$, $\mu>70$, $\mu<70$. Calcular el $p$-valor en cada caso.
+ 
+
+### Solución
+
+Tenemos que contrastar  $\mu=70$ con cada una  (por separado) de las tres alternativas, la población es normal  los contrastes son:
+
+$$
+\left\{
+\begin{array}{ll}
+H_{0}:\mu=70\\
+H_{1}:\mu\not= 70, \mu>70 , \mu<70
+\end{array}
+\right.
+$$
+
+
+Cargamos los datos del enunciado
+
+```{r}
+sigma2=30^2
+sigma2
+sigma=sqrt(sigma2)
+sigma
+n=100
+n
+media_muestral=72.5
+media_muestral
+alpha=0.1
+alpha
+mu0=70
+mu0
+z0 = (media_muestral-mu0)/sqrt(sigma2/n)
+z0
+```
+
+
+
+
+Bajo estas condiciones, normalidad muestra aleatoria simple y esto datos el estadístico de contraste es
+
+
+$$z_0=\frac{\overline{x}-\mu_0}{\frac{\sigma}{\sqrt{n}}}=
+\frac{`r media_muestral`-`r mu0`}{\frac{`r sqrt(sigma2)`}{\sqrt{`r n`}}}
+=`r (media_muestral-mu0)/sqrt(sigma2/n)`$$
+
+
+
+Ahora para cada opción alternativa los valores críticos son
+
+
+```{r}
+#valores crítico para mu  distinto de 70
+valor_critico_bilateral= c(-qnorm(1-alpha/2), qnorm(1-alpha/2))
+valor_critico_bilateral 
+#valores crítico para mu   menor  70
+valor_critico_unilateral_menor= qnorm(alpha)
+valor_critico_unilateral_menor 
+#valores crítico para mu  distinto de 70
+valor_critico_unilateral_mayor= qnorm(1-alpha)
+valor_critico_unilateral_mayor
+```
+
+Ahora tenemos tres casos según $H_1$:
+
+
+* $H_1: \mu \not= 70$ 
+como $z_0= `r z0` \not< `r valor_critico_bilateral[1]`$  y $z_0= `r z0` \not > `r valor_critico_bilateral[2]`$ **NO se cumple  la condición  de rechazo** así que NO podemos rechazar 
+$H_0$ contra $H_1$; la muestra no da evidencias suficientes para considerar que $\mu\not= 70$ al nivel de significación $\alpha=0.1$.
+* $H_1: \mu < 70$ como $z_0= `r z0` \not<`r  valor_critico_unilateral_menor`$
+**NO se cumple  la condición  de rechazo** así que NO podemos rechazar $H_0:\mu=70$ contra  $H_1:\mu<70$; la muestra no da evidencias suficientes para   considerar que $\mu < 70$ al nivel de significación $\alpha=0.1$.
+* $H_1: \mu > 70$ como $z_0= `r z0` \not >`r  valor_critico_unilateral_mayor`$
+**NO se cumple  la condición  de rechazo** así que  no podemos  rechazar $H_0:\mu=70$  en favor de que   $H_1:\mu>70$; la muestra  no da  algunas evidencias suficientes para   considerar que $\mu > 70$ al nivel de significación $\alpha=0.1$.
+
+
+
+
+Para cada hipótesis alternativa los $p$-valores son :
+
+
+
+```{r}
+2*(1-pnorm(abs(z0))) # Para H_1: mu != 70
+pnorm(z0) # para H_1: mu<70
+1-pnorm(z0) # para H_1: mu>70
+```
+
+Como el nivel del significación  es $\alpha=0.05$ es menor que el $p$-valor en cualquiera de los tres casos no podemos rechazar la hipótesis nula.
+
+
+
+## Ejercicio `r cuenta()` 
+En un contraste bilateral, con $\alpha=0.01$, ¿para qué valores
+de $\overline{X}$ rechazaríamos  la hipótesis nula $H_{0}:\mu=70$, a
+partir de una muestra aleatoria simple de tamaño $n=64$ extraída de una
+población normal con $\sigma^2=16^2$?
+
+
+### Solución
+
+Cargamos los datos, la población es normal
+
+```{r}
+sigma2=16^2
+sigma2
+n=64
+n
+alpha=0.01
+alpha
+mu0=70
+mu0
+z0 = (media_muestral-mu0)/sqrt(sigma2/n)
+z0
+```
+
+
+Bajo estas condiciones, normalidad muestra aleatoria simple y esto datos el estadístico de contraste es
+
+
+$$z_0=\frac{\overline{x}-\mu_0}{\frac{\sigma}{\sqrt{n}}}=
+\frac{`r media_muestral`-`r mu0`}{\frac{`r sqrt(sigma2)`}{\sqrt{`r n`}}}
+=`r (media_muestral-mu0)/sqrt(sigma2/n)`$$
+
+
+
+
+```{r}
+#valores crítico para \mu  distinto de 70
+valor_critico_bilateral= c(qnorm(alpha/2), qnorm(1-alpha/2))
+valor_critico_bilateral
+```
+Por lo tanto rechazaremos la hipótesis nula si $z_0=\frac{\overline{x}-70}{\frac{16}{\sqrt{64}}} < `r valor_critico_bilateral[1]`$ o 
+$z_0=\frac{\overline{x}-70}{\frac{16}{\sqrt{64}}} > `r valor_critico_bilateral[2]`$
+
+Despejando $\overline{x}$ de las inecuaciones anteriores obtenemos que rechazaremos $H_0$ si 
+
+
+$\overline{x}<70 + `r valor_critico_bilateral[1]`\cdot \frac{16}{\sqrt{64}}$ o 
+$\overline{x}>70 + `r valor_critico_bilateral[2]`\cdot \frac{16}{\sqrt{64}}$. 
+
+
+Es decir si $\overline{x}<`r 70 +  valor_critico_bilateral[1]* 16/sqrt(64)`$ o 
+$\overline{x}>`r 70 +  valor_critico_bilateral[2]* 16/sqrt(64)`$ rechazaremos la hipótesis nula al nivel de confianza del $1\%$ ($\alpha=0.1$). 
+
+
+
+## Ejercicio `r cuenta()` 
+
+El salario anual medio de una muestra  de tamaño $n= 1600$ personas, elegidas aleatoria e
+independientemente de cierta población de profesionales de las Tecnologías de la Información y Comunicación (TIC) ha sido de de  45000 euros, supongamos que nos dicen que la desviación típica es $\sigma=2000$ euros
+
+1. ¿Es compatible  con este resultado la hipótesis nula, $H_{0}:\mu=43500$ contra la alternativa bilateral, al nivel de significación $\alpha=0.01$? 
+2. ¿Cuál es el intervalo de confianza para $\mu$? 
+3. Calcular el $p$-valor del contraste.
+
+### Solución
+
+Cargamos datos
+
+```{r}
+n=1600
+n
+sigma=4000
+sigma
+sigma2=sigma^2
+sigma2
+media_muestral=45000
+media_muestral
+alpha=0.01
+alpha
+mu0=44900
+mu0
+z0 = (media_muestral-mu0)/sqrt(sigma2/n)
+z0
+```
+
+Para la primera  y la tercera cuestión calculo el $p$-valor
+
+```{r}
+2*(1-pnorm(abs(z0)))
+```
+
+
+Es un $p$-valor alto así que no podemos rechazar la hipótesis nula.
+
+En la cuestión 2 nos piden intervalo de confianza para $\mu$ al nivel del $\alpha=0.01$ es 
+
+
+
+```{r}
+IC=c(media_muestral-qnorm(1-alpha/2)*sigma/sqrt(n),
+     media_muestral+qnorm(1-alpha/2)*sigma/sqrt(n))
+IC
+```
+
+Con un nivel de confianza del $99\%$ la media poblacional del sueldo mensual en euros de un empleo TIC está en el intervalo  $(`r IC `).$
+
+
+
+## Ejercicio `r cuenta()`  EXTRA VOLUNTARIO
+
+Con los datos del ejercicio anterior, ¿hay evidencia sobre  para oponerse  la hipótesis nula en los siguientes casos
+
+1. $\left\{\begin{array}{ll} H_{0}:\mu=44000\\ H_{1}:\mu>44000\end{array}\right.$
+1. $\left\{\begin{array}{ll} H_{0}:\mu=46250\\ H_{1}:\mu>46250\end{array}\right.$
+ 
+### Solución 
+
+Es similar a los ejercicios anteriores 
+
+## Ejercicio `r cuenta()` EXTRA VOLUNTARIO
+
+El peso medio de los paquetes de mate  puestos a la venta por la casa comercial MATEASA es
+supuestamente de 1 Kg. Para comprobar esta suposición, elegimos una muestra aleatoria
+simple de 100 paquetes y encontramos que su peso  medio es de 0.978 Kg. y su desviación
+típica $s=0.10$ kg. Siendo $\alpha=0.05$ ¿es compatible este resultado con la hipótesis
+nula $H_{0}:\mu=1$ frente a $H_{1}:\mu\not=1$? ¿Lo es frente a $H_{1}:\mu>1$? Calcular el $p$-valor.
+ 
+ 
+### Solución 
+
+Es similar a los ejercicios anteriores 
+

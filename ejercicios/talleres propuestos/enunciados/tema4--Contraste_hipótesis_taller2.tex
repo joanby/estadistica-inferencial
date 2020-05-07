@@ -1,0 +1,166 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Ejercicios Tema 4 - Contraste hipótesis. Taller 1},
+  pdfauthor={Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir},
+  colorlinks=true,
+  linkcolor=red,
+  filecolor=Maroon,
+  citecolor=blue,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\renewcommand{\contentsname}{Contenidos}
+
+\title{Ejercicios Tema 4 - Contraste hipótesis. Taller 1}
+\author{Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir}
+\date{Curso completo de estadística inferencial con R y Python}
+
+\begin{document}
+\maketitle
+
+{
+\hypersetup{linkcolor=blue}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{contraste-hipuxf3tesis-taller-1.}{%
+\section{Contraste hipótesis taller
+1.}\label{contraste-hipuxf3tesis-taller-1.}}
+
+Los siguientes ejercicios son de puro cálculo. Seguid la teoría y
+utilizar R para el cálculo de los estadísticos y de los cuantiles de los
+\(p\)-valores.
+
+\hypertarget{ejercicio-1}{%
+\subsection{Ejercicio 1}\label{ejercicio-1}}
+
+En muestra aleatoria simple de tamaño \(n=36\) extraída de una población
+normal con \(\sigma^2=12^2\) hemos obtenido la siguiente media muestral
+\(\overline{x}=62.5\), Contrastar al nivel de significación
+\(\alpha=0.05\), la hipótesis nula \(\mu=61\) contra la alternativa
+\(\mu<60\). Resolver calculando el \(p\)-valor del contraste.
+
+\hypertarget{ejercicio-2}{%
+\subsection{Ejercicio 2}\label{ejercicio-2}}
+
+Hemos obtenido una media muestral de \(\overline{x}=72.5\) de una
+muestra aleatoria simple de tamaño \(n=100\) extraída de una población
+normal con \(\sigma^2=30^2\). Contrastar al nivel de significación
+\(\alpha=0.10\), la hipótesis nula \(\mu=77\) contra las siguientes tres
+alternativas \(\mu\not= 70\), \(\mu>70\), \(\mu<70\). Calcular el
+\(p\)-valor en cada caso.
+
+\hypertarget{ejercicio-3}{%
+\subsection{Ejercicio 3}\label{ejercicio-3}}
+
+En un contraste bilateral, con \(\alpha=0.01\), ¿para qué valores de
+\(\overline{X}\) rechazaríamos la hipótesis nula \(H_{0}:\mu=70\), a
+partir de una muestra aleatoria simple de tamaño \(n=64\) extraída de
+una población normal con \(\sigma^2=16^2\)?
+
+\hypertarget{ejercicio-4}{%
+\subsection{Ejercicio 4}\label{ejercicio-4}}
+
+El salario anual medio de una muestra de tamaño \(n= 1600\) personas,
+elegidas aleatoria e independientemente de cierta población de
+profesionales de las Tecnologías de la Información y Comunicación (TIC)
+ha sido de de 45000 euros, supongamos que nos dicen que la desviación
+típica es \(\sigma=2000\) euros
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  ¿Es compatible con este resultado la hipótesis nula,
+  \(H_{0}:\mu=43500\) contra la alternativa bilateral, al nivel de
+  significación \(\alpha=0.01\)?
+\item
+  ¿Cuál es el intervalo de confianza para \(\mu\)?
+\item
+  Calcular el \(p\)-valor del contraste.
+\end{enumerate}
+
+\hypertarget{ejercicio-5-extra-voluntario}{%
+\subsection{Ejercicio 5 EXTRA
+VOLUNTARIO}\label{ejercicio-5-extra-voluntario}}
+
+Con los datos del ejercicio anterior, ¿hay evidencia sobre para oponerse
+la hipótesis nula en los siguientes casos
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\left\{\begin{array}{ll} H_{0}:\mu=44000\\ H_{1}:\mu>44000\end{array}\right.\)
+\item
+  \(\left\{\begin{array}{ll} H_{0}:\mu=46250\\ H_{1}:\mu>46250\end{array}\right.\)
+\end{enumerate}
+
+\hypertarget{ejercicio-6-extra-voluntario}{%
+\subsection{Ejercicio 6 EXTRA
+VOLUNTARIO}\label{ejercicio-6-extra-voluntario}}
+
+El peso medio de los paquetes de mate puestos a la venta por la casa
+comercial MATEASA es supuestamente de 1 Kg. Para comprobar esta
+suposición, elegimos una muestra aleatoria simple de 100 paquetes y
+encontramos que su peso medio es de 0.978 Kg. y su desviación típica
+\(s=0.10\) kg. Siendo \(\alpha=0.05\) ¿es compatible este resultado con
+la hipótesis nula \(H_{0}:\mu=1\) frente a \(H_{1}:\mu\not=1\)? ¿Lo es
+frente a \(H_{1}:\mu>1\)? Calcular el \(p\)-valor.
+
+\end{document}
