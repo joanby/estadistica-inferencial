@@ -19,7 +19,7 @@ aleatoria con media $\beta_0+\beta_1 x$, donde $x$ es la precipitación, y con v
  $\sigma^2$ por todo valor de $x$. Hallar las mejores estimaciones lineales sin sesgo
  de  $\beta_0$ y $\beta_1$ y hallar una estimación sin sesgo de $\sigma^2$.
 \ \newline
-$$
+\begin{center}
 \begin{tabular}{|c|c|}
 \hline
 $y_i$ & $x_i$ \\
@@ -33,8 +33,10 @@ $y_i$ & $x_i$ \\
 \hline 1.1430 & 0.9652 \\
 \hline
 \end{tabular}
-$$
+\end{center}
+\ \newline
     a) Estimar los valores $b_0$ y $b_1$ para la regresión lineal de la altura del pino en función de la cantidad de lluvia.
+    a) Representa gráficamente los datos junto con la recta de regresión.
     a) Hallar un intervalo de confianza al 95% de confianza para los parámetros $\beta_0$ y $\beta_1$.
     a) Calcular la estimación de la varianza común de los errores de la regresión $\sigma^2$.
     a) Hallar el coeficiente de regresión y el coeficiente de regresión ajustado.
@@ -60,6 +62,7 @@ $X$ (Radiación solar) & $Y$ Biomasa de la planta\\\hline
 \end{center}
 \ \newline
     a) Estimar los valores $b_0$ y $b_1$ para la regresión lineal de la biomasa de la planta en función de la radiación solar.
+    a) Representa gráficamente los datos junto con la recta de regresión.
     a) Hallar un intervalo de confianza al 95% de confianza para los parámetros $\beta_0$ y $\beta_1$.
     a) Calcular la estimación de la varianza común de los errores de la regresión $\sigma^2$.
     a) Hallar el coeficiente de regresión y el coeficiente de regresión ajustado.
