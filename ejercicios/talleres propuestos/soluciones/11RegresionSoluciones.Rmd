@@ -43,7 +43,7 @@ $y_i$ & $x_i$ \\
     a) Estudiar si el modelo es homocedástico gráficamente y usando el test correspondiente.
     a) Estudiar la normalidad de los residuos.
     a) Estudiar la correlación de los residuos.
-    a) Hallar las observaciones "outliers", los "leverages" y las influyentes.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
     
     
 ## Solución
@@ -106,6 +106,7 @@ g) Para estudiar la normalidad de los residuos, apliquemos el test de Shapiro-Wi
 shapiro.test(estudio.regresión$residuals)
 ```
 El p-valor es bastante grande, por tanto no tenemos evidencias para rechazar la normalidad de los residuos.
+\newpage
 
 h) Para estudiar la correlación de los residuos, apliquemos el test de Durbin-Watson:
 ```{r}
@@ -170,7 +171,7 @@ $X$ (Radiación solar) & $Y$ Biomasa de la planta\\\hline
     a) Estudiar si el modelo es homocedástico gráficamente y usando el test correspondiente.
     a) Estudiar la normalidad de los residuos.
     a) Estudiar la correlación de los residuos.
-    a) Hallar las observaciones "outliers", los "leverages" y las influyentes.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
     
     
 ## Solución
@@ -188,6 +189,8 @@ estudio.regresión = lm(biomasa ~ radiación)
 summary(lm(biomasa ~ radiación))
 ```
  El valor de $b_0$ es $b_0=`r estudio.regresión$coefficients[1]`$  y el valor de $b_1$ es $b_1=`r estudio.regresión$coefficients[2]`$.
+
+\newpage
 
 b) La representación de los datos junto con la recta de regresión es la siguiente:
 
@@ -215,6 +218,8 @@ e) El coeficiente de regresión y el ajustado son los siguientes:
 ```
 Podemos observar que el ajuste es bastante bueno.
 
+\newpage
+
 f) Para ver si el modelo es homocedástico hay que realizar el gráfico de los errores en función de los valores estimados y ver si dicho gráfico se parece a un "cielo estrellado":
 ```{r}
 plot(estudio.regresión$fitted.values,estudio.regresión$residuals,xlab="Valores estimados",ylab="Errores")
@@ -233,6 +238,8 @@ g) Para estudiar la normalidad de los residuos, apliquemos el test de Shapiro-Wi
 shapiro.test(estudio.regresión$residuals)
 ```
 El p-valor está en la zona de penumbra, por tanto no podemos tomar una decisión clara sobre la normalidad de los residuos.
+
+\newpage
 
 h) Para estudiar la correlación de los residuos, apliquemos el test de Durbin-Watson:
 ```{r}
@@ -299,7 +306,7 @@ Consideramos $Y=\ln\left(\frac{Q_o}{Q_p}\right)$ como variable dependiente, cons
     a) Estudiar la normalidad de los residuos.
     a) Estudiar la correlación de los residuos.
     a) Contrastar la linealidad y la aditividad del modelo.
-    a) Hallar las observaciones "outliers", los "leverages" y las influyentes.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
 
 
 ## Solución
@@ -315,6 +322,8 @@ Qo =c(28, 112, 398, 772, 2294, 2484, 2586, 3024, 4179, 710)
 Qp =c(32, 142, 502, 790, 3075, 3230, 3535, 4265, 6529, 935)
 (Y=log(Qo/Qp))
 ```
+
+\newpage
 
 a) Los valores $b_i$, $i=0,1,2,3,4$ serán:
 
@@ -341,6 +350,7 @@ k=4
 (S2 = sum(errores^2)/(n-k-1))
 ```
 
+\newpage
 d) El coeficiente de regresión y el ajustado son los siguientes:
 ```{r}
 (R2 = summary(estudio.regresión)$r.squared)
@@ -389,6 +399,8 @@ crPlots(estudio.regresión)
 ```
 
 Observamos que la variable que se ajusta menos a la linealidad es la $X_2$. También observamos que en la $X_3$ tenemos indicios de no linealidad. Todas las demás presentan un ajuste bastante aceptable al modelo lineal.
+
+\newpage
 
 i) Miremos si hay outliers en nuestra tabla de datos:
 ```{r}

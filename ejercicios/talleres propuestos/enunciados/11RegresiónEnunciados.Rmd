@@ -43,7 +43,7 @@ $y_i$ & $x_i$ \\
     a) Estudiar si el modelo es homocedástico gráficamente y usando el test correspondiente.
     a) Estudiar la normalidad de los residuos.
     a) Estudiar la correlación de los residuos.
-    a) Hallar las observaciones "outliers", los "leverages" y las influyentes.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
 1. Los siguientes datos relacionan la producción de biomasa de soja con la radiación solar interceptada acumulada durante un período de ocho semanas después de la emergencia. La producción de biomasa es el peso seco medio en gramos de muestras independientes de cuatro plantas.
 \ \newline
 \begin{center}
@@ -69,7 +69,7 @@ $X$ (Radiación solar) & $Y$ Biomasa de la planta\\\hline
     a) Estudiar si el modelo es homocedástico gráficamente y usando el test correspondiente.
     a) Estudiar la normalidad de los residuos.
     a) Estudiar la correlación de los residuos.
-    a) Hallar las observaciones "outliers", los "leverages" y las influyentes.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
 1. Se probó un modelo de simulación para el flujo máximo de agua de las cuencas hidrográficas comparando el flujo máximo medido de 10 tormentas con predicciones del flujo máximo obtenido del modelo de simulación. $Q_o$ y $Q_p$ son los flujos máximos observados y pronosticados, respectivamente. Se registraron cuatro variables independientes:
     - $X_1$: area de la cuenca ($m^2$),
     - $X_2$: pendiente promedio de la cuenca (en porcentaje),
@@ -102,5 +102,5 @@ Consideramos $Y=\ln\left(\frac{Q_o}{Q_p}\right)$ como variable dependiente, cons
     a) Estudiar la normalidad de los residuos.
     a) Estudiar la correlación de los residuos.
     a) Contrastar la linealidad y la aditividad del modelo.
-    a) Hallar las observaciones "outliers", los "leverages" y las influyentes.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
 
