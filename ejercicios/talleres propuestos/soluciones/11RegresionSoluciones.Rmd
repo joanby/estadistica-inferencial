@@ -1,0 +1,426 @@
+---
+title: "Problemas de Regresión"
+author: ""
+date: ""
+geometry: "left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm"
+output:
+  pdf_document: default
+  html_document: default
+header-includes:
+   - \usepackage{multirow,graphicx}
+---
+
+1. Se plantaron 8 pinos de $0.3$ metros de altura en medios controlados y se los sometió a distintas intensidades de irrigación
+para simular el efecto de las diferentes precipitaciones pluviales. Al acabar el año se midieron las alturas. En la tabla siguiente
+se muestran las alturas medias (en metros) 
+($y_i$) al acabar el año y la cantidad de lluvia (en metros) simulada por cada valor $x_i$. 
+Suponemos que $Y$, la altura del árbol al acabar el año, es una variable 
+aleatoria con media $\beta_0+\beta_1 x$, donde $x$ es la precipitación, y con varianza constante
+ $\sigma^2$ por todo valor de $x$. Hallar las mejores estimaciones lineales sin sesgo
+ de  $\beta_0$ y $\beta_1$ y hallar una estimación sin sesgo de $\sigma^2$.
+\ \newline
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$y_i$ & $x_i$ \\
+\hline\hline 0.4826 & 0.2540 \\
+\hline 0.5588 & 0.3556 \\
+\hline 0.6350 & 0.4572 \\
+\hline 0.7874 & 0.5588 \\
+\hline 0.8382 & 0.6604 \\
+\hline 0.9906 & 0.7620 \\
+\hline 1.1176 & 0.8636 \\
+\hline 1.1430 & 0.9652 \\
+\hline
+\end{tabular}
+\end{center}
+\ \newline
+    a) Estimar los valores $b_0$ y $b_1$ para la regresión lineal de la altura del pino en función de la cantidad de lluvia.
+    a) Representa gráficamente los datos junto con la recta de regresión.
+    a) Hallar un intervalo de confianza al 95% de confianza para los parámetros $\beta_0$ y $\beta_1$.
+    a) Calcular la estimación de la varianza común de los errores de la regresión $\sigma^2$.
+    a) Hallar el coeficiente de regresión y el coeficiente de regresión ajustado.
+    a) Estudiar si el modelo es homocedástico gráficamente y usando el test correspondiente.
+    a) Estudiar la normalidad de los residuos.
+    a) Estudiar la correlación de los residuos.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
+    
+    
+## Solución
+
+En primer lugar definimos las variables $x$ (lluvia) e $y$ (altura):
+```{r}
+lluvia = c(0.4826, 0.5588, 0.6350, 0.7874, 0.8382, 0.9906, 1.1176, 1.1430)
+altura = c(0.2540, 0.3556, 0.4572, 0.5588, 0.6604, 0.7620, 0.8636, 0.9652)
+```
+
+a) Los valores $b_0$ y $b_1$ serán:
+
+```{r}
+estudio.regresión = lm(altura ~ lluvia)
+summary(lm(altura ~ lluvia))
+```
+ El valor de $b_0$ es $b_0=`r estudio.regresión$coefficients[1]`$  y el valor de $b_1$ es $b_1=`r estudio.regresión$coefficients[2]`$.
+
+b) La representación de los datos junto con la recta de regresión es la siguiente:
+
+```{r}
+plot(lluvia,altura,xlab="Lluvia",ylab="Altura")
+abline(estudio.regresión,col="red")
+```
+
+c) Los intervalos de confianza pedidos son los siguientes:
+```{r}
+confint(estudio.regresión)
+```
+ 
+d) La estimación de la varianza común de los errores $\sigma^2$ es:
+```{r}
+errores=estudio.regresión$residuals
+n=length(lluvia)
+(S2 = sum(errores^2)/(n-2))
+```
+
+e) El coeficiente de regresión y el ajustado son los siguientes:
+```{r}
+(R2 = summary(estudio.regresión)$r.squared)
+(R2.ajustado = summary(estudio.regresión)$adj.r.squared)
+```
+Podemos observar que el ajuste es bastante bueno.
+
+f) Para ver si el modelo es homocedástico hay que realizar el gráfico de los errores en función de los valores estimados y ver si dicho gráfico se parece a un "cielo estrellado":
+```{r}
+plot(estudio.regresión$fitted.values,estudio.regresión$residuals,xlab="Valores estimados",ylab="Errores")
+```
+
+En principio, no se observa ningún patrón.
+Apliquemos el test de White para comprobar la homocedasticidad:
+```{r,message=FALSE,warning=FALSE}
+library(lmtest)
+bptest(estudio.regresión,~ lluvia+I(lluvia^2))
+```
+Como el valor es bastante grande, no tenemos indicios para rechazar la homocedasticidad de los residuos.
+
+g) Para estudiar la normalidad de los residuos, apliquemos el test de Shapiro-Wilks:
+```{r}
+shapiro.test(estudio.regresión$residuals)
+```
+El p-valor es bastante grande, por tanto no tenemos evidencias para rechazar la normalidad de los residuos.
+\newpage
+
+h) Para estudiar la correlación de los residuos, apliquemos el test de Durbin-Watson:
+```{r}
+dwtest(estudio.regresión,alternative='greater')
+dwtest(estudio.regresión,alternative='less')
+```
+Como los p-valores son grandes, no tenemos evidencias suficientes para rechazar que no haya autocorrelación entre los errores. Es decir, concluimos que no hay ni autocorrelación positiva ni negativa.
+
+i) Miremos si hay outliers en nuestra tabla de datos:
+```{r}
+library(car)
+outlierTest(estudio.regresión)
+```
+La única observación candidata a outlier es la número 7 pero el p-valor nos dice que de hecho no lo es.
+
+Hallemos los posibles "leverages":
+```{r}
+(valores.hat = hatvalues(estudio.regresión))
+which(valores.hat > 2*2/n)
+```
+No hay observaciones "leverages".
+
+Por último, estudiemos si hay observaciones influyentes:
+```{r}
+(distancias.cook=cooks.distance(estudio.regresión))
+which(distancias.cook > 4/(n-2))
+```
+Tampoco tenemos observaciones influyentes.
+
+
+
+
+
+
+
+
+
+\newpage
+
+2. Los siguientes datos relacionan la producción de biomasa de soja con la radiación solar interceptada acumulada durante un período de ocho semanas después de la emergencia. La producción de biomasa es el peso seco medio en gramos de muestras independientes de cuatro plantas.
+\ \newline
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$X$ (Radiación solar) & $Y$ Biomasa de la planta\\\hline
+29.7 & 16.6\\
+68.4 & 49.1\\
+120.7 &  121.7 \\
+217.2 & 219.6 \\
+313.5 &  375.5\\
+419.1 & 570.8 \\
+535.9 & 648.2 \\
+641.5 & 755.6 \\\hline
+\end{tabular}
+\end{center}
+\ \newline
+    a) Estimar los valores $b_0$ y $b_1$ para la regresión lineal de la biomasa de la planta en función de la radiación solar.
+    a) Representa gráficamente los datos junto con la recta de regresión.
+    a) Hallar un intervalo de confianza al 95% de confianza para los parámetros $\beta_0$ y $\beta_1$.
+    a) Calcular la estimación de la varianza común de los errores de la regresión $\sigma^2$.
+    a) Hallar el coeficiente de regresión y el coeficiente de regresión ajustado.
+    a) Estudiar si el modelo es homocedástico gráficamente y usando el test correspondiente.
+    a) Estudiar la normalidad de los residuos.
+    a) Estudiar la correlación de los residuos.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
+    
+    
+## Solución
+
+En primer lugar definimos las variables $x$ (radiación) e $y$ (biomasa):
+```{r}
+radiación = c(29.7, 68.4, 120.7, 217.2, 313.5, 419.1, 535.9, 641.5)
+biomasa = c(16.6, 49.1, 121.7, 219.6, 375.5, 570.8, 648.2, 755.6)
+```
+
+a) Los valores $b_0$ y $b_1$ serán:
+
+```{r}
+estudio.regresión = lm(biomasa ~ radiación)
+summary(lm(biomasa ~ radiación))
+```
+ El valor de $b_0$ es $b_0=`r estudio.regresión$coefficients[1]`$  y el valor de $b_1$ es $b_1=`r estudio.regresión$coefficients[2]`$.
+
+\newpage
+
+b) La representación de los datos junto con la recta de regresión es la siguiente:
+
+```{r}
+plot(radiación,biomasa,xlab="Radiación",ylab="Biomasa")
+abline(estudio.regresión,col="red")
+```
+
+c) Los intervalos de confianza pedidos son los siguientes:
+```{r}
+confint(estudio.regresión)
+```
+ 
+d) La estimación de la varianza común de los errores $\sigma^2$ es:
+```{r}
+errores=estudio.regresión$residuals
+n=length(lluvia)
+(S2 = sum(errores^2)/(n-2))
+```
+
+e) El coeficiente de regresión y el ajustado son los siguientes:
+```{r}
+(R2 = summary(estudio.regresión)$r.squared)
+(R2.ajustado = summary(estudio.regresión)$adj.r.squared)
+```
+Podemos observar que el ajuste es bastante bueno.
+
+\newpage
+
+f) Para ver si el modelo es homocedástico hay que realizar el gráfico de los errores en función de los valores estimados y ver si dicho gráfico se parece a un "cielo estrellado":
+```{r}
+plot(estudio.regresión$fitted.values,estudio.regresión$residuals,xlab="Valores estimados",ylab="Errores")
+```
+
+Se observa una especie de cuña para los valores de radiación estimados entre 200 y 800 pero como son pocos datos, no se puede concluir nada seguro.
+Apliquemos el test de White para comprobar la homocedasticidad:
+```{r,message=FALSE,warning=FALSE}
+library(lmtest)
+bptest(estudio.regresión,~ radiación+I(radiación^2))
+```
+Como el valor es bastante grande, no tenemos indicios para rechazar la homocedasticidad de los residuos. Lo que observamos antes, se debía a la aleatoriedad.
+
+g) Para estudiar la normalidad de los residuos, apliquemos el test de Shapiro-Wilks:
+```{r}
+shapiro.test(estudio.regresión$residuals)
+```
+El p-valor está en la zona de penumbra, por tanto no podemos tomar una decisión clara sobre la normalidad de los residuos.
+
+\newpage
+
+h) Para estudiar la correlación de los residuos, apliquemos el test de Durbin-Watson:
+```{r}
+dwtest(estudio.regresión,alternative='greater')
+dwtest(estudio.regresión,alternative='less')
+```
+Como los p-valores son grandes, no tenemos evidencias suficientes para rechazar que no haya autocorrelación entre los errores. Es decir, concluimos que no hay ni autocorrelación positiva ni negativa.
+
+i) Miremos si hay outliers en nuestra tabla de datos:
+```{r}
+library(car)
+outlierTest(estudio.regresión)
+```
+La única observación candidata a outlier es la número 6 y los p-valores obtenidos la confirman como outlier. 
+
+Hallemos los posibles "leverages":
+```{r}
+(valores.hat = hatvalues(estudio.regresión))
+which(valores.hat > 2*2/n)
+```
+No hay observaciones "leverages".
+
+Por último, estudiemos si hay observaciones influyentes:
+```{r}
+(distancias.cook=cooks.distance(estudio.regresión))
+which(distancias.cook > 4/(n-2))
+```
+Vemos que la observación número 8 es una observación influyente.  
+    
+    
+    
+    
+    
+\newpage
+3. Se probó un modelo de simulación para el flujo máximo de agua de las cuencas hidrográficas comparando el flujo máximo medido de 10 tormentas con predicciones del flujo máximo obtenido del modelo de simulación. $Q_o$ y $Q_p$ son los flujos máximos observados y pronosticados, respectivamente. Se registraron cuatro variables independientes:
+    - $X_1$: area de la cuenca ($m^2$),
+    - $X_2$: pendiente promedio de la cuenca (en porcentaje),
+    - $X_3$: índice de absorbencia superficial (0 = absorbencia completa, 100 = sin absorbencia), y
+    - $X_4$: intensidad de pico de lluvia calculada en intervalos de media hora.
+\ \newline
+\begin{center}
+\begin{tabular}{|r|r|r|r|r|r|}
+\hline
+$Q_o$ & $Q_p$ & $X_1$ & $X_2$ & $X_3$ & $X_4$\\\hline
+28&32&.03&3.0&70&.6\\
+112&142&.03&3.0&80&1.8\\
+398&502&.13&6.5&65&2.0\\
+772&790&1.00&15.0&60&.4\\
+2294&3075&1.00&15.0&65&2.3\\
+2484&3230&3.00&7.0&67&1.0\\
+2586&3535&5.00&6.0&62&.9\\
+3024&4265&7.00&6.5&56&1.1\\
+4179&6529&7.00&6.5&56&1.4\\
+710&935&7.00&6.5&56&.7\\\hline
+\end{tabular}
+\end{center}
+\ \newline
+Consideramos $Y=\ln\left(\frac{Q_o}{Q_p}\right)$ como variable dependiente, consideramos la regresión de $Y$ como función de $X_1$, $X_2$, $X_3$ y $X_4$. Se pide:
+    a) Estimar los valores $b_0, b_1, b_2, b_3, b_4$ para la regresión lineal de $Y$ en función de $X_i$, $i=1,2,3,4$.
+    a) Hallar un intervalo de confianza al 95% de confianza para los parámetros $\beta_i$, $i=0,1,2,3,4$.
+    a) Calcular la estimación de la varianza común de los errores de la regresión $\sigma^2$.
+    a) Hallar el coeficiente de regresión y el coeficiente de regresión ajustado.
+    a) Estudiar si el modelo es homocedástico gráficamente y usando el test correspondiente.
+    a) Estudiar la normalidad de los residuos.
+    a) Estudiar la correlación de los residuos.
+    a) Contrastar la linealidad y la aditividad del modelo.
+    a) Hallar las observaciones "outliers", los "leverages" y las observaciones influyentes.
+
+
+## Solución
+
+
+En primer lugar definimos las variables $X_1$, $X_2$, $X_3$, $X_4$ e $Y$:
+```{r}
+X1=c(.03, .03, .13, 1.00, 1.00, 3.00, 5.00, 7.00, 7.00, 7.00)
+X2=c(3.0, 3.0, 6.5, 15.0, 15.0, 7.0, 6.0, 6.5, 6.5, 6.5)
+X3=c(70, 80, 65, 60, 65, 67, 62, 56, 56, 56)
+X4=c(.6, 1.8, 2.0, .4, 2.3, 1.0, .9, 1.1, 1.4, .7)
+Qo =c(28, 112, 398, 772, 2294, 2484, 2586, 3024, 4179, 710)
+Qp =c(32, 142, 502, 790, 3075, 3230, 3535, 4265, 6529, 935)
+(Y=log(Qo/Qp))
+```
+
+\newpage
+
+a) Los valores $b_i$, $i=0,1,2,3,4$ serán:
+
+```{r}
+estudio.regresión = lm(Y ~ X1+X2+X3+X4)
+summary(lm(Y ~ X1+X2+X3+X4))
+```
+El valor del vector $(b_0,b_1,b_2,b_3,b_4)^\top$  es el siguiente:
+```{r}
+estudio.regresión$coefficients
+```
+
+
+b) Los intervalos de confianza pedidos son los siguientes:
+```{r}
+confint(estudio.regresión)
+```
+ 
+c) La estimación de la varianza común de los errores $\sigma^2$ es:
+```{r}
+errores=estudio.regresión$residuals
+n=length(X1)
+k=4
+(S2 = sum(errores^2)/(n-k-1))
+```
+
+\newpage
+d) El coeficiente de regresión y el ajustado son los siguientes:
+```{r}
+(R2 = summary(estudio.regresión)$r.squared)
+(R2.ajustado = summary(estudio.regresión)$adj.r.squared)
+```
+Podemos observar que el ajuste es bastante bueno.
+
+e) Para ver si el modelo es homocedástico hay que realizar el gráfico de los errores en función de los valores estimados y ver si dicho gráfico se parece a un "cielo estrellado":
+```{r}
+plot(estudio.regresión$fitted.values,estudio.regresión$residuals,xlab="Valores estimados",ylab="Errores")
+```
+
+No observamos ningún patrón visible.
+Apliquemos el test de White para comprobar la homocedasticidad:
+```{r,message=FALSE,warning=FALSE}
+library(lmtest)
+X=cbind(X1,X2,X3,X4)
+bptest(estudio.regresión,~ X+I(X^2))
+```
+Como el valor es bastante grande, no tenemos indicios para rechazar la homocedasticidad de los residuos. Lo que observamos antes, se debía a la aleatoriedad.
+
+f) Para estudiar la normalidad de los residuos, apliquemos el test de Shapiro-Wilks:
+```{r}
+shapiro.test(estudio.regresión$residuals)
+```
+El p-valor es bastante grande, por tanto no tenemos evidencias para rechazar la normalidad de los residuos.
+
+g) Para estudiar la correlación de los residuos, apliquemos el test de Durbin-Watson:
+```{r}
+dwtest(estudio.regresión,alternative='greater')
+dwtest(estudio.regresión,alternative='less')
+```
+Como los p-valores son grandes, no tenemos evidencias suficientes para rechazar que no haya autocorrelación entre los errores. Es decir, concluimos que no hay ni autocorrelación positiva ni negativa.
+
+
+h) Para estudiar la aditividad, usamos el test de Tukey:
+```{r}
+residualPlots(estudio.regresión,plot=FALSE)
+```
+
+Como los p-valores son grandes, no tenemos evidencias para rechazar la aditividad del modelo.
+
+Para estudiar la linealidad, realizamos los gráficos de residuos parciales:
+```{r}
+crPlots(estudio.regresión)
+```
+
+Observamos que la variable que se ajusta menos a la linealidad es la $X_2$. También observamos que en la $X_3$ tenemos indicios de no linealidad. Todas las demás presentan un ajuste bastante aceptable al modelo lineal.
+
+\newpage
+
+i) Miremos si hay outliers en nuestra tabla de datos:
+```{r}
+outlierTest(estudio.regresión)
+```
+La única observación candidata a outlier es la número 2 pero el p-valor obtenido la descarta como outlier.
+
+Hallemos los posibles "leverages":
+```{r}
+(valores.hat = hatvalues(estudio.regresión))
+which(valores.hat > 2*(k+1)/n)
+```
+No hay observaciones "leverages".
+
+Por último, estudiemos si hay observaciones influyentes:
+```{r}
+(distancias.cook=cooks.distance(estudio.regresión))
+which(distancias.cook > 4/(n-k-1))
+```
+Vemos que la observación número 2 es una observación influyente.  
+    
+    
+

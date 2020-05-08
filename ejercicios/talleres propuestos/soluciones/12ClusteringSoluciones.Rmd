@@ -1,0 +1,124 @@
+---
+title: "Problemas de Clustering"
+author: ""
+date: ""
+geometry: "left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm"
+output:
+  pdf_document: default
+  html_document: default
+header-includes:
+   - \usepackage{multirow}
+---
+
+1. Consideremos la tabla de datos `worldcup` del paquete `faraway` que nos información sobre los jugadores de Futbol que participaron en el Mundial de Futbol celebrado el año 2010 en Sudáfrica.
+Esta tabla de datos da información de 595 jugadores y tiene 7 variables:
+* `Team`: el pais del jugador.
+* `Position`: la posición en que juega el jugador. Tiene 4 valores:
+  * `Defender`: defensa.
+  * `Forward`: delantero.
+  * `Goalkeeper`: portero.
+  * `Midfielder`: medio.
+* `Time`: tiempo jugado en minutos.
+* `Shots`: número de tiros que ha realizado el jugador.
+* `Passes`: número de pases del jugador.
+* `Tackles`: número de entradas del jugador.
+* `Saves`: número de paradas del jugador.
+
+    a) Seleccionar una muestra de 25 jugadores usando la función `sample`. Escribir `set.seed(2020)` antes de elegir la muestra.
+    a) Aplicar el algoritmo k-means a la muestra anterior usando las variables cuantitativas para clasificar a los 25 jugadores en 4 grupos usando el algoritmo de MacQueen. Aplicar la función `kmeans` unas cuantas veces con el fin de que la suma de los cuadrados de todos los clusters sea mínima.
+    a) Queremos estudiar hasta qué punto la clasificación anterior coincide con la clasificación de los 25 jugadores según la posición que ocupan. Calcular la tabla bidimensional que dos dé el cluster a qué pertenece el jugador por un lado y la posición a la que juega. ¿Qué porcentaje de aciertos ha tenido el algoritmo k-means?
+    
+## Solución
+
+a) Primero cargamos el paquete y seleccionamos los 25 jugadores:
+```{r}
+library(faraway)
+set.seed(2020)
+jugadores.elegidos = sample(1:dim(worldcup)[1],25)
+muestra.jugadores = worldcup[jugadores.elegidos,]
+```
+
+b) Aplicamos el algoritmo k-means a la muestra anterior unas 50 veces y vemos cuál es el mínimo de la suma de cuadrados de todos los clusters:
+```{r}
+veces=100
+SSCs=c()
+for (i in 1:veces){
+  SSCs=c(SSCs,kmeans(muestra.jugadores[,3:7],4,algorithm = "MacQueen")$tot.withinss)
+}
+(min(SSCs))
+```
+Vemos que el valor mínimo es `53981.01`. Ahora realizamos el algorimo k-means hasta obtener dicho valor:
+```{r}
+minimo = 53981.01
+estudio.kmeans = kmeans(muestra.jugadores[,3:7],4,algorithm = "MacQueen")
+while (estudio.kmeans$tot.withinss > minimo +10){
+  estudio.kmeans = kmeans(muestra.jugadores[,3:7],4,algorithm = "MacQueen")
+}
+```
+
+\newpage
+
+La clasificación de los jugadores ha sido la siguiente:
+```{r}
+estudio.kmeans$cluster
+```
+
+c) La tabla bidimensional pedida es la siguiente:
+```{r}
+table(estudio.kmeans$cluster,muestra.jugadores$Position)
+```
+
+Mirando la tabla anterior, podemos clasificar correctamente `r 6+5+1+2` jugadores clasificando correctamente el `r 100*(6+5+1+2)/25`% de los jugadores de la muestra.
+
+\newpage
+
+2. Consideremos la tabla de datos `worldcup` del paquete `faraway` que nos información sobre los jugadores de Futbol que participaron en el Mundial de Futbol celebrado el año 2010 en Sudáfrica.
+Esta tabla de datos da información de 595 jugadores y tiene 7 variables:
+* `Team`: el pais del jugador.
+* `Position`: la posición en que juega el jugador. Tiene 4 valores:
+  * `Defender`: defensa.
+  * `Forward`: delantero.
+  * `Goalkeeper`: portero.
+  * `Midfielder`: medio.
+* `Time`: tiempo jugado en minutos.
+* `Shots`: número de tiros que ha realizado el jugador.
+* `Passes`: número de pases del jugador.
+* `Tackles`: número de entradas del jugador.
+* `Saves`: número de paradas del jugador.
+
+    a) Seleccionar una muestra de 25 jugadores usando la función `sample`. Escribir `set.seed(2020)` antes de elegir la muestra.
+    a) Calcular la matriz de distancias de los 25 jugadores anteriores usando la distancia euclídea entre las variables cuantitativas.
+    a) Usando el método jerárquico aglomerativo del **enlace promedio** hallar el dendrograma para clasificar los 25 jugadores anteriores.
+    a) Clasificar los 25 jugadores en 4 clusters a partir del dendrograma anterior.
+    a) Queremos estudiar hasta qué punto la clasificación anterior coincide con la clasificación de los 25 jugadores según la posición que ocupan. Calcular la tabla bidimensional que dos dé el cluster a qué pertenece el jugador por un lado y la posición a la que juega. ¿Qué porcentaje de aciertos ha tenido el algoritmo aplicado?
+    
+## Solución
+
+a) Primero cargamos el paquete y seleccionamos los 25 jugadores:
+```{r}
+library(faraway)
+set.seed(2020)
+jugadores.elegidos = sample(1:dim(worldcup)[1],25)
+muestra.jugadores = worldcup[jugadores.elegidos,]
+```
+
+b) La matriz de distancias será: (mostramos sólo las 5 primeras filas y columnas)
+```{r}
+distancias.jugadores = as.matrix(dist(muestra.jugadores[,3:7]))
+round(distancias.jugadores[1:5,1:5],3)
+```
+c) El dendrograma pedido será:
+```{r}
+estudio.clustering = hclust(dist(muestra.jugadores[,3:7]),method="average")
+plot(estudio.clustering,hang=-1)
+```
+
+d) Los clusters pedidos son los siguientes:
+```{r}
+(clusters = cutree(estudio.clustering,k=4))
+```
+e) La tabla bidimensional pedida es la siguiente:
+```{r}
+table(clusters,muestra.jugadores$Position)
+```
+Mirando la tabla anterior, podemos clasificar correctamente `r 6+7+2` jugadores clasificando correctamente el `r 100*(6+7+2)/25`% de los jugadores de la muestra.
