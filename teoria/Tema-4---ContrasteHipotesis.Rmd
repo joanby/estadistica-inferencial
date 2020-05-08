@@ -1967,7 +1967,7 @@ Sea $z_0$ el valor del estadístico de contraste sobre la muestra. Los $p$-valor
 
 * $H_1:\mu_1 >\mu_2$: $p=P(Z \geq z_0)$.
 * $H_1:\mu_1 <\mu_2$: $p=P(Z \leq z_0)$.
-* $H_1:\mu_1 \neq \mu_2$: $p=2\cdot P(Z \geq |z_0|)$.
+* $H_1:\mu_1 \neq \mu_2$: $p=2\cdot  P(Z \geq |z_0|)$.
 
 ## Ejemplo
 <div class="example">

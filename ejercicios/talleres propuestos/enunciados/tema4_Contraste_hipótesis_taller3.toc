@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}Contraste hipótesis taller 3.}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Librerías y datos necesarios}{1}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Contrastes de dos parámetros.}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Ejercicio 1}{2}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Solución}{2}{subsubsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.2}Ejercicio 2}{3}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Solución}{3}{subsubsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.3}Ejercicio 3}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Ejercicio 4}{7}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Ejercicio 5}{7}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Ejercicio 6}{7}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Ejercicio 7}{7}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Ejercicio 8}{7}{subsection.2.8}%
