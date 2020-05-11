@@ -4,9 +4,9 @@ author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
 output:
   pdf_document: 
-    keep_tex: yes
     number_sections: yes
     toc: yes
+    toc_depth: 4
   html_document:
     df_print: paged
     toc: yes
@@ -26,41 +26,19 @@ library(tidyverse)
 ```
 
 
-# Contraste hipótesis taller 3. 
+# Contraste hipótesis taller 3: Contrastes de dos parámetros.
 
-## Librerías  y datos necesarios
-
-Para este  taller necesitaremos los siguientes paquetes: `faraway, nortest, car` si no los tenéis instalados podéis ejecutar  lo siguiente:
-
-```
-install.packages("faraway")
-install.packages("nortest")
-install.packages("car")
-```
-
-Para utilizarlos, deberéis cargarlos ejecutando las siguientes instrucciones:
-
-```{r,warning=FALSE,message=FALSE,silent=TRUE}
-library("faraway")
-library("nortest")
-library("car")
-```
-
-
-# Contrastes de dos parámetros.
 
 **Comparación de medias.**
 
-Los siguientes problemas tratan de contrastes de parámetros entre dos muestras Para cada uno de los enunciados:
+Los siguientes problemas tratan de contrastes de parámetros entre dos muestras. El el caso de que  el enunciado lo pida contenga explícitamente las cuestiones tenéis que:
 
-1. Contrastar contra una de los dos tipos de  hipótesis unilaterales o  bilaterales.
+1. Contrastar contra una de los tes tipos de  hipótesis unilaterales izquierda, unilateral derecha o  bilaterales.
 2. Calcular también el intervalo de confianza para la diferencia o el cociente de los parámetros según el contraste sea bilateral o unilateral. Tomar finalmente la decisión más correcta.
 3. Calcular todos los test e intervalos de confianza para $\alpha=0.05$.
 4. Calcular el $p$-valor en cada caso. 
 
 ## Ejercicio `r cuenta()`
-
-
 
 Para comparar la producción  media de dos procedimientos de fabricación de cierto producto
 se toman dos muestras, una con la cantidad  producida durante 25 días con el primer
@@ -80,13 +58,13 @@ para $\mu_{1}-\mu_{2}$ al nivel 99\%. sol1{$\left(5.2989,10.7011\right)$}
 
 Estamos en el caso de un contraste de comparación de medias   de muestras independientes y en el teórico caso de que las varianzas son conocidas. 
 
-Contrastaremos 
+Contrastaremos:
 
 $$
 \left\{
 \begin{array}{ll}
 H_{0}:\mu_1=\mu_2\\
-H_{1}:\mu\not= \mu2 
+H_{1}:\mu_1\not= \mu_2 
 \end{array}
 \right.
 $$
@@ -269,13 +247,14 @@ $$
 con R es 
 
 ```{r}
-n1=50
-n2=120
-media1=1260
-media2=1240
-desv_tipica1=20
-desv_tipica2=18
-t0= (media1-media2)/(sqrt((1/n1+1/n2)*((n1-1)*desv_tipica1+(n2-1)*desv_tipica2^2)/(n1+n2-2)))
+n1 = 50
+n2 = 120
+media1 = 1260
+media2 = 1240
+desv_tipica1 = 20
+desv_tipica2 = 18
+t0=(media1-media2)/(sqrt((1/n1+1/n2)*((n1-1)*desv_tipica1+
+                        (n2-1)*desv_tipica2^2)/(n1+n2-2)))
 t0
 ```
 
@@ -332,6 +311,7 @@ La diferencia de medias $\mu_1-\mu_2$    verdadera se encontrará en el interval
 
 
 ## Ejercicio `r cuenta()`
+
 Para reducir la concentración de ácido úrico en la sangre se prueban dos drogas. La primera
 se aplica a un grupo de 8 pacientes y la segunda a un grupo de 10. Las disminuciones
 observadas en las concentraciones de ácido úrico de los distintos pacientes expresadas en
@@ -344,18 +324,108 @@ droga 1 & 20 & 12 & 16 & 18 & 13 & 22 & 15 & 20\\ \hline droga 2 & 17 & 14 & 12 
 \end{tabular}
 \end{center}
 
- Calcular un intervalo de confianza para la diferencia de medias entre la primera droga y la
-segunda al nivel del 99\%. 
-
 Suponer que las reducciones de ácido úrico siguen una
-distribución normal son independientes y de igual varianza. 
-Ídem pero suponiendo que las varianza son distintas.%sol1{$\left(-2.09,8.09\right)$}
+distribución normal son independientes
+
+
+
+Contrastar la igualdad de medias contra que la droga 1 es mejor (menor media) que la droga 2.   Resolver el test en  los dos casos varianzas iguales  y varianzas distintas. Calcular el intervalo de confianza asociado al contraste
+%sol1{$\left(-2.09,8.09\right)$}
+
+### Solución
+
+
+Denotando la droga 1 y 2  con el mismo subíndice el contraste es:
+
+
+$$
+\left\{
+\begin{array}{ll}
+H_{0}:\mu_1=\mu_2\\
+H_{1}:\mu_1 < \mu_2 
+\end{array}
+\right..
+$$
+
+
+
+Carguemos los datos y resolvamos con R
+
+
+
+```{r}
+droga1=c(20,12,16,18,13,22,15,20)
+droga2=c(17,14,12,10,15,13,9,19,20,11)
+```
+
+
+ El contraste  para el caso de varianzas iguales es 
+
+```{r}
+t.test(droga1,droga2,var.equal = TRUE,alternative = "less",conf.level=0.9)
+p_valor=t.test(droga1,droga2,var.equal = TRUE,alternative = "less",conf.level=0.9)$p.value
+p_valor
+IC=t.test(droga1,droga2,var.equal = TRUE,alternative = "less",conf.level=0.9)$conf.int
+IC
+```
+
+El $p$-valor es  `r p_valor` muy grande no hay  evidencias para aceptar que  la droga1  reduce en  media el ácido úrico más que la droga 2.
+
+El intervalo de confianza para la diferencia de medias  al nivel de confianza del $90\%$ es 
+$(-\infty, `r IC[2]`)$
+
+Ahora el mismo test pero suponiendo varianzas distintas.
+
+```{r}
+t.test(droga1,droga2,var.equal = FALSE,alternative = "less",conf.level=0.9)
+p_valor=t.test(droga1,droga2,var.equal = FALSE,alternative = "less",conf.level=0.9)$p.value
+p_valor
+IC=t.test(droga1,droga2,var.equal = FALSE,alternative = "less",conf.level=0.9)$conf.int
+IC
+```
+
+
+
+El $p$-valor es  `r p_valor` muy grande no hay  evidencias para aceptar que la droga1  reduce de media el ácido úrico más que la droga 2.
+
+El intervalo de confianza para la diferencia de medias  al nivel de confianza del $90\%$ es 
+$(-\infty, `r IC[2]`)$
+
+Por último podemos hacer el test de  igualdad de varianzas
+
+```{r}
+var.test(droga1,droga2)
+```
+el $p$-valor es alto, no hay evidencias para poder rechazar que las varianzas sean iguales
 
 
 ## Ejercicio `r cuenta()`
+
 Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 5
 pruebas de dureza  con la de tipo 1 y 7 con la de tipo 2. Obteniéndose los resultados
 siguientes:
+
+
+```{r genero_datos}
+set.seed(345)
+aleacion1=round(0.2*(rnorm(20))+18.2,2)
+aleacion2=round(0.5*(rnorm(25))+17.8,2)
+```
+
+
+```{r}
+aleacion1=c(18.04,18.14,18.17,18.14,18.19,18.07,18.01,18.54,
+            18.53,18.56,18.57,17.92,18.03,18.26,18.38,17.92,
+            18.31,18.41,18,18.26)
+aleacion2=c(18.14,17.87,17.53,17.61,17.24,18.01,17.04,17.82,
+            17.97,17.75,18.48,17.34,17.29,16.81,19.21,17.6,
+            17.85,17.98,18.04,18.13,18.26,18.1,18.37,17.48,
+            17.58)
+
+```
+
+
+
 $$\overline{X}_{1}=18.2,\quad S_{1}=0.2 \mbox{ y}$$
 
 $$\overline{X}_{2}=17.8;\quad S_{2}=0.5$$
@@ -369,14 +439,48 @@ iguales. Hacer lo mismo  si las varianzas son distintas.
 
 ## Ejercicio `r cuenta()` 
 
-Se encuestó a dos muestras independientes de  internautas, una en Menorca y otra en Mallorca, sobre si utilizaban  telefonía por Internet. La encuesta de Menorca tuvo un tamaño $n_1=500$  y 
-$100$ usuarios mientras que  en Mallorca se encuestaron a $n_2=750$ y se obtuvo un resultado de $138$ usuarios.
+Se encuestó a dos muestras independientes de  empresas,  en las islas de Ibiza y otra en Mallorca, sobre si utilizaban sistemas de almacenamiento en la nube. La encuesta de Ibiza tuvo un tamaño $n_1=500$  y 
+$200$ usuarios mientras que  en Mallorca se encuestaron a $n_2=750$ y se obtuvo un resultado de $210$ usuarios.
+
+se pide:
+
+1. Construir una matriz 2 por 2 que contenga en filas los valores de Ibiza y Mallorca y por columnas las respuestas Sí y No
+3. Con la función `prop.test` contrastar si las proporciones por islas son iguales o distintas.  
+4. Resolver el contraste con el $p$-valor y obtener e interpretar un intervalo de confianza del 95 para la diferencia de proporciones (! cuidado con el orden¡).
+
+
+
+### Solución
+
+
+
+```{r}
+datos=matrix(c(200,300,210,540),nrow=2,byrow = TRUE)
+dimnames(datos)=list(c("Ibiza","Mallorca"),c("Sí","No"))
+datos
+prop.test(datos)
+
+```
+
+
+El test exacto de odds-ratio   se calcula con la función
+
+```{r}
+fisher.test(datos)
+```
+
+En ambos casos se rechaza la hipótesis nula
+
+El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}$. Así que el intervalo de confianza debe contener a 1 para que las proporciones sean iguales. Consultar[AprendeR2](https://aprender-uib.github.io/AprendeR2/chap-contrastes.html#contrastes-para-proporciones).
+
+
 
 
 ## Ejercicio `r cuenta()`
-Se pregunta a un grupo de 100 personas elegido al azar asiste a un webinnar sobre tecnología para la banca. Antes de la conferencia se les pregunta si consideran  que  Internet es seguna para la banca, después de la conferencia se les vuelve a preguntar cual es su opinión. Los resultados fueron los siguientes:
 
+Se pregunta a un grupo de 100 personas elegido al azar asiste a un webinnar sobre tecnología para la banca. Antes de la conferencia se les pregunta si consideran  que  Internet es segura para la banca, después de la conferencia se les vuelve a preguntar cual es su opinión. Los resultados fueron los siguientes:
 
+\begin{center}
 \begin{tabular}{|c|c|cc|}
 \cline{3-4}
      \multicolumn{2}{c|}{}& \multicolumn{2}{|c|} {Después}\\\cline{3-4}
@@ -385,39 +489,27 @@ Antes & Sí  Segura &  50 &  30 \\
     & No Segura   &  5 & 15 
 \\\hline
 \end{tabular}
-
-
-
-### Solución 
-
-
-
-Es un contraste de comparación de proporciones emparejadas
-
-
-
-## Ejercicio `r cuenta()`  
-
-Tenemos $10$ ordenadores, deseamos optimizar su funcionamiento. Con este fin  se piensa en ampliar su memoria. Se les pasa una prueba de rendimiento antes  y después de  ampliar la memoria. Los resultados fueron:
-
-\begin{tabular}{|c|llllllllll|}
-\hline
- &\multicolumn{10}{|c|}{Ordenador} \\\hline
-Muestra\slash Tiempo & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\\hline
-Antes ampliación & 98.70 & 100.48 & 103.75 & 114.41 & 97.82&
-91.13 & 85.42 & 96.8 & 107.76 & 112.94\\
-\hline
-Después ampliación & 99.51 & 114.44 & 108.74 & 97.92 & 103.54&
-104.75 & 109.69 & 90.8 & 110.04 & 110.09\\
-\hline
-\end{tabular}
+\end{center}
 
 
 ### Solución 
 
 
 
-Es un contraste de medias  coon muestras  emparejadas
+Es un contraste de comparación de proporciones emparejadas con R se puede resolver, entre otras funciones, con las dos funciones siguientes
+
+
+```{r}
+datos=datos=matrix(c(50,30, 45,29),nrow=2,byrow = TRUE)
+dimnames(datos)=list(c("Antes_Si","Antes_No_Segura"),c("Despues_Si","Despues_No"))
+datos
+mcnemar.test(datos)
+```
+
+
+El $p$-valor el relativamente alto, no hay evidencias contra la igualdad de las proporciones  entre antes y después del seminario. Por lo tanto  los asistentes (en proporciones) no han cambiado de opinión.
+
+
 
 
 

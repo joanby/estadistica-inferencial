@@ -522,9 +522,9 @@ El intervalo de confianza al nivel \(1-\alpha=0.95\) es
 
 \[
 \left(
-\overline{x}_1-\overline{x}_2- t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2)}{(n_1+n_2-2)},
-\overline{x}_1-\overline{x}_2+ t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \frac{((n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2)}
-{(n_1+n_2-2)}
+\overline{x}_1-\overline{x}_2- t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}{(n_1+n_2-2)}},
+\overline{x}_1-\overline{x}_2+ t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}
+{(n_1+n_2-2)}}
 \right)
 \]
 
@@ -615,20 +615,25 @@ resultado de \(138\) usuarios.
 \hypertarget{ejercicio-6}{%
 \subsection{Ejercicio 6}\label{ejercicio-6}}
 
-Se pregunta a un grupo de 100 personas elegido al azar asiste a una
-conferencia sobre tecnologías de la comunicación. Antes de la
-conferencia se les pregunta si consideran a Internet peligrosa, después
-de la conferencia se les vuelve a preguntar cual es su opinión. Los
+Se pregunta a un grupo de 100 personas elegido al azar asiste a un
+webinnar sobre tecnología para la banca. Antes de la conferencia se les
+pregunta si consideran que Internet es seguna para la banca, después de
+la conferencia se les vuelve a preguntar cual es su opinión. Los
 resultados fueron los siguientes:
 
 \begin{tabular}{|c|c|cc|}
 \cline{3-4}
      \multicolumn{2}{c|}{}& \multicolumn{2}{|c|} {Después}\\\cline{3-4}
-   \multicolumn{2}{c|}{} & Sí es peligrosa & No es peligrosa \\\hline
-Antes & Sí es peligrosa&  50 &  30 \\
-    & No es peligrosa  &  5 & 15 
+   \multicolumn{2}{c|}{} & Sí Segura & No Segura \\\hline
+Antes & Sí  Segura &  50 &  30 \\
+    & No Segura   &  5 & 15 
 \\\hline
 \end{tabular}
+
+\hypertarget{soluciuxf3n-2}{%
+\subsubsection{Solución}\label{soluciuxf3n-2}}
+
+Es un contraste de comparación de proporciones emparejadas
 
 \hypertarget{ejercicio-7}{%
 \subsection{Ejercicio 7}\label{ejercicio-7}}
@@ -637,8 +642,6 @@ Tenemos \(10\) ordenadores, deseamos optimizar su funcionamiento. Con
 este fin se piensa en ampliar su memoria. Se les pasa una prueba de
 rendimiento antes y después de ampliar la memoria. Los resultados
 fueron:
-
-\scriptsize\{
 
 \begin{tabular}{|c|llllllllll|}
 \hline
@@ -649,24 +652,12 @@ Antes ampliación & 98.70 & 100.48 & 103.75 & 114.41 & 97.82&
 \hline
 Después ampliación & 99.51 & 114.44 & 108.74 & 97.92 & 103.54&
 104.75 & 109.69 & 90.8 & 110.04 & 110.09\\
-
 \hline
 \end{tabular}
 
-\}
+\hypertarget{soluciuxf3n-3}{%
+\subsubsection{Solución}\label{soluciuxf3n-3}}
 
-\hypertarget{ejercicio-8}{%
-\subsection{Ejercicio 8}\label{ejercicio-8}}
-
-Las siguientes muestras provienen de dos poblaciones independientes y
-supuestamente normales. Se desea comparar la igualdad de sus medias,
-pero antes debemos contrastar si podemos o no aceptar que sus varianza
-son iguales o distintas. Se pide hacer el contraste de las medias en el
-caso en que se se decida aceptar varianzas iguales o distintas al nivel
-de significación \(\alpha=0.05\).
-
-Contrastar también la hipótesis de igualdad de medias en el otro caso (
-es decir si se decide varianzas distintas contrastar para iguales y
-viceversa).
+Es un contraste de medias coon muestras emparejadas
 
 \end{document}
