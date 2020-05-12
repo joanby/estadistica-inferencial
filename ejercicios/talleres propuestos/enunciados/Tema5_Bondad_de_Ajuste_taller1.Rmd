@@ -16,20 +16,37 @@ toccolor: blue
 urlcolor: blue
 ---
 
-1. Se lanzaron un par de dados $500$ veces. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
+contador=0
+cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
+library(tidyverse)
+```
+# Bonda de ajuste. Taller1
+
+
+## Ejercicio `r cuenta()`
+
+Se lanzaron un par de dados $500$ veces. 
 En la taula siguiente se muestran las sumas que se obtuvieron. Provar la hipótesis de que los dados no estaban
 trucados, es decir, comprobar que el p-valor para aceptar que los dados no estan trucados no es pequeño.
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
 Suma & Frecuencia \\\hline\hline
-$2,3$ o o o o. $4$&$\ 74$\\\hline $5$ 
+$2,3, 4$&$\ 74$\\\hline $5$ 
 $6$&$120$\\\hline $7$&$\ 83$\\\hline $8$ 
-$9$&$135$\\\hline $10,11$  $12$&$\ 88$\\\hline
+$9$&$135$\\\hline $10,11,12$&$\ 88$\\\hline
 \end{tabular}
 \end{center}
-1. El $1972$, el informe oficial dió la información siguiente sobre el número
+
+## Ejercicio `r cuenta()`
+
+En $1972$, el informe oficial dió la información siguiente sobre el número
 de días que fueron internados los enfermos en el hospital en el año $1971$.
+
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline 
@@ -43,7 +60,11 @@ $6-9$&$221$\\\hline $10-14$&$124$\\\hline $15-30$
 \end{tabular}
 \end{center}
 Probar la hipótesis que estos datos se obtuvieron de una distribución $\chi^2$ con $4$ grados de libertad.
-1. Se realizó una prueba de inteligencia a $100$ estudiantes. En la tabla siguiente se muestran las calificaciones
+
+
+## Ejercicio `r cuenta()`
+
+Se realizó una prueba de inteligencia a $100$ estudiantes. En la tabla siguiente se muestran las calificaciones
 obtenidas:
 \begin{center}
 \begin{tabular}{|c|c|}
@@ -60,7 +81,11 @@ Podéis suponer que las calificaciones anteriores son una muestra aleatoria de l
 posibles que hicieran la prueba. Probar la hipótesis de que las
 calificaciones obtenidas por la población (conceptualmente
 infinita) estarían distribuidas normalmente.
-1. Consideremos la muestra aleatoria siguiente de una variable aleatoria $X$ tal que $X(\Omega)=[0,1]$.
+
+
+## Ejercicio `r cuenta()`
+
+Consideremos la muestra aleatoria siguiente de una variable aleatoria $X$ tal que $X(\Omega)=[0,1]$.
 Probar mediante el test $\chi^2$, que podemos considerar que
 $X$ sigue una distribución uniforme en $[0,1]$. (Considerar intervalos de amplitud $0.25$.)
 \begin{center}
@@ -71,8 +96,14 @@ $X$ sigue una distribución uniforme en $[0,1]$. (Considerar intervalos de ampli
  0.402, & 0.049, & 0.213, & 0.296, & 0.711\\
  \end{tabular}
  \end{center}
- 1. Sea $X$ la variable aleatòria que tiene
+
+
+
+## Ejercicio `r cuenta()`
+
+Sea $X$ la variable aleatòria que tiene
 como función de densidad: 
+
 $$
 f(x)=
 \left\{\begin{array}{ll}
@@ -81,6 +112,7 @@ $x\in [0,1],$}\\
 0, & \text{en cas contrari.} 
 \end{array}\right.
 $$
+
 Comprobar mediante el test de la $\chi^2$ que la muestra aleatòria simple siguiente
 tiene la misma distribución que $X$:
 \begin{center}
