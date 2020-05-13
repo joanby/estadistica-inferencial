@@ -200,7 +200,7 @@ qqPlot(iris$Sepal.Width,distribution = "norm", mean=mu,sd=sigma)
 <div class="example">
 Observamos que la mayoría de los valores de la muestra caen dentro de la franja del 95% de confianza. 
 
-Sin embargo, fijáos que hay unos pocos puntos que se salen de dicha franja.
+Sin embargo, fijaros que hay unos pocos puntos que se salen de dicha franja.
 
 En resumen, según esta prueba gráfica, "parece" que la distribución es normal pero tenemos dudas.
 
@@ -267,8 +267,8 @@ $$
 
 con el significado usual: 
 
-* si $p<0.05$, concluimos que tenemos evidencias suficientes para rechazar la independencia de los criterios,
-* si $p>0.1$, concluimos que no tenemos evidencias suficientes para rechazar la independencia de los criterios y,
+* si $p<0.05$, concluimos que tenemos evidencias suficientes para rechazar la hipótesis nula los datos no siguen esa distribución con esos parámetros,
+* si $p>0.1$, concluimos que no tenemos evidencias suficientes para rechazar que la muestra siga esa distribución con esos parámetros y,
 * si $0.05\leq p\leq 0.1$, estamos en la zona de penumbra. Necesitamos más datos para tomar una decisión clara.
 
 
@@ -332,7 +332,7 @@ pchisq((22-20)^2/20+(17-20)^2/20+(18-20)^2/20+(19-20)^2/20+(24-20)^2/20,5,
        lower.tail=FALSE)
 ```
 
-Como el p-valor es grande, concluímos que no tenemos evidencias suficientes para rechazar que el dado esté trucado.
+Como el p-valor es grande, concluimos que no tenemos evidencias suficientes para rechazar que el dado esté trucado.
 
 </div>
 
@@ -443,7 +443,7 @@ El responsable de la empresa afirma que *estos aumentos de temperatura siguen un
 con $\mu=3.5$ décimas de grado C y $\sigma=0.7$ décimas de grado C.*
 
 
-El técnico lo posa en entredicho. Para decidirlo, toma una muestra aleatoria de 40 observaciones del aumento
+El técnico pone  esta afrimación en entredicho. Para decidirlo, toma una muestra aleatoria de 40 observaciones del aumento
 de las temperaturas (en décimas de grado) y se obtienen los resultados siguientes:
 </div>
 
@@ -693,7 +693,7 @@ Aunque obtengamos un p-valor distinto, llegamos a la misma conclusión anterior.
 
 ## Test $\chi^2$ de Pearson con parámetros poblacionales desconocidos
 
-El ejemplo visto anteriormente de normalidad no es realista en el sentido que la mayoría de las veces desconoceremos la media $\mu$ y la desviación típica $\sigma$ de la variable de la población $X_0$ a la que se refiere la hipòtesis nula $H_0$.
+El ejemplo visto anteriormente de normalidad no es realista en el sentido que la mayoría de las veces desconoceremos la media $\mu$ y la desviación típica $\sigma$ de la variable de la población $X_0$ a la que se refiere la hipótesis nula $H_0$.
 
 Cuando la variable $X_0$ de la población de contraste dependa de algún(os) parámetro(s) desconocido(s), necesitamos conocer su valor de cara a calcular las **frecuencias esperadas** o **frecuencias teóricas** $e_i$.
 
@@ -713,7 +713,7 @@ cadena de ADN de longitud 1000 sigue una ley Poisson.
 Se toman varias  muestras de cadenas de ADN de longitud 1000 y se  cuentan los números de GATACA
 
 <div class="center">
-|número $x_i$ de veces queaparece GATACA| 0 | 1 | 2 | 3 | 4 | 5|
+|número $x_i$ de veces que aparece GATACA| 0 | 1 | 2 | 3 | 4 | 5|
 |:------|--:|--:|--:|--:|--:|--:|
 |frecuencia empírica $n_i$ | 229 | 211 | 93 | 35 | 7 | 1 |
 </div>
@@ -741,7 +741,7 @@ $$
 
 Las clases deben cubrir todo el conjunto de valores de la variable $X_0$ que, en nuestro caso, al ser una variable de Poisson, serían todos los enteros positivos: $D_{X_0}=\{0,1,\ldots\}$.
 
-Usando la tabla de **frecuencias empíricas**, consideramos las classes siguientes:
+Usando la tabla de **frecuencias empíricas**, consideramos las clases siguientes:
 $$
 \mbox{Clase 0}:{X_0=0},\ \mbox{Clase 1}:{X_0=1},\ \mbox{Clase 2}:{X_0=2},\ \mbox{Clase 3}:{X_0=3},\ \mbox{Clase 4}:{X_0=4},\ \mbox{Clase 5}:{X_0\geq 5}.
 $$
@@ -821,7 +821,7 @@ e4n=n-(e0+e1+e2+e3);
 
 ## Ejemplo
 <div class="example-sol">
-Resúmamos en una tabla las **frecuencias empíricas** y las **frecuencias esperadas**:
+Resumamos en una tabla las **frecuencias empíricas** y las **frecuencias esperadas**:
 
 <div class="center">
 |Clase | Frecuencias empíricas| Frecuencias teóricas |
@@ -924,7 +924,7 @@ F_n(x)=\left\{\begin{array}{ll}
 \end{array}
 \right.
 $$
-O sea, sería la función de distribución que corresponderia a la variable aleatoria discreta $X_n$ con dominio $D_X=\{x_{(1)}< x_{(2)}<\cdots< x_{(n)}\}$ y función de probabilidad $P(X_n = x_{(i)})=\frac{1}{n}$, $i=1,\ldots,n$.
+O sea, sería la función de distribución que correspondería a la variable aleatoria discreta $X_n$ con dominio $D_X=\{x_{(1)}< x_{(2)}<\cdots< x_{(n)}\}$ y función de probabilidad $P(X_n = x_{(i)})=\frac{i}{n}$, $i=1,\ldots,n$.
 
 
 ## Test de Kolmogorov-Smirnov (K-S test)
@@ -1057,7 +1057,7 @@ Calculamos la **discrepancia** de cada observación $x_{(i)}$ que recordemos que
 $$
 D_n(x_{(i)})=\max\Big\{\Big| F_X(x_{(i)})-\frac{i-1}{n}\Big|, \Big|F_{X}(x_{(i)})-\frac{i}{n}\Big|\Big\}.
 $$
-Esquematizemos los resultados en la tabla siguiente donde $Z$ representa la normal estándar $N(0,1)$:
+Esquematizamos los resultados en la tabla siguiente donde $Z$ representa la normal estándar $N(0,1)$:
 </div>
 
 
@@ -1084,7 +1084,7 @@ De cara a hallar el p-valor tenemos que consultar **la tabla del test de Kolmogo
 
 La primera fila de dichas tablas corresponde al **error tipo I del contraste** y la primera columna, al tamaño de la muestra $n$. 
 
-Si os fijáis en la fila correspondiente a $n=6$, veréis que el valor de $D_6=0.191$ no sale, lo que significa que el valor $\alpha$ debe ser mayor que 0.2. Por tanto, nuestro p-valor serà mayor que 0.2, hecho que nos hace concluir que no tenemos indicios suficientes para rechazar que la muestra se distribuya según una distribución normal $N(\mu=3,\sigma=1.5)$.
+Si os fijáis en la fila correspondiente a $n=6$, veréis que el valor de $D_6=0.191$ no sale, lo que significa que el valor $\alpha$ debe ser mayor que 0.2. Por tanto, nuestro p-valor será mayor que 0.2, hecho que nos hace concluir que no tenemos indicios suficientes para rechazar que la muestra se distribuya según una distribución normal $N(\mu=3,\sigma=1.5)$.
 </div>
 
 ## Contraste K-S en `R`
@@ -1110,11 +1110,11 @@ Para realizar el contraste K-S para nuestro ejemplo, tenemos que hacer lo siguie
 ```{r}
 ks.test(muestra,"pnorm",mean=3,sd=1.5)
 ```
-Observamos que nos da el mismo valor de **discrepancia máxima** que hemos obtenido anteriormente con un p-valor altísimo, hecho que corrobora la conlusión que hemos escrito.
+Observamos que nos da el mismo valor de **discrepancia máxima** que hemos obtenido anteriormente con un p-valor altísimo, hecho que corrobora la conclusión que hemos escrito.
 
 </div>
 
-# Tests de normalidad
+# Test de normalidad
 
 ## Test de Kolmogorov-Smirnov-Lilliefors (K-S-L)
 
