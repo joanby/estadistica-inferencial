@@ -45,6 +45,38 @@ summary(aov(datos$tarea ~ datos$tiempo))
 El p-valor está en la zona de penumbra, es decir, está entre 0.05 y 1. Por tanto, no podemos tomar una decisión clara. Si ponemos como umbral 0.05, podríamos concluir que no tenemos evidencias suficientes para rechazar que los resultados en el entrenamiento son distintos según el tiempo usado.
 
 
+Aunque no se pide copmprobaremos la igualdad de varianzas
+
+```{r}
+bartlett.test(datos$tarea ~ datos$tiempo)
+```
+
+```{r}
+library(car)
+leveneTest(datos$tarea ~ datos$tiempo)
+```
+
+
+
+Comprobemos las  sumas de los cuadrados
+
+
+
+```{r}
+ni=c(3,3,3,3)
+k=4
+N=sum(ni)
+SST= sum(datos$tarea^2)- sum(datos$tarea)^2/N
+SST
+Sumas_col=aggregate(datos$tarea,by=list(datos$tiempo),sum)
+Sumas_col$x/ni
+SSTr=sum(Sumas_col$x^2/ni)-sum(datos$tarea)^2/N
+SSTr
+SSE=SST-SSTr
+SSE
+```
+
+
 
 \newpage
 2. Se registraron las frecuencias de los días que llovió a diferentes horas, durante los meses de enero, marzo, mayo
@@ -179,4 +211,52 @@ summary(aov(valores ~ variable.aleatoria))
 ```
 Como el p-valor es muy pequeño concluimos que tenemos evidencias suficientes para afirmar que las medias de las 4 variables aleatorias no son iguales.
 
+
+
+Comprobemos las  sumas de cuadrados del ANOVA
+
+```{r}
+summary(aov(valores ~ variable.aleatoria))->sol_aov
+ni=c(7,7,7,7)
+k=4
+N=sum(ni)
+SST= sum(valores^2)- sum(valores)^2/N
+SST
+Sumas_col=aggregate(valores,by=list(variable.aleatoria),sum)
+Sumas_col$x/ni
+SSTr=sum(Sumas_col$x^2/ni)-sum(valores)^2/N
+SSTr
+SSE=SST-SSTr
+SSE
+```
+
+Comparamos  con los resultados del summary
+```{r}
+summary(aov(valores ~ variable.aleatoria))
+```
+
+
+
+
+
+```{r}
+pairwise.t.test(valores,variable.aleatoria,p.adjust.method = "none")
+```
+
+
+
+```{r}
+pairwise.t.test(valores,variable.aleatoria,p.adjust.method = "bonferroni" )
+```
+
+```{r}
+pairwise.t.test(valores,variable.aleatoria,p.adjust.method = "holm" )
+```
+
+
+```{r}
+library(agricolae)
+resultado.anova=aov(valores~variable.aleatoria)
+duncan.test(resultado.anova,"variable.aleatoria",group=TRUE,alpha = 0.05)$group
+```
 
