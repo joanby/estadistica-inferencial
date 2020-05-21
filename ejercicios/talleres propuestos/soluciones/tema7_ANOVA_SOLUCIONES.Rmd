@@ -76,6 +76,15 @@ SSE=SST-SSTr
 SSE
 ```
 
+eL $p$-valor es
+
+```{r}
+Fest=(SSTr/3)/(SSE/8)
+Fest
+1-pf(Fest,3,8)
+pf(Fest,3,8,lower.tail=FALSE)
+```
+
 
 
 \newpage
@@ -194,8 +203,8 @@ $X_4$&$19$&$15$&$13$&$16$&$12$&$11$&$14$\\
 
 En primer lugar, tenemos que definir la tabla de datos para poder aplicar el test ANOVA:
 ```{r}
-valores=c(20,26,26,24,23,26,21,24,22,20,21,21,22,20,16,18,20,21,
-          24,15,17,19,15,13,16,12,11,14)
+valores=c(20,26,26,24,23,26,21,24,22,20,21,21,22,20,16,18,20,
+          21,24,15,17,19,15,13,16,12,11,14)
 variable.aleatoria = as.factor(rep(c("X1","X2","X3","X4"),each=7))
 (datos=data.frame(valores,variable.aleatoria))
 ```
