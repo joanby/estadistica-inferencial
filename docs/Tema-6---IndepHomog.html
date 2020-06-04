@@ -3145,6 +3145,7 @@ font-variant: small-caps;
 border-radius: 10px 10px 10px 10px;
 -moz-border-radius: 10px 10px 10px 10px;
 -webkit-border-radius: 10px 10px 10px 10px;
+padding: 10px;
 border: 2px solid gray;
 }
 .dem {
@@ -3208,7 +3209,7 @@ font-size: 0.5em
 
 <slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de independencia</h2></hgroup><article  id="contrastes-de-independencia">
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción">
 
 <p>Una de las aplicaciones más usadas del test de bondad de ajuste es contrastar si dos maneras de clasificar \(n\) objetos son <strong>independientes</strong> o no.</p>
 
@@ -3221,7 +3222,7 @@ font-size: 0.5em
 
 <p>Esquematicemos los resultados en lo que se llama una tabla de contingencia:</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-1">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción-1">
 
 <div class="example">
 <div class="center">
@@ -3800,7 +3801,7 @@ chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
 
 <p>Observamos que el p-valor es pequeño. Por tanto, concluimos que tenemos evidencias suficientes para rechazar que la longitud del pétalo y la especie sean independientes.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseno-experimental-en-el-contraste-de-independencia">
+</article></slide><slide class=""><hgroup><h2>Diseño experimental en el contraste de independencia</h2></hgroup><article  id="diseño-experimental-en-el-contraste-de-independencia">
 
 <p>En un <strong>contraste de independencia</strong> se toma una <strong>muestra transversal</strong> de la población, es decir, se selecciona al azar una cierta cantidad de individuos de la población, se observan las dos variables sobre cada uno de ellos, y se contrasta si las probabilidades conjuntas son iguales al producto de las probabilidades marginales de cada variable.</p>
 
@@ -3808,7 +3809,7 @@ chisq.test(tabla.contingencia,simulate.p.value = TRUE, B=5000)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Contrastes de homogeneidad</h2></hgroup><article  id="contrastes-de-homogeneidad">
 
-</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introduccion-2">
+</article></slide><slide class=""><hgroup><h2>Introducción</h2></hgroup><article  id="introducción-2">
 
 <p>En un contraste de homogeneidad, tenemos dos variables discretas \(X\) e \(Y\) y nos planteamos si la distribución de la variable \(Y\) depende de los valores de la variable \(X\).</p>
 
@@ -4098,7 +4099,7 @@ Recordemos que la tabla de contingencia en este ejemplo era:
 
 <p>Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes para rechazar que la distribución del número de crías de las lobas es la misma para las tres zonas donde viven.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guia-rapida">
+</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guía-rápida">
 
 <ul>
 <li><p><code>table</code> calcula tablas de contingencia de frecuencias absolutas.</p></li>
@@ -4111,7 +4112,7 @@ Recordemos que la tabla de contingencia en este ejemplo era:
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guia-rapida-1">
+</article></slide><slide class=""><hgroup><h2>Guía rápida</h2></hgroup><article  id="guía-rápida-1">
 
 <ul>
 <li><p><code>colSums</code> calcula un vector con las sumas de las columnas de una matriz o una tabla.</p></li>

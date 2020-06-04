@@ -1930,9 +1930,8 @@ Dicho método es muy usado en la reconstrucción de árboles filogenéticos a pa
 
 Si en lugar de usar el método del **enlace simple** usamos el método del **enlace completo** en la muestra de la tabla de datos de flores iris, obtenemos el dendrograma siguiente:
 ```{r,eval=FALSE}
-estudio.clustering.iris.completo=hclust(dist(tabla.iris[,1:4],method="complete"))
-plot(estudio.clustering.iris.completo,hang=-1,
-     xlab="muestra de flores tabla de datos iris",
+estudio.clustering.iris.completo=hclust(dist(tabla.iris[,1:4]),method="complete")
+plot(estudio.clustering.iris.completo,hang=-1,xlab="muestra de flores tabla de datos iris",
      sub="", ylab="distancias",labels=1:10)
 ```
 
