@@ -38,7 +38,7 @@ jugadores.elegidos = sample(1:dim(worldcup)[1],25)
 muestra.jugadores = worldcup[jugadores.elegidos,]
 ```
 
-b) Aplicamos el algoritmo k-means a la muestra anterior unas 50 veces y vemos cuál es el mínimo de la suma de cuadrados de todos los clusters:
+b) Aplicamos el algoritmo k-means a la muestra anterior unas 100 veces y vemos cuál es el mínimo de la suma de cuadrados de todos los clusters:
 ```{r}
 veces=100
 SSCs=c()
@@ -68,7 +68,7 @@ c) La tabla bidimensional pedida es la siguiente:
 table(estudio.kmeans$cluster,muestra.jugadores$Position)
 ```
 
-Mirando la tabla anterior, podemos clasificar correctamente `r 6+5+1+2` jugadores clasificando correctamente el `r 100*(6+5+1+2)/25`% de los jugadores de la muestra.
+Mirando la tabla anterior, podemos clasificar correctamente `r 6+5+1+2` jugadores de los 25 clasificando correctamente el `r 100*(6+5+1+2)/25`% de los jugadores de la muestra.
 
 \newpage
 
@@ -121,4 +121,4 @@ e) La tabla bidimensional pedida es la siguiente:
 ```{r}
 table(clusters,muestra.jugadores$Position)
 ```
-Mirando la tabla anterior, podemos clasificar correctamente `r 6+7+2` jugadores clasificando correctamente el `r 100*(6+7+2)/25`% de los jugadores de la muestra.
+Mirando la tabla anterior, podemos clasificar correctamente `r 6+7+2` jugadores de los 25 clasificando correctamente el `r 100*(6+7+2)/25`% de los jugadores de la muestra.
