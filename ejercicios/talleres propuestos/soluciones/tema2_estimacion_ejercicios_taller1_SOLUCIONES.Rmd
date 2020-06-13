@@ -198,7 +198,7 @@ Además  si las variables fueran normales  $T$ seguirá distribución  normal es
 
 Como se una muestra de una normal estándar  tenemos que $\mu=0$ y $sigma=1$
 
-Así que si denotamos por  $Y=\sum_{i=1}^{n} X_i^2$ , resulta que $Y$ es la suma de los CUADRADOS normales estándar $N(\mu=0,\sigma=1)$,  idénticamente distribuidas y por lo tanto sabemos que $Y$ sigue una ley $\chi^2_{10}$  es decir con 10 grados de libertad. 
+Así que si denotamos por  $Y=\sum_{i=1}^{n} X_i^2$  con $n=10$, resulta que $Y$ es la suma de los CUADRADOS normales estándar $N(\mu=0,\sigma=1)$,  idénticamente distribuidas y por lo tanto sabemos que $Y$ sigue una ley $\chi^2_{10}$  es decir con 10 grados de libertad. 
 
 Ahora podemos operar
 
