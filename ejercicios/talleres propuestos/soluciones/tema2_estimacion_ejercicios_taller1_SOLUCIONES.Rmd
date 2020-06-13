@@ -3,11 +3,11 @@ title: "Ejercicios con SOLUCIONES Tema 2 - Estimación. Taller 1"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   pdf_document: 
     number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
     toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
@@ -195,35 +195,26 @@ Además  si las variables fueran normales  $T$ seguirá distribución  normal es
    b. Claro que $T$ es un estadístico, ya que estadístico es cualquier función de una muestra. Además si nos fijamos bienes simplemente la tipificación del estadístico $\overline{X}$.
 
 ## Solución  ejercicio 7
+
 Como se una muestra de una normal estándar  tenemos que $\mu=0$ y $sigma=1$
 
-Así que si denotamos por  $Y=\sum_{i=1}^{n}$ , resulta que $Y$ es la suma de normales estándar $N(\mu=0,\sigma=1)$,  idénticamente distribuidas y por lo tanto sabemos que $Y$ sigue una ley $N(n\cdot 0=0, n\cdot \sqrt\cdot \sigma=\sqrt{10})$. Ahora podemos operar
+Así que si denotamos por  $Y=\sum_{i=1}^{n} X_i^2$ , resulta que $Y$ es la suma de los CUADRADOS normales estándar $N(\mu=0,\sigma=1)$,  idénticamente distribuidas y por lo tanto sabemos que $Y$ sigue una ley $\chi^2_{10}$  es decir con 10 grados de libertad. 
+
+Ahora podemos operar
 
 
-
-$P\left(1.56< \sum_{i=1}^{n}< 18.31\right)=P(2.56< Y < 18.31)=P(Y< 18.31)-P(Y< 2.56)=`r pnorm(18.31/sqrt(10),mean=0,sd=sqrt(10))`-
-`r pnorm(2.56/sqrt(10),mean=0,sd=sqrt(10))`=
-`r pnorm(18.31/sqrt(10),,mean=0,sd=sqrt(10))-pnorm(2.56/sqrt(10),,mean=0,sd=sqrt(10))`.$
+$$
+P\left(1.56< Y < 18.31\right)=P(2.56< \chi^2_{10} < 18.31)=P(\chi_{10}^2< 18.31)-P(\chi_{10}^2< 2.56)=`r pchisq(18.31,10)`-
+`r pchisq(2.56,10)`=
+`r  pchisq(18.31,10)-pchisq(2.56,10)`.
+$$
 
 
 ```{r}
-pnorm(18.31,mean=0,sd=sqrt(10))
-pnorm(2.56,mean=0,sd=sqrt(10))
-pnorm(18.31,mean=0,sd=sqrt(10))-pnorm(2.56,mean=0,sd=sqrt(10))
+pchisq(18.31,10)
+pchisq(2.56,10)
+pchisq(18.31,10)-pchisq(2.56,10)
 ```
-
-
-o también, tipificando $Z=\frac{Y}{\sqrt{10}}$ es una $N(0,1)$
-
-```{r}
-pnorm(18.31/sqrt(10),mean=0,sd=1)
-pnorm(2.56/sqrt(10),mean=0,sd=1)
-pnorm(18.31/sqrt(10),mean=0,sd=1)-pnorm(2.56/sqrt(10),mean=0,sd=1)
-```
-
-obtenemos el mismo resultado.
-
-
 
 ## Solución  ejercicio 8
 Consideremos la muestra aleatoria simple $X_1,X_2,\ldots,X_{n}$de tamaño $n=10$  de una v.a $X$ normal $N(\mu=2,\sigma=4)$. Definimos  la  siguiente variable aleatoria $Y=\frac{\sum\limits_{i=1}^{10}{(X_i-2)}^2}{16}$. 
