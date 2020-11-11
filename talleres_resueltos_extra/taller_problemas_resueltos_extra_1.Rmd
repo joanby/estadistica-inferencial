@@ -3,11 +3,11 @@ title: "Taller de probelmas resueltos inferencia"
 author: "Ricardo Alberich"
 date: "13-05-2020"
 output:
-  pdf_document:
-    number_sections: yes
-    toc: yes
   html_document:
     df_print: paged
+    toc: yes
+  pdf_document:
+    number_sections: yes
     toc: yes
   word_document:
     toc: yes
@@ -47,15 +47,16 @@ G2. No conocemos $\sigma_1$ y $\sigma_2$.
 Disponemos de dos muestras independientes de cuestionarios
 realizados por estudiantes de cada grado, $n_1=n_2=50$.
 
-Los datos están en http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/, en dos 
+Los datos están en https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/, en dos 
 ficheros `grado1.txt` y `grado2.txt`.
+
+Para bajarlos utilizad la dirección del los ficheros `raw`  que se muestran en el siguiente código
 
 
 ```{r cargadatosoculta}
-G1=read.table("http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/grado1.txt",
-              header=TRUE)$x
-G2=read.table("http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/grado2.txt",
-              header=TRUE)$x
+G1=read.csv("https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado1.txt",header=TRUE)$x
+G2=read.csv("https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado2.txt",header=TRUE)$x
+
 n1=length(na.omit(G1))
 n2=length(na.omit(G2))
 media.muestra1=mean(G1,na.rm=TRUE)
