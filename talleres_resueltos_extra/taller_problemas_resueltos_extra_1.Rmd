@@ -3,13 +3,13 @@ title: "Taller de probelmas resueltos inferencia"
 author: "Ricardo Alberich"
 date: "13-05-2020"
 output:
+  word_document:
+    toc: yes
   html_document:
     df_print: paged
     toc: yes
   pdf_document:
     number_sections: yes
-    toc: yes
-  word_document:
     toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}

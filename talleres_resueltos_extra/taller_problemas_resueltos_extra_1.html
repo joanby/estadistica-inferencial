@@ -1763,11 +1763,11 @@ summary {
 <div id="problema-1-contraste-de-parámetros-de-dos-muestras." class="section level2">
 <h2>Problema 1: Contraste de parámetros de dos muestras.</h2>
 <p>Queremos comparar los tiempos de realización de un test entre estudiantes de dos grados G1 y G2, y determinar si es verdad que los estudiantes de G1 emplean menos tiempo que los de G2. No conocemos <span class="math inline">\(\sigma_1\)</span> y <span class="math inline">\(\sigma_2\)</span>. Disponemos de dos muestras independientes de cuestionarios realizados por estudiantes de cada grado, <span class="math inline">\(n_1=n_2=50\)</span>.</p>
-<p>Los datos están en <a href="http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/" class="uri">http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/</a>, en dos ficheros <code>grado1.txt</code> y <code>grado2.txt</code>.</p>
-<pre class="r"><code>G1=read.table(&quot;http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/grado1.txt&quot;,
-              header=TRUE)$x
-G2=read.table(&quot;http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/grado2.txt&quot;,
-              header=TRUE)$x
+<p>Los datos están en <a href="https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/" class="uri">https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/</a>, en dos ficheros <code>grado1.txt</code> y <code>grado2.txt</code>.</p>
+<p>Para bajarlos utilizad la dirección del los ficheros <code>raw</code> que se muestran en el siguiente código</p>
+<pre class="r"><code>G1=read.csv(&quot;https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado1.txt&quot;,header=TRUE)$x
+G2=read.csv(&quot;https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado2.txt&quot;,header=TRUE)$x
+
 n1=length(na.omit(G1))
 n2=length(na.omit(G2))
 media.muestra1=mean(G1,na.rm=TRUE)
@@ -2956,7 +2956,7 @@ sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$m
 ##     Kurtosis Test: 0.2325 
 ## 
 ## Description:
-##  Wed Nov 11 10:48:06 2020 by user: t169</code></pre>
+##  Wed Nov 11 11:42:00 2020 by user: t169</code></pre>
 <pre class="r"><code>dagoTest(df$score[df$manufacturer==&quot;F6&quot;])</code></pre>
 <pre><code>## 
 ## Title:
@@ -2973,7 +2973,7 @@ sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$m
 ##     Kurtosis Test: 0.7333 
 ## 
 ## Description:
-##  Wed Nov 11 10:48:06 2020 by user: t169</code></pre>
+##  Wed Nov 11 11:42:00 2020 by user: t169</code></pre>
 <p>Parece que no podemos rechazar la normalidad para los casos dudosos.</p>
 <p>Ahora realizamos el test de comparación de medias <span class="math inline">\(\mu_i\)</span> para <span class="math inline">\(i=1,2,3,4,5,6\)</span> son las medias para cada nivel del factor.</p>
 <p><span class="math display">\[
@@ -3351,10 +3351,10 @@ summary(sol3)</code></pre>
 ## F-statistic: 7.557e+04 on 1 and 989 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Así que</p>
 <ul>
-<li>el primero es <span class="math inline">\(frequency = b_0+b_1\cdot degree\)</span> que el el modelo LINEAL que resuelve la fución <code>lm</code>.</li>
-<li>el segundo es <span class="math inline">\(\log_{10}(frequency) = b_0+b_1\cdot degree\)</span> que operando adecuadamente es <span class="math inline">\(10^\log_{10}(frequency)=10^{b_0}\cdot 10^{b_1\cdot degree}\)</span> operando obtenemos que el modelo final es un modelo EXPONENCIAL <span class="math inline">\(frequency=10^{b_0}\cdot \left(10^{b_1}\right)^{degree}\)</span>.</li>
-<li>el tercer modelo es <span class="math inline">\(\log_{10}(frequency) = b_0+b_1\cdot \log_{10}(degree)\)</span> que despejando es <span class="math inline">\(10^\log_{10}(frequency)=10^{b_0}\cdot \left(10^\left(\log_{10}(degree)\righ)\right)^{b_1}\)</span> operando obtenemos que el modelo final es un modelo POTENCIAL <span class="math inline">\(frequency=10^{b_0}\cdot degree^{b_1}.\)</span></li>
+<li>el primero es <span class="math inline">\(frequency = b_0+b_1\cdot degree\)</span> que es el modelo LINEAL que resuelve la fución <code>lm</code>.</li>
+<li>el segundo es <span class="math inline">\(\log_{10}(frequency) = b_0+b_1\cdot degree\)</span> que operando adecuadamente es</li>
 </ul>
+<p><span class="math inline">\(10^{\log_{10}(frequency)}=10^{b_0}\cdot 10^{b_1\cdot degree}\)</span> operando obtenemos que el modelo final es un modelo EXPONENCIAL <span class="math inline">\(frequency=10^{b_0}\cdot \left(10^{b_1}\right)^{degree}\)</span>. * el tercer modelo es <span class="math inline">\(\log_{10}(frequency) = b_0+b_1\cdot \log_{10}(degree)\)</span> que despejando es <span class="math inline">\(10^{\log_{10}(frequency)}=10^{b_0}\cdot \left(10^{\left(\log_{10}(degree)\right)}\right)^{b_1}\)</span> operando obtenemos que el modelo final es un modelo POTENCIAL <span class="math inline">\(frequency=10^{b_0}\cdot degree^{b_1}.\)</span></p>
 <p>Los dibujos con el título adecuado son</p>
 <pre class="r"><code>plot(data_links_central,main=&quot;Modelo lineal&quot;)
 abline(sol1,col=&quot;red&quot;)</code></pre>
@@ -3372,7 +3372,7 @@ abline(sol3,col=&quot;red&quot;)</code></pre>
 <pre><code>## [1] 0.8110118</code></pre>
 <pre class="r"><code>summary(sol3)$r.squared</code></pre>
 <pre><code>## [1] 0.9870815</code></pre>
-<p>Así que el mejor modelo es el tercero el pontecial pues su <span class="math inline">\(R^2\)</span> es muy alto</p>
+<p>Así que el mejor modelo es el tercero el potencial pues su <span class="math inline">\(R^2\)</span> es muy alto</p>
 <p><strong>Apartado 3</strong></p>
 <p>Calcularemos la ecuación del modelo para las unidades originales sin transformaciones logarítmicas.</p>
 <p>Recordemos el resultado de la <code>sol3</code></p>
