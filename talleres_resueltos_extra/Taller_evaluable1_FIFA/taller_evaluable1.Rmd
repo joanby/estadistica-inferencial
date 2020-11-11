@@ -1,0 +1,85 @@
+---
+title: "Taller Evaluable 1 2020, FIFA 2019"
+date: "3/12/2020"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+
+
+
+# Taller evaluable datos FIFA 2020
+
+Registraros en kaggle y bajaros  el data set [FIFA 2020  Datos completos 2015 a 2020](https://www.kaggle.com/stefanoleone992/fifa-20-complete-player-dataset).
+Guarda los datos en una carpeta FIFA2020.
+
+Las siguientes preguntas son relativas al data set `players_20.csv`. 
+
+Hay que contestar con código R explicar muy brevemente cada salida. Subid a la activada el Rmd y el html. 
+
+Este grupo  de entrega será el  mismo grupo de 3 que el proyecto final.
+
+Rellenad estos datos:
+
+**PONED NOMBRE DEL GRUPO**
+
+
+*  Apellidos, Nombre Alumno 1
+*  Apellidos, Nombre Alumno 2
+*  Apellidos, Nombre Alumno 3
+
+## Pregunta 0
+
+Explica  el data set y de qué tipo son cada una de las variables y  en qué tipo de  fichero están guardadas.  Carga los datos  en un data frame  con `read.csv` y explica las clases de cada columna de datos.  Explica  el parámeto `encoding`.
+
+```{r}
+datos = read.csv("FIFA2020/players_20.csv", encoding="UTF-8")
+str(datos, 5)
+```
+
+##  Pregunta 1
+
+¿Qué 6  clubs tienen a los 10 mejores jugadores según la variable  "shooting"?
+
+
+
+
+## Pregunta 2
+
+Crea un dataframe `fifa20_best_shooting` que contenga a TODOS  los jugadores de los clubs encontrados en el ejercicio anterior.
+
+
+## Pregunta 3
+
+Calcula media y la desviación típica   del sueldo de cada equipo del dataframe `fifa20_best_shooting`. 
+
+
+
+## Pregunta 4
+
+Discretiza la variable `age` de  `fifa20_best_shooting` en los 3 niveles siguientes: “freshman”, “junior”, “senior”, según los cortes por defecto. La variable resultante age_Level tiene que ser un factor ordenado en orden creciente de edad. 
+
+
+## Pregunta 5
+
+¿Qué club tiene a más jugadores en el nivel "senior" calculado en el ejercicio anterior?
+
+
+
+## Pregunta 6
+
+¿Cuántas nacionalidades hay entre todos los jugadores de `fifa20_best_shooting`? ¿Qué club tiene mayor cantidad de nacionalidades?
+
+
+## Pregunta 7
+
+Calcula mediante un diagrama de barras ordenado de mayor a menor la proporción de jugadores de cada nacionalidad en cada club
+
+
+
+## Pregunta 8
+
+Encuentra la función (lineal, exponencial o potencial) que mejor describe la dependencia funcional del sueldo de los jugadores en función de la variable `shooting` en el dataframe `fifa20_best_shooting`. Representa dicha función junto con los puntos (shooting, sueldo) en escala lineal.
+

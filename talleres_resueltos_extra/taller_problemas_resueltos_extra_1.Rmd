@@ -1,0 +1,1490 @@
+---
+title: "Taller de probelmas resueltos inferencia"
+author: "Ricardo Alberich"
+date: "13-05-2020"
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+  word_document:
+    toc: yes
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+toccolor: blue
+urlcolor: blue
+---
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+options(scipen=999)
+contador=0
+cuenta=function(x=contador) {contador<<- contador+1;return(contador)}
+set.seed(2020)
+```
+
+
+# Taller  Problemas resueltos: Estadística Inferencial
+
+Contestad cada GRUPO de 3  a los siguientes problemas y cuestiones en un fichero Rmd y su  salida en html o pdf.
+
+Cambien podéis incluir capturas de problemas hechos en papel. Cada pregunta vale lo mismo y se reparte la nota entre sus apartados.
+
+## Problema `r cuenta()`: Contraste de parámetros de dos muestras.
+
+Queremos comparar los tiempos de realización de un test entre
+estudiantes de dos grados G1 y G2, y determinar si es verdad
+que los estudiantes de G1 emplean menos tiempo que los de
+G2. No conocemos $\sigma_1$ y $\sigma_2$.
+Disponemos de dos muestras independientes de cuestionarios
+realizados por estudiantes de cada grado, $n_1=n_2=50$.
+
+Los datos están en http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/, en dos 
+ficheros `grado1.txt` y `grado2.txt`.
+
+
+```{r cargadatosoculta}
+G1=read.table("http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/grado1.txt",
+              header=TRUE)$x
+G2=read.table("http://bioinfo.uib.es/~recerca/MATIIIGMAT/NotasTestGrado/grado2.txt",
+              header=TRUE)$x
+n1=length(na.omit(G1))
+n2=length(na.omit(G2))
+media.muestra1=mean(G1,na.rm=TRUE)
+media.muestra2=mean(G2,na.rm=TRUE)
+desv.tip.muestra1=sd(G1,na.rm=TRUE)
+desv.tip.muestra2=sd(G2,na.rm=TRUE)
+```
+
+Calculamos las medias y las desviaciones típicas muestrales de los tiempos empleados para cada muestra. Los datos obtenidos se resumen en la siguiente tabla:
+
+
+$$
+\begin{array}{llll}
+n_1&=`r n1`, & n_2&=`r n1`\\
+\overline{x}_1&=`r media.muestra1`, & \overline{x}_2&=`r media.muestra2`\\
+\tilde{s}_1&=`r desv.tip.muestra1`, & \tilde{s}_1&=`r desv.tip.muestra2`
+\end{array}
+$$
+Se pide:
+
+1. Comentad brevemente el código de R explicando que hace cada instrucción.
+2. Contrastad si hay evidencia de que las notas medias son distintas entre los dos grupos. En dos casos considerando las varianzas desconocidas pero iguales o desconocidas pero distintas. Tenéis que hacer el contraste de forma manual y con funciones de  `R` y resolver el contrate con el $p$-valor. 
+3. Calculad e interpretar los intervalos de confianza para la diferencia de medias asociados a  los dos test anteriores. 
+4. Comprobad con el test de Fisher y el de Levene si las varianza de las dos muestras son iguales contra que son distintas. Tenéis que resolver el test de Fisher con `R` y de forma manual y el test de Levene con `R`  y decidir utilizando el $p$-valor. 
+
+
+
+
+### Solución
+
+
+**Apartado 1.** El cogido R carga en las variables G1 y G2 la variables `x` de dos data frames de un servidor bioinfo.uib.es.
+
+Luego calcula los estadísticos básicos para  realizar las siguientes preguntas. Para los tamaños muestrales $n_1$ y $n_2$  se omiten los valores `NA` antes de asignar la `length` de los arrays. También se calculan las medias y las desviaciones típicas muestrales omitiendo (si es que hay)  los valores no disponibles.
+
+**Apartado 2.**
+Denotemos por $\mu_1$ y $\mu_2$ las medias de las notas de los grupos 1 y 2 respectivamente. El contraste que se pide  es
+
+
+$$
+\left\{\begin{array}{ll}
+H_0:\mu_{1} = \mu_{2}\\
+H_1: \mu_{1} \not= \mu_{2}
+\end{array}\right.
+$$
+
+
+
+Estamos en un diseño de comparación de medias de dos grupos con dos muestras  independientes de tamaño 50 grande. Tenemos dos casos varianzas desconocidas pero iguales y variazas desconocidas pero distintas. Las funciones de R des este contraste  para estos casos son:
+
+
+
+**Varianzas iguales**
+```{r}
+# test para varianzas iguales
+t.test(G1,G2,var.equal = TRUE,alternative = "two.sided")
+
+```
+**Varianzas distintas**
+
+```{r}
+# test para varianzas distintas
+t.test(G1,G2,var.equal = FALSE,alternative = "two.sided")
+```
+
+El $p$-valor en ambos casos es muy pequeño así que la muestra  no aporta evidencias rechazar la hipótesis nula las medias son iguales contra que son distintas.
+
+
+
+Veamos en cálculo manual 
+
+
+**Varianzas desconocidas pero iguales, $n_1$ y $n_2$ grande** 
+
+Si suponemos que $\sigma_1=\sigma_2$, el estadístico de contraste es
+$$
+t0=\frac{\overline{X}_1-\overline{X}_2}
+{\sqrt{(\frac1{n_1}+\frac1{n_2})\cdot 
+\frac{((n_1-1)\widetilde{S}_1^2+(n_2-1)\widetilde{S}_2^2)}
+{(n_1+n_2-2)}}}=\frac{`r media.muestra1`-`r media.muestra2`}
+{\sqrt{(\frac1{`r n1`}+\frac1{`r n2`})\cdot 
+\frac{((`r n1`-1) `r desv.tip.muestra1`^2+(`r n2`-1)`r desv.tip.muestra2`^2)}
+{(`r n1`+`r n2`-2)}}}
+$$
+
+```{r estadisticos_ejer1, include=FALSE}
+t0=(media.muestra1-media.muestra2)/sqrt((1/n1+1/n2)* 
+((n1-1) *desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
+```
+
+
+operando obtenemos que  $t0=`r t0`.$ y sabemos que  sigue una distribución  $t$-Student $t_{n_1+n_2-2}=t_{`r n1+n2-2`}$. Para este hipótesis alternativa el $p$-valor es 
+
+$2\cdot P(t_{`r n1+n2-2`}>|`r t0`|)$, lo calculamos con R
+
+```{r estadisticos_ejercico1_2, include=FALSE}
+t0=(media.muestra1-media.muestra2)/sqrt((1/n1+1/n2)* 
+((n1-1) *desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
+2*pt(abs(T),50+50-2,lower.tail = FALSE)
+```
+
+
+**Varianzas desconocidas pero distintas, $n_1$ y $n_2$ grande**
+
+Si suponemos que $\sigma_1\neq \sigma_2$, el estadístico de contraste es
+$t0=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f,$
+que, cuando $\mu_1=\mu_2$, tiene distribución (aproximadamente, en caso de muestras grandes) $t_{f}$ con
+$$
+f=\left\lfloor\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
+{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}\right\rfloor -2.
+$$
+
+Calculamos el estadístico  y los grados de libertad con R
+
+```{r}
+t0=(media.muestra1-media.muestra2)/sqrt(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)
+#calculo el valor dentro del floor que es el que utiliza R
+
+f1=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
+  (1/(n1-1))*(desv.tip.muestra1^2/n1)^2+(1/(n2-1))*(desv.tip.muestra2^2/n2)^2)
+f1
+# calculo el propuesto en las transparencias que es anticuado
+f=floor(f1)-2  
+f  
+```
+
+El $p$ valor es 
+
+
+```{r}
+# el pvañor de la función de R
+2*(pt(abs(t0),f1,lower.tail = FALSE))
+# el pvalor propuesto en teoría
+2*(pt(abs(t0),f,lower.tail = FALSE))
+```
+
+
+
+**Apartado 3**
+
+Los intervalos de confianza al nivel del 95% los podemos obtener así
+
+
+```{r}
+t.test(G1,G2,var.equal = TRUE,alternative = "two.sided",conf.level = 0.95)$conf.int
+t.test(G1,G2,var.equal = FALSE,alternative = "two.sided",conf.level = 0.95)$conf.int
+```
+
+
+Son similares, podemos asegurar que   la diferencia de medias se encuentra $-2.25<\mu_1-\mu_2< -1.16$ al nivel del 95 el grupo 2 tiene una media entre 2.25 y 1.16 puntos mayor que el grupo 2 aproximadamente.
+
+
+**Apartado 4**
+El test que nos piden es el de igualdad de varianzas
+
+
+
+$$\left\{\begin{array}{ll}H_0: & \sigma_1^2=\sigma_2^2\\
+H_0: & \sigma_1^2\not=\sigma_2^2\end{array}\right.$$
+
+
+
+El test de Fisher de igualdad de varianzas
+```{r}
+var.test(G1,G2,alternative ="two.sided" )
+```
+
+Obtenemos un $p$-valor alto no podemos rechazar la igualdad de varianzas.
+
+
+De forma manual el estadístico de este test sabemos que es 
+
+
+$$f_0=\frac{\tilde{S_1}^1}{\tilde{S_2}^1}=\frac{`r desv.tip.muestra1^2`}{`r desv.tip.muestra2^2`}=`r desv.tip.muestra1^2/desv.tip.muestra2^2`.$$
+
+Que sigue una ley e Fisher
+y el $p$_valor es $\min\{2\cdot P(F_{n_1-1,+n_2-1}\leq f_0),2\cdot P(F_{n_1-1,+n_2-1}\geq f_0).$
+
+que con R es 
+
+
+```{r}
+n1
+n2
+f0=desv.tip.muestra1^2/desv.tip.muestra2^2
+f0
+pvalor=min(2*pf(f0,n1-1,n2-2),2*pf(f0,n1-1,n2-2,lower.tail = FALSE))
+pvalor
+```
+
+
+Obtenemos los mismos resultados que con la función `var.test`.
+
+
+
+El test de Levene con R tiene las mismas hipótesis que el anterior
+
+```{r levene1,warning=FALSE}
+library(car,quietly = TRUE)# pogo quietly para que quite avisos
+notas=c(G1,G2)
+grupo=as.factor(c(rep(1,length(G1)),rep(2,length(G1))))
+leveneTest(notas~grupo)
+```
+
+El $p$-valor obtenido es alto así que el test de levene no aporta evidencias contra la igualdad de varianzas entre las notas de los dos grupos.
+
+
+
+## Problema `r cuenta()` : Contraste dos muestras
+
+Simulamos dos muestras con las funciones siguientes 
+
+
+```{r generacionmuestras100}
+set.seed(2020)
+x1=rnorm(100,mean = 10,sd=2)
+x2=rnorm(100,mean = 8,sd=4)
+```
+Dibujamos estos gráficos
+
+```{r}
+boxplot(x1,x2)
+library(car)
+par(mfrow=c(1,2))
+qqPlot(x1)
+qqPlot(x2)
+par(mfrow=c(1,1))
+```
+
+Realizamos algunos contrastes de hipótesis de igual de medias entre ambas muestras
+
+```{r test_t_muestras}
+t.test(x1,x2,var.equal = TRUE,alternative = "greater")
+t.test(x1,x2,var.equal = FALSE,alternative = "two.sided")
+t.test(x1,x2,var.equal = TRUE)
+```
+
+Se pide
+
+1. ¿Cuál es la distribución  y los parámetros de las muestras generadas? 
+2. ¿Qué muestran y cuál es  la interpretación de los gráficos? 
+3. ¿Qué test contrasta si hay evidencia a favor de que las medias poblacionales de las notas en cada grupo sean distintas? Di qué código de los anteriores resuelve este test. 
+4. Para el test del apartado anterior dad las hipótesis nula y alternativa y redactar la conclusión del contraste.
+
+
+
+### Solución
+
+**Apartado 1**
+
+Se generan dos muestras de poblaciones normales  de medias 10 y 8 y desviaciones típicas 2 y 4.
+ 
+**Apartado 2**
+El primer gráficos es un diagrama de caja (*boxplot*) que compara   las distribuciones de los datos. Vemos que efectivamente la muestra 1 tiene una caja y unos bigotes más comprimidos que la muestra 2  así que la primera tiene menos varianza.  Vemos que los valores medianos  de la muestra 1 son más grandes que los de la muestra 2. Recordemos que la distribución normal es simétrica por lo que la media y la mediana coinciden. La muestra 1 tiene valores atípicos en la parte superior 1 y en la inferior parece que 2.
+
+El segundo gráfico es un gráfico cuantil-cuantil o qqplot de normalidad. Compara los cuantiles muestrales con los teóricos  de una normal y nos da un intervalo de confianza para esas observaciones.
+
+Vemos que los cuantiles teóricos no difieren excesivamente de los muestrales en cada una de las muestras y que muy pocos valores se escapan de los intervalos de confianza esperados en el caso de normalidad. 
+Así que no hay motivo para pensar que las distribuciones de ambas muestras proceden de poblaciones normales.
+
+
+**Apartado 3**
+
+El código es 
+
+```
+t.test(x1,x2,var.equal = TRUE,alternative = "greater")
+t.test(x1,x2,var.equal = FALSE,alternative = "two.sided")
+t.test(x1,x2,var.equal = TRUE)
+```
+
+
+El primer test contrasta para muestras independientes supuestas varianzas desconocidas pero iguales $H_0;\mu_1=\mu_2$ contra $H_1:\mu_1>\mu_2$. **Así que este TEST NO ES**
+
+
+El segundo test contrasta para muestras independientes supuestas varianzas  desconocidas pero iguales $H_0;\mu_1=\mu_2$ contra $H_1:\mu_1\not=\mu_2$. **Así que este TEST SÍ PUEDE SER**  contrasta contra medias distintas para el caso de varianzas distintas.
+
+
+El tercer test contrasta para muestras independientes supuestas varianzas  desconocidas pero iguales $H_0;\mu_1=\mu_2$ contra $H_1:\mu_1>\mu_2$ pues la opción por defecto de la función. **Así que este TEST SÍ PUEDE SER**   contra medias distintas para el caso de varianzas iguales.
+
+
+
+
+**Apartado 4**
+El contrastes es 
+
+$$\left\{\begin{array}{ll}H_0: & \mu_1=\mu_2\\ H_1: & \mu_1\not=\mu_2\end{array}\right.
+$$
+
+
+En los dos últimos test los $p$-valores son muy muy pequeños así que hay evidencias en contra de la igualdad de medias entre las dos muestras.  Además claramente los intervalos de confianza no contienen al cero.
+
+## Problema `r cuenta()` : Bondad de ajuste. La ley de Benford 
+
+La ley de Benford es  una distribución discreta que siguen las frecuencias de los primero dígitos significativos (de 1 a 9)  de algunas series de datos curiosas.
+
+Sea una v.a. X con dominio $D_X=\left\{1,2,3,4,5,6,7,8,9\right\}$ diremos que sigue una ley de Benford  si 
+
+$$P(X=x)=\log_{10} \left(1+\frac{1}{x}\right)\mbox{ para } x\in \left\{1,2,3,4,5,6,7,8,9\right\}.$$
+
+Concretamente lo podemos hacer así
+
+
+```{r benford1,echo=TRUE,warning=FALSE}
+prob=log10(1+1/c(1:9))
+prob
+MM=rbind(c(1:9),prob)
+df=data.frame(rbind(prob))
+# Y hacemos una bonita tabla
+colnames(df)=paste("Díg.",c(1:9),sep =" ")
+knitr::kable(df,format ='markdown')
+```
+
+En general esta distribución se suele encontrar en tablas de datos de resultados de observaciones  de funciones científicas, contabilidades, cocientes de algunas distribuciones ... 
+
+Por ejemplo se dice que las potencias de números enteros siguen esa distribución. Probemos con las potencias de 2. El siguiente código calcula las potencias de 2  de 1 a 1000 y extrae los tres primeros dígitos.
+
+
+
+```{r benford2}
+# R pasa los enteros  muy grande a reales. Para nuestros propósitos 
+# es suficiente para extraer los tres primeros dígitos.
+muestra_pot_2_3digitos=str_sub(as.character(2^c(1:1000)),1,3)
+head(muestra_pot_2_3digitos)
+tail(muestra_pot_2_3digitos)
+#Construimos un data frame con tres columnas que nos dan el primer, 
+#segundo y tercer dígito respectivamente.
+df_digitos=data.frame(muestra_pot_2_3digitos,
+                      primer_digito=as.integer(
+                        substring(muestra_pot_2_3digitos, 1, 1)),
+                      segundo_digito=as.integer(
+                        substring(muestra_pot_2_3digitos, 2, 2)),
+                      tercer_digito=as.integer(
+                        substring(muestra_pot_2_3digitos, 3, 3)))
+head(df_digitos)
+
+```
+
+Notad que los NA  en el segundo y el tercer dígito corresponden a número con  uno o dos dígitos.
+
+Se pide:
+
+1. Contrastad con un test $\chi^2$ que el primer dígito sigue una ley de Benford. Notad que el primer dígito no puede ser 0. Resolved manualmente y con una función de  `R`.  
+2. Contrastad con un test $\chi^2$ que el segundo dígito sigue una ley de uniforme discreta. Notad que ahora si puede ser  0. Resolved con  funciones de `R`.  
+3. Contrastad con un test $\chi^2$ que el tercer dígito sigue una ley de uniforme discreta. Notad que ahora si puede ser  0. Resolved con  manualmente calculado las frecuencias esperadas y observadas, el estadístico de contraste y el $p$-valor utilizando  `R`. Comprobad que vuestros resultados coinciden con los de la función de `R` que calcula este contraste.  
+4. Dibujad con `R`  para los apartados 1 y 2 los diagramas de frecuencias esperados y observados. Comentad estos gráficos
+ 
+ 
+ 
+### Solución
+
+
+**Apartado 1**
+El contraste que nos piden es
+$$
+\left\{
+\begin{array}{ll}
+H_0: &  \mbox{ El primer dígito de las 1000 primeras potencias de 2 sigue una ley Benford,}\\
+H_1: & \mbox{sigue cualquier otra distribución}.
+\end{array}
+\right.
+$$
+
+El siguiente código resuelve el  tes de forma manual calculando el estadístico y el $p$-valor
+
+
+```{r}
+prob=log10(1+1/(1:9))
+prob_benford=prob
+n=1000
+frec_esp_benford=n*prob_benford
+frec_esp_benford
+frec_obs_primer=table(df_digitos$primer_digito)
+frec_obs_primer
+chi2_est=sum((frec_obs_primer-frec_esp_benford)^2/frec_esp_benford)
+chi2_est
+pchisq(chi2_est,9-1,lower.tail = FALSE)
+```
+La función de R  que resuelve el test es
+
+```{r}
+chisq.test(frec_obs_primer,p=prob_benford)
+```
+
+Obtenemos los mismos resultados.  El $p$ valor es muy alto. No podemos rechazar que el primer dígito de las 1000 primeras potencias enteras de 2 siga una ley de distribución de Benford.
+
+
+**Apartado 2**
+
+El contraste que nos piden es
+$$
+\left\{
+\begin{array}{ll}
+H_0: &  \mbox{ El segundo dígito de las 1000 primeras potencias de 2 sigue una ley uniforme,}\\
+H_1: & \mbox{sigue cualquier otra distribución}.
+\end{array}
+\right.
+$$
+
+Procedemos de forma similar al caso anterior. De forma manual el cálculo es
+ 
+```{r}
+prob_unif=rep(1/10,10)
+prob_unif
+
+segundo_digito=na.omit(df_digitos$segundo_digito)
+n=length(segundo_digito) 
+n
+frec_esp_uniforme=n*prob_unif
+frec_esp_uniforme 
+frec_obs_segundo=table(segundo_digito)
+frec_obs_segundo
+chi2_est=sum((frec_obs_segundo-frec_esp_uniforme)^2/frec_esp_uniforme)
+chi2_est
+1-pchisq(chi2_est,10-1)
+pchisq(chi2_est,10-1,lower.tail = FALSE)
+
+```
+ 
+Con la función `chisq.test` obtenemos los mismo resultados
+
+```{r}
+chisq.test(frec_obs_segundo,p=prob_unif)
+```
+
+Para el segundo dígito con un $p$-valor de $0.1356$ no podemos rechazar que el segundo dígito siga una ley uniforme.
+
+
+
+**Apartado 3**
+
+
+El contraste que nos piden es
+$$
+\left\{
+\begin{array}{ll}
+H_0: &  \mbox{ El tercer dígito de las 1000 primeras potencias de 2 sigue una ley uniforme,}\\
+H_1: & \mbox{sigue cualquier otra distribución}.
+\end{array}
+\right.
+$$
+
+Procedemos de forma similar al caso anterior. De forma manual el cálculo es
+ 
+```{r}
+prob_unif=rep(1/10,10)
+prob_unif
+
+tercer_digito=na.omit(df_digitos$tercer_digito)
+n=length(tercer_digito) 
+n
+frec_esp_uniforme=n*prob_unif
+frec_esp_uniforme 
+frec_obs_tercer=table(tercer_digito)
+frec_obs_tercer
+chi2_est=sum((frec_obs_tercer-frec_esp_uniforme)^2/frec_esp_uniforme)
+chi2_est
+1-pchisq(chi2_est,10-1)
+pchisq(chi2_est,10-1,lower.tail = FALSE)
+
+```
+ 
+Con la función `chisq.test` obtenemos los mismo resultados
+
+```{r}
+chisq.test(frec_obs_tercer,p=prob_unif)
+```
+
+Para el segundo dígito con un $p$-valor alto $0.537$ no podemos rechazar que el tercer dígito siga una ley uniforme.
+
+
+
+**Apartado 4**
+
+
+Una gráfica comparando las frecuencias
+
+```{r}
+barplot(rbind(frec_esp_benford,frec_obs_primer),
+        beside=TRUE,col=c("red","blue"),
+        main="Frecuencias observadas y\n esperadas del primer dígito",
+        cex.names =0.6,xlab="Dígito",ylab="Frecuencia absoluta")
+legend("topright",legen=c("Frecuencias  observadas",
+                          "Frecuencias esperadas ley de Benfor"),pch=19,col=c("red","blue"),
+       cex=0.8)
+
+barplot(rbind(frec_esp_uniforme,frec_obs_segundo),
+        beside=TRUE,col=c("red","blue"),
+        main="Frecuencias observadas y\n esperadas del segundo dígito",
+        cex.names =0.6,xlab="Dígito",ylab="Frecuencia absoluta")
+legend("topright",legen=c("Frecuencias  observadas",
+                          "Frecuencias esperadas uniformes"),pch=19,col=c("red","blue"),
+       cex=0.6)
+```
+
+ 
+
+ 
+## Problema `r cuenta()` : Homegeneidad e independencia
+
+Queremos analiza los resultados de aprendizaje  con tres tecnologías. Para ello se seleccionan 3 muestras de 50 estudiantes y se les somete a evaluación después de un curso.
+
+
+```{r notas_calculos}
+set.seed(2020)
+nota=factor(sample(c(1,2,3,4),p=c(0.1,0.4,0.3,0.2),replace=TRUE,size=150),
+            labels=c("S","A","N","E"))
+tecnologia=rep(c("Mathematica","R","Python"),each=50)
+frec=table(nota,tecnologia)
+frec
+col_frec=colSums(frec)
+col_frec
+row_frec=rowSums(frec)
+row_frec
+N=sum(frec)
+teoricas=row_frec%*%t(col_frec)/N
+teoricas
+dim(frec)
+dim(teoricas)
+sum((frec-teoricas)^2/teoricas)
+```
+
+```{r chi_notas1}
+chisq.test(table(nota,tecnologia))
+```
+
+Se pide
+
+1. Discutid si hacemos un contraste de independencia o de homogeneidad de las distribuciones de las notas por tecnología. Escribid las hipótesis del contraste. 
+2. Interpretad la función `chisq.test` y resolved el contraste. 
+3. Interpretad `teoricas=row_frec%*%t(col_frec)/N` reproducid manualmente el segundo resultado de la primera fila. 
+
+
+
+### Solución
+
+
+**Apartado 1**
+
+Podemos plantear dos hipótesis distintas. La primera es que la calificación obtenidas es independiente de la tecnología, la segunda es las distribuciones en las 4 clases de notas son las mismas para cada tecnología. En el primer caso es un contraste de independencia y en el segundo es de homogeneidad.
+
+Podemos optar en este caso por cualquiera de los dos. Yo he optado por el de independencia
+
+así que la hipótesis $H_0$: la nota obtenida es independientes ce la tecnología del curso, contra que no lo es.
+
+
+**Apartado 2**
+ Para el contraste de independencia (o el de homogeneidad) hay que pasar una tabla de contingencia a la función `chisq.test` eso es lo que hacemos
+
+```{r chi_notas2}
+table(nota,tecnologia)
+chisq.test(table(nota,tecnologia))
+```
+ El $p$-valor obtenido es grande así que no podemos rechazar la hipótesis nula las calificaciones obtenidas no dependen del programa utilizado en el curso.
+
+**Apartado 3**
+
+La expresión `teoricas=row_frec%*%t(col_frec)/N`
+
+```{r}
+row_frec  
+col_frec
+row_frec%*%t(col_frec)
+row_frec%*%t(col_frec)/N
+```
+
+Así que `row_frec%*%t(col_frec)` calcula  el producto de las frecuencia marginal por filas y  columnas.
+
+Por ejemplo la segunda fila  es $2750= 50\cdot 55$ en los tres casos
+
+Por último al dividir por $N=150$ el  tamaño total de las muestra obtenemos las frecuencias esperadas en el caso de independencia $2750/150=18.33333$.
+
+
+
+
+
+
+## Problema `r cuenta()` : ANOVA notas numéricas de tres grupos.
+
+El siguiente código nos da las notas numéricas (variable `nota`) de los mismos ejercicios para tres tecnologías en tres muestra independientes de estudiantes  de estas tres tecnologías diferentes
+
+```{r semilla2, echo=FALSE}
+set.seed(2020)
+nota=rnorm(150,mean=70,sd=25)
+```
+
+
+```{r anova1}
+head(nota)
+library(nortest)
+lillie.test(nota[tecnologia=="Mathematica"])
+lillie.test(nota[tecnologia=="R"])
+lillie.test(nota[tecnologia=="Python"])
+lillie.test(nota)
+bartlett.test(nota~tecnologia)
+library(car)
+leveneTest(nota~as.factor(tecnologia))
+sol_aov=aov(nota~as.factor(tecnologia))
+sol_aov
+```
+
+
+Del `summary(sol_aov)` os damos la salida a falta de algunos de los valores
+
+```
+> summary(sol_aov)
+                      Df Sum Sq Mean Sq F value Pr(>F)
+as.factor(tecnologia) ---    837   418.7   ---  ---
+Residuals             --- 123445   839.8                          
+
+```
+
+
+```{r poshoc}
+pairwise.t.test(nota,as.factor(tecnologia),p.adjust.method = "none")
+pairwise.t.test(nota,as.factor(tecnologia),p.adjust.method = "bonferroni")
+```
+
+Se pide
+
+1. ¿Podemos asegurar que la muestras son normales en cada grupo? ¿y son homocedásticas?  Sea cual sea la respuesta justificad que parte del código la confirma. 
+2. La función `aov` que test calcula. Escribid  formalmente la hipótesis nula y la alternativa. 
+3. Calcula la tabla de ANOVA y resuelve el test. 
+4. ¿Qué contrates realiza la función `pairwise.t.test`?  Utilizando los resultados anteriores aplicad e interpretad los contrates del apartado anterior utilizando el ajuste de Holm. 
+
+### Solución
+
+
+**Apartado 1**
+Este código es el que pasa un test de normalidad con la función `lillie.test`
+para la distribución de notas en cada una de las tecnologías
+
+
+```{r anova2}
+head(nota)
+library(nortest)
+lillie.test(nota[tecnologia=="Mathematica"])
+lillie.test(nota[tecnologia=="R"])
+lillie.test(nota[tecnologia=="Python"])
+```
+
+Como se ve los $p$-valores son altos en el pero de los caso es mayor que $0.4$ no podemos rechazar   de las notas numéricas en cada uno de los tres casos.
+
+
+Para la homogeneidad de las varianzas en las tres poblaciones hacemos un `bartlett.test`o un LeveneTest. 
+
+```{r}
+bartlett.test(nota~tecnologia)
+library(car)
+leveneTest(nota~as.factor(tecnologia))
+```
+Nos salen $p$-valores del orden de $0.7$ o $0.6$ por lo que no podemos rechazar la homocedasticidad de las tres varianzas.
+
+
+
+
+
+**Apartado 2**
+
+La función `aov` calcula un test de igualdad de 
+medias de las notas numéricas en los tres cursos.
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: &  \mu_{Mathematica}=\mu_{Python}=\mu_{R}\\
+H_1: & \mbox{ no  todas las medias son iguales}.
+\end{array}
+\right.
+$$
+
+
+
+**Apartado 3**
+
+```{r}
+sol_aov=aov(nota~as.factor(tecnologia))
+sol_aov
+summary(sol_aov)
+```
+
+
+EL $p$-valor es muy grade $0.608$ no podemos rechazar la igualdad de medias.
+
+
+**Apartado 4**
+
+La función  `pairwise.t.test` compara las medias dos a dos en este caso hay 4 comparaciones por pares. Para ajustar el nivel de significación tenemos que recurrir a alguno de los métodos de  ajuste del $p$-valor que se pasan con el parámetro `p.adjust.method` en este caso nos piden que utilicemos el método de Holm que tenemos que calcular pues no figura en el código del enunciado.
+
+
+
+
+```{r}
+pairwise.t.test(nota,as.factor(tecnologia),p.adjust.method = "holm")
+```
+
+Los tres $p$-valores son  prácticamente son 1 con el ajuste del método de Holm; o podemos rechazar las igual de medias dos a dos. 
+
+
+
+## Problema `r cuenta()` : ANOVA Comparación de las tasas de interés  para la compra de coches  entre seis ciudades.
+
+Consideremos el  `data set` `newcar` accesible desde https://www.itl.nist.gov/div898/education/anova/newcar.dat de *Hoaglin, D., Mosteller, F., and Tukey, J. (1991). Fundamentals of Exploratory Analysis of Variance. Wiley, New York, page 71.* 
+
+Este data set contiene dos columnas:
+
+* Rate (interés): tasa de interés en la compra de coches a crédito 
+* City (ciudad) : la ciudad en la que se observó la tasa de interés para distintos concesionarios (codificada a enteros). Tenemos observaciones de  6 ciudades. 
+
+```{r}
+datos_interes=read.table(
+  "https://www.itl.nist.gov/div898/education/anova/newcar.dat",
+  skip=25)
+# salto las 25 primeras líneas del fichero,son un preámbulo qiue explica los datos.
+names(datos_interes)=c("interes","ciudad")
+str(datos_interes)
+boxplot(interes~ciudad,data=datos_interes)
+```
+
+Se pide:
+
+1. Comentad el código y  el diagrama de caja.
+2. Se trata de contrastar si hay evidencia de  que  la tasas medias de interés por ciudades son distintas. Definid el ANOVA que contrasta esta hipótesis y especificar qué condiciones deben cumplir las muestras para poder aplicar el ANOVA.  
+3. Comprobad las condiciones del ANOVA  con un test KS y un test de Levene (con código de `R`).  Justificad las conclusiones.  
+4. Realizad el contraste de ANOVA (se cumplan las condiciones o no) y redactar adecuadamente la conclusión. Tenéis que hacedlo con  funciones de `R`.  
+5. Se acepte o no la igualdad de medias realizar las comparaciones dos a dos con ajustando los $p$-valor tanto por  Bonferroni como por Holm al nivel de significación $\alpha=0.1$. Redactad las conclusiones que se obtienen de las mismas.  
+
+
+### Solución
+
+**Apartado 1**
+
+El código del enunciado nos carga los datos de una web, tenemos que pasar el parámetro skip=25 para que se salte las 25 primeras lineas del fichero de texto  que son un preámbulo que explica los datos.
+
+En el diagrama de caja vemos que las medias las distribuciones de la `Rate` por ciudad son muy distintas, no parecen tener ni medias ni varianzas iguales
+
+
+**Apartado 2**
+
+Las condiciones para realizar un ANOVA son:
+
+* Muestras independientes y aleatorias 
+* Distribución normal de la Rate $N(\mu_i,\sigma_i)$ para las seis ciudades $i=1,2,3,4,5,6$.
+* homocedasticidad; igualdad de varianzas $\sigma_1=\sigma_2=\sigma_3
+=\sigma_4=\sigma_5=\sigma_6.$
+
+
+
+El ANOVA que se pide  es  
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: &  \mu_1=\mu_2=\mu_3=\mu_4=\mu_5=\mu_6\\
+H_1: & \mbox{ no  todas las medias son iguales}.
+\end{array}
+\right.
+$$
+
+
+**Apartado 3**
+
+El siguiente código realiza un test KS con corrección de Lillie para la normalidad de la variable Rate en cada una  de la seis ciudades 
+
+```{r}
+library(nortest)
+lillie.test(datos_interes$interes[datos_interes$ciudad==1])
+lillie.test(datos_interes$interes[datos_interes$ciudad==2])
+lillie.test(datos_interes$interes[datos_interes$ciudad==3])
+lillie.test(datos_interes$interes[datos_interes$ciudad==4])
+lillie.test(datos_interes$interes[datos_interes$ciudad==5])
+lillie.test(datos_interes$interes[datos_interes$ciudad==6])
+```
+
+No podemos rechazar la normalidad con el lillie.test en las 5 primeras ciudades, pero parece que la última está lejos de ser normal.
+
+
+Ahora  comprobemos que 
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: &  \sigma^2_1=\sigma^2_2=\sigma^2_3=\sigma^2_4=\sigma^2_5=\sigma^2_6\\
+H_1: & \mbox{ no  todas las varianzas son iguales}.
+\end{array}
+\right.
+$$
+
+con el test de Levene (o el de Bartlett)
+
+```{r}
+library(car)
+print(leveneTest(datos_interes$interes~as.factor(datos_interes$ciudad)))
+```
+El test de levene nos da un $p$-valor superior a 0.28 aceptamos la igualdad de varianzas
+
+**Apartado 4**
+
+Resolvemos el ANOVA con el código siguiente
+
+```{r}
+summary(aov(datos_interes$interes~as.factor(datos_interes$ciudad)))
+```
+
+El $p$-valor es muy bajo 0.00117 rechazamos la igualdad de las seis medias, al menos hay dos distintas.
+
+Comprobamos por gusto el $p$-valor a partir de  los datos del summary
+
+```{r}
+Fest=2.1891/0.4533
+Fest
+1-pf(Fest,5,48)
+pf(Fest,5,48,lower.tail = FALSE)
+```
+
+
+**Apartado 5**
+
+Comparemos las medias dos a dos son 15 comparaciones
+
+
+```{r}
+pairwise.t.test(datos_interes$interes,as.factor(datos_interes$ciudad),p.adjust.method = "holm")
+```
+
+
+Nos piden que decidamos con $\alpha=0.1$, así que rechazaremos la igualdad de medias de todas las comparaciones con $p$-valor inferior a $0.1$.
+
+Tenemos que rechazar la igualdad de medias entre la  ciudad  2 con la 5  y la de la ciudad 6 con las ciudades 1, 3, 4 y 5.
+
+
+
+
+
+
+
+
+
+## Problema `r cuenta()`: Cuestiones cortas
+
+* Cuestión 1: Supongamos que conocemos el $p$-valor de un contraste. Para que valores de nivel de significación $\alpha$ RECHAZAMOS la hipótesis nula.
+* Cuestión 2: Hemos realizado un ANOVA de un factor con 3 niveles, y hemos obtenido un $p$-valor de 0.001.
+Suponiendo que las poblaciones satisfacen las condiciones para que el ANOVA tenga sentido, ¿podemos
+afirmar con un nivel de significación $\alpha= 0.05$ que las medias de los tres niveles son diferentes dos a dos? Justificad la respuesta.
+* Cuestión 3: Lanzamos 300 veces un dado de  6 caras de parchís, queremos contrastar que los resultados son
+equiprobables. ¿Cuáles serian las frecuencias esperadas o teóricas del contraste?
+* Cuestión 4: En un ANOVA de una vía, queremos contrastar si los 6 niveles de un factor definen poblaciones 
+con la misma media. Sabemos que estas seis poblaciones son normales con
+la misma varianza $\sigma=2$. Estudiamos a 11 individuos de cada nivel y obtenemos que
+$SS_{Total}=256.6$ y $SS_{Tr}=60.3$. ¿Qué vale
+$SS_E$. ¿Qué valor estimamos que tiene $\sigma^2$?
+* Cuestión 5: Calculad la correlación entre los vectores de datos $x=(1,3,4,4)$, $y=(2,4,12,6)$.
+* Cuestión 6: De estas cuatro matrices, indicad cuáles pueden ser matrices de correlaciones, y explicad por qué.
+
+$A=\left(\begin{array}{cc} 1  &  0.8\\-0.8 &  1\end{array}\right)$,
+$B=\left(\begin{array}{cc} 0.8  &  0.6\\0.6  &  0.8\end{array}\right)$,
+$C=\left(\begin{array}{cc} 1  &  0\\0  &  1\end{array}\right)$,
+$D=\left(\begin{array}{cc} 1  &  1.2\\1.2  &  1\end{array}\right)$.
+
+
+
+### Solución
+
+**Cuestion 1**: Rechazamos la hipótesis nula para todos los niveles de significación $\alpha$ menores que el $p$-valor.
+
+**Cuestion 2**:  No, no podemos afirmar eso. Lo que sabemos después de rechazar un ANOVA es que hay al menos dos medias distintas.
+
+**Cuestion 3**:   pues son 
+
+```{r}
+probs=c(1/6,1/6,1/6,1/6,1/6,1/6)
+frec.esp=300*probs
+frec.esp
+```
+
+**Cuestion 4**
+$SS_E=SS_{Total}-SS-{Tr}=256.6-60.3=`r 256.6-60.3`. 
+
+El número de observaciones totales  es $N=11\cdot 6=66$ y el número de niveles del factor es $k=6$.
+
+ El estimador de la varianza conjunto $\sigma^2$ es $MS_E=\frac{SS_e}{N-k}=\frac{196.3}{66-6}=`r 196.3/11`.$
+ 
+ ***Cuestión 5** 
+ 
+```{r}
+x=c(1,3,4,4)
+y=c(2,4,12,6)
+cor(x,y)
+```
+
+
+**Cuestión 6**
+
+Son matrices de correlaciones 2x2 sabemos que la diagonal tiene que ser 1 pues es la correlación de una variable consigo misma. También sabemos  que $\rho_{xy}=\rho_{yx}$ así que la matriz debe ser simétrica. Además $-1\leq\rho_{xy}\leq. 1$.
+
+
+$A$ no es simétrica, $B$ no tiene la diagonal de  unos y $D$ tienen valores mayores que 1 luego estas tres matrices no son de correlaciones. La única matriz que cumple todas las condiciones es la $C$.
+
+
+
+
+## Problema `r cuenta()`: Contraste de proporciones de dos muestras independientes.
+
+Queremos comparar las proporciones de aciertos de dos redes neuronales que detectan tipos si una foto con un móvil de una avispa es una [avispa velutina o asiática](https://es.wikipedia.org/wiki/Vespa_velutina). Esta avispa en una especie invasora y peligrosa por el veneno de su picadura.
+Para ello disponemos de una muestra de 1000 imágenes de insectos etiquetadas como avispa velutina y no velutina.
+
+[Aquí tenéis el acceso a los datos](http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina). Cada uno está en fichero los aciertos están codificados  con 1 y los fallos con 0.
+
+
+Se pide:
+
+1. Cargad los datos desde el servidos y calcular el tamaño de las muestras y la proporción de aciertos de cada muestra.
+2. Contrastad si hay evidencia de que las las proporciones de aciertos del algoritmo 1  son mayores que las del algoritmo 2. Definid bien las hipótesis y las condiciones del contraste. Tenéis que hacer el contraste con funciones de  `R` y resolver el contrate con el $p$-valor.
+3. Calculad e interpretar los intervalos de confianza para la diferencia de proporciones asociados al test anterior, con funciones de R. 
+
+
+### Solución
+
+
+```{r}
+algoritmo1=read.table("http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina/algoritmo1.csv")
+algoritmo2=read.table("http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina/algoritmo2.csv")
+```
+
+
+Proporción aciertos de cada algoritmo
+
+```{r}
+n1=dim(algoritmo1)[1]
+n1
+n1=length(algoritmo1$V1)
+n1
+n2=length(algoritmo2$V1)
+n2
+aciertos_absolutos_algoritmo1=table(algoritmo1)["1"]
+aciertos_absolutos_algoritmo1
+p1=prop.table(table(algoritmo1))["1"]
+p1
+
+aciertos_absolutos_algoritmo2=table(algoritmo2)["1"]
+aciertos_absolutos_algoritmo2
+p2=prop.table(table(algoritmo2))["1"]
+p2
+```
+
+Después de los cálculos preliminares  si denotamos las proporciones poblacionales de aciertos de cada algoritmo por $p_1$  y $p_2$ respectivamentes,  el  contraste que nos piden es  
+
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & p_1=p_2\\
+H_1: & p_1>p_2\\
+\end{array}
+\right.
+$$
+
+
+estamos ante un diseño de comparación de proporciones con muestras independientes. Con R lo podemos resolver con el `fisher.test` o con el `prop.test`
+
+```{r}
+x=matrix(c(aciertos_absolutos_algoritmo1,n1-aciertos_absolutos_algoritmo1,
+           aciertos_absolutos_algoritmo2,n2-aciertos_absolutos_algoritmo2),
+         ncol=2,byrow=FALSE)
+x
+fisher.test(x,alternative="greater",conf.level=0.95)
+```
+
+
+
+```{r}
+c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2)
+c(n1,n2)
+prop.test(c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2), c(n1,n2),alternative="greater",conf.level=0.95)
+```
+
+
+Con ambos test obtenemos $p$ valores altos (el más pequeño es el de fisher y es mayor que $0.4$, así que no podemos rechazar  que las proporciones de aciertos de los dos algoritmos sean  iguales contra que la proporción de aciertos del algoritmo 1 es mejor  que la del 2.
+
+
+El intervalo  de confianza asociado a este test  es 
+
+```{r}
+prop.test(c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2), c(n1,n2),alternative="greater",conf.level=0.95)$conf.int
+```
+
+
+luego con una probabilidad del 95\% la $p_1-p_2> -1$  contiene el 0 y no podemos despreciar que sean iguales contra que $p_1>p_2.$
+
+## Problema `r cuenta()` : Contraste de proporciones de dos muestras emparejadas.
+
+En el problema anterior hemos decidido quedarnos con el mejor de los algoritmos y mejorarlo. Pasamos las mismas 1000 imágenes a la version_beta del algoritmo y a la version_alpha.
+[Aquí tenéis el acceso a los datos en el mismo orden para las 1000 imágenes](http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina2). Cada uno está en fichero los aciertos están codificados  con 1 y los fallos con 0.
+
+
+1. Cargad los datos desde el servidos y calcular el tamaño de las muestras y la proporción de aciertos de cada muestra.
+2. Contrastad si hay evidencia de que las las proporciones de aciertos del algoritmo alfa  son iguales que las del algoritmo beta. Definid bien las hipótesis y las condiciones del contraste. Tenéis que hacer el contraste con funciones de  `R` y resolver el contrate con el $p$-valor.
+
+
+
+### Solución
+
+Cargamos los datos y hacemos los cálculos preliminares
+
+```{r}
+algoritmoalfa=read.table("http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina2/algoritmo_alpha.csv")
+algoritmobeta=read.table("http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina2/algoritmo_beta.csv")
+```
+
+
+
+El test que nos piden es 
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & p_{\alpha}=p_{\beta}\\
+H_1: & p_{\alpha}\not=p_{\beta}\\
+\end{array}
+\right.
+$$
+
+Es un diseño de muestras emparejadas y tenemos que utilizar el `mcnear.test`:
+
+
+```{r}
+X=table(algoritmoalfa$V1,algoritmobeta$V1)
+X
+mcnemar.test(X)
+```
+
+
+El $p$-valor es 0.1356 no podemos rechazar la igualdad de la proporción de aciertos.
+
+## Problema `r cuenta()` : ANOVA comparación media puntuaciones según fabricante.
+
+Una vez mejorado nuestro algoritmo queremos saber su  comportamiento bajo distintos tipos de móviles.
+
+Seleccionamos 6 móviles de la misma gama de calidad de 
+6 fabricantes distintos. A los fabricantes los denotamos por F1, F2, F3, F4, F5 y F6.
+
+Vamos a jugar no con la clasificación sino con el score que produce el algoritmo. Para ello seleccionamos 4 muestra aleatorias de fotos de insectos enviadas por los usuarios y la puntuación (*score*)  que nos da el algoritmo que es una variable aleatoria continua de  con rango de 0 a 100.
+
+La idea es comprobar si la media de las puntuaciones del algoritmo es la misma para cada uno de los fabricantes.
+
+
+
+Los datos los podéis descargar de esta dirección del  [servidor bioinfo.uib.es](http://bioinfo.uib.es/~recerca/MATIIIGINF/anova_score/).
+
+
+Antes de descargarlo, visualizar el fichero desde el navegador, para saber cómo descargarlo.
+
+
+
+1. ¿Podemos asegurar que la muestras son normales en cada grupo? ¿y son homocedásticas? Justificar la respuesta con el correspondiente código en R comentado.
+2. Escribid  formalmente la hipótesis nula y la alternativa. Calcular la tabla de ANOVA y resuelve el test de forma manual. 
+3. Calcular la tabla de ANOVA y resuelve el test con la función `aov` de R.
+4. Haced una comparación de pares  con la función adecuada de R  para la corrección del holm al nivel de significación $\alpha=0.1$. Interpreta el resultado.
+5. Comparar por grupos con  el test de Duncan del paquete `agricolae`. Interpreta el resultado.
+
+
+
+### Solución
+
+
+```{r}
+df=read.table("http://bioinfo.uib.es/~recerca/MATIIIGINF/anova_score/score_manufacturer.csv")
+head(df)
+df$manufacturer=as.factor(df$manufacturer)
+```
+
+```{r}
+table(df$manufacturer)
+```
+
+
+
+Tenemos que comprobar la normalidad de la distribución de  la muestra para cada nivel del factor $i=1,2,3,4,5,6$; el test es 
+
+
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \mbox{la distribución de los datos  en el nivel $F_i$ es normal,}\\
+H_1: & \mbox{la distribución de los datos en el nivel $F_i$ no es normal,}\\
+\end{array}
+\right.
+$$
+
+
+```{r}
+library(nortest)
+# El test KS_Lillie para en nivel "F1"
+#lillie.test(df$score[df$manufacturer=="F1"])
+sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$manufacturer==x]))})
+# También podemos hacer un bucle clásico
+#for(Fabricante in levels(df$manufacturer)){
+#print(lillie.test(df$score[df$manufacturer==Fabricante]))
+#}
+```
+
+El nivel "F1" y "F6" dan valores pequeños no podemos asegurar la normalidad  en estos casos.
+
+Nos aseguramos con el ómnibus test de D'Agostino
+
+```{r}
+library(fBasics)
+dagoTest(df$score[df$manufacturer=="F1"])
+
+dagoTest(df$score[df$manufacturer=="F6"])
+
+
+```
+Parece que no podemos rechazar la normalidad para los casos dudosos.
+
+
+Ahora realizamos el test de comparación de medias  $\mu_i$ para $i=1,2,3,4,5,6$ son las medias para cada nivel del factor.
+
+
+
+$$
+\left\{
+\begin{array}{ll}
+H_0: & \mu_1=\mu_2=\mu_3=\mu_4=\mu_5=\mu_6\\
+H_1: & \mbox{no todas la medias son iguales,}\\
+\end{array}
+\right.
+$$
+
+
+
+
+```{r}
+summary(aov(df$score~df$manufacturer))
+```
+
+Como el $p$-valor es  muy pequeño NO podemos aceptar que las 6 medias sean iguales
+
+
+
+
+
+Ahora tenemos que contrastar que pares de medias dos a dos  son iguales y ajustar  los $p$-valores con el ajuste del $p$-valor por el método de Holm
+
+```{r}
+pairwise.t.test(df$score,df$manufacturer,p.adjust.method = "holm")
+```
+
+
+
+Comparamos los $p$-valores con $0.05$ y aceptamos que las medias  de los niveles $F_4$, $F_6$ y $F_5$ son iguales dos a dos,  también son iguales la media del $F_1$ con el $F_2$, y la media del nivel $F_2$ con el $F_3$. EL resto de comparaciones  tienen $p$-valores bajos así que no podemos aceptar la igualdad de medias.
+
+
+
+
+Ahora comparamos las medias  por grupos de igualdades  con el test de Duncan
+
+```{r}
+library(agricolae)
+resultado.anova=aov(df$score~df$manufacturer)
+duncan.test(resultado.anova,"df$manufacturer",group=TRUE)$group
+```
+
+
+
+Obtenemos tres grupos el a dice la media de $\mu_3=mu_2$ el b dice que $\mu_2=\mu_1$ y el c dice que $\mu_6=\mu_4=\mu_5$. Obtenemos conclusiones similares al test de comparación de medias.
+
+
+
+
+## Problema `r cuenta()`: Regresión lineal simple.
+
+
+Consideremos los siguientes  datos
+
+
+```{r}
+x=c(-2,-1,2,0,1,2)
+y=c(-7, -5,  5, -3,  3.0,  4)
+summary(lm(y~x))
+```
+1. Calcular manualmente los coeficiente de  la regresión lineal de y sobre x
+2. Calcular los valores $\hat{y}_i=b_0+b_1\cdot x_1$ para los valores de la muestra y el error cometido.
+3. Calcular la estimación de la varianza del error.
+4. Resolver manualmente el contraste 
+$\left\{\begin{array}{ll} H_0: & \beta_1=0 \\ H_1: & \beta_1\not=0\end{array}\right.,$ calculando el $p$-valor.
+5. Calcular $SST$, $SSR$ y $SSE$.
+6. Calcular el coeficiente de regresión lineal $r_{xy}$ y el coeficiente de determinación $R^2$. Interpretad el resultado en términos de la cantidad de varianza explicada por el modelo
+7. Comprobar que los resultados son los mismos que los obtenidos con la  función `summary(lm(y~x))`.
+
+
+
+
+### Solución
+
+Faltan añadir los NECESARIOS COMENTARIOS.
+
+```{r}
+x=c(-2,-1,2,0,1,2)
+y=c(-7, -5,  5, -3,  3.0,  4)
+sol_lm=lm(y~x)
+summary(sol_lm)
+```
+
+
+
+```{r}
+mediay=mean(y)
+mediax=mean(x)
+sdx=sd(x)
+sdy=sd(y)
+sxy=cov(x,y)
+b1=sxy/sdx^2
+b1
+b0=mediay-b1*mediax
+b0
+sol_lm$coefficients
+c(b0,b1)==sol_lm$coefficients# dan distintos errores de redondeo
+near(c(b0,b1),sol_lm$coefficients)# opcional
+```
+
+
+
+```{r}
+sol_lm$fitted.values
+recta=function(x) b0+b1*x
+y_est=recta(x)
+y_est
+predict(sol_lm,newdata = data.frame(x=x))
+```
+
+
+```{r}
+y
+y_est
+e=y-y_est
+e
+sol_lm$residuals
+mean(e) # es cero, pero por error de redondeo no da exacto.
+SSE=sum(e^2)
+SSE
+n=length(x)
+n
+S2=SSE/(n-2)#estimacion_var_error
+S2
+S=sqrt(S2)# Residual standard error: 1.165
+S
+round(S,3) # con los mismos decimales da lo mismo
+```
+
+
+```{r}
+ # contraste beta1=0
+t0=b1/(S/(sdx*sqrt(n-1)))
+t0
+2*pt(abs(t0),n-2,lower.tail = FALSE)
+2*(1-pt(abs(t0),n-2,lower.tail = TRUE))
+2*(1-pt(abs(t0),n-2))
+```
+comparar con 
+
+```
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -1.5250     0.4872  -3.130 0.035176 *  
+x             3.0750     0.3189   9.642 0.000647 ***
+```
+
+
+```{r out.width = "400px"}
+knitr::include_graphics("formulas_regre.PNG")
+```
+
+
+
+
+```{r}
+SST=sum((y-mean(y))^2)
+SST
+mean(y_est)
+mean(y)#media estimados regresion igual a media variable y
+
+SSR=sum((y_est-mean(y))^2)
+SSR
+SSE# ya lo había a calculado
+SST-SSR# da lo mismo pues SST=SSR+SSE 
+```
+
+```{r}
+R2=SSR/SST
+R2
+cor(x,y)
+cor(x,y)^2# en el caso regre simp`le R2=cor(xy)^2
+```
+
+
+
+
+## Problema `r cuenta()`: Distribución de los grados de un grafo de  contactos.
+ 
+En el artículo de A. Broder et al., [Graph structure in the Web. Computer Networks 33, 309 (2000)](http://snap.stanford.edu/class/cs224w-readings/broder00bowtie.pdf). 
+
+Se recopiló el número de enlaces a sitios web encontrados en un rastreo web de 1997 de aproximadamente 200 millones de páginas web, 
+
+Con el se construyó una [tabla](http://tuvalu.santafe.edu/~aaronc/powerlaws/data/weblinks.hist) con  la frecuencia de sitios  por número de enlaces. El código siguiente carga del enlace que han puesto los autores del artículo
+
+```{r}
+data_links=read.table("http://tuvalu.santafe.edu/~aaronc/powerlaws/data/weblinks.hist",header=TRUE)
+head(data_links)
+str(data_links)
+# eliminamos la páginas con menos de 8 enlaces  enlaces y las de más de 1000 enlaces
+data_links_central=data_links[data_links$degree>8&data_links$degree<10^3,]
+head(data_links_central)
+tail(data_links_central)
+```
+
+El siguiente código calcula las regresiones exponecial, potencial y lineal (en algún orden) de las frecuencias (`frequency`) contra los enlaces (`degree`).
+
+```{r}
+sol1=lm(frequency~ degree,data=data_links_central)
+summary(sol1)
+sol2=lm(log10(frequency)~ degree,data=data_links_central)
+summary(sol2)
+sol3=lm(log10(frequency)~ log10(degree),data=data_links_central)
+summary(sol3)
+
+```
+
+Ahora dibujamos los gráficos adecuados a cada modelo
+
+```{r}
+plot(data_links_central,main="Modelo ..........")
+abline(sol1,col="red")
+plot(data_links_central,main="Modelo ..........",log="y")
+abline(sol2,col="red")
+plot(data_links_central,main="Modelo ..........",log="xy")
+abline(sol3,col="red")
+```
+
+
+
+Se pide:
+
+1. Explicad el modelo de regresión que calcula cada función `lm`
+2. ¿Qué modelo y en función de qué parámetros es el mejor?
+3. Para el mejor modelo calcular los coeficientes en las unidades originales  y escribir la  ecuación del modelos.
+
+
+### Solución
+
+**Apartado 1**
+
+Los modelos son 
+
+```{r}
+sol1=lm(frequency~ degree,data=data_links_central)
+summary(sol1)
+sol2=lm(log10(frequency)~ degree,data=data_links_central)
+summary(sol2)
+sol3=lm(log10(frequency)~ log10(degree),data=data_links_central)
+summary(sol3)
+```
+
+Así que 
+
+* el primero es $frequency = b_0+b_1\cdot degree$ que es el modelo LINEAL que resuelve la fución `lm`.
+* el segundo es $\log_{10}(frequency) = b_0+b_1\cdot degree$ que operando adecuadamente es
+
+$10^{\log_{10}(frequency)}=10^{b_0}\cdot 10^{b_1\cdot degree}$ operando obtenemos que 
+el modelo final es un modelo EXPONENCIAL $frequency=10^{b_0}\cdot \left(10^{b_1}\right)^{degree}$.
+* el tercer modelo es $\log_{10}(frequency) = b_0+b_1\cdot \log_{10}(degree)$ que despejando es $10^{\log_{10}(frequency)}=10^{b_0}\cdot \left(10^{\left(\log_{10}(degree)\right)}\right)^{b_1}$ operando obtenemos que 
+el modelo final es un modelo POTENCIAL $frequency=10^{b_0}\cdot degree^{b_1}.$
+
+
+Los dibujos con el título adecuado son
+
+```{r}
+plot(data_links_central,main="Modelo lineal")
+abline(sol1,col="red")
+plot(data_links_central,main="Modelo exponencial",log="y")
+abline(sol2,col="red")
+plot(data_links_central,main="Modelo potencial",log="xy")
+abline(sol3,col="red")
+```
+
+
+Con lo que hemos visto el modelo con mejor $R^2$ es el mejor
+
+
+```{r}
+summary(sol1)$r.squared
+summary(sol2)$r.squared
+summary(sol3)$r.squared
+```
+
+Así  que  el mejor modelo es el tercero el potencial pues su $R^2$ es  muy alto
+
+**Apartado 3**
+
+Calcularemos la ecuación del modelo para las unidades originales sin transformaciones logarítmicas.
+
+Recordemos el  resultado de la `sol3`
+
+```{r}
+summary(sol3)
+```
+
+Los estimadores son $b_0=8.722036$ y $b_1=-2.170129$ el modelo es $frequency=10^{b_0}\cdot degree^{b_1}$. Sustitutendo los valores el modelo obtenemos $frequency=10^{8.722036}\cdot degree^{-2.170129}$, finalmente operando 
+
+$$frequency=`r 10^(8.722036)`\cdot degree^{-2.170129}.$$
+
+
+
+
+
+No se pedía en el ejercicio pero hacemos el dibujo de los datos y la ecuación en las unidades originales
+
+
+
+
+```{r}
+frequency=data_links_central$frequency
+degree=data_links_central$degree
+potencial=function(x) 10^(8.722036)*x^(-2.170129)
+plot(degree,frequency,main="Modelo potencial",xlab="degree",ylab="frequency")
+curve(potencial,xlim=c(0,1000),ylim=c(0,3731928),col="red",add=TRUE)
+```
+
+
+
+
