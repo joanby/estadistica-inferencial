@@ -1,15 +1,15 @@
 ---
-title: "Taller de probelmas resueltos inferencia"
+title: "Taller de problemas resueltos inferencia"
 author: "Ricardo Alberich"
-date: "13-05-2020"
+date: ""
 output:
   word_document:
     toc: yes
-  html_document:
-    df_print: paged
-    toc: yes
   pdf_document:
     number_sections: yes
+    toc: yes
+  html_document:
+    df_print: paged
     toc: yes
 linkcolor: red
 header-includes: \renewcommand{\contentsname}{Contenidos}
@@ -23,7 +23,7 @@ urlcolor: blue
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,cache=TRUE)
 library(tidyverse)
 options(scipen=999)
 contador=0
@@ -34,9 +34,9 @@ set.seed(2020)
 
 # Taller  Problemas resueltos: Estadística Inferencial
 
-Contestad cada GRUPO de 3  a los siguientes problemas y cuestiones en un fichero Rmd y su  salida en html o pdf.
+Se trata de resolver los siguientes problemas y cuestiones en un fichero Rmd y su  salida en un informe en  html, word  o pdf.
 
-Cambien podéis incluir capturas de problemas hechos en papel. Cada pregunta vale lo mismo y se reparte la nota entre sus apartados.
+
 
 ## Problema `r cuenta()`: Contraste de parámetros de dos muestras.
 
@@ -47,15 +47,18 @@ G2. No conocemos $\sigma_1$ y $\sigma_2$.
 Disponemos de dos muestras independientes de cuestionarios
 realizados por estudiantes de cada grado, $n_1=n_2=50$.
 
-Los datos están en https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/, en dos 
-ficheros `grado1.txt` y `grado2.txt`.
+Los datos están en https://github.com/joanby/estadistica-inferencial/, en la carpeta `datasets` en dos ficheros `grado1.txt` y `grado2.txt`.
 
 Para bajarlos utilizad la dirección del los ficheros `raw`  que se muestran en el siguiente código
 
 
 ```{r cargadatosoculta}
-G1=read.csv("https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado1.txt",header=TRUE)$x
-G2=read.csv("https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado2.txt",header=TRUE)$x
+G1=read.csv(
+  "https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado1.txt",
+            header=TRUE)$x
+G2=read.csv(
+  "https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado2.txt",
+  header=TRUE)$x
 
 n1=length(na.omit(G1))
 n2=length(na.omit(G2))
@@ -70,9 +73,9 @@ Calculamos las medias y las desviaciones típicas muestrales de los tiempos empl
 
 $$
 \begin{array}{llll}
-n_1&=`r n1`, & n_2&=`r n1`\\
+n_1&=`r n1`, & n_2&=`r n2`\\
 \overline{x}_1&=`r media.muestra1`, & \overline{x}_2&=`r media.muestra2`\\
-\tilde{s}_1&=`r desv.tip.muestra1`, & \tilde{s}_1&=`r desv.tip.muestra2`
+\tilde{s}_1&=`r desv.tip.muestra1`, & \tilde{s}_2&=`r desv.tip.muestra2`
 \end{array}
 $$
 Se pide:
@@ -88,7 +91,7 @@ Se pide:
 ### Solución
 
 
-**Apartado 1.** El cogido R carga en las variables G1 y G2 la variables `x` de dos data frames de un servidor bioinfo.uib.es.
+**Apartado 1.** El cogido R carga en las variables G1 y G2 la variables `x` de dos data frames de un servidor  en github y por lo tanto hemos tenido que pasar la url del fichero original o  *raw*.
 
 Luego calcula los estadísticos básicos para  realizar las siguientes preguntas. Para los tamaños muestrales $n_1$ y $n_2$  se omiten los valores `NA` antes de asignar la `length` de los arrays. También se calculan las medias y las desviaciones típicas muestrales omitiendo (si es que hay)  los valores no disponibles.
 
@@ -105,11 +108,12 @@ $$
 
 
 
-Estamos en un diseño de comparación de medias de dos grupos con dos muestras  independientes de tamaño 50 grande. Tenemos dos casos varianzas desconocidas pero iguales y variazas desconocidas pero distintas. Las funciones de R des este contraste  para estos casos son:
+Estamos en un diseño de comparación de medias de dos grupos con dos muestras  independientes de tamaño 50 que es grande. Tenemos dos casos varianzas desconocidas pero iguales y varianzas desconocidas pero distintas. Las funciones de R del contraste  para estos casos son:
 
 
 
 **Varianzas iguales**
+
 ```{r}
 # test para varianzas iguales
 t.test(G1,G2,var.equal = TRUE,alternative = "two.sided")
@@ -126,7 +130,7 @@ El $p$-valor en ambos casos es muy pequeño así que la muestra  no aporta evide
 
 
 
-Veamos en cálculo manual 
+Veamos el cálculo manual.
 
 
 **Varianzas desconocidas pero iguales, $n_1$ y $n_2$ grande** 
@@ -142,20 +146,27 @@ t0=\frac{\overline{X}_1-\overline{X}_2}
 {(`r n1`+`r n2`-2)}}}
 $$
 
-```{r estadisticos_ejer1, include=FALSE}
+```{r estadisticos_ejer1}
 t0=(media.muestra1-media.muestra2)/sqrt((1/n1+1/n2)* 
 ((n1-1) *desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
+t0
 ```
 
 
-operando obtenemos que  $t0=`r t0`.$ y sabemos que  sigue una distribución  $t$-Student $t_{n_1+n_2-2}=t_{`r n1+n2-2`}$. Para este hipótesis alternativa el $p$-valor es 
+operando obtenemos que  $t0=`r round(t0,6)`.$ y sabemos que  sigue una distribución  $t$-Student $t_{n_1+n_2-2}=t_{`r n1+n2-2`}$. Para este hipótesis alternativa el $p$-valor es 
 
-$2\cdot P(t_{`r n1+n2-2`}>|`r t0`|)$, lo calculamos con R
+$2\cdot P(t_{`r n1+n2-2`}>|`r t0`|)$, lo calculamos con R 
 
-```{r estadisticos_ejercico1_2, include=FALSE}
+
+```{r estadisticos_ejercico1_2}
 t0=(media.muestra1-media.muestra2)/sqrt((1/n1+1/n2)* 
 ((n1-1) *desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
-2*pt(abs(T),50+50-2,lower.tail = FALSE)
+t0
+n1
+n2
+2*(1-pt(abs(t0),df=n1+n2-2)) # calculo la probabilidad del complementario
+2*pt(abs(t0),df=n1+n2-2,lower.tail = FALSE)# calcula el área la cola  superior
+
 ```
 
 
@@ -173,7 +184,8 @@ Calculamos el estadístico  y los grados de libertad con R
 
 ```{r}
 t0=(media.muestra1-media.muestra2)/sqrt(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)
-#calculo el valor dentro del floor que es el que utiliza R
+#calculo el valor dentro del floor que es el que utiliza la función t.test de R para este caso.
+t0
 
 f1=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
   (1/(n1-1))*(desv.tip.muestra1^2/n1)^2+(1/(n2-1))*(desv.tip.muestra2^2/n2)^2)
@@ -187,9 +199,9 @@ El $p$ valor es
 
 
 ```{r}
-# el pvañor de la función de R
+# el p-valor de la función t.test de  R
 2*(pt(abs(t0),f1,lower.tail = FALSE))
-# el pvalor propuesto en teoría
+# el p-valor propuesto en teoría
 2*(pt(abs(t0),f,lower.tail = FALSE))
 ```
 
@@ -215,11 +227,12 @@ El test que nos piden es el de igualdad de varianzas
 
 
 $$\left\{\begin{array}{ll}H_0: & \sigma_1^2=\sigma_2^2\\
-H_0: & \sigma_1^2\not=\sigma_2^2\end{array}\right.$$
+H_1: & \sigma_1^2\not=\sigma_2^2\end{array}\right..$$
 
 
 
 El test de Fisher de igualdad de varianzas
+
 ```{r}
 var.test(G1,G2,alternative ="two.sided" )
 ```
@@ -230,9 +243,9 @@ Obtenemos un $p$-valor alto no podemos rechazar la igualdad de varianzas.
 De forma manual el estadístico de este test sabemos que es 
 
 
-$$f_0=\frac{\tilde{S_1}^1}{\tilde{S_2}^1}=\frac{`r desv.tip.muestra1^2`}{`r desv.tip.muestra2^2`}=`r desv.tip.muestra1^2/desv.tip.muestra2^2`.$$
+$$f_0=\frac{\tilde{S_1}^2}{\tilde{S_2}^2}=\frac{`r desv.tip.muestra1^2`}{`r desv.tip.muestra2^2`}=`r desv.tip.muestra1^2/desv.tip.muestra2^2`.$$
 
-Que sigue una ley e Fisher
+Que sigue una ley de distribución de  Fisher
 y el $p$_valor es $\min\{2\cdot P(F_{n_1-1,+n_2-1}\leq f_0),2\cdot P(F_{n_1-1,+n_2-1}\geq f_0).$
 
 que con R es 
@@ -255,13 +268,13 @@ Obtenemos los mismos resultados que con la función `var.test`.
 El test de Levene con R tiene las mismas hipótesis que el anterior
 
 ```{r levene1,warning=FALSE}
-library(car,quietly = TRUE)# pogo quietly para que quite avisos
+library(car,quietly = TRUE)# pongo quietly para que quite avisos
 notas=c(G1,G2)
 grupo=as.factor(c(rep(1,length(G1)),rep(2,length(G1))))
 leveneTest(notas~grupo)
 ```
 
-El $p$-valor obtenido es alto así que el test de levene no aporta evidencias contra la igualdad de varianzas entre las notas de los dos grupos.
+El $p$-valor obtenido es alto así que el test de Levene no aporta evidencias contra la igualdad de varianzas entre las notas de los dos grupos.
 
 
 
@@ -363,7 +376,6 @@ Concretamente lo podemos hacer así
 ```{r benford1,echo=TRUE,warning=FALSE}
 prob=log10(1+1/c(1:9))
 prob
-MM=rbind(c(1:9),prob)
 df=data.frame(rbind(prob))
 # Y hacemos una bonita tabla
 colnames(df)=paste("Díg.",c(1:9),sep =" ")
@@ -377,7 +389,7 @@ Por ejemplo se dice que las potencias de números enteros siguen esa distribuci�
 
 
 ```{r benford2}
-# R pasa los enteros  muy grande a reales. Para nuestros propósitos 
+# R puede según qué versión pasar los enteros  muy grande a reales. Para nuestros propósitos 
 # es suficiente para extraer los tres primeros dígitos.
 muestra_pot_2_3digitos=str_sub(as.character(2^c(1:1000)),1,3)
 head(muestra_pot_2_3digitos)
@@ -392,7 +404,6 @@ df_digitos=data.frame(muestra_pot_2_3digitos,
                       tercer_digito=as.integer(
                         substring(muestra_pot_2_3digitos, 3, 3)))
 head(df_digitos)
-
 ```
 
 Notad que los NA  en el segundo y el tercer dígito corresponden a número con  uno o dos dígitos.
@@ -770,7 +781,7 @@ Este data set contiene dos columnas:
 datos_interes=read.table(
   "https://www.itl.nist.gov/div898/education/anova/newcar.dat",
   skip=25)
-# salto las 25 primeras líneas del fichero,son un preámbulo qiue explica los datos.
+# salto las 25 primeras líneas del fichero,son un preámbulo que explica los datos.
 names(datos_interes)=c("interes","ciudad")
 str(datos_interes)
 boxplot(interes~ciudad,data=datos_interes)
@@ -1002,7 +1013,7 @@ p2=prop.table(table(algoritmo2))["1"]
 p2
 ```
 
-Después de los cálculos preliminares  si denotamos las proporciones poblacionales de aciertos de cada algoritmo por $p_1$  y $p_2$ respectivamentes,  el  contraste que nos piden es  
+Después de los cálculos preliminares  si denotamos las proporciones poblacionales de aciertos de cada algoritmo por $p_1$  y $p_2$ respectivamente,  el  contraste que nos piden es  
 
 
 $$
@@ -1034,7 +1045,7 @@ prop.test(c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2), c(n1,n
 ```
 
 
-Con ambos test obtenemos $p$ valores altos (el más pequeño es el de fisher y es mayor que $0.4$, así que no podemos rechazar  que las proporciones de aciertos de los dos algoritmos sean  iguales contra que la proporción de aciertos del algoritmo 1 es mejor  que la del 2.
+Con ambos test obtenemos $p$ valores altos (el más pequeño es el de Fisher y es mayor que $0.4$, así que no podemos rechazar  que las proporciones de aciertos de los dos algoritmos sean  iguales contra que la proporción de aciertos del algoritmo 1 es mejor  que la del 2.
 
 
 El intervalo  de confianza asociado a este test  es 
@@ -1223,7 +1234,7 @@ duncan.test(resultado.anova,"df$manufacturer",group=TRUE)$group
 
 
 
-Obtenemos tres grupos el a dice la media de $\mu_3=mu_2$ el b dice que $\mu_2=\mu_1$ y el c dice que $\mu_6=\mu_4=\mu_5$. Obtenemos conclusiones similares al test de comparación de medias.
+Obtenemos tres grupos el **a** dice la media de $\mu_3=mu_2$ el **b** dice que $\mu_2=\mu_1$ y el **c** dice que $\mu_6=\mu_4=\mu_5$. Obtenemos conclusiones similares al test de comparación de medias.
 
 
 
@@ -1243,7 +1254,7 @@ summary(lm(y~x))
 2. Calcular los valores $\hat{y}_i=b_0+b_1\cdot x_1$ para los valores de la muestra y el error cometido.
 3. Calcular la estimación de la varianza del error.
 4. Resolver manualmente el contraste 
-$\left\{\begin{array}{ll} H_0: & \beta_1=0 \\ H_1: & \beta_1\not=0\end{array}\right.,$ calculando el $p$-valor.
+$\left\{\begin{array}{ll} H_0: & \beta_1=0 \\ H_1: & \beta_1\not=0\end{array}\right. ,$ calculando el $p$-valor.
 5. Calcular $SST$, $SSR$ y $SSE$.
 6. Calcular el coeficiente de regresión lineal $r_{xy}$ y el coeficiente de determinación $R^2$. Interpretad el resultado en términos de la cantidad de varianza explicada por el modelo
 7. Comprobar que los resultados son los mismos que los obtenidos con la  función `summary(lm(y~x))`.
@@ -1303,7 +1314,7 @@ n=length(x)
 n
 S2=SSE/(n-2)#estimacion_var_error
 S2
-S=sqrt(S2)# Residual standard error: 1.165
+S=sqrt(S2)# Residual estándar error: 1.165
 S
 round(S,3) # con los mismos decimales da lo mismo
 ```
@@ -1338,7 +1349,7 @@ knitr::include_graphics("formulas_regre.PNG")
 SST=sum((y-mean(y))^2)
 SST
 mean(y_est)
-mean(y)#media estimados regresion igual a media variable y
+mean(y)#media estimados regresión igual a media variable y
 
 SSR=sum((y_est-mean(y))^2)
 SSR
@@ -1350,7 +1361,7 @@ SST-SSR# da lo mismo pues SST=SSR+SSE
 R2=SSR/SST
 R2
 cor(x,y)
-cor(x,y)^2# en el caso regre simp`le R2=cor(xy)^2
+cor(x,y)^2# en el caso regresión simple  R2=cor(xy)^2
 ```
 
 
@@ -1374,7 +1385,7 @@ head(data_links_central)
 tail(data_links_central)
 ```
 
-El siguiente código calcula las regresiones exponecial, potencial y lineal (en algún orden) de las frecuencias (`frequency`) contra los enlaces (`degree`).
+El siguiente código calcula las regresiones exponencial, potencial y lineal (en algún orden) de las frecuencias (`frequency`) contra los enlaces (`degree`).
 
 ```{r}
 sol1=lm(frequency~ degree,data=data_links_central)
@@ -1423,7 +1434,7 @@ summary(sol3)
 
 Así que 
 
-* el primero es $frequency = b_0+b_1\cdot degree$ que es el modelo LINEAL que resuelve la fución `lm`.
+* el primero es $frequency = b_0+b_1\cdot degree$ que es el modelo LINEAL que resuelve la función `lm`.
 * el segundo es $\log_{10}(frequency) = b_0+b_1\cdot degree$ que operando adecuadamente es
 
 $10^{\log_{10}(frequency)}=10^{b_0}\cdot 10^{b_1\cdot degree}$ operando obtenemos que 
@@ -1465,7 +1476,7 @@ Recordemos el  resultado de la `sol3`
 summary(sol3)
 ```
 
-Los estimadores son $b_0=8.722036$ y $b_1=-2.170129$ el modelo es $frequency=10^{b_0}\cdot degree^{b_1}$. Sustitutendo los valores el modelo obtenemos $frequency=10^{8.722036}\cdot degree^{-2.170129}$, finalmente operando 
+Los estimadores son $b_0=8.722036$ y $b_1=-2.170129$ el modelo es $frequency=10^{b_0}\cdot degree^{b_1}$. Sustituyendo los valores el modelo obtenemos $frequency=10^{8.722036}\cdot degree^{-2.170129}$, finalmente operando 
 
 $$frequency=`r 10^(8.722036)`\cdot degree^{-2.170129}.$$
 

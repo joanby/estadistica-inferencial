@@ -12,7 +12,7 @@
 <meta name="author" content="Ricardo Alberich" />
 
 
-<title>Taller de probelmas resueltos inferencia</title>
+<title>Taller de problemas resueltos inferencia</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1694,9 +1694,8 @@ summary {
 
 
 
-<h1 class="title toc-ignore">Taller de probelmas resueltos inferencia</h1>
+<h1 class="title toc-ignore">Taller de problemas resueltos inferencia</h1>
 <h4 class="author">Ricardo Alberich</h4>
-<h4 class="date">13-05-2020</h4>
 
 </div>
 
@@ -1758,15 +1757,18 @@ summary {
 
 <div id="taller-problemas-resueltos-estadística-inferencial" class="section level1">
 <h1>Taller Problemas resueltos: Estadística Inferencial</h1>
-<p>Contestad cada GRUPO de 3 a los siguientes problemas y cuestiones en un fichero Rmd y su salida en html o pdf.</p>
-<p>Cambien podéis incluir capturas de problemas hechos en papel. Cada pregunta vale lo mismo y se reparte la nota entre sus apartados.</p>
+<p>Se trata de resolver los siguientes problemas y cuestiones en un fichero Rmd y su salida en un informe en html, word o pdf.</p>
 <div id="problema-1-contraste-de-parámetros-de-dos-muestras." class="section level2">
 <h2>Problema 1: Contraste de parámetros de dos muestras.</h2>
 <p>Queremos comparar los tiempos de realización de un test entre estudiantes de dos grados G1 y G2, y determinar si es verdad que los estudiantes de G1 emplean menos tiempo que los de G2. No conocemos <span class="math inline">\(\sigma_1\)</span> y <span class="math inline">\(\sigma_2\)</span>. Disponemos de dos muestras independientes de cuestionarios realizados por estudiantes de cada grado, <span class="math inline">\(n_1=n_2=50\)</span>.</p>
-<p>Los datos están en <a href="https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/" class="uri">https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/</a>, en dos ficheros <code>grado1.txt</code> y <code>grado2.txt</code>.</p>
+<p>Los datos están en <a href="https://github.com/joanby/estadistica-inferencial/" class="uri">https://github.com/joanby/estadistica-inferencial/</a>, en la carpeta <code>datasets</code> en dos ficheros <code>grado1.txt</code> y <code>grado2.txt</code>.</p>
 <p>Para bajarlos utilizad la dirección del los ficheros <code>raw</code> que se muestran en el siguiente código</p>
-<pre class="r"><code>G1=read.csv(&quot;https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado1.txt&quot;,header=TRUE)$x
-G2=read.csv(&quot;https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado2.txt&quot;,header=TRUE)$x
+<pre class="r"><code>G1=read.csv(
+  &quot;https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado1.txt&quot;,
+            header=TRUE)$x
+G2=read.csv(
+  &quot;https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/grado2.txt&quot;,
+  header=TRUE)$x
 
 n1=length(na.omit(G1))
 n2=length(na.omit(G2))
@@ -1779,7 +1781,7 @@ desv.tip.muestra2=sd(G2,na.rm=TRUE)</code></pre>
 \begin{array}{llll}
 n_1&amp;=50, &amp; n_2&amp;=50\\
 \overline{x}_1&amp;=9.7592926, &amp; \overline{x}_2&amp;=11.4660825\\
-\tilde{s}_1&amp;=1.1501225, &amp; \tilde{s}_1&amp;=1.5642932
+\tilde{s}_1&amp;=1.1501225, &amp; \tilde{s}_2&amp;=1.5642932
 \end{array}
 \]</span> Se pide:</p>
 <ol style="list-style-type: decimal">
@@ -1790,7 +1792,7 @@ n_1&amp;=50, &amp; n_2&amp;=50\\
 </ol>
 <div id="solución" class="section level3">
 <h3>Solución</h3>
-<p><strong>Apartado 1.</strong> El cogido R carga en las variables G1 y G2 la variables <code>x</code> de dos data frames de un servidor bioinfo.uib.es.</p>
+<p><strong>Apartado 1.</strong> El cogido R carga en las variables G1 y G2 la variables <code>x</code> de dos data frames de un servidor en github y por lo tanto hemos tenido que pasar la url del fichero original o <em>raw</em>.</p>
 <p>Luego calcula los estadísticos básicos para realizar las siguientes preguntas. Para los tamaños muestrales <span class="math inline">\(n_1\)</span> y <span class="math inline">\(n_2\)</span> se omiten los valores <code>NA</code> antes de asignar la <code>length</code> de los arrays. También se calculan las medias y las desviaciones típicas muestrales omitiendo (si es que hay) los valores no disponibles.</p>
 <p><strong>Apartado 2.</strong> Denotemos por <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span> las medias de las notas de los grupos 1 y 2 respectivamente. El contraste que se pide es</p>
 <p><span class="math display">\[
@@ -1799,7 +1801,7 @@ H_0:\mu_{1} = \mu_{2}\\
 H_1: \mu_{1} \not= \mu_{2}
 \end{array}\right.
 \]</span></p>
-<p>Estamos en un diseño de comparación de medias de dos grupos con dos muestras independientes de tamaño 50 grande. Tenemos dos casos varianzas desconocidas pero iguales y variazas desconocidas pero distintas. Las funciones de R des este contraste para estos casos son:</p>
+<p>Estamos en un diseño de comparación de medias de dos grupos con dos muestras independientes de tamaño 50 que es grande. Tenemos dos casos varianzas desconocidas pero iguales y varianzas desconocidas pero distintas. Las funciones de R del contraste para estos casos son:</p>
 <p><strong>Varianzas iguales</strong></p>
 <pre class="r"><code># test para varianzas iguales
 t.test(G1,G2,var.equal = TRUE,alternative = &quot;two.sided&quot;)</code></pre>
@@ -1829,7 +1831,7 @@ t.test(G1,G2,var.equal = FALSE,alternative = &quot;two.sided&quot;)</code></pre>
 ## mean of x mean of y 
 ##  9.759293 11.466083</code></pre>
 <p>El <span class="math inline">\(p\)</span>-valor en ambos casos es muy pequeño así que la muestra no aporta evidencias rechazar la hipótesis nula las medias son iguales contra que son distintas.</p>
-<p>Veamos en cálculo manual</p>
+<p>Veamos el cálculo manual.</p>
 <p><strong>Varianzas desconocidas pero iguales, <span class="math inline">\(n_1\)</span> y <span class="math inline">\(n_2\)</span> grande</strong></p>
 <p>Si suponemos que <span class="math inline">\(\sigma_1=\sigma_2\)</span>, el estadístico de contraste es <span class="math display">\[
 t0=\frac{\overline{X}_1-\overline{X}_2}
@@ -1840,8 +1842,24 @@ t0=\frac{\overline{X}_1-\overline{X}_2}
 \frac{((50-1) 1.1501225^2+(50-1)1.5642932^2)}
 {(50+50-2)}}}
 \]</span></p>
-<p>operando obtenemos que <span class="math inline">\(t0=-6.2159314.\)</span> y sabemos que sigue una distribución <span class="math inline">\(t\)</span>-Student <span class="math inline">\(t_{n_1+n_2-2}=t_{98}\)</span>. Para este hipótesis alternativa el <span class="math inline">\(p\)</span>-valor es</p>
+<pre class="r"><code>t0=(media.muestra1-media.muestra2)/sqrt((1/n1+1/n2)* 
+((n1-1) *desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
+t0</code></pre>
+<pre><code>## [1] -6.215931</code></pre>
+<p>operando obtenemos que <span class="math inline">\(t0=-6.215931.\)</span> y sabemos que sigue una distribución <span class="math inline">\(t\)</span>-Student <span class="math inline">\(t_{n_1+n_2-2}=t_{98}\)</span>. Para este hipótesis alternativa el <span class="math inline">\(p\)</span>-valor es</p>
 <p><span class="math inline">\(2\cdot P(t_{98}&gt;|-6.2159314|)\)</span>, lo calculamos con R</p>
+<pre class="r"><code>t0=(media.muestra1-media.muestra2)/sqrt((1/n1+1/n2)* 
+((n1-1) *desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
+t0</code></pre>
+<pre><code>## [1] -6.215931</code></pre>
+<pre class="r"><code>n1</code></pre>
+<pre><code>## [1] 50</code></pre>
+<pre class="r"><code>n2</code></pre>
+<pre><code>## [1] 50</code></pre>
+<pre class="r"><code>2*(1-pt(abs(t0),df=n1+n2-2)) # calculo la probabilidad del complementario</code></pre>
+<pre><code>## [1] 0.00000001247958</code></pre>
+<pre class="r"><code>2*pt(abs(t0),df=n1+n2-2,lower.tail = FALSE)# calcula el área la cola  superior</code></pre>
+<pre><code>## [1] 0.00000001247958</code></pre>
 <p><strong>Varianzas desconocidas pero distintas, <span class="math inline">\(n_1\)</span> y <span class="math inline">\(n_2\)</span> grande</strong></p>
 <p>Si suponemos que <span class="math inline">\(\sigma_1\neq \sigma_2\)</span>, el estadístico de contraste es <span class="math inline">\(t0=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f,\)</span> que, cuando <span class="math inline">\(\mu_1=\mu_2\)</span>, tiene distribución (aproximadamente, en caso de muestras grandes) <span class="math inline">\(t_{f}\)</span> con <span class="math display">\[
 f=\left\lfloor\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
@@ -1849,9 +1867,10 @@ f=\left\lfloor\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\wi
 \]</span></p>
 <p>Calculamos el estadístico y los grados de libertad con R</p>
 <pre class="r"><code>t0=(media.muestra1-media.muestra2)/sqrt(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)
-#calculo el valor dentro del floor que es el que utiliza R
-
-f1=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
+#calculo el valor dentro del floor que es el que utiliza la función t.test de R para este caso.
+t0</code></pre>
+<pre><code>## [1] -6.215931</code></pre>
+<pre class="r"><code>f1=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
   (1/(n1-1))*(desv.tip.muestra1^2/n1)^2+(1/(n2-1))*(desv.tip.muestra2^2/n2)^2)
 f1</code></pre>
 <pre><code>## [1] 89.99613</code></pre>
@@ -1860,10 +1879,10 @@ f=floor(f1)-2
 f  </code></pre>
 <pre><code>## [1] 87</code></pre>
 <p>El <span class="math inline">\(p\)</span> valor es</p>
-<pre class="r"><code># el pvañor de la función de R
+<pre class="r"><code># el p-valor de la función t.test de  R
 2*(pt(abs(t0),f1,lower.tail = FALSE))</code></pre>
 <pre><code>## [1] 0.00000001562353</code></pre>
-<pre class="r"><code># el pvalor propuesto en teoría
+<pre class="r"><code># el p-valor propuesto en teoría
 2*(pt(abs(t0),f,lower.tail = FALSE))</code></pre>
 <pre><code>## [1] 0.00000001713797</code></pre>
 <p><strong>Apartado 3</strong></p>
@@ -1879,7 +1898,7 @@ f  </code></pre>
 <p>Son similares, podemos asegurar que la diferencia de medias se encuentra <span class="math inline">\(-2.25&lt;\mu_1-\mu_2&lt; -1.16\)</span> al nivel del 95 el grupo 2 tiene una media entre 2.25 y 1.16 puntos mayor que el grupo 2 aproximadamente.</p>
 <p><strong>Apartado 4</strong> El test que nos piden es el de igualdad de varianzas</p>
 <p><span class="math display">\[\left\{\begin{array}{ll}H_0: &amp; \sigma_1^2=\sigma_2^2\\
-H_0: &amp; \sigma_1^2\not=\sigma_2^2\end{array}\right.\]</span></p>
+H_1: &amp; \sigma_1^2\not=\sigma_2^2\end{array}\right..\]</span></p>
 <p>El test de Fisher de igualdad de varianzas</p>
 <pre class="r"><code>var.test(G1,G2,alternative =&quot;two.sided&quot; )</code></pre>
 <pre><code>## 
@@ -1895,8 +1914,8 @@ H_0: &amp; \sigma_1^2\not=\sigma_2^2\end{array}\right.\]</span></p>
 ##            0.54057</code></pre>
 <p>Obtenemos un <span class="math inline">\(p\)</span>-valor alto no podemos rechazar la igualdad de varianzas.</p>
 <p>De forma manual el estadístico de este test sabemos que es</p>
-<p><span class="math display">\[f_0=\frac{\tilde{S_1}^1}{\tilde{S_2}^1}=\frac{1.3227818}{2.4470131}=0.54057.\]</span></p>
-<p>Que sigue una ley e Fisher y el <span class="math inline">\(p\)</span>_valor es <span class="math inline">\(\min\{2\cdot P(F_{n_1-1,+n_2-1}\leq f_0),2\cdot P(F_{n_1-1,+n_2-1}\geq f_0).\)</span></p>
+<p><span class="math display">\[f_0=\frac{\tilde{S_1}^2}{\tilde{S_2}^2}=\frac{1.3227818}{2.4470131}=0.54057.\]</span></p>
+<p>Que sigue una ley de distribución de Fisher y el <span class="math inline">\(p\)</span>_valor es <span class="math inline">\(\min\{2\cdot P(F_{n_1-1,+n_2-1}\leq f_0),2\cdot P(F_{n_1-1,+n_2-1}\geq f_0).\)</span></p>
 <p>que con R es</p>
 <pre class="r"><code>n1</code></pre>
 <pre><code>## [1] 50</code></pre>
@@ -1910,16 +1929,8 @@ pvalor</code></pre>
 <pre><code>## [1] 0.03420609</code></pre>
 <p>Obtenemos los mismos resultados que con la función <code>var.test</code>.</p>
 <p>El test de Levene con R tiene las mismas hipótesis que el anterior</p>
-<pre class="r"><code>library(car,quietly = TRUE)# pogo quietly para que quite avisos</code></pre>
-<pre><code>## 
-## Attaching package: &#39;car&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     recode</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     some</code></pre>
-<pre class="r"><code>notas=c(G1,G2)
+<pre class="r"><code>library(car,quietly = TRUE)# pongo quietly para que quite avisos
+notas=c(G1,G2)
 grupo=as.factor(c(rep(1,length(G1)),rep(2,length(G1))))
 leveneTest(notas~grupo)</code></pre>
 <div data-pagedtable="false">
@@ -1927,7 +1938,7 @@ leveneTest(notas~grupo)</code></pre>
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["F value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"1.802894","3":"0.1824648","_rn_":"group"},{"1":"98","2":"NA","3":"NA","_rn_":""}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>El <span class="math inline">\(p\)</span>-valor obtenido es alto así que el test de levene no aporta evidencias contra la igualdad de varianzas entre las notas de los dos grupos.</p>
+<p>El <span class="math inline">\(p\)</span>-valor obtenido es alto así que el test de Levene no aporta evidencias contra la igualdad de varianzas entre las notas de los dos grupos.</p>
 </div>
 </div>
 <div id="problema-2-contraste-dos-muestras" class="section level2">
@@ -2022,8 +2033,7 @@ t.test(x1,x2,var.equal = TRUE)</code></pre>
 prob</code></pre>
 <pre><code>## [1] 0.30103000 0.17609126 0.12493874 0.09691001 0.07918125 0.06694679 0.05799195
 ## [8] 0.05115252 0.04575749</code></pre>
-<pre class="r"><code>MM=rbind(c(1:9),prob)
-df=data.frame(rbind(prob))
+<pre class="r"><code>df=data.frame(rbind(prob))
 # Y hacemos una bonita tabla
 colnames(df)=paste(&quot;Díg.&quot;,c(1:9),sep =&quot; &quot;)
 knitr::kable(df,format =&#39;markdown&#39;)</code></pre>
@@ -2071,7 +2081,7 @@ knitr::kable(df,format =&#39;markdown&#39;)</code></pre>
 </table>
 <p>En general esta distribución se suele encontrar en tablas de datos de resultados de observaciones de funciones científicas, contabilidades, cocientes de algunas distribuciones …</p>
 <p>Por ejemplo se dice que las potencias de números enteros siguen esa distribución. Probemos con las potencias de 2. El siguiente código calcula las potencias de 2 de 1 a 1000 y extrae los tres primeros dígitos.</p>
-<pre class="r"><code># R pasa los enteros  muy grande a reales. Para nuestros propósitos 
+<pre class="r"><code># R puede según qué versión pasar los enteros  muy grande a reales. Para nuestros propósitos 
 # es suficiente para extraer los tres primeros dígitos.
 muestra_pot_2_3digitos=str_sub(as.character(2^c(1:1000)),1,3)
 head(muestra_pot_2_3digitos)</code></pre>
@@ -2520,7 +2530,7 @@ sol_aov</code></pre>
 <pre class="r"><code>datos_interes=read.table(
   &quot;https://www.itl.nist.gov/div898/education/anova/newcar.dat&quot;,
   skip=25)
-# salto las 25 primeras líneas del fichero,son un preámbulo qiue explica los datos.
+# salto las 25 primeras líneas del fichero,son un preámbulo que explica los datos.
 names(datos_interes)=c(&quot;interes&quot;,&quot;ciudad&quot;)
 str(datos_interes)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    54 obs. of  2 variables:
@@ -2727,7 +2737,7 @@ aciertos_absolutos_algoritmo2</code></pre>
 p2</code></pre>
 <pre><code>##     1 
 ## 0.874</code></pre>
-<p>Después de los cálculos preliminares si denotamos las proporciones poblacionales de aciertos de cada algoritmo por <span class="math inline">\(p_1\)</span> y <span class="math inline">\(p_2\)</span> respectivamentes, el contraste que nos piden es</p>
+<p>Después de los cálculos preliminares si denotamos las proporciones poblacionales de aciertos de cada algoritmo por <span class="math inline">\(p_1\)</span> y <span class="math inline">\(p_2\)</span> respectivamente, el contraste que nos piden es</p>
 <p><span class="math display">\[
 \left\{
 \begin{array}{ll}
@@ -2773,7 +2783,7 @@ x</code></pre>
 ## sample estimates:
 ## prop 1 prop 2 
 ##  0.792  0.874</code></pre>
-<p>Con ambos test obtenemos <span class="math inline">\(p\)</span> valores altos (el más pequeño es el de fisher y es mayor que <span class="math inline">\(0.4\)</span>, así que no podemos rechazar que las proporciones de aciertos de los dos algoritmos sean iguales contra que la proporción de aciertos del algoritmo 1 es mejor que la del 2.</p>
+<p>Con ambos test obtenemos <span class="math inline">\(p\)</span> valores altos (el más pequeño es el de Fisher y es mayor que <span class="math inline">\(0.4\)</span>, así que no podemos rechazar que las proporciones de aciertos de los dos algoritmos sean iguales contra que la proporción de aciertos del algoritmo 1 es mejor que la del 2.</p>
 <p>El intervalo de confianza asociado a este test es</p>
 <pre class="r"><code>prop.test(c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2), c(n1,n2),alternative=&quot;greater&quot;,conf.level=0.95)$conf.int</code></pre>
 <pre><code>## [1] -0.1225654  1.0000000
@@ -2956,7 +2966,7 @@ sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$m
 ##     Kurtosis Test: 0.2325 
 ## 
 ## Description:
-##  Wed Nov 11 11:42:00 2020 by user: t169</code></pre>
+##  Wed Nov 11 12:15:42 2020 by user: t169</code></pre>
 <pre class="r"><code>dagoTest(df$score[df$manufacturer==&quot;F6&quot;])</code></pre>
 <pre><code>## 
 ## Title:
@@ -2973,7 +2983,7 @@ sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$m
 ##     Kurtosis Test: 0.7333 
 ## 
 ## Description:
-##  Wed Nov 11 11:42:00 2020 by user: t169</code></pre>
+##  Wed Nov 11 12:15:42 2020 by user: t169</code></pre>
 <p>Parece que no podemos rechazar la normalidad para los casos dudosos.</p>
 <p>Ahora realizamos el test de comparación de medias <span class="math inline">\(\mu_i\)</span> para <span class="math inline">\(i=1,2,3,4,5,6\)</span> son las medias para cada nivel del factor.</p>
 <p><span class="math display">\[
@@ -3021,7 +3031,7 @@ duncan.test(resultado.anova,&quot;df$manufacturer&quot;,group=TRUE)$group</code>
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["df$score"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["groups"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"74.07499","2":"a","_rn_":"F3"},{"1":"71.61166","2":"ab","_rn_":"F2"},{"1":"70.47337","2":"b","_rn_":"F1"},{"1":"65.71299","2":"c","_rn_":"F6"},{"1":"64.07499","2":"c","_rn_":"F4"},{"1":"64.07499","2":"c","_rn_":"F5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>Obtenemos tres grupos el a dice la media de <span class="math inline">\(\mu_3=mu_2\)</span> el b dice que <span class="math inline">\(\mu_2=\mu_1\)</span> y el c dice que <span class="math inline">\(\mu_6=\mu_4=\mu_5\)</span>. Obtenemos conclusiones similares al test de comparación de medias.</p>
+<p>Obtenemos tres grupos el <strong>a</strong> dice la media de <span class="math inline">\(\mu_3=mu_2\)</span> el <strong>b</strong> dice que <span class="math inline">\(\mu_2=\mu_1\)</span> y el <strong>c</strong> dice que <span class="math inline">\(\mu_6=\mu_4=\mu_5\)</span>. Obtenemos conclusiones similares al test de comparación de medias.</p>
 </div>
 </div>
 <div id="problema-11-regresión-lineal-simple." class="section level2">
@@ -3052,7 +3062,7 @@ summary(lm(y~x))</code></pre>
 <li>Calcular manualmente los coeficiente de la regresión lineal de y sobre x</li>
 <li>Calcular los valores <span class="math inline">\(\hat{y}_i=b_0+b_1\cdot x_1\)</span> para los valores de la muestra y el error cometido.</li>
 <li>Calcular la estimación de la varianza del error.</li>
-<li>Resolver manualmente el contraste <span class="math inline">\(\left\{\begin{array}{ll} H_0: &amp; \beta_1=0 \\ H_1: &amp; \beta_1\not=0\end{array}\right.,\)</span> calculando el <span class="math inline">\(p\)</span>-valor.</li>
+<li>Resolver manualmente el contraste <span class="math inline">\(\left\{\begin{array}{ll} H_0: &amp; \beta_1=0 \\ H_1: &amp; \beta_1\not=0\end{array}\right. ,\)</span> calculando el <span class="math inline">\(p\)</span>-valor.</li>
 <li>Calcular <span class="math inline">\(SST\)</span>, <span class="math inline">\(SSR\)</span> y <span class="math inline">\(SSE\)</span>.</li>
 <li>Calcular el coeficiente de regresión lineal <span class="math inline">\(r_{xy}\)</span> y el coeficiente de determinación <span class="math inline">\(R^2\)</span>. Interpretad el resultado en términos de la cantidad de varianza explicada por el modelo</li>
 <li>Comprobar que los resultados son los mismos que los obtenidos con la función <code>summary(lm(y~x))</code>.</li>
@@ -3133,7 +3143,7 @@ n</code></pre>
 <pre class="r"><code>S2=SSE/(n-2)#estimacion_var_error
 S2</code></pre>
 <pre><code>## [1] 1.35625</code></pre>
-<pre class="r"><code>S=sqrt(S2)# Residual standard error: 1.165
+<pre class="r"><code>S=sqrt(S2)# Residual estándar error: 1.165
 S</code></pre>
 <pre><code>## [1] 1.164581</code></pre>
 <pre class="r"><code>round(S,3) # con los mismos decimales da lo mismo</code></pre>
@@ -3160,7 +3170,7 @@ SST</code></pre>
 <pre><code>## [1] 131.5</code></pre>
 <pre class="r"><code>mean(y_est)</code></pre>
 <pre><code>## [1] -0.5</code></pre>
-<pre class="r"><code>mean(y)#media estimados regresion igual a media variable y</code></pre>
+<pre class="r"><code>mean(y)#media estimados regresión igual a media variable y</code></pre>
 <pre><code>## [1] -0.5</code></pre>
 <pre class="r"><code>SSR=sum((y_est-mean(y))^2)
 SSR</code></pre>
@@ -3174,7 +3184,7 @@ R2</code></pre>
 <pre><code>## [1] 0.9587452</code></pre>
 <pre class="r"><code>cor(x,y)</code></pre>
 <pre><code>## [1] 0.9791554</code></pre>
-<pre class="r"><code>cor(x,y)^2# en el caso regre simp`le R2=cor(xy)^2</code></pre>
+<pre class="r"><code>cor(x,y)^2# en el caso regresión simple  R2=cor(xy)^2</code></pre>
 <pre><code>## [1] 0.9587452</code></pre>
 </div>
 </div>
@@ -3208,7 +3218,7 @@ head(data_links_central)</code></pre>
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["degree"],"name":[1],"type":["int"],"align":["right"]},{"label":["frequency"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"994","2":"213","_rn_":"995"},{"1":"995","2":"193","_rn_":"996"},{"1":"996","2":"157","_rn_":"997"},{"1":"997","2":"137","_rn_":"998"},{"1":"998","2":"178","_rn_":"999"},{"1":"999","2":"153","_rn_":"1000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>El siguiente código calcula las regresiones exponecial, potencial y lineal (en algún orden) de las frecuencias (<code>frequency</code>) contra los enlaces (<code>degree</code>).</p>
+<p>El siguiente código calcula las regresiones exponencial, potencial y lineal (en algún orden) de las frecuencias (<code>frequency</code>) contra los enlaces (<code>degree</code>).</p>
 <pre class="r"><code>sol1=lm(frequency~ degree,data=data_links_central)
 summary(sol1)</code></pre>
 <pre><code>## 
@@ -3351,7 +3361,7 @@ summary(sol3)</code></pre>
 ## F-statistic: 7.557e+04 on 1 and 989 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Así que</p>
 <ul>
-<li>el primero es <span class="math inline">\(frequency = b_0+b_1\cdot degree\)</span> que es el modelo LINEAL que resuelve la fución <code>lm</code>.</li>
+<li>el primero es <span class="math inline">\(frequency = b_0+b_1\cdot degree\)</span> que es el modelo LINEAL que resuelve la función <code>lm</code>.</li>
 <li>el segundo es <span class="math inline">\(\log_{10}(frequency) = b_0+b_1\cdot degree\)</span> que operando adecuadamente es</li>
 </ul>
 <p><span class="math inline">\(10^{\log_{10}(frequency)}=10^{b_0}\cdot 10^{b_1\cdot degree}\)</span> operando obtenemos que el modelo final es un modelo EXPONENCIAL <span class="math inline">\(frequency=10^{b_0}\cdot \left(10^{b_1}\right)^{degree}\)</span>. * el tercer modelo es <span class="math inline">\(\log_{10}(frequency) = b_0+b_1\cdot \log_{10}(degree)\)</span> que despejando es <span class="math inline">\(10^{\log_{10}(frequency)}=10^{b_0}\cdot \left(10^{\left(\log_{10}(degree)\right)}\right)^{b_1}\)</span> operando obtenemos que el modelo final es un modelo POTENCIAL <span class="math inline">\(frequency=10^{b_0}\cdot degree^{b_1}.\)</span></p>
@@ -3395,7 +3405,7 @@ abline(sol3,col=&quot;red&quot;)</code></pre>
 ## Residual standard error: 0.09674 on 989 degrees of freedom
 ## Multiple R-squared:  0.9871, Adjusted R-squared:  0.9871 
 ## F-statistic: 7.557e+04 on 1 and 989 DF,  p-value: &lt; 0.00000000000000022</code></pre>
-<p>Los estimadores son <span class="math inline">\(b_0=8.722036\)</span> y <span class="math inline">\(b_1=-2.170129\)</span> el modelo es <span class="math inline">\(frequency=10^{b_0}\cdot degree^{b_1}\)</span>. Sustitutendo los valores el modelo obtenemos <span class="math inline">\(frequency=10^{8.722036}\cdot degree^{-2.170129}\)</span>, finalmente operando</p>
+<p>Los estimadores son <span class="math inline">\(b_0=8.722036\)</span> y <span class="math inline">\(b_1=-2.170129\)</span> el modelo es <span class="math inline">\(frequency=10^{b_0}\cdot degree^{b_1}\)</span>. Sustituyendo los valores el modelo obtenemos <span class="math inline">\(frequency=10^{8.722036}\cdot degree^{-2.170129}\)</span>, finalmente operando</p>
 <p><span class="math display">\[frequency=527273566.93254\cdot degree^{-2.170129}.\]</span></p>
 <p>No se pedía en el ejercicio pero hacemos el dibujo de los datos y la ecuación en las unidades originales</p>
 <pre class="r"><code>frequency=data_links_central$frequency
