@@ -1,0 +1,968 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Resumen de inferencia estadísitica},
+  pdfauthor={Luis Gerardo Guzmán Rojas},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Resumen de inferencia estadísitica}
+\author{Luis Gerardo Guzmán Rojas}
+\date{9/28/2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{intervalo-de-confianza-para-la-media-poblacional-con-desviaciuxf3n-tuxedpica-conocida}{%
+\section{Intervalo de confianza para la media poblacional con desviación
+típica
+conocida}\label{intervalo-de-confianza-para-la-media-poblacional-con-desviaciuxf3n-tuxedpica-conocida}}
+
+Sea \(X\) una variable aleatoria con media poblacional \(\mu\)
+desconocida y desviación típica poblacional \(\sigma\) conocida (a la
+práctica, usualmente, estimada en un experimento anterior)
+
+Sea \(X_1,.......,X_n\) una m.a.s de \(X\), con una media muestral
+\(\overline{X}\)
+
+Queremos determinar un intervalo de confianza para \(\mu\) con un cierto
+nivel de confianza (digamos, 97.5\%, \(\alpha\) = 0.025): un intervalo
+(A,B) tal que \[P(A < \mu < B) = 1 - \alpha = 0.975\] Bajo estas
+condiciones, sabemos que
+\[Z = \frac{\overline{X}-\mu} {\sigma \sqrt{n}}\] sigue una distribución
+normal estandar.
+
+Entonces el intervalo de confianza estará dado por
+\[P(-Z_{1-\frac{\alpha}{2}} < Z < Z_{1-\frac{\alpha}{2}}) = 1 - \alpha\]
+sustituyendo \(Z = \frac{\overline{X}-\mu} {\sigma \sqrt{n}}\)
+\[P(-Z_{1-\frac{\alpha}{2}} < \frac{\overline{X}-\mu} {\sigma \sqrt{n}} < Z_{1-\frac{\alpha}{2}}) = 1 - \alpha\]
+\[P(\overline{X}-Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} < \mu < \overline{X}+Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}) = 1 - \alpha\]
+Entonces, el intervalo de confianza estará definido por
+\[(\overline{X}-Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \overline{X}+Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}})\]
+donde \(Z_{1 - \frac{\alpha}{2}}\) es el (\(1 - \frac{\alpha}{2}\))
+cuantil de la normal estándar Z (es decir,
+\(Z_{1-\frac{\alpha}{2}} = F^{-1}_Z(1-\frac{\alpha}{2})\), o
+\(P(Z <= Z_{1-\frac{\alpha}{2}} = 1-\frac{\alpha}{2})\).
+
+Lo que nos dice este intervalo es que el \(1 - \alpha\)\% de las veces
+que tomemos una muestra de tamaño n de \(X\), el verdadero valor de
+\(\mu\) caéra dentro de este intervalo.
+
+\hypertarget{amplitud-del-intervalo-de-confianza}{%
+\subsection{Amplitud del intervalo de
+confianza}\label{amplitud-del-intervalo-de-confianza}}
+
+La amplitud A del intervalo de confianza a un nivel 100 *
+(\(1-\alpha\))\% de confianza será:
+\[A = \overline{X}+ Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}-(\overline{X}- Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}) = 2\cdot Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\]
+
+\hypertarget{error-muxe1ximo-cometido.}{%
+\subsection{Error máximo cometido.}\label{error-muxe1ximo-cometido.}}
+
+El error máximo, al nivel de confianza 100 \(\cdot (1- \alpha)\)\%, que
+cometemos al estimar \(\mu\) por \(\overline{X}\) es la mitad de la
+amplitud, \[Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\]
+
+\hypertarget{tamauxf1o-n-muxednimo}{%
+\subsection{Tamaño n mínimo}\label{tamauxf1o-n-muxednimo}}
+
+El tamaño n mínimo de la muestra para asegurar que el intervalo de
+confianza \(\mu\) al nivel de confianza (\(1-\alpha\)) tenga una
+amplitud prefijada máxima \(A_0\) o un error máximo \(\frac{A_0}{2}\)
+
+Usando que la amplitud máxima tiene que ser \(A_0\) tenemos que se tiene
+que verificar
+\(A_0 \geq 2 \cdot Z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\)
+Despejando n de la expresión anterior, tendremos que el tamaño de la
+muestra mínimo será:
+\[n \geq (2 \cdot z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}})^2\]
+
+\hypertarget{intervalos-de-confianza-para-el-paruxe1metro-mu-de-una-poblaciuxf3n-normal-con-sigma-desconocida}{%
+\section{\texorpdfstring{Intervalos de confianza para el parámetro
+\(\mu\) de una población normal con \(\sigma\)
+desconocida}{Intervalos de confianza para el parámetro \textbackslash mu de una población normal con \textbackslash sigma desconocida}}\label{intervalos-de-confianza-para-el-paruxe1metro-mu-de-una-poblaciuxf3n-normal-con-sigma-desconocida}}
+
+Recordemos que para hallar el intervalo de confianza para el parámetro
+\(\mu\) de una población normal, la clave era la variable aleatoria
+\(\frac{\overline{X}-\mu} {\sigma \sqrt{n}}\).El problema es que ahora
+no la podemos usar al no concoer \(\sigma\).
+
+Lo que haremos será sustituir la desviación típica poblacional
+\(\sigma\) por la desviación típica muestral \(\tilde{S_X}\) y nos
+quedará: \(\frac{\overline{X}-\mu}{\frac{\tilde{S_X}}{\sqrt{n}}}\),
+donde \(\overline{X}\) es la media muestral y n, el tamaño de la
+muestra.
+
+La distribución de la variable anterior
+\(\frac{\overline{X}-\mu}{\frac{\tilde{S_X}}{\sqrt{n}}}\), no será
+normal sino \(t\) de Student con \(n-1\) grados de libertad como nos
+dice el teorema siguiente:
+
+\textbf{Teorema:} Sea \(X \sim N(\mu, \sigma)\). Sea \(X_1,....,X_n\)
+una m.a.s. de \(X\), con media \(\overline{X}\) y desviación típica
+muestral \(\tilde{S_X}\). En estas condiciones, la v.a.
+\(t = \frac{\overline{X}-\mu}{\frac{\tilde{S_X}}{\sqrt{n}}}\), sigue una
+distribución t de Student con \(n-1\) grados de libertad, \(t_{n-1}\).
+
+Consideraremos la situación siguiente: * \(X\) una v.a. normal con
+\(\mu\) y \(\sigma\) desconocidas. * \(X_1,.....,X_n\) una m.a.s. de
+\(X\) de tamaño \(n\) con media \(\overline{X}\) y varianza muestral
+\(\tilde{S_X}\)
+
+\textbf{Intervalo de confianza para el parámetro \(\mu\)}. En estas
+condiciones, un intervalo de confianza del (\(1-\alpha\))\%
+\(\cdot 100\)\% para el parámetro \(\mu\) de una población normal con
+\(\sigma\) desconocida y n cualquiera es
+\[(\overline{X}-t_{n-1,1-\frac{\alpha}{2}}\frac{\tilde{S_X}}{\sqrt{n}},\overline{X}+t_{n-1,1-\frac{\alpha}{2}}\frac{\tilde{S_X}}{\sqrt{n}})\]
+
+\hypertarget{si-n-es-grande-n-geq-40}{%
+\subsection{\texorpdfstring{Si n es grande
+(\(n \geq 40\))}{Si n es grande (n \textbackslash geq 40)}}\label{si-n-es-grande-n-geq-40}}
+
+En estas condiciones, si \(n\) es grande
+\(t_{n-1,1-\frac{\alpha}{2}} \approx Z_{1-\frac{\alpha}{2}}\) usando el
+\textbf{Teorema central del límite}
+\(\frac{\overline{X}-{\mu}}{\frac{\sigma}{\sqrt{n}}} \approx N(0,1)\)
+podemos aproximar el intervalo de confianza anterior mediante la
+expresion siguiente:
+\[(\overline{X}-z_{1-\frac{\alpha}{2}}\frac{\tilde{S_X}}{\sqrt{n}},\overline{X}+z_{1-\frac{\alpha}{2}}\frac{\tilde{S_X}}{\sqrt{n}})\]
+\textbf{La amplitud} de
+\[(\overline{X}-z_{1-\frac{\alpha}{2}}\frac{\tilde{S_X}}{\sqrt{n}},\overline{X}+z_{1-\frac{\alpha}{2}}\frac{\tilde{S_X}}{\sqrt{n}})\]
+es \(A = 2z_{1-\frac{\alpha}{2}}\frac{\tilde{S_X}}{\sqrt{n}}\).
+
+\hypertarget{tamauxf1o-de-la-muestra-n}{%
+\subsection{\texorpdfstring{Tamaño de la muestra
+(\(n\))}{Tamaño de la muestra (n)}}\label{tamauxf1o-de-la-muestra-n}}
+
+Para determinar \(n (grande)\) que denomina como máximo una amplitud
+\(A\) prefijada, necesitamos \(\tilde{S_X}\), que depende de la muestra.
+
+Soluciones: * Si sabemos la desviación típica poblacional \(\sigma\). la
+utilizaremos en lugar de \(\tilde{S_X}\). * Si hemos tomado una muestra
+previa (piloto), emplearemos la desviación t+ipica de esta
+\textbf{muestra piloto} para estimar \(\sigma\).
+
+Estimaremos que el tamaño mínimo \(n\) de una m.a.s. de \(X\) que de un
+intervalo de confianza I.C. para \(\mu\) de una población normal con
+\(\sigma\) desconocida de nivel de confianza (\(1-\alpha\)) y amplitud
+máxima \(A_0\) es
+\[n = \left\lceil\left(2z_{1-\frac{\alpha}{2}}\frac{\tilde{S}_(piloto)}{\sqrt{n}}\right)^2\right\rceil\]
+
+\hypertarget{muxe9todo-exacto-de-clopper-pearson-para-el-intervalo-de-confianza-para-la-proporciuxf3n-hatp}{%
+\section{\texorpdfstring{Método exacto de Clopper-Pearson para el
+intervalo de confianza para la proporción
+\(\hat{p}\)}{Método exacto de Clopper-Pearson para el intervalo de confianza para la proporción \textbackslash hat\{p\}}}\label{muxe9todo-exacto-de-clopper-pearson-para-el-intervalo-de-confianza-para-la-proporciuxf3n-hatp}}
+
+Consideraremos lo siguiente: * \(X\) una variable Bernoulli con p
+desconocido. * \(X_1,.....,X_n\) una m.a.s. de \(X\), con número de
+éxitos \(x\) y por tanto la frecuencia relativa de éxitos es
+\(\hat{p}_x = \frac{x}{n}\).
+
+En este caso, la distribución de la variable \(Y\) = ``número de éxitos
+en la muestra'' es binomial de parámetros n y p, \(Y\) es \(B(n,p)\)
+
+\textbf{Definición.} Un intervalo de confianza \(p_0,p_1\) del
+(\(1 -\alpha\))100\% nivel de confianza para \(p\) de una población
+\(X\) de Bernoulli se obtiene encontrando el \(p_0\) más grande y el
+\(p_1\) más pequeño tales que
+\[\sum_{k=x}^{n}\binom{n}{k} \cdot p^k_0 \cdot (1-p_0)^{n-k} \leq \frac{\alpha}{2}, \sum_{k=0}^{x}\binom{n}{k} \cdot p^k_0 \cdot (1-p_0)^{n-k} \leq \frac{\alpha}{2}\]
+Para hallar un intervalo de confianza para la proporción poblacional en
+R según el metodo de Clopper-Pearson, hay que usar la función
+\textbf{binom.exact} del paquete \textbf{epitools.}
+\(binom.exact(x,n,conf.level)\). donde \(x\) y \(n\) representan,
+respectivamente, el número de éxitos y el tamaño de la muestra
+respectivamente y conf.level es el (\(1-\alpha\)), el nivel de confianza
+en tanto por uno.
+
+\hypertarget{caso-del-tamauxf1o-n-geq-40}{%
+\subsection{\texorpdfstring{Caso del tamaño
+\(n \geq 40\)}{Caso del tamaño n \textbackslash geq 40}}\label{caso-del-tamauxf1o-n-geq-40}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(X\) una variable Bernoulli con p desconocido.
+\item
+  \(X_1,.....,X_n\) una m.a.s. de \(X\), con \(n\) grande y frecuencia
+  relativa de éxitos \(\hat{p}_x\).
+\end{itemize}
+
+En estas condiciones por el \textbf{Teorema Central del Límite},
+\[Z = \frac{\hat{p}_X-p}{\sqrt{\frac{p(1-p)}{n}}} \approx N(0,1)\] Por
+lo tanto
+\[P(-Z_{1-\frac{\alpha}{2}} < \frac{\hat{p}_X-p}{\sqrt{\frac{p(1-p)}{n}}} < Z_{1-\frac{\alpha}{2}}) = 1 - \alpha\]
+El problema es que no conocemos p\ldots.
+
+La literatura plantea entre otras soluciones: * El \textbf{método de
+Wilson.} * La solución de \textbf{Laplace} (1812).
+
+\hypertarget{muxe9todo-de-wilson}{%
+\subsection{Método de Wilson}\label{muxe9todo-de-wilson}}
+
+\textbf{Definición.} En estas condiciones, un intervalo de confianza del
+(\(1-\alpha\)) \(\cdot\) \%100 I.C. para \(p\) (donde
+\(\hat{q}_X = 1-\hat{p}_X\)) es:
+\[\left(\frac{\hat{p}_X + \frac{Z_{1-\frac{\alpha}{2}}}{2n}- Z_{1-\frac{\alpha}{2}}\sqrt{\frac{\hat{p}_X\hat{q}_X}{n}+ \frac{Z_{1-\frac{\alpha}{2}}}{4n^2}}}{1+\frac{Z_{1-\frac{\alpha}{2}}}{n}}, \frac{\hat{p}_X + \frac{Z_{1-\frac{\alpha}{2}}}{2n}+ Z_{1-\frac{\alpha}{2}}\sqrt{\frac{\hat{p}_X\hat{q}_X}{n}+ \frac{Z_{1-\frac{\alpha}{2}}}{4n^2}}}{1+\frac{Z_{1-\frac{\alpha}{2}}}{n}}\right)\]
+Para hallar un intervalo de confianza para la proporción poblacional en
+R según el metodo de Wilson, hay que usar la función
+\textbf{binom.wilson} del paquete \textbf{epitools.}
+\(binom.wilson(x,n,conf.level)\). donde \(x\) y \(n\) representan,
+respectivamente, el número de éxitos y el tamaño de la muestra
+respectivamente y conf.level es el (\(1-\alpha\)), el nivel de confianza
+en tanto por uno.
+
+\hypertarget{fuxf3rmula-de-laplace}{%
+\subsection{Fórmula de Laplace}\label{fuxf3rmula-de-laplace}}
+
+Supongamos que la muestra aleatoria simple es considerablemente más
+grande que la usada en el método de Wilson y que ,además, la proporción
+muestral de éxitos \(\hat{p}_X\) esta alejada de 0 y 1. * O sea,
+\(n \geq 100\) y que \(n\hat{p}_X \geq 10\) y \(n(1-\hat{p}_X \geq 10\).
+* En este caso, podemos usar la fórmula de Laplace:
+
+\[\hat{p}_X \pm z_{1-\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\]
+
+\hypertarget{fuxf3rmula-de-laplace.-amplitud}{%
+\subsection{Fórmula de Laplace.
+Amplitud}\label{fuxf3rmula-de-laplace.-amplitud}}
+
+La \textbf{amplitud} del intervalo de confianza usando la fórmula de
+Laplace es \[A = 2z_{1-\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\] No
+podemos determinar el tamaño de la muestra para que el intervalo de
+confianza tenga como máximo una cierta amplitud sin conocer
+\(\hat{p}_X\).
+
+Para esto vamos a considerar que estamos en el peor de los casos. O sea,
+usando \(\hat{p}_X \in [0,1]\), nos planteamos hallar el máximo de la
+expresión \(\hat{p}_X(1-\hat{p}_X)\) que aparece en la fórmula de la
+amplitud.
+
+El máximo de la función anterior, para \(\hat{p}_X \in [0,1]\) se
+alcanza en \(\hat{p}_X = \frac{1}{2}\) y dicho máximo vale
+\(\frac{1}{4}\).
+
+En resumen, calcularemos \(n\) para obtener una amplitud máxima \(A_0\)
+suponiendo el peor de los casos (\(\hat{p}_X = .05\))
+\[A_0 \geq 2z_{1-\frac{\alpha}{2}}\sqrt{\frac{(.5)^2}{n}} = \frac{z_{1-\frac{\alpha}{2}}}{n} \implies n \geq \left\lceil  \frac{z_{1-\frac{\alpha}{2}}}{A_0^2} \right\rceil\]
+
+\hypertarget{intervalo-de-confianza-para-la-varianza-de-una-poblaciuxf3n-normal}{%
+\section{Intervalo de confianza para la varianza de una población
+normal}\label{intervalo-de-confianza-para-la-varianza-de-una-poblaciuxf3n-normal}}
+
+Consideremos la siguiente situación:
+
+Consideramos una \(X\) una v.a. normal con \(\mu\) y \(\sigma\)
+desconocidas. Sea \(X_1,......,X_n\) una m.a.s. de \(X\) y varianza
+muestral \(\tilde{S^2}_X\).
+
+En estas condiciones tenemos el siguiente:
+
+\textbf{Teorema.} La variable aleatoria
+\(\frac{n-1\tilde{S^2}_X}{\sigma^2}\) se distribuye según una
+distribución \(\chi^2_{n-1}\)
+
+\textbf{Teorema.} En las condiciones anteriores, un intervalo de
+confianza del (\(1-\alpha\)) \(\cdot\) 100 \% para la varianza
+\(\sigma^2\) de la población \(X\) es
+\[\frac{n-1\tilde{S^2}_X}{\chi^2_{n-1,1-\frac{\alpha}{2}}},\frac{n-1\tilde{S^2}_X}{\chi^2_{n-1,\frac{\alpha}{2}}}\]
+donde \(\chi^2_{\nu,q}\) es el q-cuantil de la distribución
+\(\chi^2_\nu\)
+
+Para hallar un intervalo de confianza para la varianza poblacional en R
+hay que usar la función \textbf{varTest} del paquete EnvStats:
+\textbf{varTest(X,conf.level)\$conf.int} donde X es el vector que
+contiene la muestra y conf.level el nivel de confianza, que por defecto
+es igual a 0.95.
+
+\hypertarget{bootstrap-o-remuestreo}{%
+\section{Bootstrap o remuestreo}\label{bootstrap-o-remuestreo}}
+
+Cuando no se satisfacen las condiciones teóricas que garantizan que el
+intervalo obtenido contiene el 95 \% de las veces el parámetro
+poblacional deseado, podemos recurrir a un \textbf{método no
+paramétrico.} El más utilizado es el bootstrap, que básicamente consiste
+en:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Remuestrear la muestra:} tomar muchas muestras aleatorias
+  simples de la muestra de la que disponemos, cada una de ellas del
+  mismo tamaño que la muestra original (pero simples, es decir, con
+  reposición).
+\item
+  Calcular el estimador sobre cada una de estas submuestras.
+\item
+  Organizar los resultados en un vector.
+\item
+  Usar este vector para calcular un intervalo de confianza.
+\end{enumerate}
+
+\hypertarget{bootstrap-muxe9todo-de-los-percentiles}{%
+\section{Bootstrap: método de los
+percentiles}\label{bootstrap-muxe9todo-de-los-percentiles}}
+
+La manera más sencilla de llevar a cabo el cálculo final del intervalo
+de confianza es el llamado \textbf{método de los percentiles}, en el que
+se toman como extremos del intervalo de confianza del (\(1-\alpha\))
+\(\cdot\) 100 \% los cuantiles de orden \(\frac{\alpha}{2}\) y
+\(\frac{1-\alpha}{2}\) del vector de estimadores.
+
+\textbf{Ejemplo.} Usaremos la función replicate de R para calcular las
+varianzas de 1000 muestras ``remuestradas'' de nuestra muestra original:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"iris"}\NormalTok{)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{flores.elegidas =}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{150}\NormalTok{,}\DecValTok{60}\NormalTok{,}\DataTypeTok{replace=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{X=}\KeywordTok{replicate}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\KeywordTok{var}\NormalTok{(}\KeywordTok{sample}\NormalTok{(iris[flores.elegidas,]}\OperatorTok{$}\NormalTok{Petal.Length,}\DataTypeTok{replace=}\OtherTok{TRUE}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+A continuación hallamos el intervalo de confianza al 95 \% (\(1-\alpha\)
+= 0,95) calculando los cuantiles del método: (cuantiles de orden
+\(\frac{\alpha}{2}= 0.025\) y \(\frac{1-\alpha}{2} = 0.975\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha =}\StringTok{ }\FloatTok{0.05}
+\NormalTok{IC.boot=}\KeywordTok{c}\NormalTok{(}\KeywordTok{quantile}\NormalTok{(X,alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{),}\KeywordTok{quantile}\NormalTok{(X,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{))}
+\KeywordTok{round}\NormalTok{(IC.boot,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  2.5% 97.5% 
+##  2.41  3.49
+\end{verbatim}
+
+Para aplicar el método de los percentiles en R, podemos usar la función
+\textbf{boot} del paquete boot: \textbf{boot(X,estadístico,R)}
+
+donde: * \(X\) es el vector que forma la muestra de la que disponemos *
+R es el número de muestras que queremos extraer de la muestra original.
+* El \textbf{estadístico} es la función que calcula el estadístico
+deseado de la submuestra, y tiene que tener dos parámetros: el primero
+representa la muestra original X y el segundo representa el vector de
+índices de una m.a.s. de X.
+
+\textbf{Ejemplo anterior} Vamos a aplicar la función boot al ejemplo
+anterior definiendo primero el estadístico a usar que sería la varianza
+en nuestro caso.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(boot)}
+\NormalTok{var.boot=}\ControlFlowTok{function}\NormalTok{(X,índices)\{}\KeywordTok{var}\NormalTok{(X[índices])\}}
+\NormalTok{simulación=}\KeywordTok{boot}\NormalTok{(iris[flores.elegidas,]}\OperatorTok{$}\NormalTok{Petal.Length,var.boot,}\DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+El intervalo de confianza viene dado por la función boot.ci:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boot.ci}\NormalTok{(simulación)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in boot.ci(simulación): bootstrap variances needed for studentized
+## intervals
+\end{verbatim}
+
+\begin{verbatim}
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = simulación)
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   ( 2.533,  3.583 )   ( 2.533,  3.597 )  
+## 
+## Level     Percentile            BCa          
+## 95%   ( 2.415,  3.479 )   ( 2.527,  3.540 )  
+## Calculations and Intervals on Original Scale
+\end{verbatim}
+
+\hypertarget{guuxeda-ruxe1pida}{%
+\section{Guía rápida}\label{guuxeda-ruxe1pida}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{t.test(X, conf.level=\ldots)\$conf.int} calcula el intervalo
+  de confianza del conf.level×100 \% para la media poblacional usando la
+  fórmula basada en la t de Student aplicada a la muestra X.
+\item
+  \textbf{binom.exact(x,n,conf.level=\ldots)} del paquete epitools,
+  calcula el intervalo de confianza del conf.level×100 \% para la
+  proporción poblacional aplicando el método de Clopper-Pearson a una
+  muestra de tamaño n con x éxitos.
+\item
+  \textbf{binom.wilson(x,n,conf.level=\ldots)} del paquete epitools,
+  calcula el intervalo de confianza del conf.level×100 \% para la
+  proporción poblacional aplicando el método de Wilson a una muestra de
+  tamaño n con x éxitos.
+\item
+  \textbf{binom.approx(x,n,conf.level=\ldots)} del paquete epitools,
+  calcula el intervalo de confianza del conf.level×100 \% para la
+  proporción poblacional aplicando la fórmula de Laplace a una muestra
+  de tamaño n con x éxitos.
+\item
+  \textbf{varTest(X,conf.level=\ldots)\$conf.int} del paquete EnvStats,
+  calcula el intervalo de confianza del conf.level×100 \% para la
+  varianza poblacional usando la fórmula basada en la khi cuadrado
+  aplicada a la muestra X.
+\item
+  \textbf{boot(X,E,R)} del paquete boot, lleva a cabo una simulación
+  bootstrap, tomando R submuestras del vector X y calculando sobre ellas
+  el estadístico representado por la función E.
+\item
+  \textbf{boot.ci} del paquete boot, aplicado al resultado de una
+  función boot, calcula diversos intervalos de confianza a partir del
+  resultado de la simulación efectuada con boot. El nivel de confianza
+  se especifica con el parámetro conf.
+\end{itemize}
+
+\hypertarget{contrastes-de-hipuxf3tesis-paramuxe9tricos}{%
+\section{Contrastes de hipótesis
+paramétricos}\label{contrastes-de-hipuxf3tesis-paramuxe9tricos}}
+
+Para que la estadística inferencial sea útil no solo necesitamos estimar
+un valor sino que además tendremos que tomar una decisión apoyada en los
+datos (muestras) que acepte o rechace alguna afirmación relativa al
+valor de un parámetro.
+
+En un \textbf{contraste de hipótesis}, se contrastan dos hipótesis
+alternativas: la hipótesis nula \(H_0\) y la hipótesis alternativa
+\(H_1\).
+
+\begin{itemize}
+\tightlist
+\item
+  La hipótesis alternativa \(H_1\) es de la que buscamos evidencia.
+\item
+  La hipótesis nula \(H_0\) es la que rechazaremos si obtenemos
+  evidencia de la hipótesis alternativa.
+\end{itemize}
+
+Si no obtenemos evidencia a favor de \(H_1\), no podemos rechazar
+\(H_0\) (diremos que aceptamos \(H_0\), pero es un abuso de lenguaje).
+
+\hypertarget{los-contrastes-de-hipuxf3tesis}{%
+\subsection{Los contrastes de
+hipótesis}\label{los-contrastes-de-hipuxf3tesis}}
+
+\textbf{Definición.} Un contraste de hipótesis
+
+\[\begin{cases}
+H_0: \text{hipótesis nula} \\
+H_1: \text{hipótesis alternativa} 
+\end{cases}\]
+
+Consiste en plantear dos hipótesis: * Hipótesis nula \(H_0\): es la
+hipótesis que ``por defecto'' aceptamos como verdadera, y que rechazamos
+si hay pruebas en contra, * Hipótesis alternativa \(H_1\): es la
+hipótesis contra la que contrastamos la hipótesis nula y que aceptamos
+cuando rechazamos la nula,y generar una regla de decisión para rechazar
+o no la hipótesis nula a partir de la información contenida en una
+muestra.
+
+En un juicio, tenemos que declarar a un acusado inocente o culpable.O
+sea, se plantea el contraste siguiente:
+
+\[\begin{cases}
+H_0: \text{El acusado es inocente} \\
+H_1: \text{El acusado es culpable} 
+\end{cases}\]
+
+Las pruebas serían los elementos de la muestra.
+
+Si el jurado encuentra pruebas suficientemente incriminatorias, declara
+culpable al acusado (rechaza \(H_0\) en favor de \(H_1\)).
+
+En caso contrario, si no las encuentra suficientemente incriminatorias,
+le declara no culpable (no rechaza \(H_0\)).
+
+Considerar no culpable \(\neq\) declarar inocente.
+
+Las pruebas tienen que aportar evidencia de \(H_1\), lo que nos
+permitirá rechazar \(H_0\).Es imposible encontrar evidencias de que
+\(\mu\) sea igual a un cierto valor \(\mu_0\). En cambio, sí que es
+puede hallar evidencias de que \(\mu < \mu_0\), o de que
+\(\mu > \mu_0\), o que \(\mu \neq \mu_0\).
+
+En este contexto: \(H_1\) se define con \textgreater, \textless, o
+\(\neq\). \(H_0\) se define con =, \(\leq\), o \(\geq\).
+
+\(H_1\) es la hipótesis de la que podemos hallar pruebas
+incriminatorias, \(H_0\) la que estamos dispuestos a aceptar si no hay
+pruebas en contra.
+
+\hypertarget{tipos-de-hipuxf3tesis-alternativas}{%
+\subsection{Tipos de hipótesis
+alternativas}\label{tipos-de-hipuxf3tesis-alternativas}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hipótesis unilateral} (one-sided, también de una cola,
+  one-tailed): \(H\): \(\theta > \theta_0\) o \(H\):
+  \(\theta < \theta_0\).
+\item
+  \textbf{Hipótesis bilateral} (two-sided, también de dos colas,
+  two-tailed): \(H\): \(\theta > \theta_0\).
+\end{itemize}
+
+Los tests suelen tomar el nombre de la hipótesis alternativa: test
+unilateral, test de dos colas, etc.
+
+\hypertarget{tipos-de-errores}{%
+\subsection{Tipos de errores}\label{tipos-de-errores}}
+
+La tabla siguiente resume los 4 casos que se pueden dar dependiendo de
+la decisión tomada:
+
+\begin{longtable}[]{@{}lcc@{}}
+\toprule
+Decisión/Realidad & \(H_0\) cierta & \(H_0\) falsa\tabularnewline
+\midrule
+\endhead
+Aceptar \(H_0\) & Decisión correcta & Error Tipo II\tabularnewline
+& Probabilidad=\(1-\alpha\) & Probabilidad=\(\beta\)\tabularnewline
+Rechazar \(H_0\) & Error Tipo I & Decisión correcta\tabularnewline
+& Probabilidad=\(\alpha\) & Probabilidad=\(1-\beta\)\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Error de Tipo I:} rechazar \(H_0\) cuando es cierta. La
+  probabilidad de cometerlo es:
+\end{itemize}
+
+\[P (\text{Error Tipo I}) = P (\text{Rechazar } H_0|H_0\text{ cierta}) = \alpha\],
+
+donde \(\alpha\) es el nivel de significación del contraste.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Error de Tipo II:} aceptar \(H_0\) cuando es falsa. La
+  probabilidad de cometerlo es:
+\end{itemize}
+
+\[P (\text{Error Tipo II}) = P (\text{Aceptar } H_0| H_0\text{ falsa}) = \beta\]
+
+donde, \(1-\beta = P (\text{Rechazar } H_0| H_0\text{ falsa})\) es la
+potencia de prueba.
+
+En un juicio, se declarar un acusado inocente o culpable.
+
+\begin{itemize}
+\tightlist
+\item
+  El \textbf{Error de Tipo I} sería declarar culpable a un inocente.
+\item
+  El \textbf{Error de Tipo II} sería declarar no culpable a un culpable.
+\end{itemize}
+
+Es más grave desde el punto de vista ético cometer un error tipo I ya
+que es peor castigar a un inocente que perdonar a un culpable. Por
+tanto, conviene minimizarlo.
+
+En el desastre natural, damos la alerta si \(\mu\) se acerca a cierto
+valor \(\mu_0\).
+
+\begin{itemize}
+\tightlist
+\item
+  El \textbf{Error de Tipo I} sería no dar la alarma cuando el desastre
+  natural ocurre (muertes varias).
+\item
+  El \textbf{Error de Tipo II} sería dar la alarma a pesar de que no
+  haya desastre natural (falsa alarma).
+\end{itemize}
+
+Lo más conveniente es encontrar una regla de rechazo de \(H_0\) que
+tenga poca probabilidad de error de tipo I, \(\alpha\).Pero también
+querríamos minimizar la probabilidad de error de tipo II, \(\beta\).
+
+\textbf{Observación:} cuando hacemos disminuir \(\alpha\), suele
+aumentar \(\beta\).
+
+¿Qué se suele hacer?
+
+\begin{itemize}
+\tightlist
+\item
+  Encontrar una regla de decisión para a un \(\alpha\) máximo fijado.
+\item
+  Después, si es posible, controlar la tamaño \(n\) de la muestra para
+  minimizar \(\beta\).
+\end{itemize}
+
+\hypertarget{terminologuxeda}{%
+\section{Terminología}\label{terminologuxeda}}
+
+En un contraste de hipótesis, tenemos los siguientes conceptos:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Estadístico de contraste:} es una variable aleatoria función
+  de la muestra que nos permite definir una regla de rechazo de \(H_0\).
+\item
+  \textbf{Nivel de significación \(\alpha\):} la probabilidad de error
+  de tipo I.
+\item
+  \textbf{Región crítica o de rechazo:} zona o región de números reales
+  donde se verifica que si el estadístico de contraste pertenece a la
+  región crítica, entonces rechazamos \(H_0\).
+\item
+  \textbf{Región de aceptación:} zona o región complementaria de la
+  región crítica.
+\item
+  \textbf{Intervalo de confianza del (\(1-\alpha\)) \(\cdot\) 100 \%}:
+  intervalo de confianza para el parámetro poblacional del contraste. Es
+  equivalente afirmar que el estadístico de contraste pertenece a la
+  región de aceptación que afirmar que el parámetro del contraste
+  pertenece al intervalo de confianza del contraste.
+\end{itemize}
+
+\hypertarget{contrastes-de-hipuxf3tesis-para-el-paruxe1metro-mu-de-una-variable-normal-con-sigma-conocida}{%
+\section{\texorpdfstring{Contrastes de hipótesis para el parámetro
+\(\mu\) de una variable normal con \(\sigma\)
+conocida}{Contrastes de hipótesis para el parámetro \textbackslash mu de una variable normal con \textbackslash sigma conocida}}\label{contrastes-de-hipuxf3tesis-para-el-paruxe1metro-mu-de-una-variable-normal-con-sigma-conocida}}
+
+Sea \(X\) una variable aleatoria \(N(\mu,\sigma)\) con \(\mu\)
+desconocida y \(\sigma\) conocida.
+
+Sea \(X_1,...,X_n\) una m.a.s. de \(X\) de tamaño \(n\).
+
+Nos planteamos el contraste siguiente:
+
+\[
+\begin{cases}
+H_0 : & \mu = \mu_0\\
+H_1 : & \mu > \mu_0
+\end{cases}
+\]
+
+De cara a hallar la región de rechazo, pensemos que tenemos que rechazar
+\(H_0\) en favor de \(H_1\) si \(X\) es ``bastante más grande'' que
+\(\mu_0\).
+
+Si \(H_0\) es verdadera,
+\[Z = \frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}} \sim N(0,1)\]
+
+Entonces, la regla consistirá en rechazar \(H_0\) si el estadístico de
+contraste \(Z\) es mayor que un cierto umbral, que determinaremos con
+\(\alpha\), el nivell de significación del contraste o el error tipo I.
+
+De cara a hallar la región de rechazo, queremos que se cumpla lo
+siguiente:
+\[\alpha = P(\text{Rechazar }H_0|H_0\text{ cierta}) = P(Z > \text{umbral})\]
+\[\implies 1-\alpha = P(Z \leq \alpha) \implies \text{umbral} = z_{1-\alpha}\]
+
+Por tanto, para que el \textbf{nivel de significación} del contraste sea
+\(alpha\), la regla de rechazo tiene que ser: \(Z > z_{1-\alpha}\)
+
+En resumen, rechazamos \(H_0\) si
+\(\frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}} > Z > z_{1-\alpha}\)
+
+El contraste anterior tiene como:
+
+\begin{itemize}
+\tightlist
+\item
+  Estadístico de contraste:
+  \[Z = \frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}}\]
+\item
+  Región crítica: \((z_{1-\alpha}, \infty)\).
+\item
+  Región de aceptación: \((\infty, z_{1-\alpha}]\).
+\item
+  Regla de decisión: rechazar \(H_0\) si \(Z > z_{1-\alpha}\). Intervalo
+  de confianza:
+  \[Z < z_{1-\alpha} \implies \frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}} < z_{1-\alpha} \Leftrightarrow \mu_0 > \overline{X}-z_{1-\alpha} \cdot \frac{\sigma}{\sqrt{n}}\]
+  \[\Leftrightarrow \mu_0 \in (\overline{X}-z_{1-\alpha} \cdot \frac{\sigma}{\sqrt{n}}, \infty)\]
+\item
+  Regla de decisión II: rechazar \(H_0\) si el \(\mu_0\) contrastado no
+  pertenece al intervalo de confianza.
+\end{itemize}
+
+\textbf{Por otro lado}
+
+Si nos planteamos el contraste \[
+\begin{cases}
+H_0 : & \mu = \mu_0\\
+H_1 : & \mu < \mu_0
+\end{cases}
+\]
+
+Donde vamos a rechazar \(H_0\) si el estadístico de contraste
+\(Z = \frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}}\) es inferior a
+un cierto umbral, que determinaremos con \(\alpha\).
+
+Queremos que el \textbf{Error Tipo I} sea \(\alpha\):
+
+\[\alpha = P(\text{Rechazar }H_0|H_0\text{ cierta}) = P(Z < \text{umbral})\]
+\[\implies \text{umbral} = z_{\alpha}\]
+
+Por tanto, para que el \textbf{nivel de significación} del contraste sea
+\(alpha\), la regla de rechazo tiene que ser: \(Z < z_{\alpha}\)
+
+El contraste anterior tiene como:
+
+\begin{itemize}
+\tightlist
+\item
+  Estadístico de contraste:
+  \[Z = \frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}}\]
+\item
+  Región crítica: \((\infty,z_{1-\alpha})\).
+\item
+  Región de aceptación: \((z_{1-\alpha}, \infty]\).
+\item
+  Regla de decisión: rechazar \(H_0\) si \(Z > -z_{1-\alpha}\).
+  Intervalo de confianza:
+  \[Z < -z_{1-\alpha} \implies \frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}} < -z_{1-\alpha} \Leftrightarrow \mu_0 > \overline{X}+z_{1-\alpha} \cdot \frac{\sigma}{\sqrt{n}}\]
+  \[\Leftrightarrow \mu_0 \in (-\infty, \overline{X}+z_{1-\alpha} \cdot \frac{\sigma}{\sqrt{n}})\]
+\item
+  Regla de decisión II: rechazar \(H_0\) si el \(\mu_0\) contrastado no
+  pertenece al intervalo de confianza.
+\end{itemize}
+
+\textbf{Consideremos ahora el contraste}
+
+\[
+\begin{cases}
+H_0 : & \mu = \mu_0\\
+H_1 : & \mu \neq \mu_0
+\end{cases}
+\]
+
+Donde vamos a rechazar \(H_0\) si el estadístico de contraste
+\(Z = \frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}}\) es está
+bastante lejos de 0, y la determinaremos con el valor de \(\alpha\).
+
+Queremos como antes que el \textbf{Error Tipo I} sea \(\alpha\):
+
+\[\alpha = P(\text{Rechazar }H_0|H_0\text{ cierta}) = P(Z < -\text{umbral o } Z > \text{umbral})\]
+\[= P(Z < -\text{umbral}) \text{ + P} (Z > \text{umbral}) = 2P(Z > \text{umbral})\]
+\[= 2(1 - P(Z < \text{umbral})) \implies P(Z < \text{umbral}) = 1 - \frac{\alpha}{2}\]
+\[\implies \text{umbral} = z_{1-\frac{\alpha}{2}}\]
+
+Por tanto, para que el \textbf{nivel de significación} del contraste sea
+\(alpha\), la regla de rechazo tiene que ser:
+\[Z < -z_{1-\frac{\alpha}{2}} = z_{\frac{\alpha}{2}} \text{ o } Z > z_{1-\frac{\alpha}{2}}\]
+
+La Región crítica es:
+\((- \infty,z_{\frac{\alpha}{2}}) \cup (z_{1-\frac{\alpha}{2}}, \infty)\).
+
+Seguidamente, calculemos el \textbf{Intervalo de confianza} para el
+contraste anterior:
+\[-z_{1-\frac{\alpha}{2}} < Z < z_{1-\frac{\alpha}{2}} \implies -z_{1-\frac{\alpha}{2}} < \frac{\overline{X}-\mu_o}{\frac{\sigma}{\sqrt{n}}} < z_{1-\frac{\alpha}{2}} \Leftrightarrow -z_{1-\frac{\alpha}{2}}{\frac{\sigma}{\sqrt{n}}} < \overline{X}-\mu_o < z_{1-\frac{\alpha}{2}}{\frac{\sigma}{\sqrt{n}}}\]
+\[\Leftrightarrow \mu_0 \in \left(\overline{X} - z_{1-\frac{\alpha}{2}}{\frac{\sigma}{\sqrt{n}}}, \overline{X} + z_{1-\frac{\alpha}{2}}{\frac{\sigma}{\sqrt{n}}}\right)\]
+
+\hypertarget{el-p-valor}{%
+\section{\texorpdfstring{El \(p\)-valor}{El p-valor}}\label{el-p-valor}}
+
+El \(p\)-valor o valor crítico (\(p\)-value) de un contraste es la
+probabilidad que, si \(H_0\) es verdadera, el estadístico de contraste
+tome un valor tan extremo o más que el que se ha observado.
+
+Consideremos por ejemplo un contraste del tipo: \[
+\begin{cases}
+H_0 : & \mu = \mu_0\\
+H_1 : & \mu > \mu_0
+\end{cases}
+\] Si el estadístico \(Z\) tiene el valor \(z_0\) , el \(p\)-valor será:
+\[ \text{p-valor} = P(Z \geq z_0)\].
+
+Para el contraste: \[
+\begin{cases}
+H_0 : & \mu = \mu_0\\
+H_1 : & \mu < \mu_0
+\end{cases}
+\]
+
+Si el estadístico \(Z\) tiene el valor \(z_0\) , el \(p\)-valor será:
+\[ \text{p-valor} = P(Z \leq z_0)\].
+
+Si ahora consideramos el contraste \[
+\begin{cases}
+H_0 : & \mu = \mu_0\\
+H_1 : & \mu \neq \mu_0
+\end{cases}
+\]
+
+y si el estadístico \(Z\) ha dado \(z_0\), el \(p\)-valor será:
+\[ \text{p-valor} = 2 \cdot min\{P(Z \leq |z_0|, P(Z \geq |z_0|)\} = 2 \cdot P(Z \geq |z_0|)\].
+
+El \(p\)-valor o valor crítico (\(p\)-value) de un contraste es la
+probabilidad que, si \(H_0\) es verdadera, el estadístico de contraste
+tome un valor tan extremo o más que el que se ha observado.
+
+Es una medida inversa de la fuerza de las pruebas o evidencias que hay
+en contra de \(H_1\): si \(H_0\) es verdadera, cuanto más pequeño sea el
+\(p\)-valor, más improbable es observar lo que hemos observado.
+
+En consecuencia, cuanto más pequeño sea el \(p\)-valor, con más fuerza
+podemos rechazar \(H_0\).
+
+Supongamos, por ejemplo, que hemos obtenido un \(p\)-valor de 0.03:
+
+Significa que la probabilidad de que, si \(H_0\) es verdadera, el
+estadístico de contraste tome un valor tan extremo o más que el que ha
+tomado, es 0.03 (pequeño: evidencia de que \(H_0\) es falsa.)
+
+\textbf{\emph{No significa:}} - La probabilidad que \(H_0\) Sea
+verdadera es 0.03 - \(H_0\) es verdadera un 3 \% de les veces
+
+\textbf{El \(p\)-valor de un contraste es:} - El nivel de significación
+\(\alpha\) más pequeño para el que rechazamos la hipótesis nula. - El
+nivel de significación \(\alpha\) más grande para el que aceptaríamos la
+hipótesis nula. - La probabilidad mínima de error de Tipo I que
+permitimos si rechazamos la hipótesis nula con el valor del estadístico
+de contraste obtenido. - La probabilidad máxima de error de Tipo I que
+permitimos si aceptamos la hipótesis nula con el valor del estadístico
+de contraste obtenido.
+
+\textbf{Importante:}
+
+Si no establecemos un nivel de significación \(\alpha\), entonces -
+Aceptamos \(H_0\) si el \(\alpha\)-valor es ``grande'' (\(\geq\) 0,1). -
+Rechazamos \(H_0\) si el \(\alpha\)-valor es ``pequeño'' (\textless{}
+0,05). En este caso, el \(\alpha\)-valor es:
+
+\begin{itemize}
+\tightlist
+\item
+  Significativo si es \textless{} 0,05 (En R, se simboliza con un
+  asterisco \(\text{*}\)).
+\item
+  Fuertemente significativo si es \textless{} 0.01 (En R, se simboliza
+  con dos asteriscos, \(\text{**}\)).
+\item
+  Muy significativo si es \textless{} 0.001 (En R, se simboliza con tres
+  asteriscos, \(\text{***}\)).
+\end{itemize}
+
+Si el \(p\)-valor está entre 0.05 y 0.1 y no tenemos nivel de
+significación, se requieren estudios posteriores para tomar una
+decisión.
+
+Es la denominada \textbf{zona crepuscular}, o \textbf{twilight zone.}
+
+\end{document}

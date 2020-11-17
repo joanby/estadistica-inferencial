@@ -1,0 +1,429 @@
+---
+title: "Ejemplo anova de dos vías"
+author: "Luis Gerardo Guzmán Rojas"
+date: "11/5/2020"
+output: 
+  ioslides_presentation:
+    widescreen: true
+    css: Mery_style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Almacenamiento de datos en ANOVA
+Vamos a almacenar los datos de una forma parecida a la usada en ANOVA de un factor.
+
+Sea $X$ la variable característica de la que comparamos las medias de las subpoblaciones. Sean $A$ y $B$ los factores.
+
+Vamos a transformar la tabla anterior de los datos en una tabla de datos con $N=n\cdot a\cdot b$ filas y tres columnas.
+
+La primera columna serán los valores de la variable $X$, la segunda los valores o niveles de la variable factor $A$ y la tercera, los valores o niveles de la variable factor $B$.
+
+## Ejemplo
+<div class="example">
+La transformación de la tabla de datos para el ejemplo anterior se realizaría de la forma siguiente:
+```{r}
+GSI = c(0.90,0.83,1.06,0.67,0.98,0.57,1.29,0.47,1.12,0.66,
+        1.30,1.01,2.88,1.52,2.42,1.02,2.66,1.32,2.94,1.63)
+temperatura = factor(rep(c(27,16),each=10))
+fotoperiodos = factor(rep(c(9,14),times=10))
+tabla.datos.GSI = data.frame(GSI,temperatura,fotoperiodos)
+head(tabla.datos.GSI)
+```
+
+
+</div>
+
+## El modelo
+
+Para poder realizar un ANOVA de dos factores, supondremos que los datos verifican las suposiciones siguientes:
+
+* Las observaciones para cada combinación de niveles constituyen **muestras aleatorias simples independientes**, cada una de tamaño $n$, de poblaciones $a\cdot b$,
+
+* Cada una de las $a\cdot b$ poblaciones es normal.
+
+* Todas las $a\cdot b$ poblaciones tienen la misma varianza, $\sigma^2$.
+
+
+## El modelo
+Los parámetros que intervendrán en el contraste son:
+
+* $\mu$: media poblacional global.
+
+* $\mu_{i\bullet\bullet}$: media poblacional del nivel $i$-ésimo del factor $A$.
+
+* $\mu_{\bullet j\bullet}$: media poblacional del nivel  $j$-ésimo  del factor $B$.
+
+* $\mu_{ij\bullet}$: media poblacional de la combinación $(i,j)$ de niveles $A$ de y $B$.
+
+
+## El modelo
+
+En este caso la expresión matemática del modelo consiste en separar los valores de la variable $X$ en 5 sumandos:
+$$
+\begin{array}{l}
+X_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij}+E_{ijk},\\
+\qquad\qquad i=1,\ldots,a,\ j=1,\ldots,b,\ k=1,\ldots,n
+\end{array}
+$$
+donde
+
+## El modelo
+
+* $\mu$: es la **media global**,
+
+* $\alpha_i =\mu_{i\bullet\bullet}-\mu$: efecto al pertenecer al nivel $i$-ésimo del factor $A$,
+
+* $\beta_j =\mu_{\bullet j\bullet}-\mu$: efecto al pertenecer al nivel $j$-ésimo del factor $B$,
+
+* $(\alpha\beta)_{ij}=\mu_{ij\bullet}-\mu_{i\bullet\bullet}-\mu_{\bullet j\bullet}+\mu$: efecto de la **interacción** entre el nivel $i$-ésimo del factor $A$ y el nivel  $j$-ésimo del factor $B$,
+
+* $E_{ijk}=X_{ijk}-\mu_{ij\bullet}$: error residual o aleatorio.
+
+## Sumas y medias
+
+Definimos los estadísticos siguientes:
+
+
+* Suma y media de los datos para la combinación de niveles $i$ y $j$: $$T_{ij\bullet}=\sum\limits_{k=1}^n X_{ijk}, \quad \overline{X}_{ij\bullet}=\dfrac{T_{ij\bullet}}{n}.$$
+
+## Ejemplo
+<div class="example">
+Los valores de los estadísticos anteriores para los datos de nuestro ejemplo son los siguientes:
+
+* Suma de los datos para la combinación de niveles $i$ y $j$:
+```{r}
+(suma.combinación.niveles = aggregate(GSI ~ temperatura+fotoperiodos,
+                                      data = tabla.datos.GSI, FUN="sum"))
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+Los valores de los estadísticos anteriores para los datos de nuestro ejemplo son los siguientes:
+
+* Media de los datos para la combinación de niveles $i$ y $j$:
+```{r}
+(media.combinación.niveles = aggregate(GSI ~ temperatura+fotoperiodos,
+                                       data=tabla.datos.GSI, FUN="mean"))
+```
+
+</div>
+
+## Sumas y medias
+ 
+* Suma y media de los datos para el nivel $i$-ésimo: $$T_{i\bullet\bullet}=\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{j=1}^b T_{ij\bullet},\quad \overline{X}_{i\bullet\bullet}=\dfrac{T_{i\bullet\bullet}}{bn}.$$
+
+## Ejemplo
+<div class="example">
+* Suma y media de los datos para el nivel $i$-ésimo:
+```{r}
+(suma.fotoperiodos = aggregate(GSI ~ fotoperiodos, data=tabla.datos.GSI, FUN="sum"))
+(media.fotoperiodos = aggregate(GSI ~ fotoperiodos, data = tabla.datos.GSI, FUN="mean"))
+```
+
+
+</div>
+
+## Sumas y medias
+
+* Suma y media de los datos para el nivel $j$-ésimo: 
+$$T_{\bullet j\bullet}=\sum\limits_{i=1}^a\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{i=1}^a T_{ij\bullet}, \quad \overline{X}_{\bullet j\bullet}=\dfrac{T_{\bullet j\bullet}}{an}.$$
+
+* Suma total de los datos: $$T_{\bullet\bullet\bullet}=\sum\limits_{i=1}^{a}\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}=\sum\limits_{i=1}^{a}
+T_{i\bullet\bullet}=\sum\limits_{j=1}^b T_{\bullet j\bullet}.$$
+
+## Ejemplo
+<div class="example">
+* Suma y media de los datos para el nivel $j$-ésimo:
+```{r}
+(suma.temperatura = aggregate(GSI ~ temperatura, data = tabla.datos.GSI, FUN="sum"))
+(media.temperatura = aggregate(GSI ~ temperatura, data = tabla.datos.GSI, FUN="mean"))
+```
+
+</div>
+
+## Sumas y medias
+
+* Media muestral de todos los datos: $$\overline{X}_{\bullet\bullet\bullet}=\dfrac{T_{\bullet\bullet\bullet}}{a b n}.$$
+
+* Suma de los cuadrados de los datos: $$T^{(2)}_{\bullet\bullet\bullet}=\sum\limits_{i=1}^{a}\sum\limits_{j=1}^b\sum\limits_{k=1}^n X_{ijk}^2.$$
+
+## Ejemplo
+<div class="example">
+* Suma total de los datos:
+```{r}
+(suma.total = sum(tabla.datos.GSI$GSI))
+```
+
+* Media muestral de todos los datos:
+```{r}
+(media.muestral = mean(tabla.datos.GSI$GSI))
+```
+
+* Suma de los cuadrados de los datos:
+```{r}
+(suma.cuadrados = sum(tabla.datos.GSI$GSI^2))
+```
+
+</div>
+
+## Identidades de sumas de cuadrados
+
+En el caso de ANOVA de dos factores, la **variabilidad total de los datos** respecto la **media global**, (**Suma Total de Cuadrados**) se separa en 4 variabilidades:
+
+* la **variabilidad de las medias de cada grupo del factor $A$** respecto la **media global**, 
+
+* la **variabilidad de las medias de cada grupo del factor $B$** respecto la **media global**, 
+
+* la **variabilidad de las medias de cada combinación de grupos de los factores $A$ y $B$** respecto la **media global**, 
+
+* la **variabilidad debida a factores aleatorios**.
+
+## Identidades de sumas de cuadrados
+### Variablidad total de los datos
+
+Para estimar dichas variabilidades, se introducen las sumas de cuadrados siguientes:
+
+* Estimación de la **variabilidad total de los datos** respecto la **media global**: $SS_{Total} =\sum\limits_{i=1}^a\sum\limits_{j=1}^b\sum\limits_{k=1}^n
+(X_{ijk}-\overline{X}_{\bullet\bullet\bullet})^2$.
+
+La **variabilidad total de los datos** se descompone de la forma siguiente en las variabilidades definidas anteriormente:
+$$
+SS_{Total} = SS_{Tr}+SS_E,\ \mbox{ con } SS_{Tr} = SS_A+SS_B+SS_{AB}.
+$$
+
+## Identidades de sumas de cuadrados
+
+Calculemos las variabilidades para los datos de nuestro ejemplo:
+
+* **Variabilidad total de los datos** respecto la **media global**:
+```{r}
+a=2; b=2; n=5;
+(SST = suma.cuadrados - suma.total^2/(a*b*n))
+```
+
+## Identidades de sumas de cuadrados
+
+* Estimación de la **variabilidad de las medias de cada grupo del factor $A$** respecto la **media global**: 
+$$SS_A =b n\sum\limits_{i=1}^a
+(\overline{X}_{i\bullet\bullet}-\overline{X}_{\bullet\bullet\bullet})^2$$.
+
+```{r}
+(SSA = (1/(b*n))*sum(suma.fotoperiodos[,2]^2)-suma.total^2/(a*b*n))
+```
+
+## Identidades de sumas de cuadrados
+* Estimación de la **variabilidad de las medias de cada grupo del factor $B$** respecto la **media global**: 
+$$SS_B =a n\sum\limits_{j=1}^b (\overline{X}_{\bullet j\bullet}-\overline{X}_{\bullet\bullet\bullet})^2$$.
+
+```{r}
+(SSB = (1/(a*n))*sum(suma.temperatura[,2]^2)-suma.total^2/(a*b*n))
+```
+
+## Identidades de sumas de cuadrados
+
+* Estimación de la **variabilidad que tendríamos si consideramos la combinación de factores $A$ y $B$ como si fuese un sólo factor**: $SS_{Tr}=n\sum\limits_{i=1}^a\sum\limits_{j=1}^b (\overline{X}_{ij\bullet}-\overline{X}_{\bullet\bullet\bullet})^2$.
+
+```{r}
+(SSTr = (1/n)*sum(suma.combinación.niveles[,3]^2)-suma.total^2/(a*b*n))
+```
+
+## Identidades de sumas de cuadrados
+
+* Estimación de la **variabilidad de las medias de cada combinación de grupos de los factores $A$ y $B$** respecto la **media global** o **variabilidad debida a la interacción de los factores $A$ y $B$**: 
+$$SS_{AB}=n \sum\limits_{i=1}^a\sum\limits_{j=1}^b
+(\overline{X}_{ij\bullet}-\overline{X}_{i\bullet\bullet}-\overline{X}_{\bullet
+j\bullet}+\overline{X}_{\bullet\bullet\bullet})^2$$
+
+```{r}
+(SSAB = SSTr-SSA-SSB)
+```
+
+## Identidades de sumas de cuadrados
+
+* Estimación de la la **variabilidad debida a factores aleatorios**: $SS_E =
+\sum\limits_{i=1}^a\sum\limits_{j=1}^b\sum\limits_{k=1}^n (X_{ijk}-\overline{X}_{ij\bullet})^2$.
+
+```{r}
+(SSE=SST-SSTr)
+```
+
+## Identidades de sumas de cuadrados
+El teorema siguiente nos da la descomposición que comentamos antes:
+
+<l class="prop">Teorema. </l>
+La **variabilidad total de los datos** se descompone de la forma siguiente en las variabilidades definidas anteriormente:
+$$
+SS_{Total} = SS_{Tr}+SS_E,\ \mbox{ con } SS_{Tr} = SS_A+SS_B+SS_{AB}.
+$$
+</div>
+
+## Cuadrados medios
+
+Para realizar el ANOVA de dos factores, usaremos los siguientes **cuadrados medios**:
+
+* **Cuadrado medio del factor $A$**: $MS_A =\dfrac{SS_A}{a-1}$.
+
+* **Cuadrado medio del factor $B$**: $MS_B =\dfrac{SS_B}{b-1}$.
+
+* **Cuadrado medio de la interacción entre los factores $A$ y $B$**: $MS_{AB}=\dfrac{SS_{AB}}{(a-1)(b-1)}$.
+
+## Cuadrados medios
+
+* **Cuadrado medio de los tratamientos**: $MS_{Tr}=\dfrac{SS_{Tr}}{ab-1}$.
+
+* **Cuadrado medio residual**: $MS_E=\dfrac{SS_E}{ab (n-1)}$.
+
+## Ejemplo
+<div class="example">
+Calculemos los cuadrados medios para los datos del ejemplo que vamos desarrollando:
+
+* **Cuadrado medio del factor $A$** (fotoperíodo): 
+```{r}
+(MSA = SSA/(a-1))
+```
+
+* **Cuadrado medio del factor $B$** (temperatura):
+```{r}
+(MSB = SSB/(b-1))
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+* **Cuadrado medio de la interacción entre los factores $A$ y $B$**:
+```{r}
+(MSAB = SSAB/((a-1)*(b-1)))
+```
+
+
+* **Cuadrado medio de los tratamientos**: 
+```{r}
+(MSTr = (SSTr/(a*b-1)))
+```
+
+
+* **Cuadrado medio residual**:
+```{r}
+(MSE = (SSE/(a*b*(n-1))))
+```
+
+</div>
+
+## Contraste ANOVA de dos vías en `R`
+
+Para realizar un contraste ANOVA de dos vías en `R` hay que usar la función `aov` que usábamos en los casos de ANOVA de un factor y ANOVA por bloques.
+
+Dicha función se aplica a la tabla de datos modificada que hemos explicado:
+```{r,eval=FALSE}
+summary(aov(X ~ A*B))
+```
+donde `X` es la variable donde se almacenan los valores $X_{ijk}$ y en las variables factor `A` y `B`, los niveles de los factores `A` y `B`, respectivamente.
+
+## Ejemplo
+<div class="example">
+Hagamos un boxplot de la variable GSI según el fotoperíodo y según la temperatura para observar gráficamente si hay diferencias:
+
+```{r,fig.align='center'}
+boxplot(GSI ~ fotoperiodos, data = tabla.datos.GSI, xlab="Fotoperíodo",ylab="GSI")
+```
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+
+```{r,fig.align='center'}
+boxplot(GSI ~ temperatura, data = tabla.datos.GSI, xlab="Temperatura",ylab="GSI")
+```
+
+</div>
+
+## Ejemplo
+<div class="example">
+Si hacemos el boxplot de la variable `GSI` según la combinación de los dos factores, fotoperíodo y temperatura, obtenemos:
+
+```{r,fig.align='center'}
+boxplot(GSI ~ fotoperiodos+temperatura, data = tabla.datos.GSI,
+        xlab="Combinación Fotoperíodo.Temperatura",ylab="GSI")
+```
+
+
+</div>
+
+## Ejemplo
+<div class="example">
+Parece que sí hay diferencias en la variable `GSI` según el fotoperíodo, según la temperatura y según la combinación fotoperíodo/temperatura.
+
+El contraste ANOVA de dos vías para los datos de nuestro ejemplo se realiza de la forma siguiente en `R`:
+```{r}
+summary(aov(GSI ~ fotoperiodos*temperatura, data = tabla.datos.GSI))
+```
+Obtenemos los mismos resultados que hemos obtenido anteriormente.
+
+</div>
+
+
+## Ejemplo
+<div class="example">
+Observamos que falta la fila de los tratamientos.
+Para realizar el contraste de los tratamientos en `R`, hacemos lo siguiente:
+
+```{r}
+summary(aov(GSI ~ fotoperiodos:temperatura, data = tabla.datos.GSI))
+```
+
+
+</div>
+
+
+## Gráficos de interacción 
+El gráfico de interacción entre los dos factores consiste en unir mediante segmentos los valores medios que toma la variable que comparamos `X` para cada factor en los que hemos segregado dicha variable.
+
+Si no hay ninguna interacción entre los factores, los segmentos anteriores son paralelos. Cuanto más alejados del paralelismo estén dichos segmentos, más evidencia de interacción existe entre estos dos factores.
+
+Para realizar un gráfico de interacción en `R` se usa la función `interaction.plot`:
+```{r,eval=FALSE}
+interaction.plot(F1, F2, X)
+```
+donde `F1` es el factor que dibujamos en el eje de abscisas o eje X y `F2` es el otro factor usado para dibujar los segmentos.
+
+## Ejemplo
+<div class="example">
+Para dibujar el gráfico de interacción entre factores, vamos a crear primero las tres variables siguientes:
+
+```{r}
+GSI=tabla.datos.GSI$GSI
+fotoperiodos=tabla.datos.GSI$fotoperiodos
+temperatura=tabla.datos.GSI$temperatura
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Para dibujar el gráfico de interacción del fotoperíodo según la temperatura, hacemos lo siguiente:
+```{r,fig.align='center'}
+interaction.plot(fotoperiodos,temperatura,GSI, xlab="fotoperíodo",ylab="GSI")
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Para dibujar el gráfico de interacción de la temperatura según el fotoperíodo, hacemos lo siguiente:
+```{r,fig.align='center'}
+interaction.plot(temperatura,fotoperiodos,GSI,xlab="temperatura",ylab="GSI")
+```
+</div>
+
+## Ejemplo
+<div class="example">
+Vemos que las rectas anteriores no son paralelas pero tampoco "parecen" estar demasiado lejos del paralelismo.
+
+De ahí el p-valor obtenido en la zona de penumbra.
+</div>

@@ -1,5 +1,5 @@
 ---
-title: "Contrastes de Hipótesis"
+title: "Prueba"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "12/21/2019"
 output: html_document
@@ -7,7 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-reticulate::use_python("/Users/juangabriel/anaconda3/bin/python3")
+library(reticulate)
+use_python("C:/ProgramData/Anaconda3/python.exe", required = TRUE)
 ```
 
 ```{python setup2, include = FALSE}

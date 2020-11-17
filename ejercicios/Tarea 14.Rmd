@@ -1,0 +1,101 @@
+---
+title: "Tarea 14"
+author: "Luis Gerardo Guzmán Rojas"
+date: "11/5/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+tasa.consumo.oxigeno = c(7.16,5.20,11.11,6.78,5.20,9.74,13.6,7.18,18.8,8.93,6.37,9.74,
+                          8.26,13.2,10.50,14.0,8.39,14.6,16.1,10.40,11.10,9.66,7.18,11.80,
+                          6.14,4.47,9.63,3.86,9.90,6.38,10.40,5.75,13.40,5.49,11.8,14.50,
+                          6.14,4.95,14.5,10,6.49,10.20,11.60,5.44,17.70,5.80,9.90,12.30)
+concentracion.agua = factor(rep(c(1,0.75,0.50), times = 8))
+especies.moluscos = factor(rep(c("A_Scabra","A_Digitalis"), each = 24))
+tabla.tasa.consumo.oxigeno = data.frame(tasa.consumo.oxigeno, especies.moluscos,
+                                        concentracion.agua)
+head(tabla.tasa.consumo.oxigeno)
+```
+
+1.- Calcula la suma de los cuadrados totales.
+```{r}
+suma.cuadrados = sum(tabla.tasa.consumo.oxigeno$tasa.consumo.oxigeno^2)
+suma.cuadrados
+```
+
+
+2.- Calcula la suma de los cuadrados del factor especie marina.
+```{r}
+n = 8 
+a = 2 
+b = 3
+suma.total = sum(tabla.tasa.consumo.oxigeno$tasa.consumo.oxigeno)
+suma.total
+suma.especies.moluscos = aggregate(tasa.consumo.oxigeno ~ especies.moluscos,
+                                   data = tabla.tasa.consumo.oxigeno, FUN = "sum")
+suma.especies.moluscos
+SSA = (1/(b*n))* sum(suma.especies.moluscos[,2]^2) - suma.total^2/(a*b*n)
+SSA
+```
+
+
+3.- Calcula la suma de los cuadrados del factor concentración de agua de mar.
+```{r}
+suma.concentracion.agua = aggregate(tasa.consumo.oxigeno ~ concentracion.agua ,
+                                    data = tabla.tasa.consumo.oxigeno, FUN = "sum")
+suma.concentracion.agua
+SSB = (1/(a*n)) * sum(suma.concentracion.agua[,2]^2) - suma.total^2/(a*b*n)
+SSB
+```
+
+
+4.- Calcula la suma de los cuadrados de los tratamientos.
+```{r}
+suma.combinacion.niveles = aggregate(tasa.consumo.oxigeno ~ concentracion.agua + 
+                                       especies.moluscos, data = tabla.tasa.consumo.oxigeno ,
+                                        FUN = "sum" )
+suma.combinacion.niveles
+SSTr = (1/n) * sum(suma.combinacion.niveles[,3]^2) - suma.total^2/(a*b*n)
+SSTr
+```
+
+
+5.- Calcula la suma de los cuadrados de la interacción.
+```{r}
+SSAB = SSTr - SSA - SSB
+SSAB
+```
+
+----
+
+6.- Calcula la suma de los cuadrados de los errores.
+```{r}
+SST = suma.cuadrados - suma.total^2/(a*b*n)
+SSE = SST - SSTr
+SSE
+```
+
+
+7.- Elabora la tabla del ANOVA y sube una captura de pantalla.
+```{r}
+summary(aov(tasa.consumo.oxigeno ~ especies.moluscos*concentracion.agua,
+            data = tabla.tasa.consumo.oxigeno))
+summary(aov(tasa.consumo.oxigeno ~ especies.moluscos:concentracion.agua,
+            data = tabla.tasa.consumo.oxigeno))
+```
+
+
+8.- Escribe las conclusiones del ANOVA de dos vías realizado (tienes que tener 4 conclusiones en total).
+
+Existe sufuciente evidencia estadística para afirmar que la media de la tasa de consumo de oxígeno entre ambas especies de moluscos (A. Scabra, A. Digitalis) son iguales.Mientras que 
+para el factor concentración de agua hay suficiente evidencia estística para rechazar 
+quela media de la tasa de consumo de oxígeno con las 3 concentraciones observadas (100%, 75%
+, 50%) son iguales. Por otro lado, observamos que suficiente evidencia para rechazar que entre ambos factores no exista una interactividad.
+
+Finalmente, podemos afirmar que la media de la interacción entre todas las parejas parejas i,j i $\in factorA$ ,$\in factorB$ es distinta de cero dado que el p-valor =  0.00184 por lo qu es altamente significativo.
+
+
