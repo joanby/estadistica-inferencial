@@ -28,7 +28,8 @@ options(scipen=999)
 
 De una población de barras de hierro se extrae una muestra de $64$ barras y  se calcula la
 resistencia a la rotura por tracción se obtiene que $\overline{X}=1012\ Kg/cm^{2}$. Se sabe
-por experiencia que en este tipo de barras $\sigma=25$. Calcular un intervalo de confianza
+por experiencia que en este tipo de barras $\sigma=25$ y
+que la resistencia a la rotura sigue la distribución normal. Calcular un intervalo de confianza
 para $\mu$ al nivel 0.95. 
 
 ### Solución
