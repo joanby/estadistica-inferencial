@@ -1,7 +1,7 @@
 ---
 title: "Tema 2 - Estimación Puntual"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
-date: 'null'
+date: ''
 output:
   ioslides_presentation: 
     widescreen: yes
@@ -14,9 +14,7 @@ output:
     keep_md: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 
 # Definiciones básicas
@@ -184,17 +182,18 @@ Para generar los valores medios de las longitudes del pétalo de las 10000 muest
 
 * `replicate(n,expresión)` evalúa `n` veces la `expresión`, y organiza los resultados como las columnas de una matriz (o un vector, si el resultado de cada `expresión` es unidimensional).
 
-```{r}
+
+```r
 set.seed(1001)
 valores.medios.long.pétalo=replicate(10000,mean(sample(iris$Petal.Length,40,
                                                       replace =TRUE)))
-
 ```
 
 Los valores medios de las 10 primeras muestras anteriores serían
 
-```{r, echo=FALSE}
-head(valores.medios.long.pétalo, 10)
+
+```
+##  [1] 3.5975 3.5150 3.9400 3.2650 3.9125 3.9650 4.2825 3.2950 3.8500 3.7850
 ```
 
 </div>
@@ -203,12 +202,22 @@ head(valores.medios.long.pétalo, 10)
 ## Media muestral. Ejemplo del `iris`
 <div class="example-sol">
 El valor medio de los valores medios de las muestras anteriores vale:
-```{r}
+
+```r
 mean(valores.medios.long.pétalo)
 ```
+
+```
+## [1] 3.754478
+```
 Dicho valor tiene que estar cerca del valor medio de la variable longitud del pétalo:
-```{r}
+
+```r
 mean(iris$Petal.Length)
+```
+
+```
+## [1] 3.758
 ```
 
 Fijaos que los dos valores están muy próximos.
@@ -218,12 +227,22 @@ Fijaos que los dos valores están muy próximos.
 ## Media muestral. Ejemplo del `iris`
 <div class="example-sol">
 La desviación típica de los valores medios de las muestras vale:
-```{r}
+
+```r
 sd(valores.medios.long.pétalo)
 ```
+
+```
+## [1] 0.2796513
+```
 Dicho valor tiene que estar cerca de $\frac{\sigma_{lp}}{\sqrt{40}}$ (donde $\sigma_{lp}$ es la desviación típica de la variable longitud del pétalo) tal como predice la propiedad de la media muestral referida a la desviación típica de la misma:
-```{r}
+
+```r
 sd(iris$Petal.Length)/sqrt(40)
+```
+
+```
+## [1] 0.2791182
 ```
 Fijaos también en que los dos valores están muy próximos.
 
@@ -290,7 +309,7 @@ $\overline{X}$ es aproximadamente normal, con esperanza  $\mu_X$ y desviación t
 Tenemos una v.a. $X$ de media $\mu_X=3$ y desviación típica. 
 $\sigma_X=0.2$. Tomamos  muestras aleatorias  simples de tamaño 50. La distribución de la media muestral $\overline{X}$ es aproximadamente
 $$
-N\left(3,\frac{0.2}{\sqrt{50}}\right)=N(3,`r round(0.2/sqrt(50),4)`).
+N\left(3,\frac{0.2}{\sqrt{50}}\right)=N(3,0.0283).
 $$
 </div>
 
@@ -298,15 +317,7 @@ $$
 
 <div class="example-sol">
 En el gráfico siguiente podemos observar el histograma de los valores medios de las longitudes del pétalo de las 10000 muestras junto con la distribución normal correspondiente:
-```{r echo=FALSE, fig.align='center'}
-hist(valores.medios.long.pétalo,freq=FALSE, main="Histograma 
- de las medias de 10000 muestras\n de tamaño 40 de las longitudes del pétalo",xlab="Valores medios de las longitudes del pétalo",ylab="Densidad",ylim=c(0,1.5))
-lines(density(valores.medios.long.pétalo),lty=2,lwd=2,col="red")
-x=sort(iris$Petal.Length)
-lines(x,dnorm(x,mean(iris$Petal.Length),sd(iris$Petal.Length)/sqrt(40)),lty=3,lwd=2,col="blue")
-legend("topright",legend=c("densidad","normal"),
- lwd=c(2,2),lty=c(2,3),col=c("red","blue"))
-```
+<img src="Tema-2---Estimacion_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 </div>
 
 ## Ejemplo
@@ -321,12 +332,12 @@ El tamaño en megabytes (MB)  de un  tipo de imágenes comprimidas tiene  un  va
 <div class="example-sol">
 Sea $X$ la variable aleatoria que nos da el tamaño en megabytes del tipo de imágenes comprimidas. La distribución de $X$ será $X=N(\mu=115,\sigma = 25)$
 
-Sea $X_1,\ldots,X_{100}$ la m.a.s. La distribución aproximada de la media muestral $\overline{X}$ usando el **Teorema Central del Límite** será: $\overline{X}\approx N\left(\mu_{\overline{X}}=115,\sigma_{\overline{X}}=\frac{25}{\sqrt{100}}=`r 25/sqrt(100)`\right)$.
+Sea $X_1,\ldots,X_{100}$ la m.a.s. La distribución aproximada de la media muestral $\overline{X}$ usando el **Teorema Central del Límite** será: $\overline{X}\approx N\left(\mu_{\overline{X}}=115,\sigma_{\overline{X}}=\frac{25}{\sqrt{100}}=2.5\right)$.
 
 Nos piden la probabilidad siguiente: $P(\overline{X}\leq 110)$. Si estandarizamos:
 
 $$
-P(\overline{X}\leq 100)=P\left(Z=\frac{\overline{X}-115}{2.5}\leq \frac{110-115}{2.5}\right) =p(Z\leq `r (110-115)/2.5`)=`r round(pnorm((110-115)/2.5),4)`.
+P(\overline{X}\leq 100)=P\left(Z=\frac{\overline{X}-115}{2.5}\leq \frac{110-115}{2.5}\right) =p(Z\leq -2)=0.0228.
 $$ 
 donde $Z$ es la normal estándar $N(0,1)$
 
@@ -400,7 +411,8 @@ Dada una muestra de 60 flores de la tabla de datos `iris`,
 
 <div class="example-sol">
 Primero generamos la muestra de las 60 flores:
-```{r}
+
+```r
 set.seed(1000)
 flores.elegidas = sample(1:150,60,replace=TRUE)
 muestra.flores = iris[flores.elegidas,]
@@ -411,21 +423,34 @@ muestra.flores = iris[flores.elegidas,]
 ## Proporción muestral. Ejemplo del `iris`
 <div class="example-sol">
 A continuación miramos cuántas flores de la muestra son de la especie `setosa`:
-```{r}
+
+```r
 table(muestra.flores$Species=="setosa")
 ```
 
-Tenemos entonces `r table(muestra.flores$Species=="setosa")[2]` flores de la especie `setosa`. 
+```
+## 
+## FALSE  TRUE 
+##    39    21
+```
+
+Tenemos entonces 21 flores de la especie `setosa`. 
 </div>
 
 
 ## Proporción muestral. Ejemplo del `iris`
 <div class="example-sol">
 La estimación de la proporción de flores de especie `setosa` será:
-```{r}
+
+```r
 (prop.setosa = table(muestra.flores$Species=="setosa")[2]/length(muestra.flores$Species))
 ```
-valor que no está muy lejos del valor poblacional de la proporción $p_{setosa}$ que es $p_{setosa}=\frac{50}{150}=`r round(1/3,4)`$.
+
+```
+## TRUE 
+## 0.35
+```
+valor que no está muy lejos del valor poblacional de la proporción $p_{setosa}$ que es $p_{setosa}=\frac{50}{150}=0.3333$.
 
 Para estimar la desviación estándar de la proporción muestral de flores de tamaño 60 de la especie `setosa`, repetiremos el experimento anterior 10000 veces y hallaremos la desviación estándar de las proporciones obtenidas. Al final, compararemos dicho valor con el valor exacto dado por la propiedad correspondiente.
 </div>
@@ -433,30 +458,28 @@ Para estimar la desviación estándar de la proporción muestral de flores de ta
 ## Proporción muestral. Ejemplo del `iris`
 <div class="example-sol">
 Para generar las proporciones de las 10000 muestras usaremos la función `replicate` de `R`:
-```{r}
+
+```r
 set.seed(1002)
 props.muestrales = replicate(10000,table(sample(iris$Species,60,
                               replace=TRUE)=="setosa")[2]/60)
 ```
 La desviación típica de las proporciones muestrales anteriores vale:
-```{r}
+
+```r
 sd(props.muestrales)
 ```
-valor muy próximo al valor real que vale: $\displaystyle \sigma_{\widehat{p}_X}=\sqrt{\frac{p_X(1-p_X)}{n}}= \sqrt{\frac{\frac{50}{150}\cdot \left(1-\frac{50}{150}\right)}{60}}=`r round(sqrt((1/3)*(2/3)/60),4)`$.
+
+```
+## [1] 0.06021098
+```
+valor muy próximo al valor real que vale: $\displaystyle \sigma_{\widehat{p}_X}=\sqrt{\frac{p_X(1-p_X)}{n}}= \sqrt{\frac{\frac{50}{150}\cdot \left(1-\frac{50}{150}\right)}{60}}=0.0609$.
 </div>
 
 ## Proporción muestral. Ejemplo del `iris`
 <div class="example-sol">
 En el gráfico siguiente podemos observar el histograma de las proporciones muestrales de las 10000 muestras junto con la distribución normal correspondiente:
-```{r echo=FALSE, fig.align='center'}
-hist(props.muestrales,freq=FALSE, main="Histograma 
- de las proporciones muestrales de 10000 muestras\n de tamaño 60",xlab="Proporciones muestrales",ylab="Densidad",ylim=c(0,6.5))
-lines(density(props.muestrales),lty=2,lwd=2,col="red")
-x=seq(from=0,to=1,by=0.01)
-lines(x,dnorm(x,1/3,sqrt((1/3)*(2/3)/60)),lty=3,lwd=2,col="blue")
-legend("topright",legend=c("densidad","normal"),
- lwd=c(2,2),lty=c(2,3),col=c("red","blue"))
-```
+<img src="Tema-2---Estimacion_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
 
 </div>
 
@@ -532,18 +555,7 @@ $$E\left(X_{\chi_n^2}\right)=n,\quad Var\left(X_{\chi_n^2}\right)=2 n$$
 
 El gráfico de la función de densidad de distintas distribuciones $\chi^2_n$ para $n=1,2,3,4,5,10$ se puede observar en el gráfico siguiente:
 <div class="center">
-```{r echo=FALSE}
-x=seq(from=0,to=20,by=0.1)
-plot(x,dchisq(x,3),type="l",ylab="función de densidad",xlab="",col="red")
-lines(x,dchisq(x,2),type="l",col="blue")
-lines(x,dchisq(x,1),type="l",col="black")
-lines(x,dchisq(x,4),type="l",col="yellow")
-lines(x,dchisq(x,5),type="l",col="green")
-lines(x,dchisq(x,10),type="l",col="orange")
-
-legend("topright",legend=c("n=1","n=2","n=3","n=4","n=5","n=10"),
- lty=rep(1,6),col=c("black","blue","red","yellow","green","orange"))
-```
+![](Tema-2---Estimacion_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 </center>
 
 
@@ -560,11 +572,11 @@ sea $\leq 2.5$?
 <div class=example-sol>
 Sea $X$= aumento diario en Gigas de un disco duro elegido al azar. 
 
-Sabemos que $\sigma_{X}^2=(1.7)^2=`r 1.7^2`.$
+Sabemos que $\sigma_{X}^2=(1.7)^2=2.89.$
 
 Como que $X$ es normal y $n=12$, tenemos que
 $$
-\frac{11\cdot \widetilde{S}_{X}^2}{`r 1.7^2`}=\frac{(n-1)\widetilde{S}_{X}^2}{\sigma_{X}^2}\sim \chi^2_{11}
+\frac{11\cdot \widetilde{S}_{X}^2}{2.89}=\frac{(n-1)\widetilde{S}_{X}^2}{\sigma_{X}^2}\sim \chi^2_{11}
 $$
 
 </div>
@@ -574,8 +586,8 @@ $$
 <div class="example-sol">
 Nos piden: $\displaystyle P(\widetilde{S}_{X}<2.5)= P\left(\widetilde{S}_{X}^2<2.5^2\right)$:
 $$
-P\left(\widetilde{S}_{X}^2<2.5^2\right)  =  P\left(\frac{11\cdot \widetilde{S}_{X}^2}{`r 1.7^2`}<\frac{11
-\cdot 2.5^2}{`r 1.7^2`}\right)  =  P(\chi_{11}^2<`r 1.7^2`) =`r round(pchisq(1.7^2,11),4)`.
+P\left(\widetilde{S}_{X}^2<2.5^2\right)  =  P\left(\frac{11\cdot \widetilde{S}_{X}^2}{2.89}<\frac{11
+\cdot 2.5^2}{2.89}\right)  =  P(\chi_{11}^2<2.89) =0.0079.
 $$
 
 </div>
@@ -696,7 +708,8 @@ O sea, la manera más eficiente de estimar el número de elementos de la poblaci
 
 Sentados en una terraza de un bar del Paseo Marítimo de Palma hemos anotado el número de licencia de los 40 primeros taxis que hemos visto pasar:
 
-```{r}
+
+```r
 taxis=c(1217,600,883,1026,150,715,297,137,508,134,38,961,538,1154,
         314,1121,823,158,940,99,977,286,1006,1207,264,1183,1120,
         498,606,566,1239,860,114,701,381,836,561,494,858,187)
@@ -709,8 +722,13 @@ Vamos a estimar el número total de taxis.
 <div class="example-sol">
 
 Entonces, estimamos que el número de taxis de Palma es
-```{r}
+
+```r
 (N=max(taxis)+(max(taxis)-length(taxis))/length(taxis))
+```
+
+```
+## [1] 1268.975
 ```
 En realidad, hay 1246.
 </div>
@@ -907,7 +925,8 @@ es menos segado para  muestras pequeñas, y no sesgado si $K+n\geq N$ (pero no m
 
 ## La función `fitdistr`
 Para obtener estimaciones puntuales con `R` hay que usar la función `fitdistr` del paquete **MASS**:
-```{r, eval=FALSE}
+
+```r
 fitdistr(x, densfun=..., start=...)
 ```
 donde
@@ -925,10 +944,16 @@ donde
 **Ejemplo**
 
 Consideramos la  muestra siguiente de tamaño 50 de una variable de Poisson de parámetro $\lambda =5$:
-```{r}
+
+```r
 set.seed(98)
 muestra.poisson = rpois(50,lambda=5)
 muestra.poisson
+```
+
+```
+##  [1]  5  4  4  5  3  4  1  4  6  3  7  7  3  5  4  8  4  4  6  3  6  4  6 11  4
+## [26]  7  5  2  8  3  5  4  1  5  6  4  7  7  3  4  6 10  5  4  2  9  1  5  2  2
 ```
 Vamos a estimar el valor del parámetro $\lambda$ a partir de la muestra anterior.
 </div>
@@ -936,19 +961,38 @@ Vamos a estimar el valor del parámetro $\lambda$ a partir de la muestra anterio
 ## Ejemplos de uso de `fitdistr`
 <div class="example-sol">
 Para estimar $\lambda$ usamos la función `fitdistr`:
-```{r}
+
+```r
 library(MASS)
 fitdistr(muestra.poisson, densfun = "poisson")
 ```
-La función `fitdistr` nos ha dado el siguiente valor de $\lambda$: `r fitdistr(muestra.poisson, densfun = "poisson")[[1]]`, valor que se aproxima al valor real de $\lambda =5$, con un error típico de `r fitdistr(muestra.poisson, densfun = "poisson")[[2]]`.
+
+```
+##     lambda 
+##   4.760000 
+##  (0.308545)
+```
+La función `fitdistr` nos ha dado el siguiente valor de $\lambda$: 4.76, valor que se aproxima al valor real de $\lambda =5$, con un error típico de 0.308545.
 </div>
 
 ## Ejemplos de uso de `fitdistr`
 <div class="example-sol">
 Recordemos que el estimador máximo verosímil de $\lambda$ es $\overline{X}$ con error típico $\frac{\sqrt{\lambda}}{\sqrt{n}}$. Veamos si la función `fitdistr` nos ha mentido:
-```{r}
+
+```r
 (estimación.lambda = mean(muestra.poisson))
+```
+
+```
+## [1] 4.76
+```
+
+```r
 (estimación.error.típico= sqrt(estimación.lambda/50))
+```
+
+```
+## [1] 0.308545
 ```
 Comprobamos que los valores anteriores coinciden con los dados por la función.
 </div>
@@ -959,12 +1003,24 @@ Comprobamos que los valores anteriores coinciden con los dados por la función.
 <div class="example-sol">
 ¿Qué estimaciones hubiésemos obtenido de la media $\mu$ y la desviación típica $\sigma$ si suponemos que la muestra anterior es normal?
 
-```{r}
+
+```r
 fitdistr(muestra.poisson,densfun = "normal")
 ```
+
+```
+##      mean         sd    
+##   4.7600000   2.1868699 
+##  (0.3092701) (0.2186870)
+```
 Dichos valores coinciden con la media muestral $\overline{X}$ y la desviación típica "verdadera" de la muestra considerada:
-```{r}
+
+```r
 sd(muestra.poisson)*sqrt(49/50)
+```
+
+```
+## [1] 2.18687
 ```
 
 </div>
@@ -981,33 +1037,53 @@ sd(muestra.poisson)*sqrt(49/50)
 
 Primero haremos la carga de paquetes
 
-```{python}
+
+```python
 from scipy.stats import norm
 from numpy import linspace
 import matplotlib.pyplot as plt
 ```
 
 Elegimos una m.a.s. de tamaño 150 de una variable aleatoria $N(0, 1)$.
-```{python}
+
+```python
 sample = norm.rvs(loc = 0, scale = 1, size = 150)
 print(sample[1:10])
+```
+
+```
+## [ 0.49359481  1.0813503  -1.11960017 -0.40234699  1.15529465  0.96537726
+##   0.16076662  1.18154159 -0.17216899]
 ```
 
 ## Estimación puntual en `Python`
 
 Para estimar los parámetros, usamos la distribución adecuada (en nuestro caso una normal) e invocamos el método `fit`
 
-```{python}
+
+```python
 params = norm.fit(sample)
 print("Media = {mu}".format(mu=params[0]))
+```
+
+```
+## Media = 0.07411937157278599
+```
+
+```python
 print("Desviacion tipica = {sd}".format(sd=params[1]))
+```
+
+```
+## Desviacion tipica = 0.9293578906638922
 ```
 
 ## Estimación puntual en `Python`
 
 Vamos a comparar la distribución con los parámetros estimados vs nuestra muestra.
 
-```{python}
+
+```python
 x = linspace(-5,5,100)
 pdf_fitted = norm.pdf(x, loc=params[0], scale=params[1])
 pdf_original = norm.pdf(x, loc=0, scale=1)
@@ -1015,13 +1091,7 @@ pdf_original = norm.pdf(x, loc=0, scale=1)
 
 ## Estimación puntual en `Python`
 
-```{python, echo=F, eval=T}
-plt.figure(figsize=(5,2.7))
-plt.title("Ajuste de una normal")
-_ = plt.plot(x, pdf_fitted, 'r-', x, pdf_original, 'b--')
-_ = plt.hist(sample, density=True, alpha=0.3)
-plt.show()
-```
+<img src="Tema-2---Estimacion_files/figure-html/unnamed-chunk-27-1.png" width="480" />
 
 ## Ejercicio de distribución Rayleigh
 
@@ -1029,19 +1099,32 @@ $$f(x) = \frac{(x-\mu)e^{-\frac{(x-\mu)^2}{2\sigma^2}}}{\sigma^2}$$
 
 Importar las librerías para crear la m.a.s., generar la muestra y obtener los parámetros
 
-```{python}
+
+```python
 from scipy.stats import rayleigh
 sample = rayleigh.rvs(loc=5, scale=2, size=150)
 params = rayleigh.fit(sample)
 print("Media = {mu}".format(mu=params[0]))
+```
+
+```
+## Media = 4.957992487634469
+```
+
+```python
 print("Desviacion tipica = {sd}".format(sd=params[1]))
+```
+
+```
+## Desviacion tipica = 2.145405453001532
 ```
 
 ## Ejercicio de distribución Rayleigh
 
 Generamos la distribución con los parámetros estimados
 
-```{python}
+
+```python
 x = linspace(5, 15, 100)
 pdf_fitted = rayleigh.pdf(x, loc=params[0], scale=params[1])
 pdf_original = rayleigh.pdf(x, loc=5, scale=2)
@@ -1049,12 +1132,6 @@ pdf_original = rayleigh.pdf(x, loc=5, scale=2)
 
 ## Ejercicio de distribución Rayleigh
 
-```{python, echo=F, eval=T}
-_ = plt.figure(figsize=(5, 2.7))
-_ = plt.title("Distribucion Rayleigh")
-_ = plt.plot(x, pdf_fitted, 'r-', x, pdf_original, 'b--')
-_ = plt.hist(sample, density=True, alpha = 0.3)
-plt.show()
-```
+<img src="Tema-2---Estimacion_files/figure-html/unnamed-chunk-30-1.png" width="480" />
 
 
