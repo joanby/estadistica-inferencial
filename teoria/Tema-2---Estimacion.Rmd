@@ -7,7 +7,6 @@ output:
     widescreen: yes
     css: Mery_style.css
     logo: Images/matriz_mov.gif
-    keep_md: yes
   beamer_presentation: 
     colortheme: dolphin
   slidy_presentation: 
