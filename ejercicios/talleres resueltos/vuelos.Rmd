@@ -11,15 +11,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Anova
 
-\probl El \verb+data frame+ \verb+datos_vuelos+ contiene información del retraso en minutos de vuelos de varias compañías aéreas diferentes.
+\probl El data frame `datos_vuelos` (generado a continuación) contiene información del retraso en minutos de vuelos de varias compañías aéreas diferentes.
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 set.seed(2018)
 retraso=c(rnorm(100,10,4),rnorm(150,30,4))
 compania=as.factor(rep(paste("C",1:5,sep=""),each=50))
 datos_vuelos=data.frame(retraso,compania)
 knitr::kable(head(datos_vuelos))
 str(datos_vuelos)
+levels(datos_vuelos$compania)
 ```
 
 Contestad a las siguientes cuestiones justificando el código que utilizáis

@@ -325,7 +325,7 @@ Sea $X_1,\ldots,X_{100}$ la m.a.s. La distribución aproximada de la media muest
 Nos piden la probabilidad siguiente: $P(\overline{X}\leq 110)$. Si estandarizamos:
 
 $$
-P(\overline{X}\leq 100)=P\left(Z=\frac{\overline{X}-115}{2.5}\leq \frac{110-115}{2.5}\right) =p(Z\leq `r (110-115)/2.5`)=`r round(pnorm((110-115)/2.5),4)`.
+P(\overline{X}\leq 110)=P\left(Z=\frac{\overline{X}-115}{2.5}\leq \frac{110-115}{2.5}\right) =p(Z\leq `r (110-115)/2.5`)=`r round(pnorm((110-115)/2.5),4)`.
 $$ 
 donde $Z$ es la normal estándar $N(0,1)$
 
