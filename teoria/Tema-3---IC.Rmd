@@ -31,7 +31,7 @@ Estas reglas definirán,  a su vez, estimadores.
 <div class="example">
 **Ejemplo**
 
-Hemos escogido al azar 50 estudiantes de grado de la UIB, hemos calculada sus notas medias de las asignaturas del primer semestre, y la media de estas medias ha sido un 6.3, con una varianza muestral de 1.8.
+Hemos escogido al azar 50 estudiantes de grado de la UIB, hemos calculado sus notas medias de las asignaturas del primer semestre, y la media de estas medias ha sido $\overline{x}=6.3$, con una varianza muestral $\widetilde{s}^2=1.8.
 
 Determinar un intervalo del que podamos afirmar con probabilidad 95% que contiene la media real de las notas medias de los estudiantes de grado de la UIB este primer semestre.
 </div>
@@ -53,7 +53,7 @@ Dado un parámetro $\theta$, el intervalo $(A,B)$ es un intervalo de confianza d
 $$
 P(A<\theta<B)=1-\alpha.
 $$
-El valor $(1-\alpha)\cdot 100$% (o contiene solo el $1-\alpha$) recibe el nombre de **nivel de confianza**.
+El valor $(1-\alpha)\cdot 100$% (y también  $1-\alpha$) recibe el nombre de **nivel de confianza**.
 
 El valor $\alpha$ recibe el nombre de **nivel de significación**.
  
@@ -70,6 +70,7 @@ knitr::include_graphics("Images/interval1.png",dpi=400)
 ```
 </div>
 Por ejemplo, para buscar  un intervalo de confianza  $(A,B)$ del $95$%, buscaremos valores $A,B$ de manera que 
+
 $$
 P(\theta<A)=0.025\quad\mbox{ y }\quad P(\theta>B)=0.025.
 $$
@@ -78,7 +79,7 @@ $$
 
 ## Intervalos de confianza para el parámetro $\mu$ de una población normal con $\sigma$ conocida
 
-Sea $X$ una v.a. normal con media poblacional $\mu$ desconocida y desviación típica poblacional $\sigma$ conocida (a la práctica, usualmente, estimada en un experimento anterior)
+Sea $X$ una v.a. normal con media poblacional $\mu$ desconocida y desviación típica poblacional $\sigma$ conocida (en la práctica, usualmente, estimada en un experimento anterior)
 
 Sea $X_1,\ldots,X_n$ una m.a.s. de $X$, con media muestral $\overline{X}$
 
@@ -100,7 +101,7 @@ tenga probabilidad $0.975$:
 $$
 \begin{array}{l}
 0.975= P(-\delta<Z<\delta)=F_{Z}(\delta)-F_{Z}(-\delta)=
-2 F_{Z}(\delta)-1\\
+2\cdot F_{Z}(\delta)-1\\
 F_{Z}(\delta)=\dfrac{1.975}{2}=0.9875\Rightarrow
 \delta=\mbox{qnorm}(0.9875)=`r round(qnorm(1.975/2),4)`.
 \end{array}
@@ -903,6 +904,7 @@ En estas  condiciones, un intervalo  de confianza  del $(1-\alpha)\cdot 100\%$ I
 
 
 $$
+\small
 \left(\frac{\widehat{p}_{X}+\frac{z_{1-{\alpha}/{2}}^2}{2n}-z_{1-{\alpha}/{2}}\sqrt{\frac{\widehat{p}_{X}\widehat{q}_{X}}{n}+\frac{z_{1-{\alpha}/{2}}^2}{4n^2}}}{1+\frac{z_{1-{\alpha}/{2}}^2}{n}}\right., \left.\frac{\widehat{p}_{X}+\frac{z_{1-{\alpha}/{2}}^2}{2n}+z_{1-{\alpha}/{2}}\sqrt{\frac{\widehat{p}_{X}\widehat{q}_{X}}{n}+\frac{z_{1-{\alpha}/{2}}^2}{4n^2}}}{1+\frac{z_{1-{\alpha}/{2}}^2}{n}}\right).
 $$
 

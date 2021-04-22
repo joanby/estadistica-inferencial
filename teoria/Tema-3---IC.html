@@ -3236,7 +3236,7 @@ slide:not(.current) .plotly.html-widget{
 <div class="example">
 <p><strong>Ejemplo</strong></p>
 
-<p>Hemos escogido al azar 50 estudiantes de grado de la UIB, hemos calculada sus notas medias de las asignaturas del primer semestre, y la media de estas medias ha sido un 6.3, con una varianza muestral de 1.8.</p>
+<p>Hemos escogido al azar 50 estudiantes de grado de la UIB, hemos calculado sus notas medias de las asignaturas del primer semestre, y la media de estas medias ha sido \(\overline{x}=6.3\), con una varianza muestral $^2=1.8.</p>
 
 <p>Determinar un intervalo del que podamos afirmar con probabilidad 95% que contiene la media real de las notas medias de los estudiantes de grado de la UIB este primer semestre.</p></div>
 
@@ -3251,7 +3251,7 @@ slide:not(.current) .plotly.html-widget{
 
 <p><l class="definition">Intervalo de confianza. </l> Dado un parámetro \(\theta\), el intervalo \((A,B)\) es un intervalo de confianza del \((1-\alpha)\cdot 100\)% para al parámetro \(\theta\) cuando \[
 P(A&lt;\theta&lt;B)=1-\alpha.
-\] El valor \((1-\alpha)\cdot 100\)% (o contiene solo el \(1-\alpha\)) recibe el nombre de <strong>nivel de confianza</strong>.</p>
+\] El valor \((1-\alpha)\cdot 100\)% (y también \(1-\alpha\)) recibe el nombre de <strong>nivel de confianza</strong>.</p>
 
 <p>El valor \(\alpha\) recibe el nombre de <strong>nivel de significación</strong>.</p>
 
@@ -3264,7 +3264,9 @@ P(\theta&lt;A)=P(\theta&gt;B)=\frac{\alpha}{2}
 <div class="center">
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfYAAACBCAYAAAAyu5hxAAABJ2lDQ1BrQ0dDb2xvclNwYWNlQWRvYmVSR0IxOTk4AAAokWNgYFJILCjIYRJgYMjNKykKcndSiIiMUmB/zMDBIMcgxKDPYJyYXFzgGBDgwwAEMBoVfLvGwAiiL+uCzMKUxwu4UlKLk4H0HyDOTi4oKmFgYMwAspXLSwpA7B4gWyQpG8xeAGIXAR0IZG8BsdMh7BNgNRD2HbCakCBnIPsDkM2XBGYzgeziS4ewBUBsqL0gIOiYkp+UqgDyvYahpaWFJol+IAhKUitKQLRzfkFlUWZ6RomCIzCkUhU885L1dBSMDAwtGRhA4Q5R/TkQHJ6MYmcQYgiAEJsjwcDgv5SBgeUPQsykl4FhgQ4DA/9UhJiaIQODgD4Dw745yaVFZVBjGJmMGRgI8QGaFUqXuKQ0UQAAAAlwSFlzAAAXEgAAFxIBZ5/SUgAADwxJREFUeAHt3XuIFtUbwPFnr67u+ttMzetC5h9dMUoDDXRNhez2R5lmGaQgkaAYRH+UmqAUhhZ0IzCTotSii4VaCqFiKmiWoYYhJpiat1zdy7u69995Jnd5X333dc87487sme+B6n3nnXNmzuec5tmZOXMmp8UkISGAAAIIIICAEwK5TtSCSiCAAAIIIICAJ0BgpyMggAACCCDgkACB3aHGpCoIIIAAAggQ2OkDCCCAAAIIOCRAYHeoMakKAggggAACBHb6AAIIIIAAAg4JENgdakyqggACCCCAAIGdPoAAAggggIBDAgR2hxqTqiCAAAIIIEBgpw8ggAACCCDgkACB3aHGpCoIIIAAAggQ2OkDCCCAAAIIOCRAYHeoMakKAggggAACBHb6AAIIIIAAAg4JENgdakyqggACCCCAAIGdPoAAAggggIBDAgR2hxqTqiCAAAIIIEBgpw8ggAACCCDgkACB3aHGpCoIIIAAAggQ2OkDCCCAAAIIOCRAYHeoMakKAggggAACBHb6AAIIIIAAAg4JENgdakyqggACCCCAAIGdPoAAAggggIBDAgR2hxqTqiCAAAIIIEBgpw8ggAACCCDgkACB3aHGpCoIIIAAAggQ2OkDCCCAAAIIOCRAYHeoMakKAggggAACBHb6AAIIIIAAAg4JENgdakyqggACCCCAAIGdPoAAAggggIBDAgR2hxqTqiCAAAIIIEBgpw8ggAACCCDgkACB3aHGpCoIIIAAAggQ2OkDCCCAAAIIOCRAYHeoMakKAggggAACBHb6AAIIIIAAAg4JENgdakyqggACCCCAAIGdPoAAAggggIBDAgR2hxqTqiCAAAIIIEBgpw8ggAACCCDgkACB3aHGpCoIIIAAAggQ2OkDCCCAAAIIOCRAYHeoMakKAggggAACBHb6AAIIIIAAAg4JENgdakyqggACCCCAAIGdPoAAAggggIBDAgR2hxqTqiCAAAIIIEBgpw8ggAACCCDgkACB3aHGpCoIIIAAAggQ2OkDkRBobm4W/YeEQFwE6PNxaenOryeBvfPN2WIagQkTJkj//v3T/MIiBNwUKC8vl7KyMjcrR61CFSCwh8rPxhFAAAEEEAhWgMAerCelIYAAAgggEKoAgT1UfjaOAAIIIIBAsAIE9mA9KQ0BBBBAAIFQBQjsofKzcQQQQAABBIIVILAH60lpCCCAAAIIhCpAYA+Vn40jgAACCCAQrACBPVhPSkMAAQQQQCBUAQJ7qPxsHAEEEEAAgWAFCOzBelIaAggggAACoQoQ2EPlZ+MIIIAAAggEK0BgD9aT0hBAAAEEEAhVIP96bP2dd96R7du3X4+iKdNRgQMHDkhlZaVMnjzZ0RpSLQRSBQ4ePCiJRII+n8rCt2sIDB06VJYsWZJxrZwWkzKukcWPzz77rKxZsyaLnGSJq0DrK1tzc7mIFNc+ELd60+fj1uLB1Hf48OGye/fujIVdl8CecYv8iEAagXHjxometZ85cybNryxCwD2B0aNHy5EjR+TEiRPuVY4ahSrA6VGo/GwcAQQQQACBYAUI7MF6UhoCCCCAAAKhChDYQ+Vn4wgggAACCAQrQGAP1pPSEEAAAQQQCFWAwB4if83XX0vVJ5+EuAdsGgEEEIi+AMdKuzYisNt5Bbp21ccfS/exY1PK1KcPL+7cKZUrVkhi40ZprqpK+Z0vCKhAk3nmv3brVjAQiIUAx0q7Ziaw23kFtnbjP/9IS329FNx8c1uZTefPy9nnn5f6P/6QbnffLXW//CJHb71Var79tm0dPsRXoOnCBUn88INUvPGGHB8xQirfey++GNQ8NgIcK+2b+rrMPGe/G/HLUf3559LTTOSTnM7Nny+lL74o3e6801tcdN990nT6tJyeNk0Kf/tNCm+/PXl1PsdNoKFBJC9PSl94QWrN1RwSAnEQ4Fhp38qcsdubBZKj5quvpOTJJ9vK0kvwNV98IZXvv9+2TD/0eOQRabl0ibP2FJV4fsnr21eKH3xQ8m68MZ4A1DqWAhwr7ZudwG5vdlWO+j//lPpDh6Sjs/NeMpfYC267TXJ79mwrKycnR7rdc4+06FlZUiow8wJr0jN3EgJRE7Dt+1Hbf/ancwVs+wvHyuzah8CenZuX64K5x3nSvLSk7tdf5dLPP8vJhx6SxlOn2kpsbGeqyOpPP5X/Pfdc23qtHwb99JP0M4PmklOduQSvqWjUqOTFfEYgVIFs+36oO83GQxPItr9wrMyuybjHnp2bnDL3x/USef8vv5Qcc99TU93evXJ2zhwZYC6z61+aDX/9JT2nTk3Zgg6Yu2jefNfn3XdTlqf7olcALrz9thTdf7+UPPVUulVYhkCnC2Tb9zt9R9lgJASy7S8cK7NvPgJ7Fnb67HmNCeg3//13W1DXYnqYM/aTTzwhLY2NkvjuO+m1YMFVpSfWr/fWy+nAW8wqXntNWurqZOCPP0pH1r9qY11owcKFC73XtnahXe4yu6p/IDZXVIi5V3TtfTb9MtM9fD99/9obj9caixYt8l7b6nKt/fQXjpXZ9wwCexZ2519/XYoffVTyBwxIyZ3Xu7eIOSNPbNggOcXFkltUlPK7ftFLS73ffPOq5Vcu0AEjF7dskUGbN4tX7pUrOPa9vLzcsRpFpzr1v/8u5159tcOBve8HH0jBkCFpK+Cn76ctMMYLH3jgAedr76e/cKzMvnsQ2C3tms6elYbDh6V07tyrcmow11T14YfS35yxX5k0b9O5c1JoBs5lSrUmmNesXSsDzT331j8O6g8e5HG3TGj81q6ADsrUqz5+k5++73fb5O96An76C8dKf+3N4DlLP700rindGU1Ot27ebxr0WwOyt+Dyv6pXr5aezzyTvOiqz5f27PEu4/f77LO2MnRiEj2DJyEQpoCfvh/mfrPtcAT89BeOlf7ajDN2S7/8wYOl8K67REerF5tnzFuTzhpX9dFHJuIXeI+xNZuBdS01NZLXp0/rKlK9Zo0MNDOHtZf0UZDTZrR8iRlpr5ewNLU0NYleSi15+un2srE8hgItiYS09OjRqTX30/c7dUfZWCQE/PQXjpX+mjDHDKzpwIgafxtxLXfdgQPyrxn9rpPH5JeVScORI5KTny+ls2bJeXP/XJ85zzWTiPR6+eW2++N1+/ZJhRksM8C8+CVd0gB+9JZbpNEMyEuXykxw12lmSfEVaDxzRs6b6WSbq6sl8c033h+RJY8/LjkmwPc2y3M7IdBn0/fj22LUPJv+wrHSf78hsGdpqH8PNR496uXW4N76yJsu0GfZ8266KWUk+78vveS98KX4scey3CLZEIiGgG3fj8ZesxdhCdj2F46V/luKwO7f8Jol6ONvx+69V8rM5Xs9sydlFvjVTPgzfPjwzCvxKwIIOCfAsTKYJiXKBOOYsZTaTZuk+7hxBPWMSv/9+P3338uMGTOkQp+7JiHgkICeuS4wc1v8Zv7ArzHjb/qY8TcDBw70atho/vivMq9oHjZsmMwyt/RKS0sdqnnHq8KxsuNWmdbkjD2TTkC/nZoyRXq98oo3F3xARTpZTG1trdxxxx1y1Nzi0ANf8eXHB52sLJWKrcCyZcvkZTP+5rB5bHbo5XdBKIb2+YcfflhOmzE6u3fvjmVw51gZzP8WPO4WjGPGUopGjyaoZxT670c94I0ZM8b7cuzYsQ7kYBUEup7Azp07vYCeHNS1FiUlJTJz5kw5ZF4otcFMchXHxLEymFYnsAfjmLGUG8wIelJmgYNmAp7u3bsT2DMz8WsXF9DL8du2bZOxY8emrcmpyy+R6tevX9rfXV/IsTKYFiawB+NIKT4F3jUvxZlrJvYpM08YaDp+/LjPEsmOQPQE9u/fL+fM7JPpplA+a2am1P8PJk6c2G7gj16N2KMoChDYo9gqMdunVatWyRQzDqGwsFAGmwmANHEpPmadICbV3bp1q1fT5DP2hoYG2WQG2E6fPl3mz58va8100nmX3xgZExaqGbAAo+IDBqU4O4HKykpvlPC0adO8jK1n7AR2O0fW7hoCGtj1MvtqM720Jr00r7eh9pkJrN566y0ZZ56eISHgV4BR8X4Fye9LQM9Q5pgxCMn3FPVRn1GjRsnGjRt9lU1mBKIkoEFcH3GbNGmSLF++PGXXmpub5SHz2md95G2LeatjUZo3Q6Zk4AsCGQQ4Y8+Aw0/XV0Anotm7d68sXrw4ZUMFZr597rGnkPDFAQG9v67zM6S7v56bm+vdjtJR8d+ZN0NOnTrVgRpThbAECOxhycd8u3qGsnLlSlm3bp3oQS056eM+u3btSl7EZwS6vICeiWtKF9h1eeuIeOZvUA2SH4HUI6qfksiLgIXAihUrvBnmrgzqWoQOoNNLkvoPCQFXBPT+uj673jpANLleOjnTZ+ZVzUOGDJHx48cn/8RnBKwFCOzWZGTwK6BTam7evFlGjBiRtqhBgwZ5y3UGOhICLgjU1dV5z6+nO1vXmeb0qRCdeW79+vXSoxPe0ueCKXVoX4DBc+3b8EvAAnrffPbs2bJjxw6v5KVLl3qP+LRuRp/v1ak29ZKlfh45cmTbfcfWdfgvAl1JQOeAnzdvnuzZs8f7Y1ZfbqT9WpPejjpjXsWbSCS8waIvmTdAchm+K7VudPeVwB7dtmHPEEAAAQQQsBbgUrw1GRkQQAABBBCIrgCBPbptw54hgAACCCBgLUBgtyYjAwIIIIAAAtEVILBHt23YMwQQQAABBKwFCOzWZGRAAAEEEEAgugIE9ui2DXuGAAIIIICAtQCB3ZqMDAgggAACCERXgMAe3bZhzxBAAAEEELAWILBbk5EBAQQQQACB6AoQ2KPbNuwZAggggAAC1gIEdmsyMiCAAAIIIBBdAQJ7dNuGPUMAAQQQQMBagMBuTUYGBBBAAAEEoitAYI9u27BnCCCAAAIIWAsQ2K3JyIAAAggggEB0BQjs0W0b9gwBBBBAAAFrAQK7NRkZEEAAAQQQiK4AgT26bcOeIYAAAgggYC1AYLcmIwMCCCCAAALRFSCwR7dt2DMEEEAAAQSsBQjs1mRkQAABBBBAILoCBPbotg17hgACCCCAgLUAgd2ajAwIIIAAAghEV4DAHt22Yc8QQAABBBCwFiCwW5ORAQEEEEAAgegKENij2zbsGQIIIIAAAtYC/weylK0BdTGl8wAAAABJRU5ErkJggg==" width="450px" /></p></div>
 
-<p>Por ejemplo, para buscar un intervalo de confianza \((A,B)\) del \(95\)%, buscaremos valores \(A,B\) de manera que \[
+<p>Por ejemplo, para buscar un intervalo de confianza \((A,B)\) del \(95\)%, buscaremos valores \(A,B\) de manera que</p>
+
+<p>\[
 P(\theta&lt;A)=0.025\quad\mbox{ y }\quad P(\theta&gt;B)=0.025.
 \]</p>
 
@@ -3272,7 +3274,7 @@ P(\theta&lt;A)=0.025\quad\mbox{ y }\quad P(\theta&gt;B)=0.025.
 
 </article></slide><slide class=""><hgroup><h2>Intervalos de confianza para el parámetro \(\mu\) de una población normal con \(\sigma\) conocida</h2></hgroup><article  id="intervalos-de-confianza-para-el-parámetro-mu-de-una-población-normal-con-sigma-conocida">
 
-<p>Sea \(X\) una v.a. normal con media poblacional \(\mu\) desconocida y desviación típica poblacional \(\sigma\) conocida (a la práctica, usualmente, estimada en un experimento anterior)</p>
+<p>Sea \(X\) una v.a. normal con media poblacional \(\mu\) desconocida y desviación típica poblacional \(\sigma\) conocida (en la práctica, usualmente, estimada en un experimento anterior)</p>
 
 <p>Sea \(X_1,\ldots,X_n\) una m.a.s. de \(X\), con media muestral \(\overline{X}\)</p>
 
@@ -3289,7 +3291,7 @@ Z=\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}
 <p>Comencemos calculando un intervalo centrado en \(0\) en el que \(Z\) tenga probabilidad \(0.975\): \[
 \begin{array}{l}
 0.975= P(-\delta&lt;Z&lt;\delta)=F_{Z}(\delta)-F_{Z}(-\delta)=
-2 F_{Z}(\delta)-1\\
+2\cdot F_{Z}(\delta)-1\\
 F_{Z}(\delta)=\dfrac{1.975}{2}=0.9875\Rightarrow
 \delta=\mbox{qnorm}(0.9875)=2.2414.
 \end{array}
@@ -3998,6 +4000,7 @@ P\left(-z_{1-\frac{\alpha}{2}}\leq \dfrac{\widehat{p}_{X}-p}
 <p><l class="definition">Definición.</l> En estas condiciones, un intervalo de confianza del \((1-\alpha)\cdot 100\%\) I.C. para \(p\) (donde \(\widehat{q}_{X}=1-\widehat{p}_{X}\)) es:</p>
 
 <p>\[
+\small
 \left(\frac{\widehat{p}_{X}+\frac{z_{1-{\alpha}/{2}}^2}{2n}-z_{1-{\alpha}/{2}}\sqrt{\frac{\widehat{p}_{X}\widehat{q}_{X}}{n}+\frac{z_{1-{\alpha}/{2}}^2}{4n^2}}}{1+\frac{z_{1-{\alpha}/{2}}^2}{n}}\right., \left.\frac{\widehat{p}_{X}+\frac{z_{1-{\alpha}/{2}}^2}{2n}+z_{1-{\alpha}/{2}}\sqrt{\frac{\widehat{p}_{X}\widehat{q}_{X}}{n}+\frac{z_{1-{\alpha}/{2}}^2}{4n^2}}}{1+\frac{z_{1-{\alpha}/{2}}^2}{n}}\right).
 \]</p>
 
