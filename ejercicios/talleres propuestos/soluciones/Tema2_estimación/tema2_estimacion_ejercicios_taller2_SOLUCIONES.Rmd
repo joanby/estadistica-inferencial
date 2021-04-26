@@ -63,12 +63,12 @@ $\lambda$ de una variable exponencial para  a una muestra de
 tamaño $n$?
 
 ## Ejercicio 8
+
 Se registran los  tiempos de duración de 30 bombillas.
  Supongamos  que el tiempo de duración de estas bombillas es una variable exponencial. Si
-la suma de los tiempos $\sum x_i =32916$ horas, ¿cuál  es el estimador de máxima 
-verosimilitud para al parámetro de la distribución exponencial de duración de les
+la suma de los tiempos $\displaystyle\sum_{i=1}^{30} x_i =32916$ horas, ¿cuál  es el estimador de máxima
+verosimilitud para el parámetro de la distribución exponencial de duración de las
 bombillas?
-
 
 # Soluciones
 
@@ -193,9 +193,9 @@ Ahora $\ln\left(L(\lambda|x_1,x_2,\ldots,x_n)\right)=n\cdot \ln(\lambda)-\lambda
 $\frac{n}{\lambda}-\sum_{i=1}^n x_i=0$ de donde 
 $\lambda=\frac{n}{\sum_{i=1}^n x_i}=\frac{1}{\overline{x}}$.
 
-Luego el estimador MV de $\lambda$ es $\hat{lambda}=\frac{1}{\overline{X}}$.
+Luego el estimador MV de $\lambda$ es $\hat{\lambda}=\frac{1}{\overline{X}}$.
 
 
 ## Solución ejercicio 8
 
-Nos dicen que la v.a. $X=$ duración de unas bombillas  sigue una distribución $Exp(\lambda)$. Se toma una muestra de 30 bombillas, se encienden hasta que fallan y se anota el número de horas funcionando. Se obtienen $x_1,x_2,\ldots,x_{30}$ duraciones  tales que $\sum_{i=1}^{30}x_i=32000$ luego $\overline{x}=\frac{\sum_{i=1}^{30}x_i}{n}=\frac{32000}{30}$. Como la población es exponencial por el problema anterior el EMV es $\hat{\lambda}=\frac{1}{\overline{x}}=\frac{1}{\frac{32000}{30}}=\frac{3}{3200}=`r format(1/(32000/30), scientific=FALSE)`.$
+Nos dicen que la v.a. $X=$ duración de unas bombillas  sigue una distribución $Exp(\lambda)$. Se toma una muestra de 30 bombillas, se encienden hasta que fallan y se anota el número de horas funcionando. Se obtienen $x_1,x_2,\ldots,x_{30}$ duraciones  tales que $\displaystyle\sum_{i=1}^{30}x_i=32916$ luego $\overline{x}=\frac{\sum_{i=1}^{30}x_i}{n}=\frac{32916}{30}$. Como la población es exponencial por el problema anterior el EMV es $\hat{\lambda}=\frac{1}{\overline{x}}=\frac{1}{\frac{32916}{30}}=\frac{30}{32916}=`r format(1/(32916/30), scientific=FALSE)`.$

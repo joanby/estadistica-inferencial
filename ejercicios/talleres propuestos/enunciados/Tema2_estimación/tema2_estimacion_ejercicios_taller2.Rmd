@@ -65,6 +65,6 @@ tamaño $n$?
 ## Ejercicio 8
 Se registran los  tiempos de duración de 30 bombillas.
  Supongamos  que el tiempo de duración de estas bombillas es una variable exponencial. Si
-la suma de los tiempos $\sum x_i =32916$ horas, ¿cuál  es el estimador de máxima 
-verosimilitud para al parámetro de la distribución exponencial de duración de les
+la suma de los tiempos $\displaystyle\sum_{i=1}^{30} x_i =32916$ horas, ¿cuál  es el estimador de máxima
+verosimilitud para el parámetro de la distribución exponencial de duración de las
 bombillas?
