@@ -1,0 +1,246 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Ejercicios Tema 2 - Estimación SOLUCIONES. Taller 3},
+  pdfauthor={Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir},
+  colorlinks=true,
+  linkcolor=red,
+  filecolor=Maroon,
+  citecolor=blue,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\renewcommand{\contentsname}{Contenidos}
+
+\title{Ejercicios Tema 2 - Estimación SOLUCIONES. Taller 3}
+\author{Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir}
+\date{Curso completo de estadística inferencial con R y Python}
+
+\begin{document}
+\maketitle
+
+{
+\hypersetup{linkcolor=blue}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{estimaciuxf3n-taller-3}{%
+\section{Estimación taller 3}\label{estimaciuxf3n-taller-3}}
+
+\hypertarget{ejercicio-1}{%
+\subsection{Ejercicio 1}\label{ejercicio-1}}
+
+Supongamos que \(X_1,X_2,\ldots,X_6\) es una muestra aleatoria de una
+variable aleatoria normal con media \(\mu\) y varianza \(\sigma^2\).
+Hallar la constante \(C\) tal que
+\[C\cdot\bigl({(X_1 -X_2)}^2 +{(X_3 -X_4)}^2 + 
+ {(X_5 -X_6)}^2\bigr),\] sea un estimador sin sesgo de \(\sigma^2\).
+
+\hypertarget{ejercicio-2}{%
+\subsection{Ejercicio 2}\label{ejercicio-2}}
+
+Supongamos que \(\Theta_1\) y \(\Theta_2\) son estimadores sin sesgo de
+un parámetro desconocido \(\theta\), con varianzas conocidas
+\(\sigma_1^2\) y \(\sigma_2^2\), respectivamente. Demostrar que
+\(\Theta =(1-a)\cdot\Theta_1 +a\cdot \Theta_2\) también es insesgado
+para cualquier valor de \(a\not=0\).
+
+\hypertarget{ejercicio-3}{%
+\subsection{Ejercicio 3}\label{ejercicio-3}}
+
+Sea \(X_1,\ldots,X_{2n}\) una muestra aleatoria simple de una variable
+aleatoria \(N(\mu,\sigma)\). Sea: \[
+T=C\left({\left(\sum_{i=1}^{2n} X_i\right)}^2- 4 n\sum_{i=1}^{n}
+X_{2i} X_{2i-1}\right)
+\] un estimador del parámetro \(\sigma^2\). ¿Cuál es el valor de \(C\)
+para que \(T\) sea un estimador insesgado?
+
+\hypertarget{ejercicio-4}{%
+\subsection{Ejercicio 4}\label{ejercicio-4}}
+
+Una variable aleatoria \(X\) sigue la distribución de Rayleigh con
+parámetro \(\theta >0\) si es una variable aleatoria con valores \(x>0\)
+y función de densidad: \[
+f(x)=\frac{x}{\theta} e^{-\frac{x^2}{2\theta}}.
+\] Hallar el estimador máximo verosímil del parámetro \(\theta\).
+
+\hypertarget{soluciones}{%
+\section{Soluciones}\label{soluciones}}
+
+\hypertarget{soluciuxf3n-ejercicio-1}{%
+\subsection{Solución ejercicio 1}\label{soluciuxf3n-ejercicio-1}}
+
+Recordemos que \(E(X_i)=\mu\), y que
+\(\sigma^2=E(X_i^2)-\left(E(X_i)\right)^2=E(X_i^2)-\mu^2\) luego
+\(E(X_i^2)=\sigma^2+\mu^2\) para \(i=1,2,3\). Además al ser
+independientes\\
+\(E(X_1\cdot X_{2})=E(X_1)\cdot E(X_2)\mu\cdot\mu=\mu^2\) y lo mismo
+para \(E(X_3\cdot X_{4})=E(X_5\cdot X_{6})=\mu^2.\)
+
+Ahora
+
+\[
+\begin{array}{rl}
+E\left(\left(X_{1}-X_{2}\right)^2\right) & =
+E\left(X_{1}^2-2\cdot X_1\cdot X_{2}+X_{2}^2\right)\\
+& = E\left(X_{1}^2\right)-2\cdot E(X_1\cdot X_{2})+E\left(X_{2}^2\right)\\
+& = (\sigma^2+\mu^2)-2\cdot (\mu\cdot\mu)+ (\sigma^2+\mu^2)\\
+& =2\cdot\sigma^2. 
+\end{array}
+\]
+
+Utilizando adecuadamente los cálculos anteriores \[
+E\left(C\cdot\bigl({(X_1 -X_2)}^2 +{(X_3 -X_4)}^2 + {(X_5 -X_6)}^2\bigr)\right)=C\cdot 3\cdot 2\cdot \sigma^2.
+\]
+
+Luego el valor de \(C\) para que el estimador sea insesgado es la
+solución de la ecuación
+
+\[C\cdot 3\cdot 2\cdot \sigma^2=\sigma^2\]
+
+Así que el valor buscado es \(C=\frac16.\)
+
+\hypertarget{soluciuxf3n-ejercicio-2}{%
+\subsection{Solución ejercicio 2}\label{soluciuxf3n-ejercicio-2}}
+
+Supongamos que \(\Theta_1\) y \(\Theta_2\) son estimadores sin sesgo de
+un parámetro desconocido \(\theta\), con varianzas conocidas
+\(\sigma_1^2\) y \(\sigma_2^2\), respectivamente. Demostrar que
+\(\Theta =(1-a)\cdot\Theta_1 +a\cdot \Theta_2\) también es insesgado
+para cualquier valor de \(a\).
+
+Tenemos que \(E(\Theta_1)=E(\Theta_2)=\theta\) y que
+\(Var(\Theta_1)=\sigma_1\) y \(Var(\Theta_2)=\sigma_2\).
+
+Nos piden que demostremos que para cualquier \(a\not=0\)
+
+\[
+E(\Theta) =E\left((1-a)\cdot\Theta_1 +a\cdot \Theta_2\right)=\theta.
+\]
+
+efectivamente
+
+\(E(\Theta)=(1-a)\cdot E(\Theta_1) +a\cdot E(\Theta_2)=(1-a)\cdot \theta +a\cdot \theta=\theta.\)
+
+\hypertarget{soluciuxf3n-ejercicio-3}{%
+\subsection{Solución ejercicio 3}\label{soluciuxf3n-ejercicio-3}}
+
+Como \(X_1,\ldots,X_{2n}\) una muestra aleatoria simple de una variable
+aleatoria \(N(\mu,\sigma)\). Sabemos que \(\sum_{i=1}^{2\cdot n} X_i\)
+sigue una ley
+\(N\left(2\cdot n\cdot\mu, \sqrt{2\cdot n \cdot\sigma^2}\right)\) luego
+\(E\left(\sum_{i=1}^{2\cdot n} X_i\right)=2\cdot n\cdot \mu\),
+\(Var(\sum_{i=1}^{2\cdot n} X_i)=2\cdot n\cdot \sigma^2\) y
+\(E\left(\left(\sum_{i=1}^{2\cdot n}X_i\right)^2\right)=2\cdot n\cdot \sigma^2+2\cdot n\cdot\mu^2.\)
+Ademas como \(X_{2\cdot i}\) y \(X_{2\cdot i-1}\) son independientes
+\(E(X_{2\cdot i}\cdot X_{2\cdot i-1})=E(X_{2\cdot i})\cdot E(X_{2\cdot i-1})=\mu\cdot \mu=\mu^2.\)
+
+Entonces
+
+\[
+\begin{array}{rl}
+E(T)&=E\left(C\cdot\left(\left(\sum_{i=1}^{2n} X_i\right)^2- 4 n\sum_{i=1}^{n}
+X_{2i} X_{2i-1}\right)\right)\\
+& =C\cdot \left(2\cdot n\cdot\sigma^2+(2\cdot n\cdot\mu)^2-4\cdot n\cdot n\cdot \mu^2\right)\\
+& = C\cdot2\cdot n\cdot\sigma^2
+\end{array}
+\]
+
+Por lo que el valor de \(C\) pedido es la solución de la ecuación \[
+C\cdot 2\cdot n\cdot\sigma^2=\sigma^2\]
+
+despejando \(C\) obtenemos que el valor buscado es
+\(C=\frac{1}{2\cdot n}.\)
+
+\hypertarget{soluciuxf3n-ejercicio-4}{%
+\subsection{Solución ejercicio 4}\label{soluciuxf3n-ejercicio-4}}
+
+Sea \(x_1,x_2,\ldots,x_n\) la realización de una más de una variable
+aleatoria \(X\) con distribución Rayleigh de parámetro \(\theta >0\). Su
+función de verosimilitud es
+
+\[ 
+\begin{array}{rl}
+L(\theta|x_1,,x_2,\ldots,x_n)&=   f_X(x_1;\theta)\cdot f_X(x_1;\theta)\cdot \ldots \cdot f_x(x_n;\theta)\\
+& =\frac{x_1}{\theta}\mathrm{e}^{-\frac{x_1^2}{2\theta}}\cdot\frac{x_2}{\theta} \mathrm{e}^{-\frac{x_2^2}{2\theta}}\cdot\ldots\cdot \frac{x_n}{\theta} \mathrm{e}^{-\frac{x_n^2}{2\theta}}\\
+& = \frac{\prod_{i=1}^n x_i}{\theta^n} \cdot \mathrm{e}^{-\frac{ \sum_{i=1}^n x_i^2}{2\theta}}.
+\end{array}
+\] Buscamos el \(\theta\) que maximiza \(L(\theta|x_1,,x_2,\ldots,x_n)\)
+que es el mismo que maximiza su logaritmo, es decir
+
+\[
+\ln(L(\theta|x_1,,x_2,\ldots,x_n))=\ln\left(\frac{\prod_{i=1}^n x_i}{\theta^n} \cdot \mathrm{e}^{-\frac{\sum_{i=1}^n x_i^2}{2\theta}}\right)=
+\ln\left(\prod_{i=1}^n x_i\right)-\ln(\theta^n)-\frac{ \sum_{i=1}^n x_i^2}{2\theta}.
+\]
+
+Ahora derivamos la expresión respecto de \(\theta\), la igualamos a cero
+y despejamos \(\theta\)
+
+\[
+\ln(L(\theta|x_1,,x_2,\ldots,x_n))'=\left(
+\ln\left(\prod_{i=1}^n x_i\right)-\ln(\theta^n)-\frac{ \sum_{i=1}^n x_i^2}{2\theta}\right)'= -\frac{n}{\theta}+\frac{ \sum_{i=1}^n x_i^2}{2\theta^2}=0.
+\]
+
+de donde multiplicando los dos términos de la última igualdad por
+\(\theta^2.\)
+
+\(-n\cdot \theta+\frac{ \sum_{i=1}^n x_i^2}{2}=0\)
+
+resolviendo la ecuación obtenemos que el estimador máximo verosímil de
+\(\theta\) es \[\hat{\theta}= \frac{ \sum_{i=1}^n x_i^2}{2\cdot n}.\]
+
+\end{document}
