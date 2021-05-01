@@ -46,7 +46,7 @@ IC=c(xmedia-qnorm(1-alpha/2)*sigma/sqrt(n),xmedia+qnorm(1-alpha/2)*sigma/sqrt(n)
 IC
 ```
 
-Con un nivel de confianza del $95\%$  el intervalo $(`r IC`)$   contiene el verddero valor de la  ressitencia a la rotura de estas barras de hierro.
+Con un nivel de confianza del $95\%$  el intervalo $(`r IC`)$   contiene el verdadero valor de la  resistencia a la rotura de estas barras de hierro.
 
 
 ## Ejercicio 2
@@ -70,7 +70,7 @@ IC=c(xmedia-qnorm(1-alpha/2)*stilde/sqrt(n),xmedia+qnorm(1-alpha/2)*stilde/sqrt(
 IC
 ```
 
-Con un nivel de confianza del $98\%$  el intervalo $(`r round(IC,4)`)$   contiene cpntredrá  la media poblacional 
+Con un nivel de confianza del $98\%$  el intervalo $(`r round(IC,4)`)$   contiene   la media poblacional 
 del  C.I. de los estudiantes.
 
 ## Ejercicio 3
@@ -86,7 +86,7 @@ con un nivel de confianza del 95\%, suponiendo que las velocidades son normales.
 
 ###  Solución
 
-En este caso nos dicen que la población sigue una distribución normal y que el tamañó de la muestra $n=4$ es pequeño, así que utilizremos la $t$ de Student para el cálculo de los cuantiles de intervalo.
+En este caso nos dicen que la población sigue una distribución normal y que el tamaño de la muestra $n=4$ es pequeño, así que utilizaremos la $t$ de Student para el cálculo de los cuantiles de intervalo.
 
 
 
@@ -123,7 +123,7 @@ normal.
 ### Solución
 
 
-Ekl tamaño de la muestra $n=10$ no es muy grande pero este caso la distribución poblacional del tiempo es normal .
+El tamaño de la muestra $n=10$ no es muy grande pero este caso la distribución poblacional del tiempo es normal .
  
  
 ```{r}
@@ -156,7 +156,7 @@ Calculemos  varias de ellas; empecemos  cargando los datos del problema:
 ```{r}
 n=120
 n
-x=30# datos bernoulli a 1 
+x=30# datos Bernoulli a 1 
 x
 p_muestral=x/n  # proporción muestral
 p_muestral
@@ -166,7 +166,7 @@ p_muestral
 * Método exacto Cloper Pearson
 
 ```{r}
-#install.packages("epitools") # descomentar para intalar epitools
+#install.packages("epitools") # descomentar para instalar epitools
 epitools::binom.exact(x=x,n=n,conf.level=0.95)
 ```
 
@@ -189,7 +189,7 @@ epitools::binom.approx(x,n,conf.level=0.95)
 ```
 
 
-En este caso la podemos reproducir  el cáculo de forma sencilla con funciones básicas de R
+En este caso la podemos reproducir  el cálculo de forma sencilla con funciones básicas de R
 
 
 

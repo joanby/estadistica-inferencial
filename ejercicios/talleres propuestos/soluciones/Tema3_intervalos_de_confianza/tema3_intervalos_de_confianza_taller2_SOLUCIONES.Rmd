@@ -247,13 +247,42 @@ con un retraso de más de $15$ minutos al nivel de confianza $95\%$.
 
 ### Solución
 
+
+
 1. $\left(104.16,119.84\right)$.
 2. $\left(972.343,1814.08\right)$.
 3. $\left(0.265,0.475\right)$.
 4. $n=385$.
 
 
+Se pueden obtener con el siguiente código
+
+```{r}
+n=81
+xmedia=112
+s=36
+alpha=1-0.95
+x=30# retraso
+phat=30/81# proporción muestral retraso
+A0=0.1
+#apartado1
+IC1=c(xmedia-qnorm(1-alpha/2)*s/sqrt(n),xmedia+qnorm(1-alpha/2)*s/sqrt(n))
+IC1
+#apartado2
+IC2=c((n-1)*s^2/qchisq(1-alpha/2,n-1),(n-1)*s^2/qchisq(alpha/2,n-1))
+IC2
+#apartado3
+IC3=c(phat-qnorm(1-alpha/2)*sqrt(phat*(1-phat)/n),phat+qnorm(1-alpha/2)*sqrt(phat*(1-phat)/n))
+IC3
+#apartado4
+n=ceiling(qnorm(1-alpha/2)^2/A0^2)
+n
+```
+
+
+
 ## Ejercicio 5
+
 Una empresa cervecera sabe que las cantidades de cerveza que contienen
 sus latas sigue una distribución normal con desviación típica poblacional $0.03$ litros.
 
@@ -270,8 +299,32 @@ para alcanzar este objetivo?
 
 ### Solución
 
+1. $90.44\%$
+2.  $n=7$ hemos consideramos una "amplitud"/"error" a cada lado de la media como 0.03. Luego la amlitud total esintervalo es de $A0=2*0.03=0.06$. 
 
-1. $90.3\%$
-2.  $n=7$
+Se pueden obtener con el siguiente código
+
+```{r}
+#apartado 1
+sigma=0.03
+n=25
+IC=c(0.32,0.34)
+A0=(IC[2]-IC[1])# amplitud A0=2*cuantil*sigma/sqrt(n);
+#cuantil=qnorm(1-alpha/2)
+A0
+cuantil=A0*sqrt(n)/(2*sigma)
+cuantil
+nivel_confianza=1-2*(1-pnorm(cuantil))
+nivel_confianza
+round(nivel_confianza*100,2)
+
+#apartado2
+A0=0.03*2
+alpha=1-0.99
+n=ceiling((2*qnorm(1-alpha/2)*sigma/A0)^2)
+n
+```
+
+
 
 
