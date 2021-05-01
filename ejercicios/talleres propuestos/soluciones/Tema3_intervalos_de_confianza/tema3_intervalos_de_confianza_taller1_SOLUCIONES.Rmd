@@ -70,8 +70,7 @@ IC=c(xmedia-qnorm(1-alpha/2)*stilde/sqrt(n),xmedia+qnorm(1-alpha/2)*stilde/sqrt(
 IC
 ```
 
-Con un nivel de confianza del $98\%$  el intervalo $(`r round(IC,4)`)$   contiene el verdadero valor de la  resistencia a la rotura de estas barras de hierro.
-
+Con un nivel de confianza del $98\%$  el intervalo $(`r round(IC,4)`)$   contiene el verdadero valor del C.I. medio de los estudiantes,
 ## Ejercicio 3
 
 Para investigar un nuevo tipo de combustible para cohetes espaciales, se disparan cuatro
