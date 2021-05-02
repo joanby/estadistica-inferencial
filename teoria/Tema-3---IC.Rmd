@@ -969,7 +969,7 @@ Como que $n=500\geq 100$, $n\widehat{p}_X=340\geq 10$ y $n\cdot (1-\widehat{p}_X
 
 Usando que $z_{1-\frac{\alpha}{2}}=z_{`r 1-0.05/2`}=`r round(qnorm(1-0.05/2),3)`$, el intervalo de confianza será:
 $$
-\left(`r 340/500`-`r round(qnorm(1-0.05/2),3)`\cdot \sqrt{\frac{`r 340/500`\cdot `r (500-340)/500`}{500}},`r 340/500`-`r round(qnorm(1-0.05/2),3)`\cdot \sqrt{\frac{`r 340/500`\cdot `r (500-340)/500`}{500}}\right)=(`r round(340/500-qnorm(1-0.05/2)*sqrt((340/500)*((500-340)/500)/500),3)`,
+\left(`r 340/500`-`r round(qnorm(1-0.05/2),3)`\cdot \sqrt{\frac{`r 340/500`\cdot `r (500-340)/500`}{500}},`r 340/500`+`r round(qnorm(1-0.05/2),3)`\cdot \sqrt{\frac{`r 340/500`\cdot `r (500-340)/500`}{500}}\right)=(`r round(340/500-qnorm(1-0.05/2)*sqrt((340/500)*((500-340)/500)/500),3)`,
 `r round(340/500+qnorm(1-0.05/2)*sqrt((340/500)*((500-340)/500)/500),3)`).
 $$
 </div>
