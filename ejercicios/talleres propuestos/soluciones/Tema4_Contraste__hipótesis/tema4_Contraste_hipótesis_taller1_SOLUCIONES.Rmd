@@ -32,7 +32,7 @@ Los siguientes ejercicios son de puro cálculo. Seguid la teoría y utilizar R p
 
 En   muestra aleatoria simple de tamaño $n=36$ extraída
 de una población normal con $\sigma^2=12^2$ hemos obtenido la siguiente media muestral $\overline{x}=62.5$, Contrastar al nivel de significación $\alpha=0.05$, la hipótesis
- nula $\mu=61$ contra la   alternativa
+ nula $\mu=60$ contra la   alternativa
 $\mu<60$. Resolver calculando el  $p$-valor del contraste.
 
 
@@ -96,7 +96,7 @@ Como el nivel del significación $\alpha=0.05$ es menor que el $p$-valor=`r p_va
 
 ## Ejercicio `r cuenta()` 
 
-Hemos obtenido una media muestral de  $\overline{x}=72.5$ de una muestra aleatoria simple de tamaño $n=100$ extraída de una población normal con $\sigma^2=30^2$. Contrastar al   nivel de significación $\alpha=0.10$, la hipótesis nula $\mu=77$ contra las siguientes tres alternativas
+Hemos obtenido una media muestral de  $\overline{x}=72.5$ de una muestra aleatoria simple de tamaño $n=100$ extraída de una población normal con $\sigma^2=30^2$. Contrastar al   nivel de significación $\alpha=0.10$, la hipótesis nula $\mu=70$ contra las siguientes tres alternativas
 $\mu\not= 70$, $\mu>70$, $\mu<70$. Calcular el $p$-valor en cada caso.
  
 
@@ -189,6 +189,7 @@ Como el nivel del significación  es $\alpha=0.05$ es menor que el $p$-valor en 
 
 
 ## Ejercicio `r cuenta()` 
+
 En un contraste bilateral, con $\alpha=0.01$, ¿para qué valores
 de $\overline{X}$ rechazaríamos  la hipótesis nula $H_{0}:\mu=70$, a
 partir de una muestra aleatoria simple de tamaño $n=64$ extraída de una
@@ -208,17 +209,17 @@ alpha=0.01
 alpha
 mu0=70
 mu0
-z0 = (media_muestral-mu0)/sqrt(sigma2/n)
-z0
+
 ```
 
 
 Bajo estas condiciones, normalidad muestra aleatoria simple y esto datos el estadístico de contraste es
 
 
-$$z_0=\frac{\overline{x}-\mu_0}{\frac{\sigma}{\sqrt{n}}}=
-\frac{`r media_muestral`-`r mu0`}{\frac{`r sqrt(sigma2)`}{\sqrt{`r n`}}}
-=`r (media_muestral-mu0)/sqrt(sigma2/n)`$$
+$$
+z_0=\frac{\overline{x}-\mu_0}{\frac{\sigma}{\sqrt{n}}}=
+\frac{\overline{x}-`r mu0`}{\frac{`r sqrt(sigma2)`}{\sqrt{`r n`}}}
+$$
 
 
 
@@ -239,7 +240,7 @@ $\overline{x}>70 + `r valor_critico_bilateral[2]`\cdot \frac{16}{\sqrt{64}}$.
 
 
 Es decir si $\overline{x}<`r 70 +  valor_critico_bilateral[1]* 16/sqrt(64)`$ o 
-$\overline{x}>`r 70 +  valor_critico_bilateral[2]* 16/sqrt(64)`$ rechazaremos la hipótesis nula al nivel de confianza del $1\%$ ($\alpha=0.1$). 
+$\overline{x}>`r 70 +  valor_critico_bilateral[2]* 16/sqrt(64)`$ rechazaremos la hipótesis nula al nivel de confianza del $1\%$ ($\alpha=0.01$). 
 
 
 
@@ -248,7 +249,7 @@ $\overline{x}>`r 70 +  valor_critico_bilateral[2]* 16/sqrt(64)`$ rechazaremos la
 El salario anual medio de una muestra  de tamaño $n= 1600$ personas, elegidas aleatoria e
 independientemente de cierta población de profesionales de las Tecnologías de la Información y Comunicación (TIC) ha sido de de  45000 euros, supongamos que nos dicen que la desviación típica es $\sigma=2000$ euros
 
-1. ¿Es compatible  con este resultado la hipótesis nula, $H_{0}:\mu=43500$ contra la alternativa bilateral, al nivel de significación $\alpha=0.01$? 
+1. ¿Es compatible  con este resultado la hipótesis nula, $H_{0}:\mu=$ contra la alternativa bilateral, al nivel de significación $\alpha=0.01$? 
 2. ¿Cuál es el intervalo de confianza para $\mu$? 
 3. Calcular el $p$-valor del contraste.
 
@@ -259,7 +260,7 @@ Cargamos datos
 ```{r}
 n=1600
 n
-sigma=4000
+sigma=2000
 sigma
 sigma2=sigma^2
 sigma2
@@ -267,7 +268,7 @@ media_muestral=45000
 media_muestral
 alpha=0.01
 alpha
-mu0=44900
+mu0=43500
 mu0
 z0 = (media_muestral-mu0)/sqrt(sigma2/n)
 z0
@@ -312,7 +313,7 @@ Es similar a los ejercicios anteriores
 El peso medio de los paquetes de mate  puestos a la venta por la casa comercial MATEASA es
 supuestamente de 1 Kg. Para comprobar esta suposición, elegimos una muestra aleatoria
 simple de 100 paquetes y encontramos que su peso  medio es de 0.978 Kg. y su desviación
-típica $s=0.10$ kg. Siendo $\alpha=0.05$ ¿es compatible este resultado con la hipótesis
+típica $\tilde{s}=0.10$ kg. Siendo $\alpha=0.05$ ¿es compatible este resultado con la hipótesis
 nula $H_{0}:\mu=1$ frente a $H_{1}:\mu\not=1$? ¿Lo es frente a $H_{1}:\mu>1$? Calcular el $p$-valor.
  
  
