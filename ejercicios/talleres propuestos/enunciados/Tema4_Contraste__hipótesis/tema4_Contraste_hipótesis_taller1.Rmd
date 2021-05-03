@@ -57,7 +57,8 @@ independientemente de cierta población de profesionales de las Tecnologías de 
 
 1. ¿Es compatible  con este resultado la hipótesis nula, $H_{0}:\mu=43500$ contra la alternativa bilateral, al nivel de significación $\alpha=0.01$? 
 2. ¿Cuál es el intervalo de confianza para $\mu$? 
-3. Calcular el $p$-valor del contraste.
+3. Calcular el $p$-valor del contra
+ste.
 
 
 ## Ejercicio `r cuenta()`  EXTRA VOLUNTARIO
