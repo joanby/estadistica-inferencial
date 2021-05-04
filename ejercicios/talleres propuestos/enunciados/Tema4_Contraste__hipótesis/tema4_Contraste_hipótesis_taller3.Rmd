@@ -31,12 +31,6 @@ library(tidyverse)
 
 **Comparación de medias.**
 
-Los siguientes problemas tratan de contrastes de parámetros entre dos muestras. El el caso de que  el enunciado lo pida contenga explícitamente las cuestiones tenéis que:
-
-1. Contrastar contra una de los tes tipos de  hipótesis unilaterales izquierda, unilateral derecha o  bilaterales.
-2. Calcular también el intervalo de confianza para la diferencia o el cociente de los parámetros según el contraste sea bilateral o unilateral. Tomar finalmente la decisión más correcta.
-3. Calcular todos los test e intervalos de confianza para $\alpha=0.05$.
-4. Calcular el $p$-valor en cada caso. 
 
 ## Ejercicio `r cuenta()`
 
@@ -48,7 +42,8 @@ $\sigma_{2}^2=10$. De las muestras obtenemos que $\overline{X}_{1}=136$ para el 
 procedimiento y $\overline{X}_{2}=128$ para el segundo. 
 Si $\mu_{1}$ y $\mu_{2}$ son los
 valores esperados para cada uno de los procedimientos, calcular un intervalo de confianza
-para $\mu_{1}-\mu_{2}$ al nivel 99\%. sol1{$\left(5.2989,10.7011\right)$}
+para $\mu_{1}-\mu_{2}$ al nivel 99\%.
+% sol1{$\left(5.2989,10.7011\right)$}
 
 
 ## Ejercicio `r cuenta()`
@@ -91,8 +86,8 @@ Contrastar la igualdad de medias contra que la droga 1 es mejor (menor media) qu
 
 ## Ejercicio `r cuenta()`
 
-Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 5
-pruebas de dureza  con la de tipo 1 y 7 con la de tipo 2. Obteniéndose los resultados
+Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 20
+pruebas de dureza  con la de tipo 1 y 25 con la de tipo 2. Obteniéndose los resultados
 siguientes:
 
 

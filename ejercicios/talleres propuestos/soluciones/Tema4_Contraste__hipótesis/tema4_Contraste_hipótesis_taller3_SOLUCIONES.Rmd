@@ -31,12 +31,6 @@ library(tidyverse)
 
 **Comparación de medias.**
 
-Los siguientes problemas tratan de contrastes de parámetros entre dos muestras. El el caso de que  el enunciado lo pida contenga explícitamente las cuestiones tenéis que:
-
-1. Contrastar contra una de los tes tipos de  hipótesis unilaterales izquierda, unilateral derecha o  bilaterales.
-2. Calcular también el intervalo de confianza para la diferencia o el cociente de los parámetros según el contraste sea bilateral o unilateral. Tomar finalmente la decisión más correcta.
-3. Calcular todos los test e intervalos de confianza para $\alpha=0.05$.
-4. Calcular el $p$-valor en cada caso. 
 
 ## Ejercicio `r cuenta()`
 
@@ -79,25 +73,26 @@ media1=136
 media2=128
 sigma1=sqrt(12)
 sigma2=sqrt(10)
-alpha=0.05
+alpha=1-0.99
 z0=round((media1-media2)/sqrt(sigma1^2/n1+sigma2^2/n2),3)
 ```
 
 
-El **estadístico de contraste** toma el valor:
+El **estadístico de contraste** toma el valor para $\alpha=1-0.99=0.01$:
 
 $$z_0=\dfrac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}=\frac{`r media1`-`r media2`}{\sqrt{\frac{`r sigma1`^2}{`r n1`}+\frac{`r sigma2`^2}{`r n2`}}}=`r round((media1-media2)/sqrt(sigma1^2/n1+sigma2^2/n2),3)`.$$
 
 El estadístico sigue, aproximadamente, una distribución normal. La región crítica del contraste  al nivel se significación $\alpha=0.05$ es  rechazar $H_0$ si $z_0<z_{\alpha/2}$ o $z_0>z_{1\alpha/2}$. Con nuestros datos 
 
-$$z_0=`r z0`\not< z_{\alpha/2}=z_{0.05}=`r qnorm(0.05/2)` \mbox{ o } z_0=`r z0`  \> z_{1-\alpha/2}=`r qnorm(1-0.05/2)`$$
-o lo que es lo mismo rechazamos $H_0$ si $|z_0|=`r z0`>  z_{1-\alpha/2}=`r qnorm(1-0.05/2)`$ lo que en este caso  es cierto.
+$$z_0=`r z0`\not< z_{\alpha/2}=z_{`r alpha/2`}=`r qnorm(alpha/2)` \mbox{ o } z_0=`r z0`  \> z_{1-\alpha/2}=
+z_{`r 1-\alpha/2`}=`r qnorm(1-alpha/2)`$$
+o lo que es lo mismo rechazamos $H_0$ si $|z_0|=`r z0`>  z_{1-\alpha/2}=`r qnorm(1-aplha/2)`$ lo que en este caso  es cierto.
 
 Los cuantiles los hemos calculado con
 
 
 ```{r}
-alpha=0.05
+alpha=1-0.99
 qnorm(alpha/2) # o tambien -qnorm(1-alpha/2)
 qnorm(1-alpha/2)
 ```
@@ -298,7 +293,7 @@ media1=1260
 media2=1240
 desv_tipica1=20
 desv_tipica2=18
-alpha=0.05
+alpha=1-0.98
 qt(1-alpha/2,df=n1+n2-2)
 IC=c(media1-media2- qt(1-alpha/2,df=n1+n2-2)
      *sqrt((1/n1+1/n2)*((n1-1)*desv_tipica1+(n2-1)*desv_tipica2^2)/(n1+n2-2)),
@@ -401,8 +396,8 @@ el $p$-valor es alto, no hay evidencias para poder rechazar que las varianzas se
 
 ## Ejercicio `r cuenta()`
 
-Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 5
-pruebas de dureza  con la de tipo 1 y 7 con la de tipo 2. Obteniéndose los resultados
+Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 20
+pruebas de dureza  con la de tipo 1 y 25 con la de tipo 2. Obteniéndose los resultados
 siguientes:
 
 
