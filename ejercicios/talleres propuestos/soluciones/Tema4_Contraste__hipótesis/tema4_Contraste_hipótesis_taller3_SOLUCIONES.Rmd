@@ -84,8 +84,8 @@ $$z_0=\dfrac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\
 El estadístico sigue, aproximadamente, una distribución normal. La región crítica del contraste  al nivel se significación $\alpha=0.05$ es  rechazar $H_0$ si $z_0<z_{\alpha/2}$ o $z_0>z_{1\alpha/2}$. Con nuestros datos 
 
 $$z_0=`r z0`\not< z_{\alpha/2}=z_{`r alpha/2`}=`r qnorm(alpha/2)` \mbox{ o } z_0=`r z0`  \> z_{1-\alpha/2}=
-z_{`r 1-\alpha/2`}=`r qnorm(1-alpha/2)`$$
-o lo que es lo mismo rechazamos $H_0$ si $|z_0|=`r z0`>  z_{1-\alpha/2}=`r qnorm(1-aplha/2)`$ lo que en este caso  es cierto.
+z_{`r 1-alpha/2`}=`r qnorm(1-alpha/2)`$$
+o lo que es lo mismo rechazamos $H_0$ si $|z_0|=`r z0`>  z_{1-\alpha/2}=`r qnorm(1-alpha/2)`$ lo que en este caso  es cierto.
 
 Los cuantiles los hemos calculado con
 
@@ -404,8 +404,6 @@ siguientes:
 set.seed(345)
 aleacion1=round(0.2*(rnorm(20))+18.2,2)
 aleacion2=round(0.5*(rnorm(25))+17.8,2)
-aleacion1
-aleacion2
 ```
 
 
@@ -414,35 +412,40 @@ aleacion1=c(18.04,18.14,18.17,18.14,18.19,18.07,18.01,18.54,
             18.53,18.56,18.57,17.92,18.03,18.26,18.38,17.92,
             18.31,18.41,18,18.26)
 aleacion2=c(18.02,18.21,16.51,17.21,17.85,18.24,17.48,17.28,
-            17.51,17.51,17.43,18.14,17.32,17.11,17.55,17.49.
-            18.27,17.92, 18.14, 18.52, 18.12, 18.22, 17.37,
-            17.91, 17.77)
-
+            17.51,17.51,17.43,18.14,17.32,17.11,17.55,17.49,
+            18.27,17.92,18.14,18.52,18.12,18.22,17.37,17.91,17.77)
+media1=mean(aleacion1)
+media1
+sd1=sd(aleacion1)
+sd1
+media2=mean(aleacion2)
+media2
+sd2=sd(aleacion2)
+sd2
 ```
 
 
+$$\overline{X}_{1}=`r media1`,\quad S_{1}=`r sd1` \mbox{ y}$$
 
-$$\overline{X}_{1}=18.2,\quad S_{1}=0.2 \mbox{ y}$$
-
-$$\overline{X}_{2}=17.8;\quad S_{2}=0.5$$
+$$\overline{X}_{1}=`r media2`,\quad S_{2}=`r sd2`$$
 
 Suponer que la población de las durezas es normal y que las desviaciones típicas no son
-iguales. Hacer lo mismo  si las varianzas son distintas.
-% , buscar un intervalo de confianza para $\mu_{1}-\mu_{2}$ con  probabilidad $0.95$
-% sol1{$\left(0.314,0.486\right)$}
+iguales.
 
+Contrastar  que las medias de las durezas son iguales contra que son distintas. Calcular un intervalo de confianza para $\mu_{1}-\mu_{2}$ al nivel de significación del $95\%$.
 
-
+Haced lo mismo  si las varianzas son distintas.
+ 
 ## Ejercicio `r cuenta()` 
 
 Se encuestó a dos muestras independientes de  empresas,  en las islas de Ibiza y otra en Mallorca, sobre si utilizaban sistemas de almacenamiento en la nube. La encuesta de Ibiza tuvo un tamaño $n_1=500$  y 
-$200$ usuarios mientras que  en Mallorca se encuestaron a $n_2=750$ y se obtuvo un resultado de $210$ usuarios.
+$200$ usuarios  de la nube, mientras que  en Mallorca se encuestaron a $n_2=750$ y se obtuvo un resultado de $210$ usuarios.
 
 se pide:
 
 1. Construir una matriz 2 por 2 que contenga en filas los valores de Ibiza y Mallorca y por columnas las respuestas Sí y No
-3. Con la función `prop.test` contrastar si las proporciones por islas son iguales o distintas.  
-4. Resolver el contraste con el $p$-valor y obtener e interpretar un intervalo de confianza del 95 para la diferencia de proporciones (! cuidado con el orden¡).
+3. Con la función `prop.test` y el ` contrastar si las proporciones por islas son iguales o distintas.  
+4. Resolver el contraste con el $p$-valor y obtener e interpretar un los intyervalos  de confianza del  95\% para la \texsl{comparación de las proporciones} (!cuidado con el orden¡).
 
 
 
@@ -467,7 +470,7 @@ fisher.test(datos)
 
 En ambos casos se rechaza la hipótesis nula
 
-El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}$. Así que el intervalo de confianza debe contener a 1 para que las proporciones sean iguales. Consultar[AprendeR2](https://aprender-uib.github.io/AprendeR2/chap-contrastes.html#contrastes-para-proporciones).
+El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}$. Así que el intervalo de confianza debe contener a 1 para que las proporciones sean iguales. Consultad[Bookdown Estadística Inferencial capítulo 4 sección 8](https://joanby.github.io/bookdown-estadistica-inferencial/contrastes-de-hip%C3%B3tesis-param%C3%A9tricos.html#contrastes-para-dos-proporciones-p_1-y-p_2).
 
 
 
@@ -482,7 +485,7 @@ Se pregunta a un grupo de 100 personas elegido al azar asiste a un *webinar* sob
      \multicolumn{2}{c|}{}& \multicolumn{2}{|c|} {Después}\\\cline{3-4}
    \multicolumn{2}{c|}{} & Sí Segura & No Segura \\\hline
 Antes & Sí  Segura &  50 &  30 \\
-    & No Segura   &  5 & 15 
+    & No Segura   &  45 & 29
 \\\hline
 \end{tabular}
 \end{center}
@@ -498,7 +501,8 @@ Es un contraste de comparación de proporciones emparejadas con R se puede resol
 
 
 ```{r}
-datos=datos=matrix(c(50,30, 45,29),nrow=2,byrow = TRUE)
+datos=matrix(c(50,30, 45,29),nrow=2,byrow = TRUE)
+datos
 dimnames(datos)=list(c("Antes_Si","Antes_No_Segura"),c("Despues_Si","Despues_No"))
 datos
 mcnemar.test(datos)
