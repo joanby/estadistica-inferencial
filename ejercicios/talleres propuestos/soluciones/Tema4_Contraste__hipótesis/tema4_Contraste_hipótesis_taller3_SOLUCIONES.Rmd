@@ -29,7 +29,6 @@ library(tidyverse)
 # Contraste hipótesis taller 3: Contrastes de dos parámetros.
 
 
-**Comparación de medias.**
 
 
 ## Ejercicio `r cuenta()`
@@ -42,7 +41,7 @@ $\sigma_{2}^2=10$. De las muestras obtenemos que $\overline{X}_{1}=136$ para el 
 procedimiento y $\overline{X}_{2}=128$ para el segundo. 
 Si $\mu_{1}$ y $\mu_{2}$ son los
 valores esperados para cada uno de los procedimientos, calcular un intervalo de confianza
-para $\mu_{1}-\mu_{2}$ al nivel 99\%. sol1{$\left(5.2989,10.7011\right)$}
+para $\mu_{1}-\mu_{2}$ al nivel 99\%. 
 
 
 
@@ -405,6 +404,8 @@ siguientes:
 set.seed(345)
 aleacion1=round(0.2*(rnorm(20))+18.2,2)
 aleacion2=round(0.5*(rnorm(25))+17.8,2)
+aleacion1
+aleacion2
 ```
 
 
@@ -412,10 +413,10 @@ aleacion2=round(0.5*(rnorm(25))+17.8,2)
 aleacion1=c(18.04,18.14,18.17,18.14,18.19,18.07,18.01,18.54,
             18.53,18.56,18.57,17.92,18.03,18.26,18.38,17.92,
             18.31,18.41,18,18.26)
-aleacion2=c(18.14,17.87,17.53,17.61,17.24,18.01,17.04,17.82,
-            17.97,17.75,18.48,17.34,17.29,16.81,19.21,17.6,
-            17.85,17.98,18.04,18.13,18.26,18.1,18.37,17.48,
-            17.58)
+aleacion2=c(18.02,18.21,16.51,17.21,17.85,18.24,17.48,17.28,
+            17.51,17.51,17.43,18.14,17.32,17.11,17.55,17.49.
+            18.27,17.92, 18.14, 18.52, 18.12, 18.22, 17.37,
+            17.91, 17.77)
 
 ```
 
@@ -473,7 +474,7 @@ El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2
 
 ## Ejercicio `r cuenta()`
 
-Se pregunta a un grupo de 100 personas elegido al azar asiste a un webinnar sobre tecnología para la banca. Antes de la conferencia se les pregunta si consideran  que  Internet es segura para la banca, después de la conferencia se les vuelve a preguntar cual es su opinión. Los resultados fueron los siguientes:
+Se pregunta a un grupo de 100 personas elegido al azar asiste a un *webinar* sobre tecnología para la banca. Antes de la conferencia se les pregunta si consideran  que  Internet es segura para la banca, después de la conferencia se les vuelve a preguntar cual es su opinión. Los resultados fueron los siguientes:
 
 \begin{center}
 \begin{tabular}{|c|c|cc|}
@@ -485,6 +486,8 @@ Antes & Sí  Segura &  50 &  30 \\
 \\\hline
 \end{tabular}
 \end{center}
+
+Contrastar, calculando  el $p$-valor,  si ha cambiado (en cualquier sentido) la proporción de los asistentes que consideran que Internet es segura para la banca.
 
 
 ### Solución 
