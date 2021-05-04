@@ -19,7 +19,7 @@ urlcolor: blue
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-options(scipen=999)
+options(scipen=999,digits=4)
 contador=0
 cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
 library(tidyverse)
@@ -81,9 +81,9 @@ El **estadístico de contraste** toma el valor para $\alpha=1-0.99=0.01$:
 
 $$z_0=\dfrac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}=\frac{`r media1`-`r media2`}{\sqrt{\frac{`r sigma1`^2}{`r n1`}+\frac{`r sigma2`^2}{`r n2`}}}=`r round((media1-media2)/sqrt(sigma1^2/n1+sigma2^2/n2),3)`.$$
 
-El estadístico sigue, aproximadamente, una distribución normal. La región crítica del contraste  al nivel se significación $\alpha=0.05$ es  rechazar $H_0$ si $z_0<z_{\alpha/2}$ o $z_0>z_{1\alpha/2}$. Con nuestros datos 
+El estadístico sigue, aproximadamente, una distribución normal. La región crítica del contraste  al nivel se significación $\alpha=`r alpha`$ es  rechazar $H_0$ si $z_0<z_{\alpha/2}$ o $z_0>z_{1-\alpha/2}$. Con nuestros datos 
 
-$$z_0=`r z0`\not< z_{\alpha/2}=z_{`r alpha/2`}=`r qnorm(alpha/2)` \mbox{ o } z_0=`r z0`  \> z_{1-\alpha/2}=
+$$z_0=`r z0`\not< z_{\alpha/2}=z_{`r alpha/2`}=`r qnorm(alpha/2)` \mbox{ o } z_0=`r z0`  > z_{1-\alpha/2}=
 z_{`r 1-alpha/2`}=`r qnorm(1-alpha/2)`$$
 o lo que es lo mismo rechazamos $H_0$ si $|z_0|=`r z0`>  z_{1-\alpha/2}=`r qnorm(1-alpha/2)`$ lo que en este caso  es cierto.
 
@@ -92,7 +92,8 @@ Los cuantiles los hemos calculado con
 
 ```{r}
 alpha=1-0.99
-qnorm(alpha/2) # o tambien -qnorm(1-alpha/2)
+qnorm(alpha/2)
+-qnorm(1-alpha/2)
 qnorm(1-alpha/2)
 ```
 
@@ -132,7 +133,7 @@ componentes electrónicos. Para ello se toma una muestra de cada tipo y se obtie
 
 Calcular un intervalo de confianza para $\mu_{1}-\mu_{2}$ ($\mu_{1}$ esperanza del primer grupo y $\mu_{2}$ esperanza del segundo grupo) al nivel 98\% 
 Suponer si es necesario las
-poblaciones aproximadamente normales. % sol1{$\left(12.19,27.81\right)$}
+poblaciones aproximadamente normales. 
 
 ### Solución 
 
@@ -196,7 +197,7 @@ desv_tipica2=18
 f0=desv_tipica1^2/desv_tipica2^2 # estadístico de contraste
 f0
 2*pf(f0,n1-1,n2-1,lower.tail = TRUE)# lower.tail = TRUE es el valor por defecto 
-2*pf(f0,n1-1,n2-1,lower.tail = FALSE)# o tambien 2*(1-pf(f0,n1-1,n2-1)  
+2*pf(f0,n1-1,n2-1,lower.tail = FALSE)# o también 2*(1-pf(f0,n1-1,n2-1)  
 pvalor=min(2*pf(f0,n1-1,n2-1,lower.tail = TRUE),2*pf(f0,n1-1,n2-1,lower.tail = FALSE))
 pvalor
 ```
@@ -223,7 +224,7 @@ El estadístico de contraste  sigue una ley $t$ de Student con $n_1+n_2-2$ grado
 $$
 T=\frac{\overline{X}_1-\overline{X}_2}
 {\sqrt{(\frac1{n_1}+\frac1{n_2})\cdot 
-\frac{((n_1-1)\widetilde{S}_1^2+(n_2-1)\widetilde{S}_2^2)}
+\frac{(n_1-1)\widetilde{S}_1^2+(n_2-1)\widetilde{S}_2^2}
 {(n_1+n_2-2)}}},
 $$
 
@@ -324,7 +325,7 @@ distribución normal son independientes
 
 
 Contrastar la igualdad de medias contra que la droga 1 es mejor (menor media) que la droga 2.   Resolver el test en  los dos casos varianzas iguales  y varianzas distintas. Calcular el intervalo de confianza asociado al contraste
-%sol1{$\left(-2.09,8.09\right)$}
+
 
 ### Solución
 
@@ -413,7 +414,8 @@ aleacion1=c(18.04,18.14,18.17,18.14,18.19,18.07,18.01,18.54,
             18.31,18.41,18,18.26)
 aleacion2=c(18.02,18.21,16.51,17.21,17.85,18.24,17.48,17.28,
             17.51,17.51,17.43,18.14,17.32,17.11,17.55,17.49,
-            18.27,17.92,18.14,18.52,18.12,18.22,17.37,17.91,17.77)
+            18.27,17.92,18.14,18.52,18.12,18.22,17.37,17.91,
+            17.77)
 media1=mean(aleacion1)
 media1
 sd1=sd(aleacion1)
@@ -435,6 +437,62 @@ iguales.
 Contrastar  que las medias de las durezas son iguales contra que son distintas. Calcular un intervalo de confianza para $\mu_{1}-\mu_{2}$ al nivel de significación del $95\%$.
 
 Haced lo mismo  si las varianzas son distintas.
+
+### Solución 
+
+Lo resolvemos solo con R sin más comentarios
+
+
+Cargamos datos
+
+
+```{r}
+n1=20
+n2=20
+aleacion1
+aleacion2
+```
+
+
+
+Contraste
+
+
+
+$$
+\left\{
+\begin{array}{ll}
+H_0:&\mu_1=\mu_2\\ 
+H_1:&\mu_1\not=\mu_2
+\end{array}
+\right.
+$$
+```{r}
+t.test(aleacion1,aleacion2,alternative = "two.sided",var.equal =FALSE,conf.level=0.95)
+t.test(aleacion1,aleacion2,alternative = "two.sided",var.equal =TRUE,conf.level=0.95)
+```
+
+Son las varianzas iguales 
+
+$$
+\left\{
+\begin{array}{ll}
+H_0:&\sigma^2_1=\sigma^2_2\\ 
+H_1:&\sigma^2_1\not=\sigma^2_2
+\end{array}
+\right.
+$$
+
+```{r}
+var.test(aleacion1,aleacion2,ratio = 1,conf.level = 0.95,alternative = "two.sided")
+```
+
+ 
+ 
+```{r}
+var(aleacion1)/var(aleacion2)
+var.test(aleacion1,aleacion2,ratio = 1,conf.level = 0.95,alternative = "two.sided")$statistic
+```
  
 ## Ejercicio `r cuenta()` 
 
@@ -445,7 +503,7 @@ se pide:
 
 1. Construir una matriz 2 por 2 que contenga en filas los valores de Ibiza y Mallorca y por columnas las respuestas Sí y No
 3. Con la función `prop.test` y el ` contrastar si las proporciones por islas son iguales o distintas.  
-4. Resolver el contraste con el $p$-valor y obtener e interpretar un los intyervalos  de confianza del  95\% para la \texsl{comparación de las proporciones} (!cuidado con el orden¡).
+4. Resolver el contraste con el $p$-valor y obtener e interpretar un los intervalos  de confianza del  95\% para la *comparación de las proporciones* (!cuidado con el orden¡).
 
 
 
@@ -470,7 +528,7 @@ fisher.test(datos)
 
 En ambos casos se rechaza la hipótesis nula
 
-El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}$. Así que el intervalo de confianza debe contener a 1 para que las proporciones sean iguales. Consultad[Bookdown Estadística Inferencial capítulo 4 sección 8](https://joanby.github.io/bookdown-estadistica-inferencial/contrastes-de-hip%C3%B3tesis-param%C3%A9tricos.html#contrastes-para-dos-proporciones-p_1-y-p_2).
+El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}$. Así que el intervalo de confianza debe contener a 1 para que las proporciones sean iguales. [Consultad Bookdown Estadística Inferencial capítulo 4 sección 8](https://joanby.github.io/bookdown-estadistica-inferencial/contrastes-de-hip%C3%B3tesis-param%C3%A9tricos.html#contrastes-para-dos-proporciones-p_1-y-p_2).
 
 
 
