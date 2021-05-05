@@ -329,6 +329,7 @@ En resumen, **rechazamos $H_0$** si $\dfrac{\overline{X}-\mu_{0}}{\sigma/\sqrt{n
 ## Contrastes de hipótesis para el parámetro $\mu$ de una variable normal con $\sigma$ conocida
 
 Gráfico de la región de rechazo. Las abscisas o coordenadas $x$ de la zona en azul serían los valores $z$ para los que rechazaríamos la hipótesis nula $H_0$:
+
 ```{r,echo=FALSE,fig=TRUE,fig.align="center"}
 x=seq(from=-3,to=3,by=0.01)
 plot(x,dnorm(x),type="l",xlab="z",ylab=expression(f[Z](z)))
@@ -459,7 +460,7 @@ x=seq(from=-3,to=3,by=0.01)
 plot(x,dnorm(x),type="l",xlab="z",ylab=expression(f[Z](z)))
 alpha=0.05
 abline(v=-qnorm(1-alpha),lty=2,col="red")
-text(-qnorm(1-alpha),0.02,expression(z[1-alpha]),pos=4, col="red")
+text(-qnorm(1-alpha),0.02,expression(z[alpha]==-z[1-alpha]),pos=4, col="red")
 text(-2.8,0.1,"Región de\n Rechazo",col="blue",pos=4)
 
 nc=100
@@ -750,7 +751,7 @@ Supongamos, por ejemplo, que hemos obtenido un $p$-valor de $0.03$:
 * *No significa*:
   * La probabilidad que $H_0$ Sea verdadera es $0.03$
 
-  * $H_0$ es verdadera un 3\% de les veces
+  * $H_0$ es verdadera un 3\% de las veces
 
 ## El $p$-valor
 
@@ -982,7 +983,7 @@ $$
 <div class="example-sol">
 Tomamos un nivel de significación $\alpha=0.05$.
 
-EL estadístico de contraste es 
+El estadístico de contraste es 
 $$
 z_0=\frac{\overline{X}-7}{0.89/\sqrt{100}}=\frac{\overline{X}-7}{`r 0.89/100`}=\frac{7.18-7}{`r 0.89/10`}=`r round((7.18-7)/(0.89/10),3)`.
 $$
