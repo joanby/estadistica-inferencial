@@ -148,8 +148,8 @@ Se pregunta a un grupo de 100 personas elegido al azar asiste a un *webinar* sob
 \cline{3-4}
      \multicolumn{2}{c|}{}& \multicolumn{2}{|c|} {Después}\\\cline{3-4}
    \multicolumn{2}{c|}{} & Sí Segura & No Segura \\\hline
-Antes & Sí  Segura &  50 &  30 \\
-    & No Segura   &  45 & 29
+Antes & Sí  Segura &  50 &  20 \\
+    & No Segura   &  15 & 15
 \\\hline
 \end{tabular}
 \end{center}

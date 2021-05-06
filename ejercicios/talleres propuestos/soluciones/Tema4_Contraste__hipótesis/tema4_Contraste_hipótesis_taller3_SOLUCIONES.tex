@@ -1,0 +1,1122 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Ejercicios Tema 4 - Contraste hipótesis. Taller 3},
+  pdfauthor={Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir},
+  colorlinks=true,
+  linkcolor=red,
+  filecolor=Maroon,
+  citecolor=blue,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\renewcommand{\contentsname}{Contenidos}
+
+\title{Ejercicios Tema 4 - Contraste hipótesis. Taller 3}
+\author{Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir}
+\date{Curso completo de estadística inferencial con R y Python}
+
+\begin{document}
+\maketitle
+
+{
+\hypersetup{linkcolor=blue}
+\setcounter{tocdepth}{4}
+\tableofcontents
+}
+\hypertarget{contraste-hipuxf3tesis-taller-3-contrastes-de-dos-paruxe1metros.}{%
+\section{Contraste hipótesis taller 3: Contrastes de dos
+parámetros.}\label{contraste-hipuxf3tesis-taller-3-contrastes-de-dos-paruxe1metros.}}
+
+\hypertarget{ejercicio-1}{%
+\subsection{Ejercicio 1}\label{ejercicio-1}}
+
+Para comparar la producción media de dos procedimientos de fabricación
+de cierto producto se toman dos muestras, una con la cantidad producida
+durante 25 días con el primer método y otra con la cantidad producida
+durante 16 días con el segundo método. Por experiencia se sabe que la
+varianza del primer procedimiento es \(\sigma_{1}^2=12\) y al del
+segundo \(\sigma_{2}^2=10\). De las muestras obtenemos que
+\(\overline{X}_{1}=136\) para el primer procedimiento y
+\(\overline{X}_{2}=128\) para el segundo. Si \(\mu_{1}\) y \(\mu_{2}\)
+son los valores esperados para cada uno de los procedimientos, calcular
+un intervalo de confianza para \(\mu_{1}-\mu_{2}\) al nivel 99\%.
+
+\hypertarget{soluciuxf3n}{%
+\subsubsection{Solución}\label{soluciuxf3n}}
+
+Estamos en el caso de un contraste de comparación de medias de muestras
+independientes y en el teórico caso de que las varianzas son conocidas.
+
+Contrastaremos:
+
+\[
+\left\{
+\begin{array}{ll}
+H_{0}:\mu_1=\mu_2\\
+H_{1}:\mu_1\not= \mu_2 
+\end{array}
+\right.
+\]
+
+El estadístico de contraste es
+
+El \textbf{estadístico de contraste} toma el valor para
+\(\alpha=1-0.99=0.01\):
+
+\[z_0=\dfrac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}=\frac{136-128}{\sqrt{\frac{3.4641^2}{25}+\frac{3.1623^2}{16}}}=7.61.\]
+
+El estadístico sigue, aproximadamente, una distribución normal. La
+región crítica del contraste al nivel se significación \(\alpha=0.01\)
+es rechazar \(H_0\) si \(z_0<z_{\alpha/2}\) o \(z_0>z_{1-\alpha/2}\).
+Con nuestros datos
+
+\[z_0=7.61\not< z_{\alpha/2}=z_{0.005}=-2.5758 \mbox{ o } z_0=7.61  > z_{1-\alpha/2}=
+z_{0.995}=2.5758\] o lo que es lo mismo rechazamos \(H_0\) si
+\(|z_0|=7.61> z_{1-\alpha/2}=2.5758\) lo que en este caso es cierto.
+
+Los cuantiles los hemos calculado con
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha=}\DecValTok{1}\FloatTok{{-}0.99}
+\KeywordTok{qnorm}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -2.576
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{{-}}\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{{-}}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -2.576
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{{-}}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.576
+\end{verbatim}
+
+El \(p\)-valor de este contraste para la alternativa bilateral es
+\(p\)-valor=\(2\cdot P(Z>|z_0|)\) donde \(Z\) es una normal estándar
+\(N(\mu=0,\sigma=1)\). Podemos calcularlo con el código
+
+En nuestro caso
+
+\[2\cdot P(Z>|z_0|)= 2\cdot P(Z>|7.61|)=P(Z>7.61)=2\cdot(1-P(Z\leq 7.61 )),\]
+
+lo podemos calcular con R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.61
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{{-}}\KeywordTok{pnorm}\NormalTok{(}\KeywordTok{abs}\NormalTok{(z0)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.00000000000002731
+\end{verbatim}
+
+Es un \(p\)-valor muy pequeño lo que confirma que hay evidencias para
+rechazar las hipótesis nula: el rendimiento de los dos métodos de
+fabricación no tiene la misma media.
+
+\hypertarget{ejercicio-2}{%
+\subsection{Ejercicio 2}\label{ejercicio-2}}
+
+Estamos interesados en comparar la vida media, expresada en horas de dos
+tipos de componentes electrónicos. Para ello se toma una muestra de cada
+tipo y se obtiene:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline Tipo & tamaño & $\overline{x}$ & $\tilde{s}$\\ \hline \hline 1 & 50 & 1260 & 20\\ \hline 2 &
+100 & 1240 & 18\\ \hline
+\end{tabular}
+\end{center}
+
+Calcular un intervalo de confianza para \(\mu_{1}-\mu_{2}\) (\(\mu_{1}\)
+esperanza del primer grupo y \(\mu_{2}\) esperanza del segundo grupo) al
+nivel 98\% Suponer si es necesario las poblaciones aproximadamente
+normales.
+
+\hypertarget{soluciuxf3n-1}{%
+\subsubsection{Solución}\label{soluciuxf3n-1}}
+
+En este caso tenemos dos muestras independientes de tamaños \(n1=50\),
+\(n2=100\) y estadísticos \(\overline{x}_1=1260\),
+\(\overline{x}_2=1240\), \(\tilde{s}_1=20\) y \(\tilde{s}_2=18\).
+
+Cargamos los datos en R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n1=}\DecValTok{50}
+\NormalTok{n2=}\DecValTok{120}
+\NormalTok{media1=}\DecValTok{1260}
+\NormalTok{media2=}\DecValTok{1240}
+\NormalTok{desv\_tipica1=}\DecValTok{20}
+\NormalTok{desv\_tipica2=}\DecValTok{18}
+\NormalTok{f0=desv\_tipica1}\OperatorTok{\^{}}\DecValTok{2}\OperatorTok{/}\NormalTok{desv\_tipica2}\OperatorTok{\^{}}\DecValTok{2} \CommentTok{\# estadístico de contraste}
+\NormalTok{f0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.235
+\end{verbatim}
+
+Tenemos pues, dos muestras independientes de tamaños muestrales y las
+varianzas desconocidas. Haremos un \(t\)-test pero tenemos dos casos:
+varianzas desconocidas iguales y varianzas desconocidas distintas.
+Primero haremos un test para saber si las varianzas son iguales o
+distintas.
+
+El contraste es
+
+\[
+\left\{
+\begin{array}{ll}
+H_{0}:\sigma_1=\sigma_2\\
+H_{1}:\sigma_1\not= \sigma_2 
+\end{array}
+\right.
+\]
+
+Se emplea el siguiente \textbf{estadístico de contraste}:
+
+\[
+F=\frac{\widetilde{S}_1^2}{\widetilde{S}_2^2}
+\] que, si las dos poblaciones son normales y la hipótesis nula
+\(H_0:\sigma_1=\sigma_2\) es cierta, tiene distribución \(F\) de Fisher
+con grados de libertad \(n_1-1\) y \(n_2-1\).
+
+En nuestro caso
+\(f_0=\frac{\tilde{s}_1^2}{\tilde{s}_1^2}= \frac{20^2}{18^2}=1\)
+
+Resolveremos calculando el \(p\)-valor del contraste que este caso es
+
+\[
+\begin{array}{l}
+\min\{2\cdot P(F_{n_1-1,n_2-1}\leq f_0),2\cdot P(F_{n_1-1,n_2-1}\geq f_0)\}\\=\min\{2\cdot P(F_{50-1,100-1}\leq 1.2346),2\cdot P(F_{50-1,100-1}\geq 1.2346)\}
+\end{array}
+\]
+
+calcularemos el \(p\)-valor con R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n1=}\DecValTok{50}
+\NormalTok{n2=}\DecValTok{100}
+\NormalTok{desv\_tipica1=}\DecValTok{20}
+\NormalTok{desv\_tipica2=}\DecValTok{18}
+\NormalTok{f0=desv\_tipica1}\OperatorTok{\^{}}\DecValTok{2}\OperatorTok{/}\NormalTok{desv\_tipica2}\OperatorTok{\^{}}\DecValTok{2} \CommentTok{\# estadístico de contraste}
+\NormalTok{f0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.235
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{*}\KeywordTok{pf}\NormalTok{(f0,n1}\DecValTok{{-}1}\NormalTok{,n2}\DecValTok{{-}1}\NormalTok{,}\DataTypeTok{lower.tail =} \OtherTok{TRUE}\NormalTok{)}\CommentTok{\# lower.tail = TRUE es el valor por defecto }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.625
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{*}\KeywordTok{pf}\NormalTok{(f0,n1}\DecValTok{{-}1}\NormalTok{,n2}\DecValTok{{-}1}\NormalTok{,}\DataTypeTok{lower.tail =} \OtherTok{FALSE}\NormalTok{)}\CommentTok{\# o también 2*(1{-}pf(f0,n1{-}1,n2{-}1)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3749
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pvalor=}\KeywordTok{min}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\KeywordTok{pf}\NormalTok{(f0,n1}\DecValTok{{-}1}\NormalTok{,n2}\DecValTok{{-}1}\NormalTok{,}\DataTypeTok{lower.tail =} \OtherTok{TRUE}\NormalTok{),}\DecValTok{2}\OperatorTok{*}\KeywordTok{pf}\NormalTok{(f0,n1}\DecValTok{{-}1}\NormalTok{,n2}\DecValTok{{-}1}\NormalTok{,}\DataTypeTok{lower.tail =} \OtherTok{FALSE}\NormalTok{))}
+\NormalTok{pvalor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3749
+\end{verbatim}
+
+El \(p\)-valor es alto así que no podemos rechazar la hipótesis nula;
+consideraremos las varianzas iguales.
+
+Así pues vamos a contrastar la igualdad de medias contra que son
+distintas:
+
+\[
+\left\{
+\begin{array}{ll}
+H_{0}:\mu_1=\mu_2\\
+H_{1}:\mu_2\not= \mu_2 
+\end{array}
+\right..
+\]
+
+El estadístico de contraste sigue una ley \(t\) de Student con
+\(n_1+n_2-2\) grados de libertad su fórmula es
+
+\[
+T=\frac{\overline{X}_1-\overline{X}_2}
+{\sqrt{(\frac1{n_1}+\frac1{n_2})\cdot 
+\frac{(n_1-1)\widetilde{S}_1^2+(n_2-1)\widetilde{S}_2^2}
+{(n_1+n_2-2)}}},
+\]
+
+en nuestro caso vale
+
+\[
+t_0=\frac{1260-1240}
+{\sqrt{(\frac1{50}+\frac1{100})\cdot 
+\frac{((50-1)\cdot 20^2+(100-1)\cdot  18^2)}
+{(n_1+n_2-2)}}}=7.7264 
+\]
+
+con R es
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n1 =}\StringTok{ }\DecValTok{50}
+\NormalTok{n2 =}\StringTok{ }\DecValTok{120}
+\NormalTok{media1 =}\StringTok{ }\DecValTok{1260}
+\NormalTok{media2 =}\StringTok{ }\DecValTok{1240}
+\NormalTok{desv\_tipica1 =}\StringTok{ }\DecValTok{20}
+\NormalTok{desv\_tipica2 =}\StringTok{ }\DecValTok{18}
+\NormalTok{t0=(media1}\OperatorTok{{-}}\NormalTok{media2)}\OperatorTok{/}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{((}\DecValTok{1}\OperatorTok{/}\NormalTok{n1}\OperatorTok{+}\DecValTok{1}\OperatorTok{/}\NormalTok{n2)}\OperatorTok{*}\NormalTok{((n1}\DecValTok{{-}1}\NormalTok{)}\OperatorTok{*}\NormalTok{desv\_tipica1}\OperatorTok{+}
+\StringTok{                        }\NormalTok{(n2}\DecValTok{{-}1}\NormalTok{)}\OperatorTok{*}\NormalTok{desv\_tipica2}\OperatorTok{\^{}}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(n1}\OperatorTok{+}\NormalTok{n2}\DecValTok{{-}2}\NormalTok{)))}
+\NormalTok{t0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.745
+\end{verbatim}
+
+el \(p\)-valor para la alternativa bilateral es
+\(2\cdot P(t_{N1+n_2-2}>|t_0|)=2\cdot (1-P(t_{N1+n_2-2}>|t_0|)),\) con R
+es
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.745
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{abs}\NormalTok{(t0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.745
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 50
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 120
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pvalor=}\StringTok{ }\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{{-}}\KeywordTok{pt}\NormalTok{(}\KeywordTok{abs}\NormalTok{(t0),}\DataTypeTok{df=}\NormalTok{n1}\OperatorTok{+}\NormalTok{n2}\DecValTok{{-}2}\NormalTok{))}
+\NormalTok{pvalor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0000000000008566
+\end{verbatim}
+
+EL \(p\)-valor es extremadamente pequeño hay evidencias en contra de la
+hipótesis nula de igualdad de medias contra la hipótesis alternativa de
+que son distintas.
+
+El intervalo de confianza al nivel \(1-\alpha=0.95\) es
+
+\begin{eqnarray*}
+\left(&&
+\overline{x}_1-\overline{x}_2- t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}{(n_1+n_2-2)}}\right. \\
+&,&
+\left.\overline{x}_1-\overline{x}_2+ t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}
+{(n_1+n_2-2)}}
+\right)
+\end{eqnarray*}
+
+lo calculamos con R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n1=}\DecValTok{50}
+\NormalTok{n2=}\DecValTok{120}
+\NormalTok{media1=}\DecValTok{1260}
+\NormalTok{media2=}\DecValTok{1240}
+\NormalTok{desv\_tipica1=}\DecValTok{20}
+\NormalTok{desv\_tipica2=}\DecValTok{18}
+\NormalTok{alpha=}\DecValTok{1}\FloatTok{{-}0.98}
+\KeywordTok{qt}\NormalTok{(}\DecValTok{1}\OperatorTok{{-}}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DataTypeTok{df=}\NormalTok{n1}\OperatorTok{+}\NormalTok{n2}\DecValTok{{-}2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.349
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IC=}\KeywordTok{c}\NormalTok{(media1}\OperatorTok{{-}}\NormalTok{media2}\OperatorTok{{-}}\StringTok{ }\KeywordTok{qt}\NormalTok{(}\DecValTok{1}\OperatorTok{{-}}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DataTypeTok{df=}\NormalTok{n1}\OperatorTok{+}\NormalTok{n2}\DecValTok{{-}2}\NormalTok{)}
+     \OperatorTok{*}\KeywordTok{sqrt}\NormalTok{((}\DecValTok{1}\OperatorTok{/}\NormalTok{n1}\OperatorTok{+}\DecValTok{1}\OperatorTok{/}\NormalTok{n2)}\OperatorTok{*}\NormalTok{((n1}\DecValTok{{-}1}\NormalTok{)}\OperatorTok{*}\NormalTok{desv\_tipica1}\OperatorTok{+}\NormalTok{(n2}\DecValTok{{-}1}\NormalTok{)}\OperatorTok{*}\NormalTok{desv\_tipica2}\OperatorTok{\^{}}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(n1}\OperatorTok{+}\NormalTok{n2}\DecValTok{{-}2}\NormalTok{)),}
+\NormalTok{     media1}\OperatorTok{{-}}\NormalTok{media2}\OperatorTok{+}\StringTok{ }\KeywordTok{qt}\NormalTok{(}\DecValTok{1}\OperatorTok{{-}}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DataTypeTok{df=}\NormalTok{n1}\OperatorTok{+}\NormalTok{n2}\DecValTok{{-}2}\NormalTok{)}
+     \OperatorTok{*}\KeywordTok{sqrt}\NormalTok{((}\DecValTok{1}\OperatorTok{/}\NormalTok{n1}\OperatorTok{+}\DecValTok{1}\OperatorTok{/}\NormalTok{n2)}\OperatorTok{*}\NormalTok{((n1}\DecValTok{{-}1}\NormalTok{)}\OperatorTok{*}\NormalTok{desv\_tipica1}\OperatorTok{+}\NormalTok{(n2}\DecValTok{{-}1}\NormalTok{)}\OperatorTok{*}\NormalTok{desv\_tipica2}\OperatorTok{\^{}}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(n1}\OperatorTok{+}\NormalTok{n2}\DecValTok{{-}2}\NormalTok{)))}
+\NormalTok{IC}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 13.94 26.06
+\end{verbatim}
+
+La diferencia de medias \(\mu_1-\mu_2\) verdadera se encontrará en el
+intervalo \((13.9351, 26.0649)\) al nivel de confianza del \(95\%\). La
+\(media_1\) es claramente más grande que la dos, en al menos \(14\)
+
+\hypertarget{ejercicio-3}{%
+\subsection{Ejercicio 3}\label{ejercicio-3}}
+
+Para reducir la concentración de ácido úrico en la sangre se prueban dos
+drogas. La primera se aplica a un grupo de 8 pacientes y la segunda a un
+grupo de 10. Las disminuciones observadas en las concentraciones de
+ácido úrico de los distintos pacientes expresadas en tantos por cien de
+concentración después de aplicado el tratamiento son:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+droga 1 & 20 & 12 & 16 & 18 & 13 & 22 & 15 & 20\\ \hline droga 2 & 17 & 14 & 12 & 10 & 15 &
+13 & 9 & 19 & 20 & 11
+\end{tabular}
+\end{center}
+
+Suponer que las reducciones de ácido úrico siguen una distribución
+normal son independientes
+
+Contrastar la igualdad de medias contra que la droga 1 es mejor (menor
+media) que la droga 2. Resolver el test en los dos casos varianzas
+iguales y varianzas distintas. Calcular el intervalo de confianza
+asociado al contraste
+
+\hypertarget{soluciuxf3n-2}{%
+\subsubsection{Solución}\label{soluciuxf3n-2}}
+
+Denotando la droga 1 y 2 con el mismo subíndice el contraste es:
+
+\[
+\left\{
+\begin{array}{ll}
+H_{0}:\mu_1=\mu_2\\
+H_{1}:\mu_1 < \mu_2 
+\end{array}
+\right..
+\]
+
+Carguemos los datos y resolvamos con R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{droga1=}\KeywordTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{16}\NormalTok{,}\DecValTok{18}\NormalTok{,}\DecValTok{13}\NormalTok{,}\DecValTok{22}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{20}\NormalTok{)}
+\NormalTok{droga2=}\KeywordTok{c}\NormalTok{(}\DecValTok{17}\NormalTok{,}\DecValTok{14}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{13}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{11}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+El contraste para el caso de varianzas iguales es
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(droga1,droga2,}\DataTypeTok{var.equal =} \OtherTok{TRUE}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"less"}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.9}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Two Sample t-test
+## 
+## data:  droga1 and droga2
+## t = 1.7, df = 16, p-value = 0.9
+## alternative hypothesis: true difference in means is less than 0
+## 90 percent confidence interval:
+##  -Inf 5.33
+## sample estimates:
+## mean of x mean of y 
+##        17        14
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p\_valor=}\KeywordTok{t.test}\NormalTok{(droga1,droga2,}\DataTypeTok{var.equal =} \OtherTok{TRUE}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"less"}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.9}\NormalTok{)}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{p\_valor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9478
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IC=}\KeywordTok{t.test}\NormalTok{(droga1,droga2,}\DataTypeTok{var.equal =} \OtherTok{TRUE}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"less"}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.9}\NormalTok{)}\OperatorTok{$}\NormalTok{conf.int}
+\NormalTok{IC}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -Inf 5.33
+## attr(,"conf.level")
+## [1] 0.9
+\end{verbatim}
+
+El \(p\)-valor es 0.9478 muy grande no hay evidencias para aceptar que
+la droga1 reduce en media el ácido úrico más que la droga 2.
+
+El intervalo de confianza para la diferencia de medias al nivel de
+confianza del \(90\%\) es \((-\infty, 5.3298)\)
+
+Ahora el mismo test pero suponiendo varianzas distintas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(droga1,droga2,}\DataTypeTok{var.equal =} \OtherTok{FALSE}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"less"}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.9}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  droga1 and droga2
+## t = 1.7, df = 15, p-value = 0.9
+## alternative hypothesis: true difference in means is less than 0
+## 90 percent confidence interval:
+##   -Inf 5.322
+## sample estimates:
+## mean of x mean of y 
+##        17        14
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p\_valor=}\KeywordTok{t.test}\NormalTok{(droga1,droga2,}\DataTypeTok{var.equal =} \OtherTok{FALSE}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"less"}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.9}\NormalTok{)}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{p\_valor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9482
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IC=}\KeywordTok{t.test}\NormalTok{(droga1,droga2,}\DataTypeTok{var.equal =} \OtherTok{FALSE}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"less"}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.9}\NormalTok{)}\OperatorTok{$}\NormalTok{conf.int}
+\NormalTok{IC}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  -Inf 5.322
+## attr(,"conf.level")
+## [1] 0.9
+\end{verbatim}
+
+El \(p\)-valor es 0.9482 muy grande no hay evidencias para aceptar que
+la droga1 reduce de media el ácido úrico más que la droga 2.
+
+El intervalo de confianza para la diferencia de medias al nivel de
+confianza del \(90\%\) es \((-\infty, 5.3219)\)
+
+Por último podemos hacer el test de igualdad de varianzas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var.test}\NormalTok{(droga1,droga2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  F test to compare two variances
+## 
+## data:  droga1 and droga2
+## F = 0.92, num df = 7, denom df = 9, p-value = 0.9
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.2188 4.4295
+## sample estimates:
+## ratio of variances 
+##             0.9184
+\end{verbatim}
+
+el \(p\)-valor es alto, no hay evidencias para poder rechazar que las
+varianzas sean iguales
+
+\hypertarget{ejercicio-4}{%
+\subsection{Ejercicio 4}\label{ejercicio-4}}
+
+Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo
+2) se hacen 20 pruebas de dureza con la de tipo 1 y 25 con la de tipo 2.
+Obteniéndose los resultados siguientes:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{345}\NormalTok{)}
+\NormalTok{aleacion1=}\KeywordTok{round}\NormalTok{(}\FloatTok{0.2}\OperatorTok{*}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{))}\OperatorTok{+}\FloatTok{18.2}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{aleacion2=}\KeywordTok{round}\NormalTok{(}\FloatTok{0.5}\OperatorTok{*}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{25}\NormalTok{))}\OperatorTok{+}\FloatTok{17.8}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aleacion1=}\KeywordTok{c}\NormalTok{(}\FloatTok{18.04}\NormalTok{,}\FloatTok{18.14}\NormalTok{,}\FloatTok{18.17}\NormalTok{,}\FloatTok{18.14}\NormalTok{,}\FloatTok{18.19}\NormalTok{,}\FloatTok{18.07}\NormalTok{,}\FloatTok{18.01}\NormalTok{,}\FloatTok{18.54}\NormalTok{,}
+            \FloatTok{18.53}\NormalTok{,}\FloatTok{18.56}\NormalTok{,}\FloatTok{18.57}\NormalTok{,}\FloatTok{17.92}\NormalTok{,}\FloatTok{18.03}\NormalTok{,}\FloatTok{18.26}\NormalTok{,}\FloatTok{18.38}\NormalTok{,}\FloatTok{17.92}\NormalTok{,}
+            \FloatTok{18.31}\NormalTok{,}\FloatTok{18.41}\NormalTok{,}\DecValTok{18}\NormalTok{,}\FloatTok{18.26}\NormalTok{)}
+\NormalTok{aleacion2=}\KeywordTok{c}\NormalTok{(}\FloatTok{18.02}\NormalTok{,}\FloatTok{18.21}\NormalTok{,}\FloatTok{16.51}\NormalTok{,}\FloatTok{17.21}\NormalTok{,}\FloatTok{17.85}\NormalTok{,}\FloatTok{18.24}\NormalTok{,}\FloatTok{17.48}\NormalTok{,}\FloatTok{17.28}\NormalTok{,}
+            \FloatTok{17.51}\NormalTok{,}\FloatTok{17.51}\NormalTok{,}\FloatTok{17.43}\NormalTok{,}\FloatTok{18.14}\NormalTok{,}\FloatTok{17.32}\NormalTok{,}\FloatTok{17.11}\NormalTok{,}\FloatTok{17.55}\NormalTok{,}\FloatTok{17.49}\NormalTok{,}
+            \FloatTok{18.27}\NormalTok{,}\FloatTok{17.92}\NormalTok{,}\FloatTok{18.14}\NormalTok{,}\FloatTok{18.52}\NormalTok{,}\FloatTok{18.12}\NormalTok{,}\FloatTok{18.22}\NormalTok{,}\FloatTok{17.37}\NormalTok{,}\FloatTok{17.91}\NormalTok{,}
+            \FloatTok{17.77}\NormalTok{)}
+\NormalTok{media1=}\KeywordTok{mean}\NormalTok{(aleacion1)}
+\NormalTok{media1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 18.22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sd1=}\KeywordTok{sd}\NormalTok{(aleacion1)}
+\NormalTok{sd1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2163
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{media2=}\KeywordTok{mean}\NormalTok{(aleacion2)}
+\NormalTok{media2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17.72
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sd2=}\KeywordTok{sd}\NormalTok{(aleacion2)}
+\NormalTok{sd2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4693
+\end{verbatim}
+
+\[\overline{X}_{1}=18.2225,\quad S_{1}=0.2163 \mbox{ y}\]
+
+\[\overline{X}_{1}=17.724,\quad S_{2}=0.4693\]
+
+Suponer que la población de las durezas es normal y que las desviaciones
+típicas no son iguales.
+
+Contrastar que las medias de las durezas son iguales contra que son
+distintas. Calcular un intervalo de confianza para \(\mu_{1}-\mu_{2}\)
+al nivel de significación del \(95\%\).
+
+Haced lo mismo si las varianzas son distintas.
+
+\hypertarget{soluciuxf3n-3}{%
+\subsubsection{Solución}\label{soluciuxf3n-3}}
+
+Lo resolvemos solo con R sin más comentarios
+
+Cargamos datos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n1=}\DecValTok{20}
+\NormalTok{n2=}\DecValTok{20}
+\NormalTok{aleacion1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 18.04 18.14 18.17 18.14 18.19 18.07 18.01 18.54 18.53 18.56 18.57 17.92
+## [13] 18.03 18.26 18.38 17.92 18.31 18.41 18.00 18.26
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aleacion2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 18.02 18.21 16.51 17.21 17.85 18.24 17.48 17.28 17.51 17.51 17.43 18.14
+## [13] 17.32 17.11 17.55 17.49 18.27 17.92 18.14 18.52 18.12 18.22 17.37 17.91
+## [25] 17.77
+\end{verbatim}
+
+Contraste
+
+\[
+\left\{
+\begin{array}{ll}
+H_0:&\mu_1=\mu_2\\ 
+H_1:&\mu_1\not=\mu_2
+\end{array}
+\right.
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(aleacion1,aleacion2,}\DataTypeTok{alternative =} \StringTok{"two.sided"}\NormalTok{,}\DataTypeTok{var.equal =}\OtherTok{FALSE}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  aleacion1 and aleacion2
+## t = 4.7, df = 35, p-value = 0.00004
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.2842 0.7128
+## sample estimates:
+## mean of x mean of y 
+##     18.22     17.72
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(aleacion1,aleacion2,}\DataTypeTok{alternative =} \StringTok{"two.sided"}\NormalTok{,}\DataTypeTok{var.equal =}\OtherTok{TRUE}\NormalTok{,}\DataTypeTok{conf.level=}\FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Two Sample t-test
+## 
+## data:  aleacion1 and aleacion2
+## t = 4.4, df = 43, p-value = 0.00007
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.2692 0.7278
+## sample estimates:
+## mean of x mean of y 
+##     18.22     17.72
+\end{verbatim}
+
+Son las varianzas iguales
+
+\[
+\left\{
+\begin{array}{ll}
+H_0:&\sigma^2_1=\sigma^2_2\\ 
+H_1:&\sigma^2_1\not=\sigma^2_2
+\end{array}
+\right.
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var.test}\NormalTok{(aleacion1,aleacion2,}\DataTypeTok{ratio =} \DecValTok{1}\NormalTok{,}\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  F test to compare two variances
+## 
+## data:  aleacion1 and aleacion2
+## F = 0.21, num df = 19, denom df = 24, p-value = 0.001
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.09062 0.52117
+## sample estimates:
+## ratio of variances 
+##             0.2125
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(aleacion1)}\OperatorTok{/}\KeywordTok{var}\NormalTok{(aleacion2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2125
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var.test}\NormalTok{(aleacion1,aleacion2,}\DataTypeTok{ratio =} \DecValTok{1}\NormalTok{,}\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{,}\DataTypeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}\OperatorTok{$}\NormalTok{statistic}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      F 
+## 0.2125
+\end{verbatim}
+
+\hypertarget{ejercicio-5}{%
+\subsection{Ejercicio 5}\label{ejercicio-5}}
+
+Se encuestó a dos muestras independientes de empresas, en las islas de
+Ibiza y otra en Mallorca, sobre si utilizaban sistemas de almacenamiento
+en la nube. La encuesta de Ibiza tuvo un tamaño \(n_1=500\) y \(200\)
+usuarios de la nube, mientras que en Mallorca se encuestaron a
+\(n_2=750\) y se obtuvo un resultado de \(210\) usuarios.
+
+se pide:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Construir una matriz 2 por 2 que contenga en filas los valores de
+  Ibiza y Mallorca y por columnas las respuestas Sí y No
+\item
+  Con la función \texttt{prop.test} y el ` contrastar si las
+  proporciones por islas son iguales o distintas.\\
+\item
+  Resolver el contraste con el \(p\)-valor y obtener e interpretar un
+  los intervalos de confianza del 95\% para la \emph{comparación de las
+  proporciones} (!cuidado con el orden¡).
+\end{enumerate}
+
+\hypertarget{soluciuxf3n-4}{%
+\subsubsection{Solución}\label{soluciuxf3n-4}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datos=}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{500{-}200}\NormalTok{,}\DecValTok{210}\NormalTok{,}\DecValTok{750{-}210}\NormalTok{),}\DataTypeTok{nrow=}\DecValTok{2}\NormalTok{,}\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{dimnames}\NormalTok{(datos)=}\KeywordTok{list}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Ibiza"}\NormalTok{,}\StringTok{"Mallorca"}\NormalTok{),}\KeywordTok{c}\NormalTok{(}\StringTok{"Sí"}\NormalTok{,}\StringTok{"No"}\NormalTok{))}
+\NormalTok{datos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           Sí  No
+## Ibiza    200 300
+## Mallorca 210 540
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{prop.test}\NormalTok{(datos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  2-sample test for equality of proportions with continuity correction
+## 
+## data:  datos
+## X-squared = 19, df = 1, p-value = 0.00001
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  0.0647 0.1753
+## sample estimates:
+## prop 1 prop 2 
+##   0.40   0.28
+\end{verbatim}
+
+El test exacto de odds-ratio se calcula con la función
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fisher.test}\NormalTok{(datos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Fisher's Exact Test for Count Data
+## 
+## data:  datos
+## p-value = 0.00001
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  1.339 2.194
+## sample estimates:
+## odds ratio 
+##      1.714
+\end{verbatim}
+
+En ambos casos se rechaza la hipótesis nula.
+
+El \(p-valor\) calculado de forma directa y como resultado del
+\texttt{fisher.test} es aproxcimadamente el mismo(las discrepancias son
+pequeñas, posiblemente debidas a redondeos de las funciones\ldots)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fisher.test}\NormalTok{(datos)}\OperatorTok{$}\NormalTok{p.value}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.00001222
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{*}\KeywordTok{min}\NormalTok{(}\KeywordTok{phyper}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{750}\NormalTok{,}\DecValTok{410}\NormalTok{,}\DataTypeTok{lower.tail =} \OtherTok{TRUE}\NormalTok{),}
+            \KeywordTok{phyper}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{750}\NormalTok{,}\DecValTok{410}\NormalTok{,}\DataTypeTok{lower.tail =}\OtherTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.000007776
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{round}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\KeywordTok{min}\NormalTok{(}\KeywordTok{phyper}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{750}\NormalTok{,}\DecValTok{410}\NormalTok{,}\DataTypeTok{lower.tail =} \OtherTok{TRUE}\NormalTok{),}
+            \KeywordTok{phyper}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{750}\NormalTok{,}\DecValTok{410}\NormalTok{,}\DataTypeTok{lower.tail =}\OtherTok{FALSE}\NormalTok{)),}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.00001
+\end{verbatim}
+
+El intervalo de confianza es para la odds-ratio
+\(\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}\). Así que el intervalo de
+confianza debe contener a 1 para que las proporciones sean iguales.
+\href{https://joanby.github.io/bookdown-estadistica-inferencial/contrastes-de-hip\%C3\%B3tesis-param\%C3\%A9tricos.html\#contrastes-para-dos-proporciones-p_1-y-p_2}{Consultad
+Bookdown Estadística Inferencial capítulo 4 sección 8}.
+
+\hypertarget{ejercicio-6}{%
+\subsection{Ejercicio 6}\label{ejercicio-6}}
+
+Se pregunta a un grupo de 100 personas elegido al azar asiste a un
+\emph{webinar} sobre tecnología para la banca. Antes de la conferencia
+se les pregunta si consideran que Internet es segura para la banca,
+después de la conferencia se les vuelve a preguntar cual es su opinión.
+Los resultados fueron los siguientes:
+
+\begin{center}
+\begin{tabular}{|c|c|cc|}
+\cline{3-4}
+     \multicolumn{2}{c|}{}& \multicolumn{2}{|c|} {Después}\\\cline{3-4}
+   \multicolumn{2}{c|}{} & Sí Segura & No Segura \\\hline
+Antes & Sí  Segura &  50 &  20 \\
+    & No Segura   &  15 & 15
+\\\hline
+\end{tabular}
+\end{center}
+
+Contrastar, calculando el \(p\)-valor, si ha cambiado (en cualquier
+sentido) la proporción de los asistentes que consideran que Internet es
+segura para la banca.
+
+\hypertarget{soluciuxf3n-5}{%
+\subsubsection{Solución}\label{soluciuxf3n-5}}
+
+Es un contraste de comparación de proporciones emparejadas con R se
+puede resolver, entre otras funciones, con las dos funciones siguientes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datos=}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{50}\NormalTok{,}\DecValTok{20}\NormalTok{, }\DecValTok{15}\NormalTok{,}\DecValTok{15}\NormalTok{),}\DataTypeTok{nrow=}\DecValTok{2}\NormalTok{,}\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{datos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]   50   20
+## [2,]   15   15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dimnames}\NormalTok{(datos)=}\KeywordTok{list}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Antes\_Si"}\NormalTok{,}\StringTok{"Antes\_No\_Segura"}\NormalTok{),}\KeywordTok{c}\NormalTok{(}\StringTok{"Despues\_Si"}\NormalTok{,}\StringTok{"Despues\_No"}\NormalTok{))}
+\NormalTok{datos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 Despues_Si Despues_No
+## Antes_Si                50         20
+## Antes_No_Segura         15         15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mcnemar.test}\NormalTok{(datos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  McNemar's Chi-squared test with continuity correction
+## 
+## data:  datos
+## McNemar's chi-squared = 0.46, df = 1, p-value = 0.5
+\end{verbatim}
+
+El \(p\)-valor es alto, no hay evidencias contra la igualdad de las
+proporciones entre antes y después del seminario. Por lo tanto los
+asistentes (en proporciones) no han cambiado de opinión.
+
+\end{document}

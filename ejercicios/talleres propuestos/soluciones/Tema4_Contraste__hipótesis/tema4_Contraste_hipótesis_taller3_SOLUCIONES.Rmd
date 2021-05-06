@@ -273,13 +273,14 @@ El intervalo de confianza  al nivel $1-\alpha=0.95$ es
 
 
 
-$$
-\left(
-\overline{x}_1-\overline{x}_2- t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}{(n_1+n_2-2)}},
-\overline{x}_1-\overline{x}_2+ t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}
+\begin{eqnarray*}
+\left(&&
+\overline{x}_1-\overline{x}_2- t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}{(n_1+n_2-2)}}\right. \\
+&,&
+\left.\overline{x}_1-\overline{x}_2+ t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}
 {(n_1+n_2-2)}}
 \right)
-$$
+\end{eqnarray*}
 
 
 
@@ -512,7 +513,7 @@ se pide:
 
 
 ```{r}
-datos=matrix(c(200,300,210,540),nrow=2,byrow = TRUE)
+datos=matrix(c(200,500-200,210,750-210),nrow=2,byrow = TRUE)
 dimnames(datos)=list(c("Ibiza","Mallorca"),c("Sí","No"))
 datos
 prop.test(datos)
@@ -526,7 +527,19 @@ El test exacto de odds-ratio   se calcula con la función
 fisher.test(datos)
 ```
 
-En ambos casos se rechaza la hipótesis nula
+En ambos casos se rechaza la hipótesis nula.
+
+El $p-valor$ calculado  de forma directa y como resultado del `fisher.test` es aproxcimadamente el mismo(las discrepancias son pequeñas, posiblemente debidas a redondeos de las funciones...)
+
+
+```{r}
+fisher.test(datos)$p.value
+2*min(phyper(200,500,750,410,lower.tail = TRUE),
+            phyper(200,500,750,410,lower.tail =FALSE))
+round(2*min(phyper(200,500,750,410,lower.tail = TRUE),
+            phyper(200,500,750,410,lower.tail =FALSE)),5)
+```
+
 
 El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}$. Así que el intervalo de confianza debe contener a 1 para que las proporciones sean iguales. [Consultad Bookdown Estadística Inferencial capítulo 4 sección 8](https://joanby.github.io/bookdown-estadistica-inferencial/contrastes-de-hip%C3%B3tesis-param%C3%A9tricos.html#contrastes-para-dos-proporciones-p_1-y-p_2).
 
@@ -542,8 +555,8 @@ Se pregunta a un grupo de 100 personas elegido al azar asiste a un *webinar* sob
 \cline{3-4}
      \multicolumn{2}{c|}{}& \multicolumn{2}{|c|} {Después}\\\cline{3-4}
    \multicolumn{2}{c|}{} & Sí Segura & No Segura \\\hline
-Antes & Sí  Segura &  50 &  30 \\
-    & No Segura   &  45 & 29
+Antes & Sí  Segura &  50 &  20 \\
+    & No Segura   &  15 & 15
 \\\hline
 \end{tabular}
 \end{center}
@@ -559,7 +572,7 @@ Es un contraste de comparación de proporciones emparejadas con R se puede resol
 
 
 ```{r}
-datos=matrix(c(50,30, 45,29),nrow=2,byrow = TRUE)
+datos=matrix(c(50,20, 15,15),nrow=2,byrow = TRUE)
 datos
 dimnames(datos)=list(c("Antes_Si","Antes_No_Segura"),c("Despues_Si","Despues_No"))
 datos
@@ -567,7 +580,7 @@ mcnemar.test(datos)
 ```
 
 
-El $p$-valor el relativamente alto, no hay evidencias contra la igualdad de las proporciones  entre antes y después del seminario. Por lo tanto  los asistentes (en proporciones) no han cambiado de opinión.
+El $p$-valor es alto, no hay evidencias contra la igualdad de las proporciones  entre antes y después del seminario. Por lo tanto  los asistentes (en proporciones) no han cambiado de opinión.
 
 
 
