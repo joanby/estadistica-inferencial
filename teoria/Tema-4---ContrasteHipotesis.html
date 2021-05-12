@@ -5094,8 +5094,8 @@ T=\frac{\overline{X}_1-\overline{X}_2}
 </article></slide><slide class=""><hgroup><h2>Poblaciones normales o \(n\) grandes: \(\sigma_1\) o \(\sigma_2\) desconocidas</h2></hgroup><article  id="poblaciones-normales-o-n-grandes-sigma_1-o-sigma_2-desconocidas-3">
 
 <p>Si suponemos que \(\sigma_1\neq \sigma_2\), el estadístico de contraste es \(T=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f,\) que, cuando \(\mu_1=\mu_2\), tiene distribución (aproximadamente, en caso de muestras grandes) \(t_{f}\) con \[
-f=\left\lfloor\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
-{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}\right\rfloor -2.
+f=\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
+{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}.
 \]</p>
 
 </article></slide><slide class=""><hgroup><h2>Poblaciones normales o \(n\) grandes: \(\sigma_1\) o \(\sigma_2\) desconocidas</h2></hgroup><article  id="poblaciones-normales-o-n-grandes-sigma_1-o-sigma_2-desconocidas-4">
@@ -5154,9 +5154,9 @@ H_1:\mu_1- \mu_2&lt;0,
 </ul>
 
 <p>El <strong>estadístico de contraste</strong> será, en este caso: \(T=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f\) donde \[
-f=\left\lfloor\frac{ \left( \frac{1.201^2}{40}+\frac{1.201^2}{60}\right)^2}
-{\frac1{39}\left(\frac{1.201^2}{40}\right)^2+\frac1{59}\left(\frac{1.579^2}{60}\right)^2}\right\rfloor -2
-=\lfloor 96.22\rfloor-2=94.
+f=\frac{ \left( \frac{1.201^2}{40}+\frac{1.201^2}{60}\right)^2}
+{\frac1{39}\left(\frac{1.201^2}{40}\right)^2+\frac1{59}\left(\frac{1.579^2}{60}\right)^2}
+=96.22.
 \]</p></div>
 
 </article></slide><slide class=""><hgroup><h2>Ejemplo</h2></hgroup><article  id="ejemplo-29">
@@ -5166,7 +5166,7 @@ f=\left\lfloor\frac{ \left( \frac{1.201^2}{40}+\frac{1.201^2}{60}\right)^2}
 t_0=\frac{9.789-11.385}{\sqrt{\frac{1.201^2}{40}+\frac{1.579^2}{60}}}=-5.729.
 \]</p>
 
-<p>El <strong>\(p\)-valor</strong> del contraste será: \(P(t_{94}\leq -5.729)= 0,\) valor muy pequeño.</p>
+<p>El <strong>\(p\)-valor</strong> del contraste será: \(P(t_{96.2162}\leq -5.729)= 0,\) valor muy pequeño.</p>
 
 <p>La decisión que tomamos en este caso es la misma que en el caso anterior: rechazar la hipótesis de que los tiempos de ejecución son iguales, en favor de que los alumnos del grado \(G_1\) tardan menos tiempo en realizar la tarea que los alumnos del grado \(G_2\).</p>
 

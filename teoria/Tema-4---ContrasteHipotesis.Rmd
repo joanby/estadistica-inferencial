@@ -2080,8 +2080,8 @@ Si suponemos que $\sigma_1\neq \sigma_2$, el estadístico de contraste es
 $T=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f,$
 que, cuando $\mu_1=\mu_2$, tiene distribución (aproximadamente, en caso de muestras grandes) $t_{f}$ con
 $$
-f=\left\lfloor\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
-{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}\right\rfloor -2.
+f=\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
+{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}.
 $$
 
 
@@ -2167,9 +2167,9 @@ El **estadístico de contraste** será, en este caso:
 $T=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f$
 donde
 $$
-f=\left\lfloor\frac{ \left( \frac{`r s1`^2}{`r n1`}+\frac{`r s1`^2}{`r n2`}\right)^2}
-{\frac1{`r n1-1`}\left(\frac{`r s1`^2}{`r n1`}\right)^2+\frac1{`r n2-1`}\left(\frac{`r s2`^2}{`r n2`}\right)^2}\right\rfloor -2
-=\lfloor `r round((s1^2/n1+s2^2/n2)^2/((1/(n1-1))*(s1^2/n1)^2+(1/(n2-1))*(s2^2/n2)^2),2)`\rfloor-2=`r floor((s1^2/n1+s2^2/n2)^2/((1/(n1-1))*(s1^2/n1)^2+(1/(n2-1))*(s2^2/n2)^2))-2`.
+f=\frac{ \left( \frac{`r s1`^2}{`r n1`}+\frac{`r s1`^2}{`r n2`}\right)^2}
+{\frac1{`r n1-1`}\left(\frac{`r s1`^2}{`r n1`}\right)^2+\frac1{`r n2-1`}\left(\frac{`r s2`^2}{`r n2`}\right)^2}
+=`r round((s1^2/n1+s2^2/n2)^2/((1/(n1-1))*(s1^2/n1)^2+(1/(n2-1))*(s2^2/n2)^2),2)`.
 $$
 
 </div>
@@ -2182,9 +2182,9 @@ t_0=\frac{`r media1`-`r media2`}{\sqrt{\frac{`r s1`^2}{`r n1`}+\frac{`r s2`^2}{`
 $$
 
 El **$p$-valor** del contraste será: 
-$P(t_{`r floor((s1^2/n1+s2^2/n2)^2/((1/(n1-1))*(s1^2/n1)^2+(1/(n2-1))*(s2^2/n2)^2))-2`}\leq 
+$P(t_{`r (s1^2/n1+s2^2/n2)^2/((1/(n1-1))*(s1^2/n1)^2+(1/(n2-1))*(s2^2/n2)^2)`}\leq 
 `r round((media1-media2)/sqrt(s1^2/n1+s2^2/n2),3)`)=
-`r round(pt((media1-media2)/sqrt(s1^2/n1+s2^2/n2),floor((s1^2/n1+s2^2/n2)^2/((1/(n1-1))*(s1^2/n1)^2+(1/(n2-1))*(s2^2/n2)^2))-2),3)`,$ valor muy pequeño.
+`r round(pt((media1-media2)/sqrt(s1^2/n1+s2^2/n2),(s1^2/n1+s2^2/n2)^2/((1/(n1-1))*(s1^2/n1)^2+(1/(n2-1))*(s2^2/n2)^2)),3)`,$ valor muy pequeño.
 
 La decisión que tomamos en este caso es la misma que en el caso anterior: rechazar la hipótesis de que los tiempos de ejecución son iguales, en favor de que los alumnos del grado $G_1$ tardan menos tiempo en realizar la tarea que los alumnos del grado $G_2$.
  
@@ -2206,7 +2206,7 @@ donde los nuevos parámetros para realizar un contraste de dos medias independie
 
 * `x` es el vector de datos de la primera muestra.
 
-*  `y` es el vector de datos de la segunda muestra.
+* `y` es el vector de datos de la segunda muestra.
 
 ## Contraste de $\mu$ de normal con $\sigma$ desconocida en `R`: función `t.test`
 
