@@ -175,9 +175,10 @@ n2
 Si suponemos que $\sigma_1\neq \sigma_2$, el estadístico de contraste es
 $t0=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f,$
 que, cuando $\mu_1=\mu_2$, tiene distribución (aproximadamente, en caso de muestras grandes) $t_{f}$ con
+
 $$
-f=\left\lfloor\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
-{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}\right\rfloor -2.
+f=\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
+{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}
 $$
 
 Calculamos el estadístico  y los grados de libertad con R
@@ -187,12 +188,9 @@ t0=(media.muestra1-media.muestra2)/sqrt(desv.tip.muestra1^2/n1+desv.tip.muestra2
 #calculo el valor dentro del floor que es el que utiliza la función t.test de R para este caso.
 t0
 
-f1=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
+f=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
   (1/(n1-1))*(desv.tip.muestra1^2/n1)^2+(1/(n2-1))*(desv.tip.muestra2^2/n2)^2)
-f1
-# calculo el propuesto en las transparencias que es anticuado
-f=floor(f1)-2  
-f  
+f
 ```
 
 El $p$ valor es 
@@ -200,8 +198,6 @@ El $p$ valor es
 
 ```{r}
 # el p-valor de la función t.test de  R
-2*(pt(abs(t0),f1,lower.tail = FALSE))
-# el p-valor propuesto en teoría
 2*(pt(abs(t0),f,lower.tail = FALSE))
 ```
 
