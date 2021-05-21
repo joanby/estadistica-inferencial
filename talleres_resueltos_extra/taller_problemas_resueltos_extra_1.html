@@ -60,6 +60,15 @@ if (!!window.navigator.userAgent.match("MSIE 8")) {
 !function(a){"use strict";a.matchMedia=a.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(a.document)}(this),function(a){"use strict";function b(){u(!0)}var c={};a.respond=c,c.update=function(){};var d=[],e=function(){var b=!1;try{b=new a.XMLHttpRequest}catch(c){b=new a.ActiveXObject("Microsoft.XMLHTTP")}return function(){return b}}(),f=function(a,b){var c=e();c&&(c.open("GET",a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&&304!==c.status||b(c.responseText)},4!==c.readyState&&c.send(null))};if(c.ajax=f,c.queue=d,c.regex={media:/@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi,keyframes:/@(?:\-(?:o|moz|webkit)\-)?keyframes[^\{]+\{(?:[^\{\}]*\{[^\}\{]*\})+[^\}]*\}/gi,urls:/(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g,findStyles:/@media *([^\{]+)\{([\S\s]+?)$/,only:/(only\s+)?([a-zA-Z]+)\s?/,minw:/\([\s]*min\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/,maxw:/\([\s]*max\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/},c.mediaQueriesSupported=a.matchMedia&&null!==a.matchMedia("only all")&&a.matchMedia("only all").matches,!c.mediaQueriesSupported){var g,h,i,j=a.document,k=j.documentElement,l=[],m=[],n=[],o={},p=30,q=j.getElementsByTagName("head")[0]||k,r=j.getElementsByTagName("base")[0],s=q.getElementsByTagName("link"),t=function(){var a,b=j.createElement("div"),c=j.body,d=k.style.fontSize,e=c&&c.style.fontSize,f=!1;return b.style.cssText="position:absolute;font-size:1em;width:1em",c||(c=f=j.createElement("body"),c.style.background="none"),k.style.fontSize="100%",c.style.fontSize="100%",c.appendChild(b),f&&k.insertBefore(c,k.firstChild),a=b.offsetWidth,f?k.removeChild(c):c.removeChild(b),k.style.fontSize=d,e&&(c.style.fontSize=e),a=i=parseFloat(a)},u=function(b){var c="clientWidth",d=k[c],e="CSS1Compat"===j.compatMode&&d||j.body[c]||d,f={},o=s[s.length-1],r=(new Date).getTime();if(b&&g&&p>r-g)return a.clearTimeout(h),h=a.setTimeout(u,p),void 0;g=r;for(var v in l)if(l.hasOwnProperty(v)){var w=l[v],x=w.minw,y=w.maxw,z=null===x,A=null===y,B="em";x&&(x=parseFloat(x)*(x.indexOf(B)>-1?i||t():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?i||t():1)),w.hasquery&&(z&&A||!(z||e>=x)||!(A||y>=e))||(f[w.media]||(f[w.media]=[]),f[w.media].push(m[w.rules]))}for(var C in n)n.hasOwnProperty(C)&&n[C]&&n[C].parentNode===q&&q.removeChild(n[C]);n.length=0;for(var D in f)if(f.hasOwnProperty(D)){var E=j.createElement("style"),F=f[D].join("\n");E.type="text/css",E.media=D,q.insertBefore(E,o.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(j.createTextNode(F)),n.push(E)}},v=function(a,b,d){var e=a.replace(c.regex.keyframes,"").match(c.regex.media),f=e&&e.length||0;b=b.substring(0,b.lastIndexOf("/"));var g=function(a){return a.replace(c.regex.urls,"$1"+b+"$2$3")},h=!f&&d;b.length&&(b+="/"),h&&(f=1);for(var i=0;f>i;i++){var j,k,n,o;h?(j=d,m.push(g(a))):(j=e[i].match(c.regex.findStyles)&&RegExp.$1,m.push(RegExp.$2&&g(RegExp.$2))),n=j.split(","),o=n.length;for(var p=0;o>p;p++)k=n[p],l.push({media:k.split("(")[0].match(c.regex.only)&&RegExp.$2||"all",rules:m.length-1,hasquery:k.indexOf("(")>-1,minw:k.match(c.regex.minw)&&parseFloat(RegExp.$1)+(RegExp.$2||""),maxw:k.match(c.regex.maxw)&&parseFloat(RegExp.$1)+(RegExp.$2||"")})}u()},w=function(){if(d.length){var b=d.shift();f(b.href,function(c){v(c,b.href,b.media),o[b.href]=!0,a.setTimeout(function(){w()},0)})}},x=function(){for(var b=0;b<s.length;b++){var c=s[b],e=c.href,f=c.media,g=c.rel&&"stylesheet"===c.rel.toLowerCase();e&&g&&!o[e]&&(c.styleSheet&&c.styleSheet.rawCssText?(v(c.styleSheet.rawCssText,e,f),o[e]=!0):(!/^([a-zA-Z:]*\/\/)/.test(e)&&!r||e.replace(RegExp.$1,"").split("/")[0]===a.location.host)&&("//"===e.substring(0,2)&&(e=a.location.protocol+e),d.push({href:e,media:f})))}w()};x(),c.update=x,c.getEmValue=t,a.addEventListener?a.addEventListener("resize",b,!1):a.attachEvent&&a.attachEvent("onresize",b)}}(this);
 };
 </script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script>
 
 /**
@@ -1492,45 +1501,6 @@ window.onload = function() {
   PagedTableDoc.initAll();
 };
 </script>
-<style type="text/css">
-a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
-a.anchor-section::before {content: '#';}
-.hasAnchor:hover a.anchor-section {visibility: visible;}
-</style>
-<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
-document.addEventListener('DOMContentLoaded', function() {
-  // Do nothing if AnchorJS is used
-  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
-    return;
-  }
-
-  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-  // Do nothing if sections are already anchored
-  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
-    return null;
-  }
-
-  // Use section id when pandoc runs with --section-divs
-  const section_id = function(x) {
-    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
-            ? x.id : '');
-  };
-
-  // Add anchors
-  h.forEach(function(x) {
-    const id = x.id || section_id(x.parentElement);
-    if (id === '') {
-      return null;
-    }
-    let anchor = document.createElement('a');
-    anchor.href = '#' + id;
-    anchor.classList = ['anchor-section'];
-    x.classList.add('hasAnchor');
-    x.appendChild(anchor);
-  });
-});
-</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -1542,11 +1512,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -1559,32 +1524,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -1594,10 +1534,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -1614,6 +1550,9 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
@@ -1626,7 +1565,6 @@ summary {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -1690,7 +1628,7 @@ summary {
 
 
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -1861,30 +1799,24 @@ t0</code></pre>
 <pre class="r"><code>2*pt(abs(t0),df=n1+n2-2,lower.tail = FALSE)# calcula el área la cola  superior</code></pre>
 <pre><code>## [1] 0.00000001247958</code></pre>
 <p><strong>Varianzas desconocidas pero distintas, <span class="math inline">\(n_1\)</span> y <span class="math inline">\(n_2\)</span> grande</strong></p>
-<p>Si suponemos que <span class="math inline">\(\sigma_1\neq \sigma_2\)</span>, el estadístico de contraste es <span class="math inline">\(t0=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f,\)</span> que, cuando <span class="math inline">\(\mu_1=\mu_2\)</span>, tiene distribución (aproximadamente, en caso de muestras grandes) <span class="math inline">\(t_{f}\)</span> con <span class="math display">\[
-f=\left\lfloor\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
-{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}\right\rfloor -2.
+<p>Si suponemos que <span class="math inline">\(\sigma_1\neq \sigma_2\)</span>, el estadístico de contraste es <span class="math inline">\(t0=\frac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}}}\sim t_f,\)</span> que, cuando <span class="math inline">\(\mu_1=\mu_2\)</span>, tiene distribución (aproximadamente, en caso de muestras grandes) <span class="math inline">\(t_{f}\)</span> con</p>
+<p><span class="math display">\[
+f=\frac{\displaystyle \left( \frac{\widetilde{S}_1^2}{n_1}+\frac{\widetilde{S}_2^2}{n_2}\right)^2}
+{\displaystyle \frac1{n_1-1}\left(\frac{\widetilde{S}_1^2}{n_1}\right)^2+\frac1{n_2-1}\left(\frac{\widetilde{S}_2^2}{n_2}\right)^2}
 \]</span></p>
 <p>Calculamos el estadístico y los grados de libertad con R</p>
 <pre class="r"><code>t0=(media.muestra1-media.muestra2)/sqrt(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)
 #calculo el valor dentro del floor que es el que utiliza la función t.test de R para este caso.
 t0</code></pre>
 <pre><code>## [1] -6.215931</code></pre>
-<pre class="r"><code>f1=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
+<pre class="r"><code>f=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
   (1/(n1-1))*(desv.tip.muestra1^2/n1)^2+(1/(n2-1))*(desv.tip.muestra2^2/n2)^2)
-f1</code></pre>
+f</code></pre>
 <pre><code>## [1] 89.99613</code></pre>
-<pre class="r"><code># calculo el propuesto en las transparencias que es anticuado
-f=floor(f1)-2  
-f  </code></pre>
-<pre><code>## [1] 87</code></pre>
 <p>El <span class="math inline">\(p\)</span> valor es</p>
 <pre class="r"><code># el p-valor de la función t.test de  R
-2*(pt(abs(t0),f1,lower.tail = FALSE))</code></pre>
-<pre><code>## [1] 0.00000001562353</code></pre>
-<pre class="r"><code># el p-valor propuesto en teoría
 2*(pt(abs(t0),f,lower.tail = FALSE))</code></pre>
-<pre><code>## [1] 0.00000001713797</code></pre>
+<pre><code>## [1] 0.00000001562353</code></pre>
 <p><strong>Apartado 3</strong></p>
 <p>Los intervalos de confianza al nivel del 95% los podemos obtener así</p>
 <pre class="r"><code>t.test(G1,G2,var.equal = TRUE,alternative = &quot;two.sided&quot;,conf.level = 0.95)$conf.int</code></pre>
@@ -1929,8 +1861,16 @@ pvalor</code></pre>
 <pre><code>## [1] 0.03420609</code></pre>
 <p>Obtenemos los mismos resultados que con la función <code>var.test</code>.</p>
 <p>El test de Levene con R tiene las mismas hipótesis que el anterior</p>
-<pre class="r"><code>library(car,quietly = TRUE)# pongo quietly para que quite avisos
-notas=c(G1,G2)
+<pre class="r"><code>library(car,quietly = TRUE)# pongo quietly para que quite avisos</code></pre>
+<pre><code>## 
+## Attaching package: &#39;car&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     some</code></pre>
+<pre class="r"><code>notas=c(G1,G2)
 grupo=as.factor(c(rep(1,length(G1)),rep(2,length(G1))))
 leveneTest(notas~grupo)</code></pre>
 <div data-pagedtable="false">
@@ -2966,7 +2906,7 @@ sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$m
 ##     Kurtosis Test: 0.2325 
 ## 
 ## Description:
-##  Wed Nov 11 12:15:42 2020 by user: t169</code></pre>
+##  Fri May 21 12:03:34 2021 by user: t169</code></pre>
 <pre class="r"><code>dagoTest(df$score[df$manufacturer==&quot;F6&quot;])</code></pre>
 <pre><code>## 
 ## Title:
@@ -2983,7 +2923,7 @@ sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$m
 ##     Kurtosis Test: 0.7333 
 ## 
 ## Description:
-##  Wed Nov 11 12:15:42 2020 by user: t169</code></pre>
+##  Fri May 21 12:03:34 2021 by user: t169</code></pre>
 <p>Parece que no podemos rechazar la normalidad para los casos dudosos.</p>
 <p>Ahora realizamos el test de comparación de medias <span class="math inline">\(\mu_i\)</span> para <span class="math inline">\(i=1,2,3,4,5,6\)</span> son las medias para cada nivel del factor.</p>
 <p><span class="math display">\[
@@ -3445,7 +3385,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
