@@ -29,7 +29,7 @@ un día determinado está distribuida uniformemente en el intervalo $(0,b)$. Nos
 dan la siguiente muestra de los registros de los últimos 10 años  en ese día: 
 $$0,0,0.7,1,0.1,0,0.2,0.5,0,0.6$$
 
-> Estimar el parámetro $b$ a partir de su estimador $\tilde b$.
+Estimar el parámetro $b$ a partir de su estimador $\tilde b$.
 
 
 ## Ejercicio 2
