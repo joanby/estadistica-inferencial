@@ -106,7 +106,7 @@ $E(\Theta)=(1-a)\cdot E(\Theta_1) +a\cdot E(\Theta_2)=(1-a)\cdot \theta +a\cdot 
 
 ## Solución ejercicio 3
 Como $X_1,\ldots,X_{2n}$ una muestra aleatoria simple de una variable
-aleatoria $N(\mu,\sigma)$. Sabemos que  $\sum_{i=1}^{2\cdot n} X_i$ sigue una ley $N\left(2\cdot n\cdot\mu, \sqrt{n \cdot\sigma^2}\right)$ luego $E\left(\sum_{i=1}^{2\cdot n} X_i\right)=2\cdot n\cdot \mu$, $Var(\sum_{i=1}^{2\cdot n} X_i)=2\cdot n\cdot \sigma^2$ y $E\left(\left(\sum_{i=1}^{2\cdot n}\right)^2\right)=2\cdot n\cdot \sigma^2+2\cdot n\mu^2.$ Ademas como $X_{2\cdot i}$ y $X_{2\cdot i-1}$ son independientes $E(X_{2\cdot i}\cdot X_{2\cdot i-1})=E(X_{2\cdot i})\cdot E(X_{2\cdot i-1})=\mu\cdot \mu=\mu^2.$
+aleatoria $N(\mu,\sigma)$. Sabemos que  $\sum_{i=1}^{2\cdot n} X_i$ sigue una ley $N\left(2\cdot n\cdot\mu, \sqrt{2\cdot n \cdot\sigma^2}\right)$ luego $E\left(\sum_{i=1}^{2\cdot n} X_i\right)=2\cdot n\cdot \mu$, $Var(\sum_{i=1}^{2\cdot n} X_i)=2\cdot n\cdot \sigma^2$ y $E\left(\left(\sum_{i=1}^{2\cdot n}X_i\right)^2\right)=2\cdot n\cdot \sigma^2+2\cdot n\cdot\mu^2.$ Ademas como $X_{2\cdot i}$ y $X_{2\cdot i-1}$ son independientes $E(X_{2\cdot i}\cdot X_{2\cdot i-1})=E(X_{2\cdot i})\cdot E(X_{2\cdot i-1})=\mu\cdot \mu=\mu^2.$
 
 Entonces 
 

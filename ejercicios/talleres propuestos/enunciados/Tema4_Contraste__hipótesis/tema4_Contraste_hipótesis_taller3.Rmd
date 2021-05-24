@@ -4,9 +4,9 @@ author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
 output:
   pdf_document: 
-    keep_tex: yes
     number_sections: yes
     toc: yes
+    toc_depth: 4
   html_document:
     df_print: paged
     toc: yes
@@ -19,7 +19,7 @@ urlcolor: blue
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-options(scipen=999)
+options(scipen=999,digits=4)
 contador=0
 cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
 library(tidyverse)
@@ -29,14 +29,7 @@ library(tidyverse)
 # Contraste hipótesis taller 3: Contrastes de dos parámetros.
 
 
-**Comparación de medias.**
 
-Los siguientes problemas tratan de contrastes de parámetros entre dos muestras. El el caso de que  el enunciado lo pida contenga explícitamente las cuestiones tenéis que:
-
-1. Contrastar contra una de los tes tipos de  hipótesis unilaterales izquierda, unilateral derecha o  bilaterales.
-2. Calcular también el intervalo de confianza para la diferencia o el cociente de los parámetros según el contraste sea bilateral o unilateral. Tomar finalmente la decisión más correcta.
-3. Calcular todos los test e intervalos de confianza para $\alpha=0.05$.
-4. Calcular el $p$-valor en cada caso. 
 
 ## Ejercicio `r cuenta()`
 
@@ -48,8 +41,7 @@ $\sigma_{2}^2=10$. De las muestras obtenemos que $\overline{X}_{1}=136$ para el 
 procedimiento y $\overline{X}_{2}=128$ para el segundo. 
 Si $\mu_{1}$ y $\mu_{2}$ son los
 valores esperados para cada uno de los procedimientos, calcular un intervalo de confianza
-para $\mu_{1}-\mu_{2}$ al nivel 99\%. sol1{$\left(5.2989,10.7011\right)$}
-
+para $\mu_{1}-\mu_{2}$ al nivel 99\%. 
 
 ## Ejercicio `r cuenta()`
 
@@ -65,8 +57,7 @@ componentes electrónicos. Para ello se toma una muestra de cada tipo y se obtie
 
 Calcular un intervalo de confianza para $\mu_{1}-\mu_{2}$ ($\mu_{1}$ esperanza del primer grupo y $\mu_{2}$ esperanza del segundo grupo) al nivel 98\% 
 Suponer si es necesario las
-poblaciones aproximadamente normales. % sol1{$\left(12.19,27.81\right)$}
-
+poblaciones aproximadamente normales. 
 
 ## Ejercicio `r cuenta()`
 
@@ -87,12 +78,14 @@ distribución normal son independientes
 
 
 
-Contrastar la igualdad de medias contra que la droga 1 es mejor (menor media) que la droga 2.   Resolver el test en  los dos casos varianzas iguales  y varianzas distintas. Calcular el intervalo de confianza asociado al contraste.
+Contrastar la igualdad de medias contra que la droga 1 es mejor (menor media) que la droga 2.   Resolver el test en  los dos casos varianzas iguales  y varianzas distintas. Calcular el intervalo de confianza asociado al contraste
+
+
 
 ## Ejercicio `r cuenta()`
 
-Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 5
-pruebas de dureza  con la de tipo 1 y 7 con la de tipo 2. Obteniéndose los resultados
+Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 20
+pruebas de dureza  con la de tipo 1 y 25 con la de tipo 2. Obteniéndose los resultados
 siguientes:
 
 
@@ -107,53 +100,58 @@ aleacion2=round(0.5*(rnorm(25))+17.8,2)
 aleacion1=c(18.04,18.14,18.17,18.14,18.19,18.07,18.01,18.54,
             18.53,18.56,18.57,17.92,18.03,18.26,18.38,17.92,
             18.31,18.41,18,18.26)
-aleacion2=c(18.14,17.87,17.53,17.61,17.24,18.01,17.04,17.82,
-            17.97,17.75,18.48,17.34,17.29,16.81,19.21,17.6,
-            17.85,17.98,18.04,18.13,18.26,18.1,18.37,17.48
-            ,17.58)
-
+aleacion2=c(18.02,18.21,16.51,17.21,17.85,18.24,17.48,17.28,
+            17.51,17.51,17.43,18.14,17.32,17.11,17.55,17.49,
+            18.27,17.92,18.14,18.52,18.12,18.22,17.37,17.91,
+            17.77)
+media1=mean(aleacion1)
+media1
+sd1=sd(aleacion1)
+sd1
+media2=mean(aleacion2)
+media2
+sd2=sd(aleacion2)
+sd2
 ```
 
 
+$$\overline{X}_{1}=`r media1`,\quad S_{1}=`r sd1` \mbox{ y}$$
 
-$$\overline{X}_{1}=18.2,\quad S_{1}=0.2 \mbox{ y}$$
-
-$$\overline{X}_{2}=17.8;\quad S_{2}=0.5$$
+$$\overline{X}_{1}=`r media2`,\quad S_{2}=`r sd2`$$
 
 Suponer que la población de las durezas es normal y que las desviaciones típicas no son
-iguales. Hacer lo mismo  si las varianzas son distintas.
+iguales.
 
+Contrastar  que las medias de las durezas son iguales contra que son distintas. Calcular un intervalo de confianza para $\mu_{1}-\mu_{2}$ al nivel de significación del $95\%$.
+
+Haced lo mismo  si las varianzas son distintas.
 
 
 ## Ejercicio `r cuenta()` 
 
 Se encuestó a dos muestras independientes de  empresas,  en las islas de Ibiza y otra en Mallorca, sobre si utilizaban sistemas de almacenamiento en la nube. La encuesta de Ibiza tuvo un tamaño $n_1=500$  y 
-$200$ usuarios mientras que  en Mallorca se encuestaron a $n_2=750$ y se obtuvo un resultado de $210$ usuarios.
+$200$ usuarios  de la nube, mientras que  en Mallorca se encuestaron a $n_2=750$ y se obtuvo un resultado de $210$ usuarios.
 
 se pide:
 
 1. Construir una matriz 2 por 2 que contenga en filas los valores de Ibiza y Mallorca y por columnas las respuestas Sí y No
-3. Con la función `prop.test` contrastar si las proporciones por islas son iguales o distintas.  
-4. Resolver el contraste con el $p$-valor y obtener e interpretar un intervalo de confianza del 95 para la diferencia de proporciones (! cuidado con el orden¡).
-
-
+3. Con la función `prop.test` y el ` contrastar si las proporciones por islas son iguales o distintas.  
+4. Resolver el contraste con el $p$-valor y obtener e interpretar un los intervalos  de confianza del  95\% para la *comparación de las proporciones* (!cuidado con el orden¡).
 
 
 ## Ejercicio `r cuenta()`
 
-Se pregunta a un grupo de 100 personas elegido al azar asiste a un webinnar sobre tecnología para la banca. Antes de la conferencia se les pregunta si consideran  que  Internet es segura para la banca, después de la conferencia se les vuelve a preguntar cual es su opinión. Los resultados fueron los siguientes:
+Se pregunta a un grupo de 100 personas elegido al azar asiste a un *webinar* sobre tecnología para la banca. Antes de la conferencia se les pregunta si consideran  que  Internet es segura para la banca, después de la conferencia se les vuelve a preguntar cual es su opinión. Los resultados fueron los siguientes:
 
 \begin{center}
 \begin{tabular}{|c|c|cc|}
 \cline{3-4}
      \multicolumn{2}{c|}{}& \multicolumn{2}{|c|} {Después}\\\cline{3-4}
    \multicolumn{2}{c|}{} & Sí Segura & No Segura \\\hline
-Antes & Sí  Segura &  50 &  30 \\
-    & No Segura   &  5 & 15 
+Antes & Sí  Segura &  50 &  20 \\
+    & No Segura   &  15 & 15
 \\\hline
 \end{tabular}
 \end{center}
 
-
-
-
+Contrastar, calculando  el $p$-valor,  si ha cambiado (en cualquier sentido) la proporción de los asistentes que consideran que Internet es segura para la banca.

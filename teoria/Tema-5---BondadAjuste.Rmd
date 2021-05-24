@@ -562,9 +562,9 @@ Por tanto, $e_6 = n\cdot `r round(pnorm(4.45,3.5,0.7)-pnorm(3.95,3.5,0.7),3)`=40
 
 * Cálculo de $p_7 = P(X_0\in \mbox{Clase }7)$:
 $$
-p_1  = P(X_0\geq 4.45)=P\left(Z\geq \frac{4.45-3.5}{0.7}\right)=P(Z\geq `r round((4.45-3.5)/0.7,3)`)=`r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`,
+p_7  = P(X_0\geq 4.45)=P\left(Z\geq \frac{4.45-3.5}{0.7}\right)=P(Z\geq `r round((4.45-3.5)/0.7,3)`)=`r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`F,
 $$
-donde $Z=N(0,1)$. Por tanto, $e_1 = n\cdot `r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`=40\cdot `r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`=`r round(40*pnorm(4.45,3.5,0.7,lower.tail=FALSE),2)`.$
+donde $Z=N(0,1)$. Por tanto, $e_7 = n\cdot `r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`=40\cdot `r round(pnorm(4.45,3.5,0.7,lower.tail=FALSE),3)`=`r round(40*pnorm(4.45,3.5,0.7,lower.tail=FALSE),2)`.$
 
 Observamos que las **frecuencias teóricas** $e_1$, $e_2$ y $e_7$ son menores que 5. Por tanto, no se cumplen las condiciones para poder aplicar el **contraste de bondad de ajuste**. 
 
@@ -621,7 +621,7 @@ $$
 $$
 El p-valor del contraste será:
 $$
-p=P(\chi_{3} > `r round((7-40*pnorm(2.95,3.5,0.7))^2/(40*pnorm(2.95,3.5,0.7))+(15-40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))^2/(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))+(10-40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))^2/(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))+(8-40*pnorm(3.95,3.5,0.7,lower.tail=FALSE))^2/(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE)),3)`)=`r round(pchisq((7-40*pnorm(2.95,3.5,0.7))^2/(40*pnorm(2.95,3.5,0.7))+(15-40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))^2/(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))+(10-40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))^2/(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))+(8-40*pnorm(3.95,3.5,0.7,lower.tail=FALSE))^2/(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE)),3,lower.tail=FALSE),3)`.
+p=P(\chi_{4-1}^2 > `r round((7-40*pnorm(2.95,3.5,0.7))^2/(40*pnorm(2.95,3.5,0.7))+(15-40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))^2/(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))+(10-40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))^2/(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))+(8-40*pnorm(3.95,3.5,0.7,lower.tail=FALSE))^2/(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE)),3)`)=`r round(pchisq((7-40*pnorm(2.95,3.5,0.7))^2/(40*pnorm(2.95,3.5,0.7))+(15-40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))^2/(40*(pnorm(3.45,3.5,0.7)-pnorm(2.95,3.5,0.7)))+(10-40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))^2/(40*(pnorm(3.95,3.5,0.7)-pnorm(3.45,3.5,0.7)))+(8-40*pnorm(3.95,3.5,0.7,lower.tail=FALSE))^2/(40*pnorm(3.95,3.5,0.7,lower.tail=FALSE)),3,lower.tail=FALSE),3)`.
 $$
 Como el p-valor es grande, concluimos que no tenemos evidencias suficientes para rechazar que el aumento de temperatura no siga una distribución normal de parámetros $\mu =3.5$ décimas de grado y $\sigma =0.7$ décimas de grado.
 </div>
@@ -924,7 +924,7 @@ F_n(x)=\left\{\begin{array}{ll}
 \end{array}
 \right.
 $$
-O sea, sería la función de distribución que correspondería a la variable aleatoria discreta $X_n$ con dominio $D_X=\{x_{(1)}< x_{(2)}<\cdots< x_{(n)}\}$ y función de probabilidad $P(X_n = x_{(i)})=\frac{i}{n}$, $i=1,\ldots,n$.
+O sea, sería la función de distribución que correspondería a la variable aleatoria discreta $X_n$ con dominio $D_X=\{x_{(1)}< x_{(2)}<\cdots< x_{(n)}\}$ y función de distribución $F_{X_n}(x_{(i)})=P(X_n \leq x_{(i)})=\frac{i}{n}$, $i=1,\ldots,n$.
 
 
 ## Test de Kolmogorov-Smirnov (K-S test)

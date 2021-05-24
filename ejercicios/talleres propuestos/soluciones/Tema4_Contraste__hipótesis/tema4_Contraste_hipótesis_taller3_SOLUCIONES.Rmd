@@ -19,7 +19,7 @@ urlcolor: blue
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-options(scipen=999)
+options(scipen=999,digits=4)
 contador=0
 cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
 library(tidyverse)
@@ -29,14 +29,7 @@ library(tidyverse)
 # Contraste hipótesis taller 3: Contrastes de dos parámetros.
 
 
-**Comparación de medias.**
 
-Los siguientes problemas tratan de contrastes de parámetros entre dos muestras. El el caso de que  el enunciado lo pida contenga explícitamente las cuestiones tenéis que:
-
-1. Contrastar contra una de los tes tipos de  hipótesis unilaterales izquierda, unilateral derecha o  bilaterales.
-2. Calcular también el intervalo de confianza para la diferencia o el cociente de los parámetros según el contraste sea bilateral o unilateral. Tomar finalmente la decisión más correcta.
-3. Calcular todos los test e intervalos de confianza para $\alpha=0.05$.
-4. Calcular el $p$-valor en cada caso. 
 
 ## Ejercicio `r cuenta()`
 
@@ -48,7 +41,7 @@ $\sigma_{2}^2=10$. De las muestras obtenemos que $\overline{X}_{1}=136$ para el 
 procedimiento y $\overline{X}_{2}=128$ para el segundo. 
 Si $\mu_{1}$ y $\mu_{2}$ son los
 valores esperados para cada uno de los procedimientos, calcular un intervalo de confianza
-para $\mu_{1}-\mu_{2}$ al nivel 99\%. sol1{$\left(5.2989,10.7011\right)$}
+para $\mu_{1}-\mu_{2}$ al nivel 99\%. 
 
 
 
@@ -79,26 +72,28 @@ media1=136
 media2=128
 sigma1=sqrt(12)
 sigma2=sqrt(10)
-alpha=0.05
+alpha=1-0.99
 z0=round((media1-media2)/sqrt(sigma1^2/n1+sigma2^2/n2),3)
 ```
 
 
-El **estadístico de contraste** toma el valor:
+El **estadístico de contraste** toma el valor para $\alpha=1-0.99=0.01$:
 
 $$z_0=\dfrac{\overline{X}_1-\overline{X}_2}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}=\frac{`r media1`-`r media2`}{\sqrt{\frac{`r sigma1`^2}{`r n1`}+\frac{`r sigma2`^2}{`r n2`}}}=`r round((media1-media2)/sqrt(sigma1^2/n1+sigma2^2/n2),3)`.$$
 
-El estadístico sigue, aproximadamente, una distribución normal. La región crítica del contraste  al nivel se significación $\alpha=0.05$ es  rechazar $H_0$ si $z_0<z_{\alpha/2}$ o $z_0>z_{1\alpha/2}$. Con nuestros datos 
+El estadístico sigue, aproximadamente, una distribución normal. La región crítica del contraste  al nivel se significación $\alpha=`r alpha`$ es  rechazar $H_0$ si $z_0<z_{\alpha/2}$ o $z_0>z_{1-\alpha/2}$. Con nuestros datos 
 
-$$z_0=`r z0`\not< z_{\alpha/2}=z_{0.05}=`r qnorm(0.05/2)` \mbox{ o } z_0=`r z0`  \> z_{1-\alpha/2}=`r qnorm(1-0.05/2)`$$
-o lo que es lo mismo rechazamos $H_0$ si $|z_0|=`r z0`>  z_{1-\alpha/2}=`r qnorm(1-0.05/2)`$ lo que en este caso  es cierto.
+$$z_0=`r z0`\not< z_{\alpha/2}=z_{`r alpha/2`}=`r qnorm(alpha/2)` \mbox{ o } z_0=`r z0`  > z_{1-\alpha/2}=
+z_{`r 1-alpha/2`}=`r qnorm(1-alpha/2)`$$
+o lo que es lo mismo rechazamos $H_0$ si $|z_0|=`r z0`>  z_{1-\alpha/2}=`r qnorm(1-alpha/2)`$ lo que en este caso  es cierto.
 
 Los cuantiles los hemos calculado con
 
 
 ```{r}
-alpha=0.05
-qnorm(alpha/2) # o tambien -qnorm(1-alpha/2)
+alpha=1-0.99
+qnorm(alpha/2)
+-qnorm(1-alpha/2)
 qnorm(1-alpha/2)
 ```
 
@@ -138,7 +133,7 @@ componentes electrónicos. Para ello se toma una muestra de cada tipo y se obtie
 
 Calcular un intervalo de confianza para $\mu_{1}-\mu_{2}$ ($\mu_{1}$ esperanza del primer grupo y $\mu_{2}$ esperanza del segundo grupo) al nivel 98\% 
 Suponer si es necesario las
-poblaciones aproximadamente normales. % sol1{$\left(12.19,27.81\right)$}
+poblaciones aproximadamente normales. 
 
 ### Solución 
 
@@ -202,7 +197,7 @@ desv_tipica2=18
 f0=desv_tipica1^2/desv_tipica2^2 # estadístico de contraste
 f0
 2*pf(f0,n1-1,n2-1,lower.tail = TRUE)# lower.tail = TRUE es el valor por defecto 
-2*pf(f0,n1-1,n2-1,lower.tail = FALSE)# o tambien 2*(1-pf(f0,n1-1,n2-1)  
+2*pf(f0,n1-1,n2-1,lower.tail = FALSE)# o también 2*(1-pf(f0,n1-1,n2-1)  
 pvalor=min(2*pf(f0,n1-1,n2-1,lower.tail = TRUE),2*pf(f0,n1-1,n2-1,lower.tail = FALSE))
 pvalor
 ```
@@ -229,7 +224,7 @@ El estadístico de contraste  sigue una ley $t$ de Student con $n_1+n_2-2$ grado
 $$
 T=\frac{\overline{X}_1-\overline{X}_2}
 {\sqrt{(\frac1{n_1}+\frac1{n_2})\cdot 
-\frac{((n_1-1)\widetilde{S}_1^2+(n_2-1)\widetilde{S}_2^2)}
+\frac{(n_1-1)\widetilde{S}_1^2+(n_2-1)\widetilde{S}_2^2}
 {(n_1+n_2-2)}}},
 $$
 
@@ -278,13 +273,14 @@ El intervalo de confianza  al nivel $1-\alpha=0.95$ es
 
 
 
-$$
-\left(
-\overline{x}_1-\overline{x}_2- t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}{(n_1+n_2-2)}},
-\overline{x}_1-\overline{x}_2+ t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}
+\begin{eqnarray*}
+\left(&&
+\overline{x}_1-\overline{x}_2- t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}{(n_1+n_2-2)}}\right. \\
+&,&
+\left.\overline{x}_1-\overline{x}_2+ t_{n_1+n_2-2,1-\frac{\alpha}{2}}\cdot  \sqrt{\frac{(n_1-1)\cdot \widetilde{S}_1^2+(n_2-1)\cdot\widetilde{S}_2^2}
 {(n_1+n_2-2)}}
 \right)
-$$
+\end{eqnarray*}
 
 
 
@@ -298,7 +294,7 @@ media1=1260
 media2=1240
 desv_tipica1=20
 desv_tipica2=18
-alpha=0.05
+alpha=1-0.98
 qt(1-alpha/2,df=n1+n2-2)
 IC=c(media1-media2- qt(1-alpha/2,df=n1+n2-2)
      *sqrt((1/n1+1/n2)*((n1-1)*desv_tipica1+(n2-1)*desv_tipica2^2)/(n1+n2-2)),
@@ -330,7 +326,7 @@ distribución normal son independientes
 
 
 Contrastar la igualdad de medias contra que la droga 1 es mejor (menor media) que la droga 2.   Resolver el test en  los dos casos varianzas iguales  y varianzas distintas. Calcular el intervalo de confianza asociado al contraste
-%sol1{$\left(-2.09,8.09\right)$}
+
 
 ### Solución
 
@@ -401,8 +397,8 @@ el $p$-valor es alto, no hay evidencias para poder rechazar que las varianzas se
 
 ## Ejercicio `r cuenta()`
 
-Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 5
-pruebas de dureza  con la de tipo 1 y 7 con la de tipo 2. Obteniéndose los resultados
+Para comparar la dureza media de dos tipos de aleaciones (tipo 1 y tipo 2) se hacen 20
+pruebas de dureza  con la de tipo 1 y 25 con la de tipo 2. Obteniéndose los resultados
 siguientes:
 
 
@@ -417,36 +413,98 @@ aleacion2=round(0.5*(rnorm(25))+17.8,2)
 aleacion1=c(18.04,18.14,18.17,18.14,18.19,18.07,18.01,18.54,
             18.53,18.56,18.57,17.92,18.03,18.26,18.38,17.92,
             18.31,18.41,18,18.26)
-aleacion2=c(18.14,17.87,17.53,17.61,17.24,18.01,17.04,17.82,
-            17.97,17.75,18.48,17.34,17.29,16.81,19.21,17.6,
-            17.85,17.98,18.04,18.13,18.26,18.1,18.37,17.48,
-            17.58)
+aleacion2=c(18.02,18.21,16.51,17.21,17.85,18.24,17.48,17.28,
+            17.51,17.51,17.43,18.14,17.32,17.11,17.55,17.49,
+            18.27,17.92,18.14,18.52,18.12,18.22,17.37,17.91,
+            17.77)
+media1=mean(aleacion1)
+media1
+sd1=sd(aleacion1)
+sd1
+media2=mean(aleacion2)
+media2
+sd2=sd(aleacion2)
+sd2
+```
 
+
+$$\overline{X}_{1}=`r media1`,\quad S_{1}=`r sd1` \mbox{ y}$$
+
+$$\overline{X}_{1}=`r media2`,\quad S_{2}=`r sd2`$$
+
+Suponer que la población de las durezas es normal y que las desviaciones típicas no son
+iguales.
+
+Contrastar  que las medias de las durezas son iguales contra que son distintas. Calcular un intervalo de confianza para $\mu_{1}-\mu_{2}$ al nivel de significación del $95\%$.
+
+Haced lo mismo  si las varianzas son distintas.
+
+### Solución 
+
+Lo resolvemos solo con R sin más comentarios
+
+
+Cargamos datos
+
+
+```{r}
+n1=20
+n2=20
+aleacion1
+aleacion2
 ```
 
 
 
-$$\overline{X}_{1}=18.2,\quad S_{1}=0.2 \mbox{ y}$$
-
-$$\overline{X}_{2}=17.8;\quad S_{2}=0.5$$
-
-Suponer que la población de las durezas es normal y que las desviaciones típicas no son
-iguales. Hacer lo mismo  si las varianzas son distintas.
-% , buscar un intervalo de confianza para $\mu_{1}-\mu_{2}$ con  probabilidad $0.95$
-% sol1{$\left(0.314,0.486\right)$}
+Contraste
 
 
 
+$$
+\left\{
+\begin{array}{ll}
+H_0:&\mu_1=\mu_2\\ 
+H_1:&\mu_1\not=\mu_2
+\end{array}
+\right.
+$$
+```{r}
+t.test(aleacion1,aleacion2,alternative = "two.sided",var.equal =FALSE,conf.level=0.95)
+t.test(aleacion1,aleacion2,alternative = "two.sided",var.equal =TRUE,conf.level=0.95)
+```
+
+Son las varianzas iguales 
+
+$$
+\left\{
+\begin{array}{ll}
+H_0:&\sigma^2_1=\sigma^2_2\\ 
+H_1:&\sigma^2_1\not=\sigma^2_2
+\end{array}
+\right.
+$$
+
+```{r}
+var.test(aleacion1,aleacion2,ratio = 1,conf.level = 0.95,alternative = "two.sided")
+```
+
+ 
+ 
+```{r}
+var(aleacion1)/var(aleacion2)
+var.test(aleacion1,aleacion2,ratio = 1,conf.level = 0.95,alternative = "two.sided")$statistic
+```
+ 
 ## Ejercicio `r cuenta()` 
 
 Se encuestó a dos muestras independientes de  empresas,  en las islas de Ibiza y otra en Mallorca, sobre si utilizaban sistemas de almacenamiento en la nube. La encuesta de Ibiza tuvo un tamaño $n_1=500$  y 
-$200$ usuarios mientras que  en Mallorca se encuestaron a $n_2=750$ y se obtuvo un resultado de $210$ usuarios.
+$200$ usuarios  de la nube, mientras que  en Mallorca se encuestaron a $n_2=750$ y se obtuvo un resultado de $210$ usuarios.
 
 se pide:
 
 1. Construir una matriz 2 por 2 que contenga en filas los valores de Ibiza y Mallorca y por columnas las respuestas Sí y No
-3. Con la función `prop.test` contrastar si las proporciones por islas son iguales o distintas.  
-4. Resolver el contraste con el $p$-valor y obtener e interpretar un intervalo de confianza del 95 para la diferencia de proporciones (! cuidado con el orden¡).
+3. Con la función `prop.test` y el ` contrastar si las proporciones por islas son iguales o distintas.  
+4. Resolver el contraste con el $p$-valor y obtener e interpretar un los intervalos  de confianza del  95\% para la *comparación de las proporciones* (!cuidado con el orden¡).
 
 
 
@@ -455,7 +513,7 @@ se pide:
 
 
 ```{r}
-datos=matrix(c(200,300,210,540),nrow=2,byrow = TRUE)
+datos=matrix(c(200,500-200,210,750-210),nrow=2,byrow = TRUE)
 dimnames(datos)=list(c("Ibiza","Mallorca"),c("Sí","No"))
 datos
 prop.test(datos)
@@ -469,27 +527,41 @@ El test exacto de odds-ratio   se calcula con la función
 fisher.test(datos)
 ```
 
-En ambos casos se rechaza la hipótesis nula
+En ambos casos se rechaza la hipótesis nula.
 
-El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}$. Así que el intervalo de confianza debe contener a 1 para que las proporciones sean iguales. Consultar[AprendeR2](https://aprender-uib.github.io/AprendeR2/chap-contrastes.html#contrastes-para-proporciones).
+El $p-valor$ calculado  de forma directa y como resultado del `fisher.test` es aproxcimadamente el mismo(las discrepancias son pequeñas, posiblemente debidas a redondeos de las funciones...)
+
+
+```{r}
+fisher.test(datos)$p.value
+2*min(phyper(200,500,750,410,lower.tail = TRUE),
+            phyper(200,500,750,410,lower.tail =FALSE))
+round(2*min(phyper(200,500,750,410,lower.tail = TRUE),
+            phyper(200,500,750,410,lower.tail =FALSE)),5)
+```
+
+
+El intervalo de confianza es para la odds-ratio $\frac{\frac{p1}{1-p1}}{\frac{p2}{1-p2}}$. Así que el intervalo de confianza debe contener a 1 para que las proporciones sean iguales. [Consultad Bookdown Estadística Inferencial capítulo 4 sección 8](https://joanby.github.io/bookdown-estadistica-inferencial/contrastes-de-hip%C3%B3tesis-param%C3%A9tricos.html#contrastes-para-dos-proporciones-p_1-y-p_2).
 
 
 
 
 ## Ejercicio `r cuenta()`
 
-Se pregunta a un grupo de 100 personas elegido al azar asiste a un webinnar sobre tecnología para la banca. Antes de la conferencia se les pregunta si consideran  que  Internet es segura para la banca, después de la conferencia se les vuelve a preguntar cual es su opinión. Los resultados fueron los siguientes:
+Se pregunta a un grupo de 100 personas elegido al azar asiste a un *webinar* sobre tecnología para la banca. Antes de la conferencia se les pregunta si consideran  que  Internet es segura para la banca, después de la conferencia se les vuelve a preguntar cual es su opinión. Los resultados fueron los siguientes:
 
 \begin{center}
 \begin{tabular}{|c|c|cc|}
 \cline{3-4}
      \multicolumn{2}{c|}{}& \multicolumn{2}{|c|} {Después}\\\cline{3-4}
    \multicolumn{2}{c|}{} & Sí Segura & No Segura \\\hline
-Antes & Sí  Segura &  50 &  30 \\
-    & No Segura   &  5 & 15 
+Antes & Sí  Segura &  50 &  20 \\
+    & No Segura   &  15 & 15
 \\\hline
 \end{tabular}
 \end{center}
+
+Contrastar, calculando  el $p$-valor,  si ha cambiado (en cualquier sentido) la proporción de los asistentes que consideran que Internet es segura para la banca.
 
 
 ### Solución 
@@ -500,14 +572,15 @@ Es un contraste de comparación de proporciones emparejadas con R se puede resol
 
 
 ```{r}
-datos=datos=matrix(c(50,30, 45,29),nrow=2,byrow = TRUE)
+datos=matrix(c(50,20, 15,15),nrow=2,byrow = TRUE)
+datos
 dimnames(datos)=list(c("Antes_Si","Antes_No_Segura"),c("Despues_Si","Despues_No"))
 datos
 mcnemar.test(datos)
 ```
 
 
-El $p$-valor el relativamente alto, no hay evidencias contra la igualdad de las proporciones  entre antes y después del seminario. Por lo tanto  los asistentes (en proporciones) no han cambiado de opinión.
+El $p$-valor es alto, no hay evidencias contra la igualdad de las proporciones  entre antes y después del seminario. Por lo tanto  los asistentes (en proporciones) no han cambiado de opinión.
 
 
 

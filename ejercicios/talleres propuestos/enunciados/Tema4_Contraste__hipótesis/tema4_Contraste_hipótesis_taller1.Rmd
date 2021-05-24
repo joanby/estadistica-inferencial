@@ -32,13 +32,13 @@ Los siguientes ejercicios son de puro cálculo. Seguid la teoría y utilizar R p
 
 En   muestra aleatoria simple de tamaño $n=36$ extraída
 de una población normal con $\sigma^2=12^2$ hemos obtenido la siguiente media muestral $\overline{x}=62.5$, Contrastar al nivel de significación $\alpha=0.05$, la hipótesis
- nula $\mu=61$ contra la   alternativa
+ nula $\mu=60$ contra la   alternativa
 $\mu<60$. Resolver calculando el  $p$-valor del contraste.
 
 
 ## Ejercicio `r cuenta()` 
 
-Hemos obtenido una media muestral de  $\overline{x}=72.5$ de una muestra aleatoria simple de tamaño $n=100$ extraída de una población normal con $\sigma^2=30^2$. Contrastar al   nivel de significación $\alpha=0.10$, la hipótesis nula $\mu=77$ contra las siguientes tres alternativas
+Hemos obtenido una media muestral de  $\overline{x}=72.5$ de una muestra aleatoria simple de tamaño $n=100$ extraída de una población normal con $\sigma^2=30^2$. Contrastar al   nivel de significación $\alpha=0.10$, la hipótesis nula $\mu=70$ contra las siguientes tres alternativas
 $\mu\not= 70$, $\mu>70$, $\mu<70$. Calcular el $p$-valor en cada caso.
  
 
@@ -57,7 +57,8 @@ independientemente de cierta población de profesionales de las Tecnologías de 
 
 1. ¿Es compatible  con este resultado la hipótesis nula, $H_{0}:\mu=43500$ contra la alternativa bilateral, al nivel de significación $\alpha=0.01$? 
 2. ¿Cuál es el intervalo de confianza para $\mu$? 
-3. Calcular el $p$-valor del contraste.
+3. Calcular el $p$-valor del contra
+ste.
 
 
 ## Ejercicio `r cuenta()`  EXTRA VOLUNTARIO
@@ -73,7 +74,7 @@ Con los datos del ejercicio anterior, ¿hay evidencia sobre  para oponerse  la h
 El peso medio de los paquetes de mate  puestos a la venta por la casa comercial MATEASA es
 supuestamente de 1 Kg. Para comprobar esta suposición, elegimos una muestra aleatoria
 simple de 100 paquetes y encontramos que su peso  medio es de 0.978 Kg. y su desviación
-típica $s=0.10$ kg. Siendo $\alpha=0.05$ ¿es compatible este resultado con la hipótesis
+típica $\tilde{s}=0.10$ kg. Siendo $\alpha=0.05$ ¿es compatible este resultado con la hipótesis
 nula $H_{0}:\mu=1$ frente a $H_{1}:\mu\not=1$? ¿Lo es frente a $H_{1}:\mu>1$? Calcular el $p$-valor.
  
  
