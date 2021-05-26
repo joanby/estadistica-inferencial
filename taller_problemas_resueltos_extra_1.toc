@@ -1,0 +1,25 @@
+\contentsline {section}{\numberline {1}Taller Problemas resueltos: Estadística Inferencial}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Problema 1: Contraste de parámetros de dos muestras.}{1}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Solución}{2}{subsubsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.2}Problema 2 : Contraste dos muestras}{6}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Solución}{7}{subsubsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.3}Problema 3 : Bondad de ajuste. La ley de Benford}{8}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Solución}{9}{subsubsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.4}Problema 4 : Homegeneidad e independencia}{12}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Solución}{14}{subsubsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.5}Problema 5 : ANOVA notas numéricas de tres grupos.}{15}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.5.1}Solución}{17}{subsubsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.6}Problema 6 : ANOVA Comparación de las tasas de interés para la compra de coches entre seis ciudades.}{19}{subsection.1.6}%
+\contentsline {subsubsection}{\numberline {1.6.1}Solución}{19}{subsubsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.7}Problema 7: Cuestiones cortas}{22}{subsection.1.7}%
+\contentsline {subsubsection}{\numberline {1.7.1}Solución}{22}{subsubsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.8}Problema 8: Contraste de proporciones de dos muestras independientes.}{23}{subsection.1.8}%
+\contentsline {subsubsection}{\numberline {1.8.1}Solución}{23}{subsubsection.1.8.1}%
+\contentsline {subsection}{\numberline {1.9}Problema 9 : Contraste de proporciones de dos muestras emparejadas.}{25}{subsection.1.9}%
+\contentsline {subsubsection}{\numberline {1.9.1}Solución}{26}{subsubsection.1.9.1}%
+\contentsline {subsection}{\numberline {1.10}Problema 10 : ANOVA comparación media puntuaciones según fabricante.}{26}{subsection.1.10}%
+\contentsline {subsubsection}{\numberline {1.10.1}Solución}{27}{subsubsection.1.10.1}%
+\contentsline {subsection}{\numberline {1.11}Problema 11: Regresión lineal simple.}{31}{subsection.1.11}%
+\contentsline {subsubsection}{\numberline {1.11.1}Solución}{31}{subsubsection.1.11.1}%
+\contentsline {subsection}{\numberline {1.12}Problema 12: Distribución de los grados de un grafo de contactos.}{34}{subsection.1.12}%
+\contentsline {subsubsection}{\numberline {1.12.1}Solución}{37}{subsubsection.1.12.1}%
