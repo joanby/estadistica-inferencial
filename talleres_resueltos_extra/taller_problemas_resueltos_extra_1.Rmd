@@ -27,7 +27,8 @@ knitr::opts_chunk$set(echo = TRUE,cache=TRUE)
 library(tidyverse)
 options(scipen=999)
 contador=0
-cuenta=function(x=contador) {contador<<- contador+1;return(contador)}
+cuenta=function(x=contador) {
+  contador<<- contador+1;return(contador)}
 set.seed(2020)
 ```
 
@@ -117,7 +118,6 @@ Estamos en un diseño de comparación de medias de dos grupos con dos muestras  
 ```{r}
 # test para varianzas iguales
 t.test(G1,G2,var.equal = TRUE,alternative = "two.sided")
-
 ```
 **Varianzas distintas**
 
@@ -147,7 +147,8 @@ t0=\frac{\overline{X}_1-\overline{X}_2}
 $$
 
 ```{r estadisticos_ejer1}
-t0=(media.muestra1-media.muestra2)/sqrt((1/n1+1/n2)* 
+t0=(media.muestra1-media.muestra2)/
+  sqrt((1/n1+1/n2)* 
 ((n1-1) *desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
 t0
 ```
@@ -159,8 +160,9 @@ $2\cdot P(t_{`r n1+n2-2`}>|`r t0`|)$, lo calculamos con R
 
 
 ```{r estadisticos_ejercico1_2}
-t0=(media.muestra1-media.muestra2)/sqrt((1/n1+1/n2)* 
-((n1-1) *desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
+t0=(media.muestra1-media.muestra2)/
+  sqrt((1/n1+1/n2)* 
+((n1-1)*desv.tip.muestra1^2+(n2-1)*desv.tip.muestra2^2)/(n1+n2-2))
 t0
 n1
 n2
@@ -184,12 +186,14 @@ $$
 Calculamos el estadístico  y los grados de libertad con R
 
 ```{r}
-t0=(media.muestra1-media.muestra2)/sqrt(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)
+t0=(media.muestra1-media.muestra2)/
+  sqrt(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)
 #calculo el valor dentro del floor que es el que utiliza la función t.test de R para este caso.
 t0
 
-f=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/(
-  (1/(n1-1))*(desv.tip.muestra1^2/n1)^2+(1/(n2-1))*(desv.tip.muestra2^2/n2)^2)
+f=(desv.tip.muestra1^2/n1+desv.tip.muestra2^2/n2)^2/
+  ((1/(n1-1))*(desv.tip.muestra1^2/n1)^2+
+     (1/(n2-1))*(desv.tip.muestra2^2/n2)^2)
 f
 ```
 
@@ -209,8 +213,12 @@ Los intervalos de confianza al nivel del 95% los podemos obtener así
 
 
 ```{r}
-t.test(G1,G2,var.equal = TRUE,alternative = "two.sided",conf.level = 0.95)$conf.int
-t.test(G1,G2,var.equal = FALSE,alternative = "two.sided",conf.level = 0.95)$conf.int
+t.test(G1,G2,var.equal=TRUE,
+       alternative ="two.sided",
+       conf.level=0.95)$conf.int
+t.test(G1,G2,var.equal=FALSE,
+       alternative="two.sided",
+       conf.level = 0.95)$conf.int
 ```
 
 
@@ -383,10 +391,11 @@ En general esta distribución se suele encontrar en tablas de datos de resultado
 Por ejemplo se dice que las potencias de números enteros siguen esa distribución. Probemos con las potencias de 2. El siguiente código calcula las potencias de 2  de 1 a 1000 y extrae los tres primeros dígitos.
 
 
-
 ```{r benford2}
-# R puede según qué versión pasar los enteros  muy grande a reales. Para nuestros propósitos 
-# es suficiente para extraer los tres primeros dígitos.
+# R puede según qué versión pasar los enteros  
+# muy grande a reales. Para nuestros propósitos 
+# es suficiente para extraer 
+# los tres primeros dígitos.
 muestra_pot_2_3digitos=str_sub(as.character(2^c(1:1000)),1,3)
 head(muestra_pot_2_3digitos)
 tail(muestra_pot_2_3digitos)
@@ -678,8 +687,10 @@ Residuals             --- 123445   839.8
 
 
 ```{r poshoc}
-pairwise.t.test(nota,as.factor(tecnologia),p.adjust.method = "none")
-pairwise.t.test(nota,as.factor(tecnologia),p.adjust.method = "bonferroni")
+pairwise.t.test(nota,as.factor(tecnologia),
+                p.adjust.method = "none")
+pairwise.t.test(nota,as.factor(tecnologia),
+                p.adjust.method = "bonferroni")
 ```
 
 Se pide
@@ -967,10 +978,10 @@ $A$ no es simétrica, $B$ no tiene la diagonal de  unos y $D$ tienen valores may
 
 ## Problema `r cuenta()`: Contraste de proporciones de dos muestras independientes.
 
-Queremos comparar las proporciones de aciertos de dos redes neuronales que detectan tipos si una foto con un móvil de una avispa es una [avispa velutina o asiática](https://es.wikipedia.org/wiki/Vespa_velutina). Esta avispa en una especie invasora y peligrosa por el veneno de su picadura.
+Queremos comparar las proporciones de aciertos de dos redes neuronales que detectan  si una foto con un móvil de una avispa es una [avispa velutina o asiática](https://es.wikipedia.org/wiki/Vespa_velutina) o si es una avispa común. Esta avispa en una especie invasora y peligrosa por el veneno de su picadura.
 Para ello disponemos de una muestra de 1000 imágenes de insectos etiquetadas como avispa velutina y no velutina.
 
-[Aquí tenéis el acceso a los datos](http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina). Cada uno está en fichero los aciertos están codificados  con 1 y los fallos con 0.
+[Aquí tenéis el acceso a los datos](http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina). Cada uno está en fichero selecciona 500 fotos de dfomra indpediente para el algotirmo 1  y el 2. Los aciertos están codificados  con 1 y los fallos con 0.
 
 
 Se pide:
@@ -1025,8 +1036,10 @@ $$
 estamos ante un diseño de comparación de proporciones con muestras independientes. Con R lo podemos resolver con el `fisher.test` o con el `prop.test`
 
 ```{r}
-x=matrix(c(aciertos_absolutos_algoritmo1,n1-aciertos_absolutos_algoritmo1,
-           aciertos_absolutos_algoritmo2,n2-aciertos_absolutos_algoritmo2),
+x=matrix(c(aciertos_absolutos_algoritmo1,
+           n1-aciertos_absolutos_algoritmo1,
+           aciertos_absolutos_algoritmo2,
+           n2-aciertos_absolutos_algoritmo2),
          ncol=2,byrow=FALSE)
 x
 fisher.test(x,alternative="greater",conf.level=0.95)
@@ -1035,9 +1048,12 @@ fisher.test(x,alternative="greater",conf.level=0.95)
 
 
 ```{r}
-c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2)
+c(aciertos_absolutos_algoritmo1,
+  aciertos_absolutos_algoritmo2)
 c(n1,n2)
-prop.test(c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2), c(n1,n2),alternative="greater",conf.level=0.95)
+prop.test(c(aciertos_absolutos_algoritmo1,
+            aciertos_absolutos_algoritmo2), c(n1,n2),
+          alternative="greater",conf.level=0.95)
 ```
 
 
@@ -1047,7 +1063,11 @@ Con ambos test obtenemos $p$ valores altos (el más pequeño es el de Fisher y e
 El intervalo  de confianza asociado a este test  es 
 
 ```{r}
-prop.test(c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2), c(n1,n2),alternative="greater",conf.level=0.95)$conf.int
+prop.test(c(aciertos_absolutos_algoritmo1,
+            aciertos_absolutos_algoritmo2),
+          c(n1,n2),
+          alternative="greater",
+          conf.level=0.95)$conf.int
 ```
 
 
