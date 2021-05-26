@@ -574,7 +574,7 @@ $$
 Nos piden: $\displaystyle P(\widetilde{S}_{X}<2.5)= P\left(\widetilde{S}_{X}^2<2.5^2\right)$:
 $$
 P\left(\widetilde{S}_{X}^2<2.5^2\right)  =  P\left(\frac{11\cdot \widetilde{S}_{X}^2}{`r 1.7^2`}<\frac{11
-\cdot 2.5^2}{`r 1.7^2`}\right)  =  P(\chi_{11}^2<`r 1.7^2`) =`r round(pchisq(1.7^2,11),4)`.
+\cdot 2.5^2}{`r 1.7^2`}\right)  =  P(\chi_{11}^2<`r round(11*2.5^2/1.7^2,4)`) =`r round(pchisq( 11*2.5^2/1.7^2,11),4)`.
 $$
 
 </div>
