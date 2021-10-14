@@ -1,0 +1,25 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.3)  26 MAY 2021 10:16
+entering extended mode
+**talleres_resueltos_extra_1.tex
+(C:\Users\t169\AppData\Local\Programs\MiKTeX\tex/latex-dev/tools\.tex
+! Interruption.
+<to be read again> 
+                   \begingroup 
+l.1 
+    %%
+? x
+ 
+Here is how much of TeX's memory you used:
+ 6 strings out of 479321
+ 267 string characters out of 2857061
+ 282614 words of memory out of 3000000
+ 17571 multiletter control sequences out of 15000+600000
+ 403430 words of font info for 27 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 3i,0n,1p,38b,6s stack positions out of 5000i,500n,10000p,200000b,80000s
+No pages of output.
+PDF statistics:
+ 0 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

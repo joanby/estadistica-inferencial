@@ -2649,8 +2649,8 @@ cor(x,y)</code></pre>
 </div>
 <div id="problema-8-contraste-de-proporciones-de-dos-muestras-independientes." class="section level2">
 <h2>Problema 8: Contraste de proporciones de dos muestras independientes.</h2>
-<p>Queremos comparar las proporciones de aciertos de dos redes neuronales que detectan tipos si una foto con un móvil de una avispa es una <a href="https://es.wikipedia.org/wiki/Vespa_velutina">avispa velutina o asiática</a>. Esta avispa en una especie invasora y peligrosa por el veneno de su picadura. Para ello disponemos de una muestra de 1000 imágenes de insectos etiquetadas como avispa velutina y no velutina.</p>
-<p><a href="http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina">Aquí tenéis el acceso a los datos</a>. Cada uno está en fichero los aciertos están codificados con 1 y los fallos con 0.</p>
+<p>Queremos comparar las proporciones de aciertos de dos redes neuronales que detectan si una foto con un móvil de una avispa es una <a href="https://es.wikipedia.org/wiki/Vespa_velutina">avispa velutina o asiática</a> o si es una avispa común. Esta avispa en una especie invasora y peligrosa por el veneno de su picadura. Para ello disponemos de una muestra de 1000 imágenes de insectos etiquetadas como avispa velutina y no velutina.</p>
+<p><a href="http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina">Aquí tenéis el acceso a los datos</a>. Cada uno está en fichero selecciona 500 fotos de de forma independiente para el algoritmo 1 y el 2. Los aciertos están codificados con 1 y los fallos con 0.</p>
 <p>Se pide:</p>
 <ol style="list-style-type: decimal">
 <li>Cargad los datos desde el servidos y calcular el tamaño de las muestras y la proporción de aciertos de cada muestra.</li>
@@ -2697,8 +2697,10 @@ H_1: &amp; p_1&gt;p_2\\
 \right.
 \]</span></p>
 <p>estamos ante un diseño de comparación de proporciones con muestras independientes. Con R lo podemos resolver con el <code>fisher.test</code> o con el <code>prop.test</code></p>
-<pre class="r"><code>x=matrix(c(aciertos_absolutos_algoritmo1,n1-aciertos_absolutos_algoritmo1,
-           aciertos_absolutos_algoritmo2,n2-aciertos_absolutos_algoritmo2),
+<pre class="r"><code>x=matrix(c(aciertos_absolutos_algoritmo1,
+           n1-aciertos_absolutos_algoritmo1,
+           aciertos_absolutos_algoritmo2,
+           n2-aciertos_absolutos_algoritmo2),
          ncol=2,byrow=FALSE)
 x</code></pre>
 <pre><code>##      [,1] [,2]
@@ -2716,12 +2718,15 @@ x</code></pre>
 ## sample estimates:
 ## odds ratio 
 ##  0.5492712</code></pre>
-<pre class="r"><code>c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2)</code></pre>
+<pre class="r"><code>c(aciertos_absolutos_algoritmo1,
+  aciertos_absolutos_algoritmo2)</code></pre>
 <pre><code>##   1   1 
 ## 396 437</code></pre>
 <pre class="r"><code>c(n1,n2)</code></pre>
 <pre><code>## [1] 500 500</code></pre>
-<pre class="r"><code>prop.test(c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2), c(n1,n2),alternative=&quot;greater&quot;,conf.level=0.95)</code></pre>
+<pre class="r"><code>prop.test(c(aciertos_absolutos_algoritmo1,
+            aciertos_absolutos_algoritmo2), c(n1,n2),
+          alternative=&quot;greater&quot;,conf.level=0.95)</code></pre>
 <pre><code>## 
 ##  2-sample test for equality of proportions with continuity correction
 ## 
@@ -2735,7 +2740,11 @@ x</code></pre>
 ##  0.792  0.874</code></pre>
 <p>Con ambos test obtenemos <span class="math inline">\(p\)</span> valores altos (el más pequeño es el de Fisher y es mayor que <span class="math inline">\(0.4\)</span>, así que no podemos rechazar que las proporciones de aciertos de los dos algoritmos sean iguales contra que la proporción de aciertos del algoritmo 1 es mejor que la del 2.</p>
 <p>El intervalo de confianza asociado a este test es</p>
-<pre class="r"><code>prop.test(c(aciertos_absolutos_algoritmo1,aciertos_absolutos_algoritmo2), c(n1,n2),alternative=&quot;greater&quot;,conf.level=0.95)$conf.int</code></pre>
+<pre class="r"><code>prop.test(c(aciertos_absolutos_algoritmo1,
+            aciertos_absolutos_algoritmo2),
+          c(n1,n2),
+          alternative=&quot;greater&quot;,
+          conf.level=0.95)$conf.int</code></pre>
 <pre><code>## [1] -0.1225654  1.0000000
 ## attr(,&quot;conf.level&quot;)
 ## [1] 0.95</code></pre>
@@ -2916,7 +2925,7 @@ sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$m
 ##     Kurtosis Test: 0.2325 
 ## 
 ## Description:
-##  Fri May 21 12:03:34 2021 by user: t169</code></pre>
+##  Wed May 26 10:30:30 2021 by user: t169</code></pre>
 <pre class="r"><code>dagoTest(df$score[df$manufacturer==&quot;F6&quot;])</code></pre>
 <pre><code>## 
 ## Title:
@@ -2933,7 +2942,7 @@ sapply(levels(df$manufacturer), FUN=function(x) {print(lillie.test(df$score[df$m
 ##     Kurtosis Test: 0.7333 
 ## 
 ## Description:
-##  Fri May 21 12:03:34 2021 by user: t169</code></pre>
+##  Wed May 26 10:30:30 2021 by user: t169</code></pre>
 <p>Parece que no podemos rechazar la normalidad para los casos dudosos.</p>
 <p>Ahora realizamos el test de comparación de medias <span class="math inline">\(\mu_i\)</span> para <span class="math inline">\(i=1,2,3,4,5,6\)</span> son las medias para cada nivel del factor.</p>
 <p><span class="math display">\[

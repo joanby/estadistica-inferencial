@@ -981,7 +981,11 @@ $A$ no es simétrica, $B$ no tiene la diagonal de  unos y $D$ tienen valores may
 Queremos comparar las proporciones de aciertos de dos redes neuronales que detectan  si una foto con un móvil de una avispa es una [avispa velutina o asiática](https://es.wikipedia.org/wiki/Vespa_velutina) o si es una avispa común. Esta avispa en una especie invasora y peligrosa por el veneno de su picadura.
 Para ello disponemos de una muestra de 1000 imágenes de insectos etiquetadas como avispa velutina y no velutina.
 
+<<<<<<< HEAD
 [Aquí tenéis el acceso a los datos](http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina). Cada uno está en fichero selecciona 500 fotos de dfomra indpediente para el algotirmo 1  y el 2. Los aciertos están codificados  con 1 y los fallos con 0.
+=======
+[Aquí tenéis el acceso a los datos](http://bioinfo.uib.es/~recerca/MATIIIGINF/velutina). Cada uno está en fichero selecciona 500 fotos de de forma independiente para el algoritmo 1  y el 2. Los aciertos están codificados  con 1 y los fallos con 0.
+>>>>>>> 9073132b9cc8598384f03ed5f83b0e3fe1a4b990
 
 
 Se pide:
