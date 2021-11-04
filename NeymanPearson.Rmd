@@ -2,23 +2,26 @@
 title: "Contrastes de hipótesis. Enfoque de Neyman-Pearson"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: ""
+lang: es-ES
 output:
   beamer_presentation:
 #    colortheme: rose
     incremental: yes
-    theme: Warsaw
+    theme: Rochester
     toc: no
 
 
 header-includes: \usepackage{amsmath,color,array,booktabs,algorithm2e}
                  \newcommand\blue[1]{\textcolor{blue}{#1}}
                  \newcommand\red[1]{\textcolor{red}{#1}}
-                 \usepackage[spanish]{babel}
+                 
 
                  
               
 ---
 
+
+# Enfoque de Neyman-Pearson
 
 
 ## Introducción 
@@ -66,9 +69,11 @@ donde hemos considerados los tres casos de \red{hipótesis alternativa $H_1$}, s
 
 * Un aspecto importante del \blue{contrate de hipótesis} es la \red{hipótesis alternativa $H_1$}, donde si suponemos que es cierta, la distribución del \red{estadístico de contraste} $Z$ o $\overline{X}$ (dependiendo de cuál usemos) sería diferente. 
 
-* Concretamente, si la \red{hipótesis alternativa $H_1$} es cierta, la distribución  del \red{estadístico de contraste} $\overline{X}$ sería $\overline{X}=N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$ o $Z=\frac{\overline{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}=N\left(\frac{\mu-\mu_0}{\frac{\sigma}{\sqrt{n}}},1\right)$      
+
 
 ## Distribuciones de las hipótesis nula y alternativa
+* Concretamente, si la \red{hipótesis alternativa $H_1$} es cierta, la distribución  del \red{estadístico de contraste} $\overline{X}$ sería $\overline{X}=N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$ o $Z=\frac{\overline{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}=N\left(\frac{\mu-\mu_0}{\frac{\sigma}{\sqrt{n}}},1\right)$.
+
 * Para usar ambas distribuciones, definimos:
 $$
 f_0(z)=f_{Z}(z|H_0),\quad f_1(z)=f_{Z}(z|H_1),
@@ -224,7 +229,7 @@ P_{FN}=\int_{R_\alpha^c}f_1(z)\,dz =\int_{-\infty}^{z_{1-\alpha}} f_1(z)\, dz.
 $$
      * \red{Tasa de verdaderos positivos o potencia del contraste:}
 $$
-P_{VP}=\int_{R_\alpha}f_1(z)\,dz =\int_{z_{1-\alpha}}^\infty f_1(z)\, dz=1-P{FN}.
+P_{VP}=\int_{R_\alpha}f_1(z)\,dz =\int_{z_{1-\alpha}}^\infty f_1(z)\, dz=1-P_{FN}.
 $$
 
 ## Tasa de falsos positivos, falsos negativos y verdaderos positivos
@@ -248,7 +253,7 @@ P_{VP}& =1-P_{FN}=1-`r round(pnorm(qnorm(0.95)-(2.5-2)/(2/sqrt(50))),3)`=`r roun
 
 * Definimos la \red{regla de decisión de Neyman-Pearson} precisamente como la mejor \red{regla de decisión} donde formalmente se define como el siguiente \red{problema de optimización:}
 
-\begin{definition}[Definición]
+\begin{definition}
 La \red{regla de decisión de Neyman-Pearson} se define como el siguiente problema de \red{optimización:}
 $$
 \hat{\delta}=\max_{\delta \mbox{ tal que }P_{FP}(\delta)\leq \alpha} P_{VP}(\delta)
@@ -369,4 +374,141 @@ $$
     * si $z< \phi^{-1}(1-\alpha)=z_{1-\alpha}$, aceptamos la hipótesis nula.
     
 * La regla anterior es la regla que aprendimos. En este nuevo enfoque, hemos demostrado cuál es la razón que sea la \red{regla de decisión óptima.}
-    
+
+
+# Curva ROC
+
+## Introducción
+* Como ya hemos comentado, realizar un \blue{contraste de hipótesis} es similar a realizar una \red{clasificación en dos clases.} 
+
+* \red{Rechazar la hipótesis nula} sería equivalente a \red{clasificar} como \red{positivo} y \red{aceptar la hipótesis nula}, como \red{negativo.}
+
+* Entonces, cualquier \red{métrica de evaluación} para \blue{contrastes de hipótesis} tiene su equivalencia en \red{clasificación} y viceversa.
+
+* Vamos a introducir la curva *Receiving Operating Characteristic* o curva ROC. Dicha curva es una de las    \red{métricas} más usadas en tareas de \red{clasificación, detección y segmentación} en \red{machine learning.}
+
+## Introducción
+* Vamos a relacionar el \red{enfoque de Neyman Pearson} para \blue{contrastes de hipótesis} y las \red{curvas ROC.}
+
+* Recordemos que el \red{criterio de Neyman-Pearson} es la \red{regla de decisión óptima $\hat{\delta}$} que resuelve el problema de \red{optimización} siguiente:
+$$
+\hat{\delta}=\max_{\delta \mbox{ tal que }P_{FP}(\delta)\leq \alpha} P_{VP}(\delta)
+$$
+
+* La \red{regla de decisión óptima $\hat{\delta}$} cambia si cambiamos el \red{nivel de significación} $\alpha$. Por tanto, podemos escribir $\hat{\delta}(\alpha)$.
+
+## Curva ROC
+* Entonces, dados un conjunto de \red{niveles de significación} $\alpha_1,\ldots,\alpha_N$, podemos calcular las \red{reglas de decisión óptimas} $\hat{\delta}_1,\ldots,\hat{\delta}_N$ correspondientes a dichos niveles de significación.
+
+* Además, para cada \red{regla de decisión óptima} $\hat{\delta}_i$, podemos calcular la \red{tasa de falsos positivos} $P_{FP}(\hat{\delta}_i)$ y la \red{tasa de verdaderos positivos} $P_{VP}(\hat{\delta}_i)$, $i=1,\ldots,N$.
+
+* El gráfico de las \red{tasas de verdaderos positivos} $P_{VP}(\hat{\delta}_i)$ (eje $Y$) como función de las \red{tasas de falsos positivos} $P_{FP}(\hat{\delta}_i)$ (eje $X$), $i=1,\ldots,N$ se denomina \red{curva ROC} para el contraste de hipótesis considerado. 
+
+## Curva ROC. Ejemplo
+* Para el ejemplo considerado, dado un valor de $\alpha\in [0,1]$, la \red{tasa de falsos positivos} $P_{FP}(\hat{\delta})$ y la \red{tasa de verdaderos positivos} $P_{VP}(\hat{\delta})$ para dicho valor de $\alpha$ serán:
+\begin{align*}
+P_{FP}& =\int_{\phi^{-1}(1-\alpha)}^\infty \frac{1}{\sqrt{2\pi}}\mathrm{e}^{-\frac{z^2}{2}}\, dz=1-\phi(\phi^{-1}(1-\alpha))=\alpha,\\
+P_{FN}& =\int_{-\infty}^{\phi^{-1}(1-\alpha)} \frac{1}{\sqrt{2\pi}}\mathrm{e}^{-\frac{\left(z-\frac{2.5-2}{\frac{2}{\sqrt{50}}}\right)^2}{2}}\, dz\\ & =\int_{-\infty}^{\phi^{-1}(1-\alpha)} \frac{1}{\sqrt{2\pi}}\mathrm{e}^{-\frac{(z-`r round((2.5-2)/(2/sqrt(50)),3)`)}{2}}\, dz\\ & = P(N(`r round((2.5-2)/(2/sqrt(50)),3)`,1)\leq \phi^{-1}(1-\alpha))=\phi(\phi^{-1}(1-\alpha)-`r round((2.5-2)/(2/sqrt(50)),3)`),\\
+P_{VP}& =1-P_{FN}=1-\phi(\phi^{-1}(1-\alpha)-`r round((2.5-2)/(2/sqrt(50)),3)`).
+\end{align*}
+
+## Curva ROC. Ejemplo
+* El gráfico siguiente muestra la \red{curva ROC} para el ejemplo considerado.
+
+
+
+
+## Curva ROC. Ejemplo
+```{r,echo=FALSE}
+alphas = seq(from=0,to=1,by=0.01)
+tasas.falsos.positivos=alphas
+tasas.verdaderos.positivos = 1-pnorm(qnorm(1-alphas)-(2.5-2)/(2/sqrt(50)))
+plot(tasas.falsos.positivos,tasas.verdaderos.positivos,type="l",xlab=expression(P[FP]),ylab=expression(P[VP]),main="Curva ROC",col="red")
+```
+
+## Interpretación de la curva ROC
+* El valor $(0,0)$ siempre está en la \red{curva ROC}. Significa que se tiene una tasa nula de \red{falsos positivos} y \red{verdaderos positivos}. En este caso, siempre aceptamos la \blue{hipótesis nula} pero tampoco se \red{detecta nada} ya que nunca aceptamos la \blue{hipótesis alternativa $H_1$}. Estaríamos en un caso sin \red{ningún tipo de interés} desde el punto de vista de realizar un \blue{contraste de hipótesis} o de realizar una \red{clasificación en dos clases.}
+
+* El valor $(1,1)$ también pertenece siempre a la \red{curva ROC}. Significa que se tiene un $100\%$ de \red{falsos positivos} y un $100\%$ de \red{verdaderos positivos.} En este caso, siempre rechazamos la \blue{hipótesis nula}, por tanto, tenemos un $100\%$ de detección pero al mismo tiempo tenemos una tasa del $100\%$ de \red{falsos positivos} o un \red{error tipo I} máximo. 
+
+
+## Interpretación de la curva ROC
+
+* Para cualquier valor de $\alpha$ diferente de $0$ y $1$, no podemos tener una \red{tasa de verdaderos positivos} más alta que la que nos da la \red{curva ROC} para la \red{tasa de falsos positivos} fijada.
+
+* La \red{curva ROC} dice cómo cambia la \red{regla de decisión} a medida que cambiamos el \red{umbral}. Dicho \red{umbral} es un concepto usado tanto en \blue{contraste de hipótesis} como en \red{clasificación.}
+
+* En \blue{contraste de hipótesis}, el \red{umbral} sería el \red{nivel de significación $\alpha$.} En \red{clasificación}, el \red{umbral} sería un valor para decidir si un valor de la muestra se clasifica como \red{clase $1$} o \red{clase $0$.}
+
+## Interpretación de la curva ROC
+* La \red{curva ROC ideal} sería aquella en la cual la \red{tasa de falsos positivos} siempre es nula, $P_{FP}=0$ y la \red{tasa de verdaderos positivos} siempre vale $1$ o su valor máximo, $P_{VP}=1$. En el gráfico, la curva correspondería a los lados del cuadrado que van de $(0,0)$ a $(0,1)$ y de $(0,1)$ a $(1,1)$. Sin embargo, esta situación es teórica y nunca se da en la práctica.
+
+
+## Decisión ciega
+* Imaginemos que para realizar un \red{contraste de hipótesis} determinado, consideramos la \red{regla de decisión} que consiste en \red{rechazar la hipótesis nula $H_0$} con probabilidad $\alpha$ y \red{aceptarla} con probabilidad $1-\alpha$. Es decir:
+$$
+\delta(z)=\begin{cases}1, & \mbox{ con probabilidad }\alpha,\\
+0, & \mbox{ con probabilidad }1-\alpha.\end{cases}
+$$
+Llamamos a dicha regla de decisión, \red{decisión ciega} ya que no depende del valor del \red{estadístico de contraste.}
+
+
+## Decisión ciega
+
+* En este caso, fijado un valor del \red{nivel de significación} $\alpha$, la \red{tasa de falsos positivos} y la \red{tasa de verdaderos positivos} serán 
+\begin{align*}
+P_{FP} & = P(\mbox{ rechazar }H0|H0\mbox{ cierta})=\alpha,\\
+P_{VP} & = P(\mbox{ rechazar }H0|H0\mbox{ cierta})=\alpha.
+\end{align*}
+Es decir el punto de la \red{curva ROC} de la \red{decisión ciega} sería $(\alpha,\alpha)$.
+
+* Por tanto, la \red{curva ROC} correspondiente a la \red{decisión ciega} sería la \red{diagonal del cuadrado $[0,1]\times [0,1]$.}
+
+* Entonces, cuanto más lejos esté la \red{curva ROC} de nuestra \red{regla de decisión} de la \red{diagonal} del cuadrado $[0,1]\times [0,1]$, más lejos estará de la \red{decisión ciega} y más \red{óptima} será.
+
+## Decisión ciega
+```{r,echo=FALSE}
+alphas = seq(from=0,to=1,by=0.01)
+tasas.falsos.positivos=alphas
+tasas.verdaderos.positivos = 1-pnorm(qnorm(1-alphas)-(2.5-2)/(2/sqrt(50)))
+plot(tasas.falsos.positivos,tasas.verdaderos.positivos,type="l",xlab=expression(P[FP]),ylab=expression(P[VP]),main="Curva ROC",col="blue")
+text(0.25,0.75,"Neyman-Pearson",col="blue")
+lines(c(0,1),c(0,1),col="red")
+text(0.5,0.45,srt=33,"Decisión ciega",col="red")
+```
+
+## La curva *Precision-Recall*
+* Una alternativa a la \red{curva ROC} para medir el rendimiento de la \red{regla de decisión} es la \red{curva Precision-Recall} o \red{curva PR}. Se define de la forma siguiente:
+
+\begin{definition}
+Se define la \red{precisión} de una \red{regla de decisión} como:
+$$
+\mbox{precisión} = \frac{P_{VP}}{P_{VP}+P_{FP}},
+$$
+y el \red{recall} como:
+$$
+\mbox{recall} = \frac{P_{VP}}{P_{VP}+P_{FN}}=P_{VP}.
+$$
+\end{definition}
+
+## La curva *Precision-Recall*
+* Es decir, la \red{precisión} sería el número de \red{verdaderos positivos} entre todos los \red{verdaderos positivos y falsos positivos} o el \red{total de positivos detectados}.
+
+* Una \red{precisión alta} significa que entre todos los \red{positivos detectados}, la mayoría son \red{verdaderos positivos}. Es decir, lo que la \red{regla de decisión} afirma que son positivos, en realidad lo son o la \red{regla} es muy fiable. En este caso, si \red{rechazamos la hipotesis nula}, probablemente tomemos una buena decisión.
+
+* Una \red{precisión baja} significa que entre todos los \red{positivos detectados}, la mayoría en realidad no lo son. Una \red{precisión baja} puede ocurrir cuando uno está demasiado \blue{ansioso} para \red{rechazar $H_1$.} En este caso, si \red{rechazamos la hipótesis nula}, probablemente no sea una buena decisión.
+
+## La curva *Precision-Recall*
+
+* El \red{recall} sería simplemente la \red{tasa de verdaderos positivos.}
+
+* La diferencia fundamental entre la \red{precisión} y el \red{recall} es el \blue{denominador}. En el caso, de la \red{precisión}, dividimos entre todos los \red{positivos detectados}; en cambio, en el caso del \red{recall}, dividimos entre todos los \red{positivos verdaderos.}
+
+* Un \red{recall alto} significa que la \red{regla de decisión} es muy fiable en \red{detectar positivos} o \red{rechazar la hipótesis nula $H_0$}. Esto ocurre cuando elegimos un valor $\alpha$ muy bajo. Sin embargo, en este caso, tendríamos una \red{precisión baja.}
+
+* Un \red{recall bajo} significa que \red{aceptamos la hipótesis nula} demasiadas veces y por tanto, casi nunca detectamos un \red{positivo}. Sin embargo, tener un \red{recall bajo} significa tener una \red{precisión alta} ya que casi nunca \red{rechazamos la hipótesis nula} a no ser que tengamos \red{evidencia clara.}
+
+
+## La curva *Precision-Recall*
+
+* La \red{curva PR} consiste en realizar un gráfico de la \red{precisión} (eje $Y$) en función del \red{recall} o \red{tasa de verdaderos positivos} (eje $X$).
