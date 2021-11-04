@@ -1,0 +1,372 @@
+---
+title: "Contrastes de hipótesis. Enfoque de Neyman-Pearson"
+author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
+date: ""
+output:
+  beamer_presentation:
+#    colortheme: rose
+    incremental: yes
+    theme: Warsaw
+    toc: no
+
+
+header-includes: \usepackage{amsmath,color,array,booktabs,algorithm2e}
+                 \newcommand\blue[1]{\textcolor{blue}{#1}}
+                 \newcommand\red[1]{\textcolor{red}{#1}}
+                 \usepackage[spanish]{babel}
+
+                 
+              
+---
+
+
+
+## Introducción 
+
+* En esta presentación vamos a introducir los \red{contrastes de hipótesis} desde una perspectiva más amplia.
+
+* Esta nueva perspectiva nos permitirá introducir la \red{clasificación} en \red{machine learning} y 
+\red{detección en procesamiento de señales.}
+
+* Este nuevo enfoque se llama \red{enfoque de Neyman-Pearson.}
+
+## Distribuciones de las hipótesis nula y alternativa
+
+* En los \blue{contrastes de hipótesis paramétricos} introducidos durante el curso, nos concentramos en la \red{hipótesis nula $H_0$.}
+
+* Tanto si usamos los \red{z-test} como los \red{t-test}, en el cálculo del \red{p-valor}, se usaba la distribución suponiendo que la \red{hipótesis nula $H_0$} es cierta.
+
+
+## Distribuciones de las hipótesis nula y alternativa
+* Para fijar ideas, suponiendo que el contraste considerado era sobre la \red{media $\mu$}, y el contraste era de la forma:
+$$
+\left.
+\begin{array}{ll}
+H_0:\mu  & =\mu_0,\\
+H_1: \mu & \neq (<,>)\mu_0,
+\end{array}
+\right\}
+$$
+donde hemos considerados los tres casos de \red{hipótesis alternativa $H_1$}, suponiendo que la \blue{desviación típica $\sigma$} de la población es conocida, suponemos que la distribución del \red{estadístico de contraste} $Z=\frac{\overline{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}$ es una \red{normal estándar} o $N(0,1)$ suponiendo que la \blue{hipótesis nula $H_0$ es cierta} o que $\mu =\mu_0$ 
+
+## Distribuciones de las hipótesis nula y alternativa
+* La suposición anterior es equivalente a suponer que la distribución de la \red{media muestral $\overline{X}$} es \red{normal} de \red{parámetros} $\mu_{\overline{X}} =\mu_0$ y $\sigma_{\overline{X}}=\frac{\sigma}{\sqrt{n}}$: $\overline{X}=N\left(\mu_0,\frac{\sigma}{\sqrt{n}}\right).$
+
+* Recordemos que para \red{aceptar} o \red{rechazar} la \blue{hipótesis nula $H_0$}, comparamos el valor crítico $z_{\alpha} (H_1:\mu <\mu_0)$, $z_{1-\alpha} (H_1:\mu > \mu_0)$, $z_{1-\frac{\alpha}{2}} (H_1:\mu \neq \mu_0)$ con el valor $Z$ del \red{estadístico de contraste} y dependiendo de dicha comparación aceptamos o rechazamos la \blue{hipótesis nula $H_0$}, siendo $\alpha$ el \red{nivel de significación.}
+
+## Distribuciones de las hipótesis nula y alternativa
+
+* Concretamente,
+    * Si $H_1:\mu <\mu_0$, 
+        * si \red{$Z<z_\alpha$}, \red{rechazamos $H_0$} y en caso contrario, aceptamos $H_0$,
+    * Si $H_1:\mu > \mu_0$, 
+        * si \red{$Z > z_{1-\alpha}$}, \red{rechazamos $H_0$} y en caso contrario, aceptamos $H_0$,
+    * Si $H_1:\mu \neq \mu_0$, 
+        * si \red{$|Z|>z_{1-\frac{\alpha}{2}}$}, \red{rechazamos $H_0$} y en caso contrario, aceptamos $H_0$.
+
+* Un aspecto importante del \blue{contrate de hipótesis} es la \red{hipótesis alternativa $H_1$}, donde si suponemos que es cierta, la distribución del \red{estadístico de contraste} $Z$ o $\overline{X}$ (dependiendo de cuál usemos) sería diferente. 
+
+* Concretamente, si la \red{hipótesis alternativa $H_1$} es cierta, la distribución  del \red{estadístico de contraste} $\overline{X}$ sería $\overline{X}=N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$ o $Z=\frac{\overline{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}=N\left(\frac{\mu-\mu_0}{\frac{\sigma}{\sqrt{n}}},1\right)$      
+
+## Distribuciones de las hipótesis nula y alternativa
+* Para usar ambas distribuciones, definimos:
+$$
+f_0(z)=f_{Z}(z|H_0),\quad f_1(z)=f_{Z}(z|H_1),
+$$
+las \blue{funciones de densidad} del \red{estadístico de contraste} suponiendo que $H_0$ es cierta ($f_0(z)$) o suponiendo que $H_1$ es cierta ($f_1(z)$).
+
+* En el primer caso o suponiendo que \red{$H_0$ es cierta}, $f_0(z)$ sería la \blue{función de densidad} de una $N\left(0,1\right)$ y en el segundo caso o suponiendo que \red{$H_1$ es cierta}, $f_1(z)$ sería la \blue{función de densidad} de una $N\left(\frac{\mu-\mu_0}{\frac{\sigma}{\sqrt{n}}},1\right)$.
+
+## Distribuciones de las hipótesis nula y alternativa. Ejemplo
+
+* Suponemos que nos planteamos el contraste de hipótesis siguiente:
+$$
+\left.
+\begin{array}{ll}
+H_0:\mu  & =2,\\
+H_1: \mu & > 2,
+\end{array}
+\right\}
+$$
+* En el gráfico siguiente hemos dibujado las \blue{funciones de densidad} $f_0$ y $f_1$. La curva azul es $f_0$ y la roja $f_1$, donde hemos supuesto que $\mu=2.5$ y $\sigma = 2$.
+
+* \red{Rechazaremos la hipótesis nula $H_0$} si el valor del \red{estadístico de contraste $Z$} se encuentra en la zona verde, o $Z>z_{1-\alpha}$, donde hemos considerado un \red{nivel de significación $\alpha=0.05$}, de donde $z_{0.95}=`r round(qnorm(0.95),3)`$. 
+
+## Distribuciones de las hipótesis nula y alternativa. Ejemplo
+
+```{r,echo=FALSE,fig.align='center',fig.height=3.75,fig.width=4.25}
+x=seq(from=-4,to=6,by=0.01)
+plot(x,dnorm(x),type="l",col="blue",xlab="z",ylab=expression(f[i](z)))
+lines(x,dnorm(x,(2.5-2)/(2/sqrt(50)),1),col="red")
+alfa=0.05
+x2=seq(from=qnorm(1-alfa),to=6,by=0.001)
+for (i in 1:length(x2)){lines(c(x2[i],x2[i]),c(0,dnorm(x2[i])),col="green")}
+text(x2[1],0.035,expression(z[1-alpha]))
+points(x2[1],0,cex=0.5,col="red",pch=19)
+
+```
+
+## Reglas de decisión
+* Un \blue{contraste de hipótesis}, se basa en una \red{regla de decisión $\delta(\cdot)$} a partir de un \red{espacio de valores} ${\cal Z}$ del \red{estadístico de contraste} $Z$.
+
+* Concretamente, en un contraste de la \red{media $\mu$} del tipo:
+$$
+\left.
+\begin{array}{ll}
+H_0:\mu  & =\mu_0,\\
+H_1: \mu & > \mu_0,
+\end{array}
+\right\}
+$$
+como la del ejemplo anterior,
+    * el \red{espacio de valores} ${\cal Z}$ sería el \blue{conjunto de números reales} $\mathbb{R}$,
+    * el \red{estadístico de contraste} $Z$ sería $Z=\frac{\overline{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}$ (suponemos $\sigma$ conocida) y
+    * la \red{regla de decisión $\delta(z,\alpha)$} que depende del valor del \red{estadístico de contraste} y del \red{nivel de significación} $\alpha$ sería: 
+        * si $Z\geq z_{1-\alpha}$, \red{rechazamos la hipótesis nula $H_0$},
+        * si $Z< z_{1-\alpha}$, \red{aceptamos la hipótesis nula $H_0$}.
+        
+## Reglas de decisión
+* Escribiremos la \red{regla de decisión} de la forma siguiente:
+$$
+\delta(z,\alpha)=\begin{cases}
+1, & \mbox{ si }z\in R_\alpha (\mbox{ rechazamos }H_0),\\
+0, & \mbox{ si }z\not\in R_\alpha (\mbox{ aceptamos }H_0),\\
+\end{cases}
+$$
+donde $R_\alpha$ es la llamada \red{zona de rechazo} que valdría en el ejemplo que vamos desarrollando:
+$$
+R_\alpha = \{z \geq z_{1-\alpha}=\phi^{-1}(1-\alpha)\},
+$$
+donde $\phi(z)$ representa la \red{función de distribución} de la $N(0,1)$: $\phi(z)=P(Z\leq z)$.
+
+## Ejemplo anterior
+* En el ejemplo anterior, la \red{regla de decisión} para $\alpha =0.05$ sería:
+$$
+\delta(z,0.05)=\begin{cases}
+1, & \mbox{ si }z\in R_{0.05} (\mbox{ rechazamos }H_0),\\
+0, & \mbox{ si }z\not\in R_{0.05} (\mbox{ aceptamos }H_0),\\
+\end{cases}
+$$
+donde $R_{0.05} = \{z \geq z_{0.95}=\phi^{-1}(0.95)=`r round(qnorm(0.95),3)`\}.$
+
+
+## Errores tipo I y tipo II
+* Recordemos que en un \blue{contraste de hipótesis}, el \red{error tipo I} se definía como:
+$$
+\mbox{Error tipo I}=P(\mbox{Rechazar }H_0|H0\mbox{ cierta }),
+$$
+o como la \red{probabilidad de rechazar la hipótesis nula suponiendo ésta cierta.}
+
+* De la misma manera, el \red{error tipo II} se definía como:
+$$
+\mbox{Error tipo II}=P(\mbox{Aceptar }H_0|H0\mbox{ falsa }),
+$$
+o como la \red{probabilidad de aceptar la hipótesis nula suponiendo ésta falsa.}
+
+## Errores tipo I y tipo II
+* Si interpretamos un \blue{contraste de hipótesis} como un \red{proceso de decisión}, 
+    * aceptar la \red{hipótesis nula} sería tener un valor \red{negativo} y 
+    * \red{rechazarla} sería tener un valor \red{positivo.}
+
+* Entonces, podemos interpretar
+    * el \red{error tipo I} como un \red{falso positivo} ya que declaramos \red{positiva} una decisión que debería ser \red{negativa} y    
+    * y el \red{error tipo II} como un \red{falso negativo} ya que declaramos \red{positiva} una decisión que debería ser \red{positiva}.
+    
+## Tasa de falsos positivos y falsos negativos
+* En un contexto del \red{proceso de decisión}, 
+    * el \red{error tipo I} se podría interpreta como la \red{tasa de falsos positivos} y
+    * el \red{error tipo II} se podría interpreta como la \red{tasa de falsos negativos}.
+    
+* Otro concepto que se introdujo en los \blue{contrastes de hipótesis} es la \red{potencia de un contraste} que se definía como:
+\begin{align*}
+\mbox{Potencia de un contraste} & =1-\mbox{Error tipo II}\\ & =1-P(\mbox{Aceptar }H_0|H0\mbox{ falsa })\\ & =P(\mbox{rechazar }H_0|H_0\mbox{ falsa}),
+\end{align*}
+es decir, como la \red{probabilidad de rechazar la hipótesis nula suponiendo ésta falsa.}
+
+
+## Tasa de verdaderos positivos
+* En un contexto del \red{proceso de decisión}, la \red{potencia del contraste} se puede interpretar como la \red{probabilidad de detectar un negativo}. 
+
+* Por tanto, la \red{potencia de un contraste} puede interpretarse como la \red{tasa de verdaderos positivos} o la \red{probabilidad de detección.}
+
+* En el gráfico siguiente mostramos en amarillo el \red{error tipo II} o la \red{tasa de falsos negativos} para el ejemplo anterior. Recordemos que en verde está el \red{error tipo I} o la \red{tasa de falsos positivos.}
+
+## Tasa de verdaderos positivos
+```{r,echo=FALSE,fig.align='center',fig.height=3.75,fig.width=4.25}
+x=seq(from=-4,to=6,by=0.01)
+plot(x,dnorm(x),type="l",col="blue",xlab="x",ylab=expression(f[i](x)))
+lines(x,dnorm(x,(2.5-2)/(2/sqrt(50)),1),col="red")
+alfa=0.05
+x2=seq(from=qnorm(1-alfa),to=6,by=0.001)
+for (i in 1:length(x2)){lines(c(x2[i],x2[i]),c(0,dnorm(x2[i])),col="green")}
+x3=seq(from=-4,to=qnorm(1-alfa),by=0.001)
+for (i in 1:length(x3)){lines(c(x3[i],x3[i]),c(0,dnorm(x3[i],(2.5-2)/(2/sqrt(50)),1)),col="yellow")}
+
+text(x2[1],0.02,expression(z[1-alpha]))
+points(x2[1],0,cex=0.5,col="red",pch=19)
+lines(x,dnorm(x),col="blue")
+lines(x,dnorm(x,(2.5-2)/(2/sqrt(50)),1),col="red")
+
+
+```
+
+
+## Tasa de falsos positivos, falsos negativos y verdaderos positivos
+
+* Matemáticamente, podemos escribir las tasas anteriores de la forma siguiente:
+    * \red{Tasa de falsos positivos o error tipo I:}
+$$
+P_{FP}=\int_{R_\alpha}f_0(z)\,dz =\int_{z_{1-\alpha}}^\infty f_0(z)\, dz.
+$$
+     * \red{Tasa de falsos negativos o error tipo II:}
+$$
+P_{FN}=\int_{R_\alpha^c}f_1(z)\,dz =\int_{-\infty}^{z_{1-\alpha}} f_1(z)\, dz.
+$$
+     * \red{Tasa de verdaderos positivos o potencia del contraste:}
+$$
+P_{VP}=\int_{R_\alpha}f_1(z)\,dz =\int_{z_{1-\alpha}}^\infty f_1(z)\, dz=1-P{FN}.
+$$
+
+## Tasa de falsos positivos, falsos negativos y verdaderos positivos
+* Podemos escribir las probabilidades anteriores en función de la \red{regla de decisión $\delta(z,\alpha)$} de la forma siguiente:
+\begin{align*}
+P_{FP}& =\int_{\mathbb{R}}\delta(z,\alpha) f_0(z)\,dz =\int_{z_{1-\alpha}}^\infty f_0(z)\, dz,\\
+P_{FN}& =\int_{\mathbb{R}}(1-\delta(z,\alpha)) f_1(z)\,dz =\int_{-\infty}^{z_{1-\alpha}} f_1(z)\, dz,\\
+P_{VP}& =\int_{\mathbb{R}}\delta(z,\alpha) f_1(z)\,dz =\int_{z_{1-\alpha}}^\infty f_1(z)\, dz.
+\end{align*}
+
+## Ejemplo anterior
+* En el ejemplo anterior, las tasas de \red{falsos positivos, falsos negativos y verdaderos positivos} son las siguientes:
+\begin{align*}
+P_{FP}& =\int_{`r round(qnorm(0.95),3)`}^\infty \frac{1}{\sqrt{2\pi}}\mathrm{e}^{-\frac{z^2}{2}}\, dz=1-\phi(`r round(qnorm(0.95),3)`)=0.05,\\
+P_{FN}& =\int_{-\infty}^{`r round(qnorm(0.95),3)`} \frac{1}{\sqrt{2\pi}}\mathrm{e}^{-\frac{\left(z-\frac{2.5-2}{\frac{2}{\sqrt{50}}}\right)^2}{2}}\, dz=\int_{-\infty}^{`r round(qnorm(0.95),3)`} \frac{1}{\sqrt{2\pi}}\mathrm{e}^{-\frac{(z-`r round((2.5-2)/(2/sqrt(50)),3)`)}{2}}\, dz\\ & = P(N(`r round((2.5-2)/(2/sqrt(50)),3)`,1)\leq `r round(qnorm(0.95),3)`)=\phi(`r round(qnorm(0.95),3)`-`r round((2.5-2)/(2/sqrt(50)),3)`)=\phi(`r round(qnorm(0.95)-(2.5-2)/(2/sqrt(50)),3)`)\\ & = `r round(pnorm(qnorm(0.95)-(2.5-2)/(2/sqrt(50))),3)`,\\
+P_{VP}& =1-P_{FN}=1-`r round(pnorm(qnorm(0.95)-(2.5-2)/(2/sqrt(50))),3)`=`r round(pnorm(qnorm(0.95)-(2.5-2)/(2/sqrt(50)),lower.tail=F),3)`.
+\end{align*}
+
+## Decisión de Neyman-Pearson
+* Una vez establecidos los conceptos necesarios, el objetivo es hallar la mejor \red{regla de decisión} para un \blue{contraste de hipótesis.}
+
+* Definimos la \red{regla de decisión de Neyman-Pearson} precisamente como la mejor \red{regla de decisión} donde formalmente se define como el siguiente \red{problema de optimización:}
+
+\begin{definition}[Definición]
+La \red{regla de decisión de Neyman-Pearson} se define como el siguiente problema de \red{optimización:}
+$$
+\hat{\delta}=\max_{\delta \mbox{ tal que }P_{FP}(\delta)\leq \alpha} P_{VP}(\delta)
+$$
+\end{definition}
+
+## Decisión de Neyman-Pearson
+* Es decir, de entre todas las \red{reglas de decisión $\delta$} tal que la \red{tasa de falsos positivos} es menor que un cierto \red{nivel de significación $\alpha$}, hallar la que \red{maximiza} la \red{tasa de verdaderos positivos} o la \red{tasa de detección.}
+
+* Para resolver el problema de \red{optimización} anterior, necesitamos introducir el \red{índice de verosimilitud} entre dos distribuciones de \blue{funciones de densidad} $f_0(z)$ y $f_1(z)$ como:
+$$
+L(z)=\frac{f_1(z)}{f_0(z)}.
+$$
+
+## Decisión de Neyman-Pearson
+* El siguiente resultado resuelve el problema de \red{optimización:}
+\begin{theorem}
+La solución al problema de \red{optimización de la regla de decisión de Neyman-Pearson} es el siguiente:
+$$
+\hat{\delta}(z)=\begin{cases}
+1, & \mbox{ si }L(z)\geq \eta,\\
+0, & \mbox{ si }L(z) <\eta,
+\end{cases}
+$$
+donde $\eta$ depende del \red{nivel de significación} $\alpha$.
+\end{theorem}
+
+* El teorema anterior dice que si el objetivo es maximizar  la \red{tasa de detección} o la \red{tasa de verdaderos positivos} manteniendo la \red{tasa de falsos positivos}, no podemos hacerlo mejor que la \red{regla de decisión} dada por el Teorema.
+
+## Demostración del Teorema
+* La relación entre $\eta$ y $\alpha$ es la siguiente:
+$$
+\alpha  = P_{FP}(\hat{\delta})=\int_\mathbb{R} \hat{\delta}(z) f_0(z)\, dz =\int_{L(z)\geq \eta} f_0(z)\, dz
+$$
+
+* Sea $\delta$ otra regla de decisión. 
+Nuestro objetivo es demostrar que $P_{VP}(\hat{\delta})\geq P_{VP}(\delta)$.
+
+* Como la regla $\delta$ debe cumplir que la tasa de falsos positivos debe ser menor que $\alpha$, tenemos que:
+\begin{align*}
+\alpha & \geq P_{FP}(\delta) =\int_\mathbb{R} \delta(z) f_0(z)\, dz\\ & = \int_{L(z)\geq \eta} \delta(z) f_0(z)\, dz + \int_{L(z)< \eta} \delta(z) f_0(z)\, dz.
+\end{align*}
+
+## Demostración del Teorema (continuación)
+* Entonces:
+\begin{align*}
+& \int_{L(z)\geq \eta}  f_0(z)\, dz \geq  \int_{L(z)\geq \eta} \delta(z) f_0(z)\, dz + \int_{L(z)< \eta} \delta(z) f_0(z)\, dz,\ \Rightarrow\\
+& \int_{L(z)\geq \eta} (1-\delta(z))f_0(z)\, dz - \int_{L(z)< \eta} \delta(z) f_0(z)\, dz\geq 0.
+\end{align*}
+
+* A continuación, veamos que $P_{VP}(\hat{\delta})\geq P_{VP}(\delta)$:
+\begin{align*}
+P_{VP}(\hat{\delta})&  =\int_\mathbb{R}\hat{\delta}(z) f_1(z)\, dz =\int_{L(z)\geq \eta}f_1(z)\, dz,\\
+P_{VP}(\delta) & =\int_\mathbb{R}\delta(z) f_1(z)\, dz =\int_{L(z)\geq \eta}\delta(z)f_1(z)\, dz \\ & \qquad\qquad +\int_{L(z)< \eta}\delta(z)f_1(z)\, dz ,\\
+\end{align*}
+
+## Demostración del Teorema (continuación)
+* Restando las dos expresiones anteriores,
+$$
+P_{VP}(\hat{\delta})-P_{VP}(\delta) = \int_{L(z)\geq \eta}(1-\delta(z))f_1(z)\, dz-\int_{L(z)< \eta}\delta(z)f_1(z)\, dz
+$$
+
+* Ahora bien, 
+    * si $L(z)=\frac{f_1(z)}{f_0(z)}\geq \eta$, $f_1(z)\geq \eta f_0(z)$,
+    * si $L(z)=\frac{f_1(z)}{f_0(z)}< \eta$, $f_1(z) < \eta f_0(z)$ y por tanto, $-f_1(z) > -\eta f_0(z)$.
+
+## Demostración del Teorema (continuación)
+* Entonces:
+\begin{align*}
+& P_{VP}(\hat{\delta})-P_{VP}(\delta) \geq  \int_{L(z)\geq \eta}(1-\delta(z))\eta f_0(z)\, dz\\ & \qquad\qquad -\int_{L(z)< \eta}\eta \delta(z)f_0(z)\, dz\\ & =\eta\left(\int_{L(z)\geq \eta}(1-\delta(z)) f_0(z)\, dz-\int_{L(z)< \eta} \delta(z)f_0(z)\, dz\right)
+\end{align*}
+
+* Anteriormente vimos que 
+$$
+\int_{L(z)\geq \eta}(1-\delta(z)) f_0(z)\, dz-\int_{L(z)< \eta} \delta(z)f_0(z)\, dz \geq 0,
+$$
+por tanto,
+$$
+P_{VP}(\hat{\delta})-P_{VP}(\delta) \geq 0,
+$$
+tal como queríamos demostrar.
+
+## Decisión de Neyman-Pearson. Ejemplo
+* Ahora ya sabemos cómo hallar \red{reglas de decisión óptimas} dado un \blue{contraste de hipótesis}.
+
+* Apliquemos el Teorema anterior al ejemplo desarrollado pero lo haremos con cualquier valor de $\sigma$.
+
+* En el ejemplo, 
+$$
+f_0(z)=\frac{1}{\sqrt{2\pi}}\mathrm{e}^{-\frac{z^2}{2}},\quad f_1(z)=\frac{1}{\sqrt{2\pi}}\mathrm{e}^{\frac{-\left(z-\frac{\mu-2}{\frac{\sigma}{\sqrt{n}}}\right)^2}{2}}
+$$ 
+
+* Sea $\mu_1 = \frac{\mu-2}{\frac{\sigma}{\sqrt{n}}}$. El valor de $L(z)$ será:
+$$
+L(z)=\frac{f_1(z)}{f_0(z)}=\mathrm{e}^{-\frac{(z-\mu_1)^2}{2}+\frac{z^2}{2}}=\mathrm{e}^{\frac{1}{2}(2z\mu_1-\mu_1^2)}.
+$$
+
+## Decisión de Neyman-Pearson. Ejemplo
+* La condición $L(z)\geq \eta$ será en nuestro caso,
+$$
+\mathrm{e}^{\frac{1}{2}(2z\mu_1-\mu_1^2)}\geq \eta,\ \Leftrightarrow 2z\mu_1\geq 2\ln(\eta)+\mu_1^2,\ \Leftrightarrow z\geq \frac{2\ln(\eta)+\mu_1^2}{2\mu_1}:=\tau.
+$$
+
+* Para hallar $\tau$ en función de $\alpha$, hay que tener en cuenta que:
+$$
+\alpha  = P_{FP}(\hat{\delta})=\int_{L(z)\geq \eta} f_0(z)\, dz =\int_\tau^\infty \frac{1}{\sqrt{2\pi}}\mathrm{e}^{-\frac{z^2}{2}}\, dz =1-\phi(\tau).
+$$
+
+* Entonces,
+$$
+\phi(\tau)=1-\alpha,\ \Leftrightarrow \tau =\phi^{-1}(1-\alpha).
+$$
+
+
+## Decisión de Neyman-Pearson. Ejemplo
+* En pocas palabras la \red{regla de decisión óptima} sería 
+    * si $z\geq \phi^{-1}(1-\alpha)=z_{1-\alpha}$, rechazamos la hipótesis nula y,
+    * si $z< \phi^{-1}(1-\alpha)=z_{1-\alpha}$, aceptamos la hipótesis nula.
+    
+* La regla anterior es la regla que aprendimos. En este nuevo enfoque, hemos demostrado cuál es la razón que sea la \red{regla de decisión óptima.}
+    
