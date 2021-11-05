@@ -158,13 +158,13 @@ donde $R_{0.05} = \{z \geq z_{0.95}=\phi^{-1}(0.95)=`r round(qnorm(0.95),3)`\}.$
 ## Errores tipo I y tipo II
 * Recordemos que en un \blue{contraste de hipótesis}, el \red{error tipo I} se definía como:
 $$
-\mbox{Error tipo I}=P(\mbox{Rechazar }H_0|H0\mbox{ cierta }),
+\mbox{Error tipo I}=P(\mbox{Rechazar }H_0|H_0\mbox{ cierta }),
 $$
 o como la \red{probabilidad de rechazar la hipótesis nula suponiendo ésta cierta.}
 
 * De la misma manera, el \red{error tipo II} se definía como:
 $$
-\mbox{Error tipo II}=P(\mbox{Aceptar }H_0|H0\mbox{ falsa }),
+\mbox{Error tipo II}=P(\mbox{Aceptar }H_0|H_0\mbox{ falsa }),
 $$
 o como la \red{probabilidad de aceptar la hipótesis nula suponiendo ésta falsa.}
 
@@ -175,7 +175,7 @@ o como la \red{probabilidad de aceptar la hipótesis nula suponiendo ésta falsa
 
 * Entonces, podemos interpretar
     * el \red{error tipo I} como un \red{falso positivo} ya que declaramos \red{positiva} una decisión que debería ser \red{negativa} y    
-    * y el \red{error tipo II} como un \red{falso negativo} ya que declaramos \red{positiva} una decisión que debería ser \red{positiva}.
+    * y el \red{error tipo II} como un \red{falso negativo} ya que declaramos \red{negativa} una decisión que debería ser \red{positiva}.
     
 ## Tasa de falsos positivos y falsos negativos
 * En un contexto del \red{proceso de decisión}, 
@@ -184,7 +184,7 @@ o como la \red{probabilidad de aceptar la hipótesis nula suponiendo ésta falsa
     
 * Otro concepto que se introdujo en los \blue{contrastes de hipótesis} es la \red{potencia de un contraste} que se definía como:
 \begin{align*}
-\mbox{Potencia de un contraste} & =1-\mbox{Error tipo II}\\ & =1-P(\mbox{Aceptar }H_0|H0\mbox{ falsa })\\ & =P(\mbox{rechazar }H_0|H_0\mbox{ falsa}),
+\mbox{Potencia de un contraste} & =1-\mbox{Error tipo II}\\ & =1-P(\mbox{Aceptar }H_0|H_0\mbox{ falsa })\\ & =P(\mbox{rechazar }H_0|H_0\mbox{ falsa}),
 \end{align*}
 es decir, como la \red{probabilidad de rechazar la hipótesis nula suponiendo ésta falsa.}
 
@@ -477,6 +477,47 @@ lines(c(0,1),c(0,1),col="red")
 text(0.5,0.45,srt=33,"Decisión ciega",col="red")
 ```
 
+
+## Evaluación de la regla de decisión a través de la curva ROC
+* Para evaluar una \red{regla de decisión} dada su \red{curva ROC} se calcula el \red{AUC} (*area under the curve*) o el \red{área bajo la curva} ya que cuánto mayor es dicha área, más cerca está la curva ROC de la \red{curva ROC ideal.}
+
+* En general, para dibujar la curva ROC se dispone de un \red{conjunto discreto} de valores del tipo $(P_{FP,i}),P_{VP,i})$, $i=1,\ldots,N$. Entonces una aproximación del \red{área bajo la curva AUC} se puede calcular de la forma siguiente:
+$$
+\mbox{AUC}\approx \frac{1}{2}\sum_{i=1}^{N-1} (P_{VP,i+1}+P_{VP,i})\cdot (P_{FP,i+1}-P_{FP,i}).
+$$
+
+
+## AUC
+```{r,echo=FALSE,fig.align='center'}
+alphas = seq(from=0,to=1,by=0.1)
+tasas.falsos.positivos=alphas
+tasas.verdaderos.positivos = 1-pnorm(qnorm(1-alphas)-(2.5-2)/(2/sqrt(50)))
+plot(tasas.falsos.positivos,tasas.verdaderos.positivos,type="l",xlab=expression(P[FP]),ylab=expression(P[VP]),main="Curva ROC",col="blue")
+for (i in 2:(length(alphas)-1)){
+  polygon(c(tasas.falsos.positivos[i],tasas.falsos.positivos[i+1],tasas.falsos.positivos[i+1],tasas.falsos.positivos[i]),
+          c(0,0,tasas.verdaderos.positivos[i+1],tasas.verdaderos.positivos[i]),col="red",lty=3)
+}
+polygon(c(0,tasas.falsos.positivos[2],tasas.falsos.positivos[2],0),c(0,0,tasas.verdaderos.positivos[2],0),col="red",lty=3)
+```
+
+
+## Ejemplo anterior
+* En el ejemplo anterior, considerando $N=11$ puntos, con 
+\begin{align*}
+P_{FP,i} & =`r tasas.falsos.positivos`,\\
+P_{VP,i} & = `r round(tasas.verdaderos.positivos[1:7],4)`,\\
+&\qquad  `r round(tasas.verdaderos.positivos[8:11],4)`.\\
+\end{align*}
+
+* La aproximación del \red{área AUC} sería:
+\begin{align*}
+\mbox{AUC} & \approx \frac{1}{2}\sum_{i=1}^{10} (P_{VP,i+1}+P_{VP,i})\cdot (P_{FP,i+1}-P_{FP,i})\\ & =
+\frac{1}{2}((`r round(tasas.verdaderos.positivos[2],4)`+`r round(tasas.verdaderos.positivos[1],4)`)\cdot (`r tasas.falsos.positivos[2]`-`r tasas.falsos.positivos[1]`)+\cdots + (`r round(tasas.verdaderos.positivos[11],4)`+`r round(tasas.verdaderos.positivos[10],4)`)\cdot (`r tasas.falsos.positivos[11]`-`r tasas.falsos.positivos[10]`))\\ & = `r round(0.5*(sum((tasas.verdaderos.positivos[2:11]+tasas.verdaderos.positivos[1:10])*(tasas.falsos.positivos[2:11]-tasas.falsos.positivos[1:10]))),4)`. 
+\end{align*}
+
+## Ejemplo anterior
+* Como el valor máximo del \red{área AUC} es $1$ que correspondería a la \red{curva ROC ideal} y el valor mínimo vale $0.5$ que correspondería a la \red{decisión ciega}, la \red{regla de decisión} es bastante buena.
+
 ## La curva *Precision-Recall*
 * Una alternativa a la \red{curva ROC} para medir el rendimiento de la \red{regla de decisión} es la \red{curva Precision-Recall} o \red{curva PR}. Se define de la forma siguiente:
 
@@ -494,7 +535,7 @@ $$
 ## La curva *Precision-Recall*
 * Es decir, la \red{precisión} sería el número de \red{verdaderos positivos} entre todos los \red{verdaderos positivos y falsos positivos} o el \red{total de positivos detectados}.
 
-* Una \red{precisión alta} significa que entre todos los \red{positivos detectados}, la mayoría son \red{verdaderos positivos}. Es decir, lo que la \red{regla de decisión} afirma que son positivos, en realidad lo son o la \red{regla} es muy fiable. En este caso, si \red{rechazamos la hipotesis nula}, probablemente tomemos una buena decisión.
+* Una \red{precisión alta} significa que entre todos los \red{positivos detectados}, la mayoría son \red{verdaderos positivos}. Es decir, lo que la \red{regla de decisión} afirma que son positivos, en realidad la mayoría lo son o la \red{regla} es muy fiable. En este caso, si \red{rechazamos la hipotesis nula}, probablemente tomemos una buena decisión.
 
 * Una \red{precisión baja} significa que entre todos los \red{positivos detectados}, la mayoría en realidad no lo son. Una \red{precisión baja} puede ocurrir cuando uno está demasiado \blue{ansioso} para \red{rechazar $H_1$.} En este caso, si \red{rechazamos la hipótesis nula}, probablemente no sea una buena decisión.
 
@@ -512,3 +553,46 @@ $$
 ## La curva *Precision-Recall*
 
 * La \red{curva PR} consiste en realizar un gráfico de la \red{precisión} (eje $Y$) en función del \red{recall} o \red{tasa de verdaderos positivos} (eje $X$).
+
+* La relación entre la \red{precisión} y el \red{recall} y la \red{tasa de falsos positivos} y la \red{tasa de verdaderos positivos} es la siguiente:
+$$
+P_{FP}=\frac{\mbox{recall}(1-\mbox{precisión})}{\mbox{precisión}},\quad P_{VP}=\mbox{recall}.
+$$
+
+## Ejemplo anterior
+```{r,echo=FALSE,fig.align='center'}
+alphas = seq(from=0,to=1,by=0.01)
+tasas.falsos.positivos=alphas
+tasas.verdaderos.positivos = 1-pnorm(qnorm(1-alphas)-(2.5-2)/(2/sqrt(50)))
+precision = tasas.verdaderos.positivos/(tasas.verdaderos.positivos+tasas.falsos.positivos)
+precision[1]=1
+recall = tasas.verdaderos.positivos
+plot(recall,precision,type="l",xlab="Recall",ylab="Precisión",main="Curva PR",col="blue")
+```
+
+## Curva ROC ideal y decisión ciega
+* La curva \red{PR} para la curva \red{ROC ideal} correspondería a los lados que van de los puntos $(0,1)$ al $(1,1)$ y del $(1,1)$ al $(1,0)$ ya que en este caso, la \red{precisión} valdría $1$ y el \red{recall} también.
+
+* En el caso de la \red{decisión ciega}, la precisión sería:
+$$
+\mbox{precisión}=\frac{P_{VP}}{P_{VP}+P_{FP}}=\frac{\alpha}{\alpha +\alpha}=\frac{1}{2},
+$$
+y el \red{recall} valdría:
+$$
+\mbox{recall}=P_{VP}=\alpha.
+$$
+Por tanto, la curva \red{PR} correspondería a la recta horizontal $y=\frac{1}{2}$.
+
+## Curva ROC ideal y decisión ciega
+```{r,echo=FALSE,fig.align='center'}
+alphas = seq(from=0,to=1,by=0.01)
+tasas.falsos.positivos=alphas
+tasas.verdaderos.positivos = 1-pnorm(qnorm(1-alphas)-(2.5-2)/(2/sqrt(50)))
+precision = tasas.verdaderos.positivos/(tasas.verdaderos.positivos+tasas.falsos.positivos)
+precision[1]=1
+recall = tasas.verdaderos.positivos
+plot(recall,precision,type="l",xlab="Recall",ylab="Precisión",main="Curva PR",col="blue")
+lines(c(0,1),c(0.5,0.5),col="red")
+text(0.5,0.525,"Decisión ciega",col="red")
+text(0.35,0.92,"Neyman-Pearson",col="blue")
+```
