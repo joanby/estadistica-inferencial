@@ -596,3 +596,250 @@ lines(c(0,1),c(0.5,0.5),col="red")
 text(0.5,0.525,"Decisión ciega",col="red")
 text(0.35,0.92,"Neyman-Pearson",col="blue")
 ```
+
+# Código en R y python
+
+## Código R de la curva ROC
+
+
+
+\begin{align*}
+P_{FP}& =\alpha,\\
+P_{FN}&  = P(N(`r round((2.5-2)/(2/sqrt(50)),3)`,1)\leq \phi^{-1}(1-\alpha))=\phi(\phi^{-1}(1-\alpha)-`r round((2.5-2)/(2/sqrt(50)),3)`),\\
+P_{VP}& =1-P_{FN}=1-\phi(\phi^{-1}(1-\alpha)-`r round((2.5-2)/(2/sqrt(50)),3)`).
+\end{align*}
+
+```{r,eval=FALSE}
+alphas = seq(from=0,to=1,by=0.01)
+tasas.falsos.positivos=alphas
+tasas.verdaderos.positivos = 
+  1-pnorm(qnorm(1-alphas)-(2.5-2)/(2/sqrt(50)))
+plot(tasas.falsos.positivos,tasas.verdaderos.positivos,
+     type="l",xlab=expression(P[FP]),
+     ylab=expression(P[VP]),main="Curva ROC",col="red")
+```
+
+
+## Código R de la curva ROC
+
+```{r,echo=FALSE}
+alphas = seq(from=0,to=1,by=0.01)
+tasas.falsos.positivos=alphas
+tasas.verdaderos.positivos = 1-pnorm(qnorm(1-alphas)-(2.5-2)/(2/sqrt(50)))
+plot(tasas.falsos.positivos,tasas.verdaderos.positivos,type="l",xlab=expression(P[FP]),ylab=expression(P[VP]),main="Curva ROC",col="red")
+```
+
+
+## Código R de la curva ROC y decisión ciega
+
+```{r,eval=FALSE}
+plot(tasas.falsos.positivos,tasas.verdaderos.positivos,
+     type="l",xlab=expression(P[FP]),
+     ylab=expression(P[VP]),main="Curva ROC",col="blue")
+text(0.25,0.75,"Neyman-Pearson",col="blue")
+lines(c(0,1),c(0,1),col="red")
+text(0.5,0.45,srt=33,"Decisión ciega",col="red")
+```
+
+
+## Código R de la curva ROC y decisión ciega
+
+```{r,echo=FALSE}
+plot(tasas.falsos.positivos,tasas.verdaderos.positivos,type="l",xlab=expression(P[FP]),ylab=expression(P[VP]),main="Curva ROC",col="blue")
+text(0.25,0.75,"Neyman-Pearson",col="blue")
+lines(c(0,1),c(0,1),col="red")
+text(0.5,0.45,srt=33,"Decisión ciega",col="red")
+```
+
+## Código R de la curva PR
+
+```{r,eval=FALSE,fig.align='center'}
+precision = tasas.verdaderos.positivos/
+  (tasas.verdaderos.positivos+tasas.falsos.positivos)
+precision[1]=1
+recall = tasas.verdaderos.positivos
+plot(recall,precision,type="l",xlab="Recall",
+     ylab="Precisión",main="Curva PR",col="blue")
+```
+
+## Código R de la curva PR
+
+```{r,echo=FALSE,fig.align='center'}
+precision = tasas.verdaderos.positivos/
+  (tasas.verdaderos.positivos+tasas.falsos.positivos)
+precision[1]=1
+recall = tasas.verdaderos.positivos
+plot(recall,precision,type="l",xlab="Recall",
+     ylab="Precisión",main="Curva PR",col="blue")
+```
+
+## Código R de la curva PR y Decisión ciega
+
+```{r,eval=FALSE,fig.align='center'}
+plot(recall,precision,type="l",xlab="Recall",
+     ylab="Precisión",main="Curva PR",col="blue")
+lines(c(0,1),c(0.5,0.5),col="red")
+text(0.5,0.525,"Decisión ciega",col="red")
+text(0.35,0.92,"Neyman-Pearson",col="blue")
+```
+
+## Código R de la curva PR y Decisión ciega
+
+```{r,echo=FALSE,fig.align='center'}
+plot(recall,precision,type="l",xlab="Recall",
+     ylab="Precisión",main="Curva PR",col="blue")
+lines(c(0,1),c(0.5,0.5),col="red")
+text(0.5,0.525,"Decisión ciega",col="red")
+text(0.35,0.92,"Neyman-Pearson",col="blue")
+```
+
+
+## Código python de la curva ROC
+
+```{python,eval=F}
+import numpy
+from scipy.stats import norm
+import math
+import matplotlib.pyplot as plt
+alphas = numpy.linspace(0,1,100)
+tasas_falsos_positivos=alphas
+tasas_verdaderos_positivos = 
+  1-norm.cdf(norm.ppf(1-alphas)-(2.5-2)/(2/math.sqrt(50)))
+plt.title("Curva ROC")
+plt.xlabel("Falsos positivos")
+plt.ylabel("Verdaderos positivos")
+plt.plot(tasas_falsos_positivos, 
+  tasas_verdaderos_positivos, 
+  c = "blue", ls = "-",marker = "o")
+plt.show()
+```
+
+
+## Código python de la curva ROC
+
+```{python,echo=F}
+import numpy
+from scipy.stats import norm
+import math
+import matplotlib.pyplot as plt
+alphas = numpy.linspace(0,1,100)
+tasas_falsos_positivos=alphas
+tasas_verdaderos_positivos = 1-norm.cdf(norm.ppf(1-alphas)-(2.5-2)/(2/math.sqrt(50)))
+plt.title("Curva ROC")
+plt.xlabel("Falsos positivos")
+plt.ylabel("Verdaderos positivos")
+plt.plot(tasas_falsos_positivos, 
+   tasas_verdaderos_positivos, 
+   c = "blue", ls = "-", marker = "o")
+plt.show()
+```
+
+## Código python de la curva ROC y decisión ciega
+
+```{python,eval=F}
+import numpy
+from scipy.stats import norm
+import math
+import matplotlib.pyplot as plt
+plt.title("Curva ROC")
+plt.xlabel("Falsos positivos")
+plt.ylabel("Verdaderos positivos")
+plt.plot(tasas_falsos_positivos, 
+   tasas_verdaderos_positivos, 
+   c = "blue", ls = "-", marker = "o")
+plt.plot(tasas_falsos_positivos,tasas_falsos_positivos,c="red")
+plt.text(0.25,0.75,"Neyman-Pearson",c="blue")
+plt.text(0.5,0.45,"Decisión ciega",c="red")
+plt.show()
+```
+
+## Código python de la curva ROC y decisión ciega
+
+```{python,echo=F}
+import numpy
+from scipy.stats import norm
+import math
+import matplotlib.pyplot as plt
+plt.title("Curva ROC")
+plt.xlabel("Falsos positivos")
+plt.ylabel("Verdaderos positivos")
+plt.plot(tasas_falsos_positivos, 
+   tasas_verdaderos_positivos, 
+   c = "blue", ls = "-", marker = "o")
+plt.plot(tasas_falsos_positivos,tasas_falsos_positivos,c="red")
+plt.text(0.25,0.75,"Neyman-Pearson",c="blue")
+plt.text(0.5,0.45,"Decisión ciega",c="red")
+plt.show()
+```
+
+## Código python de la curva PR
+
+```{python,eval=F}
+tasas_verdaderos_positivos[0]=1
+precision = tasas_verdaderos_positivos/
+  (tasas_verdaderos_positivos+tasas_falsos_positivos)
+recall = tasas_verdaderos_positivos
+recall[0]=0
+plt.title("Curva PR")
+plt.xlabel("Recall")
+plt.ylabel("Precisión")
+plt.plot(recall,precision, 
+   c = "blue", ls = "-", marker = "o")
+```
+
+
+
+## Código python de la curva PR
+
+```{python,echo=F}
+tasas_verdaderos_positivos[0]=1
+precision = tasas_verdaderos_positivos/(tasas_verdaderos_positivos+tasas_falsos_positivos)
+recall = tasas_verdaderos_positivos
+recall[0]=0
+plt.title("Curva PR")
+plt.xlabel("Recall")
+plt.ylabel("Precisión")
+plt.plot(recall,precision, 
+   c = "blue", ls = "-", marker = "o")
+```
+
+
+## Código python de la curva PR y Decisión ciega
+
+```{python,eval=F}
+tasas_verdaderos_positivos[0]=1
+precision =  tasas_verdaderos_positivos/
+    (tasas_verdaderos_positivos+tasas_falsos_positivos)
+recall = tasas_verdaderos_positivos
+recall[0]=0
+plt.title("Curva PR")
+plt.xlabel("Recall")
+plt.ylabel("Precisión")
+plt.plot(recall,precision, 
+   c = "blue", ls = "-", marker = "o")
+recall_ciega = [0,1]
+precision_ciega = [0.5,0.5]
+plt.plot(recall_ciega,precision_ciega,c="red",ls="-",
+  marker="o")
+plt.text(0.35,0.9,"Neyman-Pearson",c="blue")
+plt.text(0.5,0.515,"Decisión ciega",c="red")
+```
+
+## Código python de la curva PR y Decisión ciega
+
+```{python,echo=F}
+tasas_verdaderos_positivos[0]=1
+precision = tasas_verdaderos_positivos/(tasas_verdaderos_positivos+tasas_falsos_positivos)
+recall = tasas_verdaderos_positivos
+recall[0]=0
+plt.title("Curva PR")
+plt.xlabel("Recall")
+plt.ylabel("Precisión")
+plt.plot(recall,precision, 
+   c = "blue", ls = "-", marker = "o")
+recall_ciega = [0,1]
+precision_ciega = [0.5,0.5]
+plt.plot(recall_ciega,precision_ciega,c="red",ls="-",marker="o")
+plt.text(0.35,0.9,"Neyman-Pearson",c="blue")
+plt.text(0.5,0.515,"Decisión ciega",c="red")
+```
