@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.4)  8 NOV 2021 12:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.4)  8 NOV 2021 15:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -993,29 +993,29 @@ File: l3backend-pdftex.def 2021-10-18 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count352
 \l__pdf_internal_box=\box88
 ) (./ACP.aux
-LaTeX Info: Redefining \. on input line 24.
-LaTeX Info: Redefining \% on input line 24.
+LaTeX Info: Redefining \. on input line 23.
+LaTeX Info: Redefining \% on input line 23.
 )
 \openout1 = `ACP.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 162.
-LaTeX Font Info:    ... okay on input line 162.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1069,7 +1069,7 @@ f-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 162.
+Package hyperref Info: Link coloring OFF on input line 144.
 
 (c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.st
 y
@@ -1085,58 +1085,59 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count353
 )
-LaTeX Info: Redefining \ref on input line 162.
-LaTeX Info: Redefining \pageref on input line 162.
-LaTeX Info: Redefining \nameref on input line 162.
+LaTeX Info: Redefining \ref on input line 144.
+LaTeX Info: Redefining \pageref on input line 144.
+LaTeX Info: Redefining \nameref on input line 144.
+(./ACP.out) (./ACP.out)
 \@outlinefile=\write6
 \openout6 = `ACP.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 162.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 144.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 162.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 144.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 162.
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 144.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 162.
+(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 144.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 162.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 162.
+(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 144.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 162.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 162.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 162.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 144.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 162.
+(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 162.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 162.
+(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 144.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 162.
+(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 162.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 162.
+(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 144.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 162.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 162.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 144.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 162.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 144.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 162.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 162.
+(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 162.
+(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 162.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 162.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 144.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 162.
+(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 144.
 
 (c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/translator/translat
 or-basic-dictionary-English.dict
@@ -1186,12 +1187,12 @@ Dictionary: translator-theorem-dictionary, Language: English
 or-theorem-dictionary-Spanish.dict
 Dictionary: translator-theorem-dictionary, Language: Spanish 
 )
-LaTeX Info: Redefining \microtypecontext on input line 162.
-Package microtype Info: Applying patch `item' on input line 162.
-Package microtype Info: Applying patch `toc' on input line 162.
-Package microtype Info: Applying patch `eqnum' on input line 162.
+LaTeX Info: Redefining \microtypecontext on input line 144.
+Package microtype Info: Applying patch `item' on input line 144.
+Package microtype Info: Applying patch `toc' on input line 144.
+Package microtype Info: Applying patch `eqnum' on input line 144.
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 162.
+Package microtype Warning: Unable to apply patch `footnote' on input line 144.
 
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
@@ -1199,7 +1200,7 @@ Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 162.
+LaTeX Info: Redefining \showhyphens on input line 144.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1207,14 +1208,16 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Info: Redefining \. on input line 162.
-LaTeX Info: Redefining \% on input line 162.
+LaTeX Info: Redefining \. on input line 144.
+LaTeX Info: Redefining \% on input line 144.
 (./ACP.nav) [1
 
 {c:/Users/t169/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex
-.map}]
+.map}] [2
+
+]
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
-184.
+168.
 (c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1223,27 +1226,27 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-84.
+68.
 (c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-184.
+168.
 (c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-184.
+168.
 (c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 184.
+(Font)              <10.95> on input line 168.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 184.
+(Font)              <8> on input line 168.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 184.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 184
+(Font)              <6> on input line 168.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 168
 .
 (c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1252,7 +1255,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 g
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 184
+LaTeX Font Info:    Trying to load font information for U+msb on input line 168
 .
 (c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1262,199 +1265,611 @@ g
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 184.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 168.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 184.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 168.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 184.
-[2
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 168.
+[3
 
-] [3
-
-] [4
+]pdfTeX warning (ext4): destination with the same identifier (name{vectores-ale
+atorios}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.168 \end{frame}
+                  [4
 
 ] [5
 
-] [6
-
 ]
-Overfull \vbox (1.1303pt too high) detected at line 268
- []
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <10.95> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 207.
 
-[7
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <8> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 207.
+
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <6> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 207.
+
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10.95> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 207.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <8> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 207.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 207.
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <10.95> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 207.
+
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <10.95> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 207.
+
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <8> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 207.
+
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <8> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 207.
+
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 207.
+
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 207.
+
+[6
+
+]pdfTeX warning (ext4): destination with the same identifier (name{vectores-ale
+atorios-2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.207 \end{frame}
+                  [7
 
 ] [8
 
-] [9
+]pdfTeX warning (ext4): destination with the same identifier (name{vectores-ale
+atorios-3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.224 \end{frame}
+                  [9
 
-]
-Overfull \vbox (41.32846pt too high) detected at line 330
- []
+] [10
 
-[10
+]pdfTeX warning (ext4): destination with the same identifier (name{vectores-ale
+atorios-tipificaciuxf3n}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.242 \end{frame}
+                  [11
 
-] [11
+] [12
 
-]
-LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10.95> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 388.
-LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <8> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 388.
-LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <6> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 388.
+]pdfTeX warning (ext4): destination with the same identifier (name{vectores-ale
+atorios-tipificaciuxf3n-1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.259 \end{frame}
+                  [13
 
-Overfull \vbox (194.79105pt too high) detected at line 388
- []
+]pdfTeX warning (ext4): destination with the same identifier (name{vectores-ale
+atorios-tipificaciuxf3n-1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.259 \end{frame}
+                  [14
 
-[12
-
-] [13
-
-]
-Overfull \vbox (44.02011pt too high) detected at line 420
- []
-
-[14
-
-] [15
+]pdfTeX warning (ext4): destination with the same identifier (name{vectores-ale
+atorios-tipificaciuxf3n-1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.259 \end{frame}
+                  [15
 
 ] [16
 
-]
-\openout4 = `ACP.vrb'.
+] [17
 
-(./ACP.vrb
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
-.
-(c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 7.
-<ACP_files/figure-beamer/unnamed-chunk-2-1.pdf, id=125, 672.5125pt x 464.73625p
-t>
-File: ACP_files/figure-beamer/unnamed-chunk-2-1.pdf Graphic file (type pdf)
-<use ACP_files/figure-beamer/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: ACP_files/figure-beamer/unnamed-chunk-2-1.pdf  used on
- input line 32.
-(pdftex.def)             Requested size: 307.28664pt x 212.34882pt.
-)
-Overfull \vbox (470.72383pt too high) detected at line 513
- []
-
-[17
-
- <./ACP_files/figure-beamer/unnamed-chunk-2-1.pdf>] [18
+]pdfTeX warning (ext4): destination with the same identifier (name{tipificaciux
+f3n-de-variables-aleatorias-1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.298 \end{frame}
+                  [18
 
 ] [19
 
 ] [20
 
 ]
-\openout4 = `ACP.vrb'.
+Overfull \hbox (52.09103pt too wide) detected at line 354
+[]
+ []
 
-(./ACP.vrb
-<ACP_files/figure-beamer/plotACP1-1.pdf, id=163, 690.58pt x 465.74pt>
-File: ACP_files/figure-beamer/plotACP1-1.pdf Graphic file (type pdf)
-<use ACP_files/figure-beamer/plotACP1-1.pdf>
-Package pdftex.def Info: ACP_files/figure-beamer/plotACP1-1.pdf  used on input 
-line 7.
-(pdftex.def)             Requested size: 307.29132pt x 207.24298pt.
-<ACP_files/figure-beamer/pairsacptodos-1.pdf, id=164, 672.5125pt x 480.79625pt>
 
-File: ACP_files/figure-beamer/pairsacptodos-1.pdf Graphic file (type pdf)
-<use ACP_files/figure-beamer/pairsacptodos-1.pdf>
-Package pdftex.def Info: ACP_files/figure-beamer/pairsacptodos-1.pdf  used on i
-nput line 20.
-(pdftex.def)             Requested size: 302.3405pt x 216.15088pt.
-<ACP_files/figure-beamer/pairsacptodos1-1.pdf, id=165, 672.5125pt x 464.73625pt
->
-File: ACP_files/figure-beamer/pairsacptodos1-1.pdf Graphic file (type pdf)
-<use ACP_files/figure-beamer/pairsacptodos1-1.pdf>
-Package pdftex.def Info: ACP_files/figure-beamer/pairsacptodos1-1.pdf  used on 
-input line 22.
-(pdftex.def)             Requested size: 307.28664pt x 212.34882pt.
-)
-Overfull \vbox (573.5003pt too high) detected at line 618
+Overfull \vbox (11.73262pt too high) detected at line 354
  []
 
 [21
 
- <./ACP_files/figure-beamer/plotACP1-1.pdf> <./ACP_files/figure-beamer/pairsacp
-todos-1.pdf> <./ACP_files/figure-beamer/pairsacptodos1-1.pdf>] [22
+]pdfTeX warning (ext4): destination with the same identifier (name{covarianzas-
+1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.354 \end{frame}
+                 
+Overfull \hbox (52.09103pt too wide) detected at line 354
+[]
+ []
 
-] [23
+
+Overfull \vbox (11.73262pt too high) detected at line 354
+ []
+
+[22
+
+]pdfTeX warning (ext4): destination with the same identifier (name{covarianzas-
+1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.354 \end{frame}
+                 
+Overfull \hbox (52.09103pt too wide) detected at line 354
+[]
+ []
+
+
+Overfull \vbox (11.73262pt too high) detected at line 354
+ []
+
+[23
 
 ] [24
 
-] [25
+]
+Overfull \hbox (174.47423pt too wide) in alignment at lines 388--388
+ [][][] []
+ []
+
+[25
 
 ] [26
 
-]
-Overfull \vbox (3.69504pt too high) detected at line 756
- []
-
-[27
+] [27
 
 ] [28
 
 ] [29
 
-] [30
+]pdfTeX warning (ext4): destination with the same identifier (name{covarianzas-
+propiedades-3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.461 \end{frame}
+                  [30
 
 ] [31
 
+] [32
+
+]pdfTeX warning (ext4): destination with the same identifier (name{correlacione
+s-propiedades}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.497 \end{frame}
+                  [33
+
+]pdfTeX warning (ext4): destination with the same identifier (name{correlacione
+s-propiedades}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.497 \end{frame}
+                  [34
+
+]pdfTeX warning (ext4): destination with the same identifier (name{correlacione
+s-propiedades}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.497 \end{frame}
+                  [35
+
+] [36
+
+]pdfTeX warning (ext4): destination with the same identifier (name{correlacione
+s-propiedades-1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.513 \end{frame}
+                  [37
+
+] [38
+
 ]
+Overfull \hbox (32.25749pt too wide) detected at line 548
+\T1/lmss/m/sl/10.95 Cov\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 Z[]\OML/lmm/m/i
+t/10.95 ; \T1/lmss/m/sl/10.95 Z[]\OT1/lmss/m/n/10.95 ) = \T1/lmss/m/sl/10.95 Co
+r\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 Z[]\OML/lmm/m/it/10.95 ; \T1/lmss/m/s
+l/10.95 Z[]\OT1/lmss/m/n/10.95 ) = \T1/lmss/m/sl/10.95 Cor [] \OT1/lmss/m/n/10.
+95 = \T1/lmss/m/sl/10.95 Cor\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 X[]\OML/lm
+m/m/it/10.95 ; \T1/lmss/m/sl/10.95 X[]\OT1/lmss/m/n/10.95 )
+ []
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 869.
+[39
 
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 869.
-LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <5> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 869.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 869.
-[32
+] [40
+
+]pdfTeX warning (ext4): destination with the same identifier (name{descripciuxf
+3n-de-datos-multivariantes}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.567 \end{frame}
+                  [41
+
+] [42
 
 ]
+Overfull \vbox (79.75458pt too high) detected at line 605
+ []
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 899.
+[43
 
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 89
-9.
-(c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
-File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+]
+Overfull \vbox (30.38695pt too high) detected at line 631
+ []
+
+[44
+
+]
+Overfull \vbox (7.04459pt too high) detected at line 654
+ []
+
+[45
+
+] [46
+
+] [47
+
+] [48
+
+]
+Overfull \hbox (96.33325pt too wide) detected at line 749
+\OT1/lmss/m/n/10.95 (\T1/lmss/m/n/10.95 1\OML/lmm/m/it/10.95 ; \T1/lmss/m/n/10.
+95 1\OML/lmm/m/it/10.95 ; [] ; \T1/lmss/m/n/10.95 1\OT1/lmss/m/n/10.95 ) \OMS/l
+msy/m/n/10.95 ^^A [] \OT1/lmss/m/n/10.95 = []
+ []
+
+
+Overfull \vbox (7.92963pt too high) detected at line 749
+ []
+
+[49
+
+]
+Overfull \hbox (104.95079pt too wide) in alignment at lines 765--765
+ [][][] []
+ []
+
+[50
+
+]
+Overfull \vbox (170.92319pt too high) detected at line 810
+ []
+
+[51
+
+] [52
+
+]pdfTeX warning (ext4): destination with the same identifier (name{centralizaci
+uxf3n-de-una-matriz-de-datos-cuxe1lculo-matricial-propied\ETC.}) has been alrea
+dy used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.826 \end{frame}
+                  [53
+
+]
+Overfull \hbox (93.12863pt too wide) detected at line 846
+\T1/lmss/bx/n/10.95 x[] \OT1/lmss/m/n/10.95 = [] = \T1/lmss/m/n/10.95 1\OML/lmm
+/m/it/10.95 :\T1/lmss/m/n/10.95 75\OML/lmm/m/it/10.95 ;  \T1/lmss/bx/n/10.95 x[
+] \OT1/lmss/m/n/10.95 = [] = \T1/lmss/m/n/10.95 0\OML/lmm/m/it/10.95 :\T1/lmss/
+m/n/10.95 5\OML/lmm/m/it/10.95 ;  \T1/lmss/bx/n/10.95 x[] \OT1/lmss/m/n/10.95 =
+ [] = \T1/lmss/m/n/10.95 1\OML/lmm/m/it/10.95 :\T1/lmss/m/n/10.95 75
+ []
+
+[54
+
+]
+Overfull \hbox (1.43156pt too wide) detected at line 864
+[] \OT1/lmss/m/n/10.95 = [] = []
+ []
+
+[55
+
+]
+Overfull \hbox (62.05983pt too wide) detected at line 884
+\T1/lmss/bx/n/10.95 H[] \OT1/lmss/m/n/10.95 = [] = []
+ []
+
+[56
+
+]
+Overfull \hbox (119.95255pt too wide) detected at line 911
+[] \OT1/lmss/m/n/10.95 = \T1/lmss/bx/n/10.95 H[] \OMS/lmsy/m/n/10.95 ^^A \T1/lm
+ss/bx/n/10.95 X \OT1/lmss/m/n/10.95 = [] \OMS/lmsy/m/n/10.95 ^^A [] \OT1/lmss/m
+/n/10.95 = []
+ []
+
+[57
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 7
+.
+(c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-(c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cf
-g
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
-(RS)
-) [33
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 8.
+)
+Overfull \vbox (184.70172pt too high) detected at line 963
+ []
 
-] [34
-
-] [35
+[58
 
 ]
+Overfull \vbox (25.92882pt too high) detected at line 988
+ []
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 975.
+[59
 
-[36
+] [60
+
+] [61
 
 ]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.1004 \end{frame}
-                   
+Overfull \hbox (103.26291pt too wide) in alignment at lines 1082--1082
+ [][][] []
+ []
+
+[62
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb)
+Overfull \vbox (353.58905pt too high) detected at line 1163
+ []
+
+[63
+
+] [64
+
+] [65
+
+] [66
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb)
+Overfull \vbox (127.96077pt too high) detected at line 1267
+ []
+
+[67
+
+] [68
+
+]
+Overfull \vbox (4.65326pt too high) detected at line 1312
+ []
+
+[69
+
+]
+Overfull \vbox (24.72462pt too high) detected at line 1340
+ []
+
+[70
+
+] [71
+
+]
+Overfull \hbox (143.46849pt too wide) in alignment at lines 1393--1393
+ [][][] []
+ []
+
+[72
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb)
+Overfull \vbox (33.99574pt too high) detected at line 1427
+ []
+
+[73
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb) [74
+
+]
+Overfull \vbox (8.3201pt too high) detected at line 1472
+ []
+
+[75
+
+] [76
+
+] [77
+
+] [78
+
+]pdfTeX warning (ext4): destination with the same identifier (name{propiedades-
+para-detectar-variables-redundantes}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1549 \end{frame}
+                   [79
+
+]pdfTeX warning (ext4): destination with the same identifier (name{propiedades-
+para-detectar-variables-redundantes}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1549 \end{frame}
+                   [80
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb) [81
+
+] [82
+
+]
+Overfull \hbox (143.46849pt too wide) in alignment at lines 1642--1642
+ [][][] []
+ []
+
+[83
+
+] [84
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb)
+Overfull \vbox (24.65854pt too high) detected at line 1708
+ []
+
+[85
+
+] [86
+
+] [87
+
+] [88
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb)
+Overfull \vbox (92.76886pt too high) detected at line 1802
+ []
+
+[89
+
+] [90
+
+] [91
+
+]pdfTeX warning (ext4): destination with the same identifier (name{matriz-de-co
+rrelaciones-propiedades-1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1840 \end{frame}
+                   [92
+
+] [93
+
+] [94
+
+]
+Overfull \hbox (39.41263pt too wide) detected at line 1907
+\T1/lmss/bx/n/10.95 D[] \OT1/lmss/m/n/10.95 = []  \T1/lmss/bx/n/10.95 S \OT1/lm
+ss/m/n/10.95 = []
+ []
+
+[95
+
+]
+Overfull \hbox (98.865pt too wide) detected at line 1933
+\T1/lmss/bx/n/10.95 R \OT1/lmss/m/n/10.95 = [] \OMS/lmsy/m/n/10.95 ^^A [] ^^A [
+] \OT1/lmss/m/n/10.95 = []
+ []
+
+[96
+
+]
+\openout4 = `ACP.vrb'.
+
+(./ACP.vrb)
+Overfull \vbox (246.59303pt too high) detected at line 1993
+ []
+
+[97
+
+] [98
+
+]pdfTeX warning (ext4): destination with the same identifier (name{ejercicio}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.2017 \end{frame}
+                   [99
+
+]pdfTeX warning (ext4): destination with the same identifier (name{ejercicio}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.2017 \end{frame}
+                   [100
+
+]
+\tf@nav=\write7
+\openout7 = `ACP.nav'.
+
+\tf@toc=\write8
+\openout8 = `ACP.toc'.
+
+\tf@snm=\write9
+\openout9 = `ACP.snm'.
+
+(./ACP.aux
+LaTeX Info: Redefining \. on input line 23.
+LaTeX Info: Redefining \% on input line 23.
+)
+Package rerunfilecheck Info: File `ACP.out' has not changed.
+(rerunfilecheck)             Checksum: 7E0379302044E07B4AA0CA1E45844690;354.
+ ) 
 Here is how much of TeX's memory you used:
- 26395 strings out of 480498
- 493109 string characters out of 5899155
- 837478 words of memory out of 5000000
- 43234 multiletter control sequences out of 15000+600000
- 477451 words of font info for 132 fonts, out of 8000000 for 9000
+ 26511 strings out of 480498
+ 493575 string characters out of 5899155
+ 845956 words of memory out of 5000000
+ 43135 multiletter control sequences out of 15000+600000
+ 474456 words of font info for 151 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 101i,13n,108p,1000b,423s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 101i,15n,108p,1000b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-maths
+y.enc}{c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-e
+c.enc}{c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-r
+m.enc}{c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-m
+athit.enc}{c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/
+lm-mathex.enc}<c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pub
+lic/lm/lmex10.pfb><c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
+/public/lm/lmmi10.pfb><c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
+ype1/public/lm/lmmi8.pfb><c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/font
+s/type1/public/lm/lmmib10.pfb><c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist
+/fonts/type1/public/lm/lmss10.pfb><c:/Users/t169/AppData/Roaming/TinyTeX/texmf-
+dist/fonts/type1/public/lm/lmss12.pfb><c:/Users/t169/AppData/Roaming/TinyTeX/te
+xmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/Users/t169/AppData/Roaming/TinyTeX
+/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Users/t169/AppData/Roaming/T
+inyTeX/texmf-dist/fonts/type1/public/lm/lmsso10.pfb><c:/Users/t169/AppData/Roam
+ing/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb><c:/Users/t169/AppData/
+Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/t169/AppD
+ata/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/Users/t169/A
+ppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Users/t16
+9/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users
+/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/U
+sers/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+<c:/Users/t169/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/s
+ymbols/msbm10.pfb>
+Output written on ACP.pdf (100 pages, 367312 bytes).
+PDF statistics:
+ 780 PDF objects out of 1000 (max. 8388607)
+ 629 compressed objects within 7 object streams
+ 278 named destinations out of 1000 (max. 500000)
+ 41011 words of extra memory for PDF output out of 42996 (max. 10000000)
 
-!  ==> Fatal error occurred, no output PDF file produced!

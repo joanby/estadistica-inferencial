@@ -1,9 +1,2 @@
-\babel@toc {spanish}{}
-\beamer@sectionintoc {1}{Análisis de Componentes Principales}{3}{0}{1}
-\beamer@sectionintoc {2}{El problema de los Componentes Principales}{9}{0}{2}
-\beamer@sectionintoc {3}{Tipos de A.C.P.}{11}{0}{3}
-\beamer@sectionintoc {4}{ACP covarianzas:}{13}{0}{4}
-\beamer@sectionintoc {5}{ACP correlaciones.}{22}{0}{5}
-\beamer@sectionintoc {6}{Propiedades ACP covarianzas.}{28}{0}{6}
-\beamer@sectionintoc {7}{Propiedades ACP correlaciones.}{39}{0}{7}
-\beamer@sectionintoc {8}{Etapas de un ACP}{50}{0}{8}
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Introducción a la estadística descriptiva multidimensional}{2}{0}{1}
