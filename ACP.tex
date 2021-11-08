@@ -1,0 +1,1866 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  spanish,
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usetheme[]{Rochester}
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Reducción de la factorialidad. Análisis de Componentes Principales.},
+  pdfauthor={Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir},
+  pdflang={es-ES},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{amsmath,color,array,booktabs,algorithm2e}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[page number]
+\newcommand\blue[1]{\textcolor{blue}{#1}}
+\newcommand\red[1]{\textcolor{red}{#1}}
+\ifxetex
+  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
+  \usepackage{polyglossia}
+  \setmainlanguage[]{spanish}
+\else
+  \usepackage[shorthands=off,main=spanish]{babel}
+\fi
+
+\title{Reducción de la factorialidad. Análisis de Componentes
+Principales.}
+\author{Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Introducción}
+\protect\hypertarget{introducciuxf3n}{}
+\begin{itemize}
+\tightlist
+\item
+  El problema central del análisis de datos es la reducción de la
+  dimensionalidad.
+\item
+  Es decir, si es posible describir con precisión los valores de las
+  \(p\) variables por un pequeño subconjunto \(r<p\) de ellas con una
+  pérdida mínima de información.
+\item
+  Éste es el objetivo del análisis de componentes principales: dadas
+  \(n\) observaciones de \(p\) variables, se analiza si es posible
+  representar esta información con menos variables.
+\item
+  Para alcanzar dicho objetivo, vamos a realizar un ajuste ortogonal por
+  mínimos cuadrados.
+\end{itemize}
+\end{frame}
+
+\hypertarget{anuxe1lisis-de-componentes-principales}{%
+\section{Análisis de Componentes
+Principales}\label{anuxe1lisis-de-componentes-principales}}
+
+\begin{frame}{Introducción: Matriz (tabla) de datos.}
+\protect\hypertarget{introducciuxf3n-matriz-tabla-de-datos.}{}
+\begin{tabular}{c|cccc|cc|}
+Ind. & $x_1$ & $x_2$ & $\ldots$ & $x_k$ & $v_1$ & $v_2$\\
+  \hline
+$1$  & & & & & & \\
+ $2$  & & & & & & \\
+ $3$ & & & & & & \\
+ $\vdots$   & & & & & & \\
+  $n$  & & & & & & \\ \hline
+   $s_1$  & & & & &  \multicolumn{2}{|c}{}\\
+   $s_2$ & & & & &  \multicolumn{2}{|c}{}\\
+    \cline{1-5}
+\end{tabular}
+
+\begin{itemize}
+\tightlist
+\item
+  Donde las variables \(x_1,\ldots, x_n\) describen una realidad común
+  de los \(n\) individuos observados.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Introducción: Matriz (tabla) de datos.}
+\protect\hypertarget{introducciuxf3n-matriz-tabla-de-datos.-1}{}
+\begin{itemize}
+\item
+  Las variables \(v_1\), \(v_2\) son de perfil (o explicativas) y los
+  individuos \(s_1\), \(s_2\) son individuos suplementarios o
+  ilustrativos.
+\item
+  Tanto los individuos como las variables suplementarias ayudan a
+  interpretar la variabilidad de los datos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Objetivos del análisis}
+\protect\hypertarget{objetivos-del-anuxe1lisis}{}
+\blue{Objetivos del  análisis}
+
+\begin{itemize}
+\item
+  Reducción de la dimensionalidad (factorialidad).
+\item
+  Lo que se busca es un espacio de variables más reducido y fácil de
+  interpretar.
+\item
+  El problema es que si reducimos el número de variables es posible que
+  no representemos toda la variabilidad de los datos originales.
+\item
+  El idea básica es:
+\end{itemize}
+
+\blue{Consentir una pérdida de  información para lograr una
+ganancia en la significación}
+\end{frame}
+
+\begin{frame}{Análisis Factorial}
+\protect\hypertarget{anuxe1lisis-factorial}{}
+\begin{itemize}
+\item
+  Algunos autores consideran el ACP como una parte del Análisis
+  Factorial
+\item
+  En las técnicas de AF se postula que la variabilidad total se puede
+  explicar mediante distintos tipos de factores:
+\item
+  factores comunes subyacentes (\(F_i\)).
+\item
+  factores específicos de las variables (\(E_i\)).
+\item
+  fluctuaciones aleatorias (\(A_i\)).
+\end{itemize}
+
+\[X_1=\alpha_{1 1} F_1+ \alpha_{1 2} F_2+\cdots +\alpha_{1 k} F_k+ E_1+ A_1\]
+\[X_2=\alpha_{2 1} F_1+ \alpha_{2 2} F_2+\cdots +\alpha_{2 k} F_k+ E_2+ A_2\]
+\[\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\]
+\[X_p=\alpha_{p 1} F_1+ \alpha_{p 2} F_2+\cdots +\alpha_{p k} F_k+ E_p+ A_p\]
+\end{frame}
+
+\begin{frame}{Análisis Factorial}
+\protect\hypertarget{anuxe1lisis-factorial-1}{}
+\begin{itemize}
+\tightlist
+\item
+  Podríamos decir que en un Análisis Factorial se fija a priori la
+  cantidad de varianza de cada variable que debe quedar interpretada por
+  los factores comunes.
+\item
+  Este valor recibe el nombre de comunalidad y se suele representar como
+  \(h_i^2\).
+\end{itemize}
+
+Así tenemos
+
+\begin{itemize}
+\tightlist
+\item
+  \(h_i^2\) comunalidad de la variable \(X_i\), es la varianza explicada
+  por \(F_1,F_2,\ldots F_k.\)
+\item
+  \(s_i^2-h_i^2\) es la varianza de la variable \(X_i\) que se queda en
+  los factores específicos y aleatorios.
+\end{itemize}
+
+Var. observada = Var. común + Var. específica y aleat..
+\end{frame}
+
+\hypertarget{el-problema-de-los-componentes-principales}{%
+\section{El problema de los Componentes
+Principales}\label{el-problema-de-los-componentes-principales}}
+
+\begin{frame}{El problema de los Componentes Principales}
+\protect\hypertarget{el-problema-de-los-componentes-principales-1}{}
+\red{Todos los factores son comunes}
+
+\[X_1=\alpha_{1 1} CP_1+ \alpha_{1 2} CP_2+\cdots +\alpha_{1 p} CP_p\]
+\[X_2=\alpha_{2 1} CP_1+ \alpha_{2 2} CP_2+\cdots +\alpha_{2 p} CP_p\]
+\[\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\]
+\[X_p=\alpha_{p 1} CP_1+ \alpha_{p 2} CP_2+\cdots +\alpha_{p p} CP_p\]
+
+Se trata de encontrar unas nuevas variables \(CP_1,\ldots CP_p\), a las
+que llamaremos componentes principales, de forma que:
+
+\begin{itemize}
+\tightlist
+\item
+  Se cumplan las condiciones anteriores.
+\item
+  El origen de las variables esté situado en el vector de medias o
+  centro de gravedad de las observaciones.
+\item
+  Sean incorreladas entre si \(Cor(CP_i,CP_j)=0\) para
+  \(i\not= j, i,j =1,\ldots,p\).
+\item
+  \(Var(CP_1)\geq Var(CP_2)\geq\cdots\geq Var(CP_p)\) y hagan máximas
+  estas varianzas.
+\item
+  Se conserva la varianza total (inercia) de la nube de puntos.
+\end{itemize}
+\end{frame}
+
+\hypertarget{tipos-de-a.c.p.}{%
+\section{Tipos de A.C.P.}\label{tipos-de-a.c.p.}}
+
+\begin{frame}{Tipos de A.C.P:}
+\protect\hypertarget{tipos-de-a.c.p}{}
+\begin{itemize}
+\tightlist
+\item
+  Sobre los datos centrados: a cada variable se le resta su media
+  \(x_i-\overline{x}_i\).
+\item
+  Sobre los datos tipificados \(\frac{x_{i}-\overline{x}_i}{s_i}\).
+\item
+  En el primer caso las variables centradas tienen media cero y la misma
+  varianza que las variables originales: se le suele llamar ACP de
+  covarianzas.
+\item
+  En el segundo caso las variables tipificadas tienen media cero y
+  varianza 1: se le suele llamar ACP de correlaciones o normado.
+\end{itemize}
+
+Recordemos que dada una matriz de datos \(\mathbf{X}\) (\(n\times p\) es
+decirde \(n\) individuos y \(p\) variables) representábamos por
+\(\tilde{\mathbf{X}}\) la matriz de datos centrada. Entonces:
+
+\begin{itemize}
+\tightlist
+\item
+  La matriz de covarianzas de \(\mathbf{X}\) viene dada por
+\end{itemize}
+
+\[\mathbf{S}=1/n \tilde{\mathbf{X}}^\top \tilde{\mathbf{X}}\]
+
+\begin{itemize}
+\tightlist
+\item
+  Si llamamos \(\mathbf{Z}\) a la tabla de los datos tipificados la
+  matriz de correlaciones viene dada por
+\end{itemize}
+
+\[\mathbf{R}=1/n \mathbf{Z}^\top \mathbf{Z}\]
+
+\blue{Propiedades}
+
+\begin{itemize}
+\tightlist
+\item
+  Los componentes principales vienen determinadas por los vectores
+  propios ortonormales (ordenados de mayor a menor valor propio) de la
+  matriz de covarianzas (para datos centrados) y de la matriz de
+  correlaciones (para los datos tipificados).
+\item
+  Así en el ACP de covarianzas cada variable interviene con su propia
+  varianza mientras que el ACP de correlaciones todas las variables
+  tienen varianza 1.
+\end{itemize}
+\end{frame}
+
+\hypertarget{acp-covarianzas}{%
+\section{ACP covarianzas:}\label{acp-covarianzas}}
+
+\begin{frame}{ACP covarianzas:}
+\protect\hypertarget{acp-covarianzas-1}{}
+\begin{itemize}
+\tightlist
+\item
+  Sea \(\mathbf{S}\) la matriz de covarianzas de orden \(p\). Calculamos
+  sus valores propios
+\end{itemize}
+
+\[\lambda_1\geq \lambda_2\geq\ldots\geq\lambda_p\]
+
+y los correspondientes vectores propios ortonormales (perpendiculares y
+de norma 1)
+
+\[\mathbf{u}_1,\mathbf{u}_2,\ldots,\mathbf{u}_p\]
+
+\begin{itemize}
+\item
+  Las direcciones de los componentes principales quedan determinadas por
+  su respectivo vector.
+\item
+  \blue{Cálculo de las coordenadas de la nueva matriz de datos respecto
+  a las nuevas variables $CP$:}
+
+  \[\mathbf{CP}= \tilde{\mathbf{X}} \mathbf{u},\] donde \(\mathbf{u}\)
+  es la matriz de los vectores propios.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo}{}
+Vamos a realizar un ACP sobre el ejemplo de la estatura de un niño
+recién nacido visto en el tema anterior de regresión.
+
+Recordemos los datos:
+
+\begin{tabular}{|c|c|c|c|c|}\hline
+$x_1$ & $x_2$ & $x_3$ & $x_4$&Sexo\\\hline
+78&48.2&2.75&29.5&Niña\\ 69&45.5&2.15&26.3&Niña\\
+77&46.3&4.41&32.2&Niña\\ 88&49&5.52&36.5&Niño\\ 67&43&3.21&27.2&Niña\\
+80&48&4.32&27.7&Niña\\ 74&48&2.31&28.3&Niña\\ 94&53&4.3&30.3&Niño\\
+102&58&3.71&28.7&Niño
+\\\hline\end{tabular}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-1}{}
+Donde:
+
+\begin{itemize}
+\tightlist
+\item
+  \(x_1:\) edad en días
+\item
+  \(x_2:\) estatura al nacer en cm.
+\item
+  \(x_3:\) peso en Kg. al nacer
+\item
+  \(x_4:\) aumento en tanto por ciento de su peso con respecto de su
+  peso al nacer.
+\item
+  El sexo es una variable de perfil que intentaremos explicar con
+  nuestro análisis de componentes principales.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Código para la carga de datos}
+\protect\hypertarget{cuxf3digo-para-la-carga-de-datos}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n =}\StringTok{ }\DecValTok{9}
+\NormalTok{p =}\StringTok{ }\DecValTok{4}
+\NormalTok{X =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{78}\NormalTok{,}\FloatTok{48.2}\NormalTok{,}\FloatTok{2.75}\NormalTok{,}\FloatTok{29.5}\NormalTok{,}\DecValTok{69}\NormalTok{,}\FloatTok{45.5}\NormalTok{,}\FloatTok{2.15}\NormalTok{,}\FloatTok{26.3}\NormalTok{,}
+\DecValTok{77}\NormalTok{,}\FloatTok{46.3}\NormalTok{,}\FloatTok{4.41}\NormalTok{,}\FloatTok{32.2}\NormalTok{, }\DecValTok{88}\NormalTok{,}\DecValTok{49}\NormalTok{,}\FloatTok{5.52}\NormalTok{,}\FloatTok{36.5}\NormalTok{, }\DecValTok{67}\NormalTok{,}\DecValTok{43}\NormalTok{,}\FloatTok{3.21}\NormalTok{,}\FloatTok{27.2}\NormalTok{,}
+\DecValTok{80}\NormalTok{,}\DecValTok{48}\NormalTok{,}\FloatTok{4.32}\NormalTok{,}\FloatTok{27.7}\NormalTok{, }\DecValTok{74}\NormalTok{,}\DecValTok{48}\NormalTok{,}\FloatTok{2.31}\NormalTok{,}\FloatTok{28.3}\NormalTok{, }\DecValTok{94}\NormalTok{,}\DecValTok{53}\NormalTok{,}\FloatTok{4.3}\NormalTok{,}\FloatTok{30.3}\NormalTok{,}
+\DecValTok{102}\NormalTok{,}\DecValTok{58}\NormalTok{,}\FloatTok{3.71}\NormalTok{,}\FloatTok{28.7}\NormalTok{),}\DataTypeTok{nrow=}\NormalTok{n,}\DataTypeTok{byrow=}\NormalTok{T)}
+\NormalTok{Datos=}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(X)}
+\KeywordTok{names}\NormalTok{(Datos) =}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\StringTok{"x"}\NormalTok{,}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{p),}\DataTypeTok{sep=}\StringTok{""}\NormalTok{)}
+\NormalTok{Sexo =}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Niña"}\NormalTok{,}\StringTok{"Niña"}\NormalTok{,}\StringTok{"Niña"}\NormalTok{,}\StringTok{"Niño"}\NormalTok{,}
+\StringTok{"Niña"}\NormalTok{,}\StringTok{"Niña"}\NormalTok{,}\StringTok{"Niña"}\NormalTok{,}\StringTok{"Niño"}\NormalTok{,}\StringTok{"Niño"}\NormalTok{))}
+\NormalTok{Datos}\OperatorTok{$}\NormalTok{Sexo=Sexo}
+\end{Highlighting}
+\end{Shaded}
+
+El siguiente código dibuja un diagrama matricial de las variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pairs}\NormalTok{(Datos[,}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{],}\DataTypeTok{pch=}\DecValTok{21}\NormalTok{,}
+\DataTypeTok{bg =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)[}\KeywordTok{unclass}\NormalTok{(Datos}\OperatorTok{$}\NormalTok{Sexo)],}
+\DataTypeTok{main=}\StringTok{"Diagrama matricial de las variables.}
+\CharTok{\textbackslash{}n}\StringTok{ Azul Niño, Rojo Niña"}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\DecValTok{15}\NormalTok{,}\OperatorTok{{-}}\DecValTok{4}\NormalTok{,}\DataTypeTok{legend=}\KeywordTok{levels}\NormalTok{(Datos}\OperatorTok{$}\NormalTok{Sexo),}\DataTypeTok{pch=}\DecValTok{21}\NormalTok{,}
+\DataTypeTok{pt.bg=}\KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"blue"}\NormalTok{),}\DataTypeTok{title=}\StringTok{"Sexo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ACP_files/figure-beamer/unnamed-chunk-2-1.pdf}
+
+En lo que sigue todos los datos se redondean al tercer decimal.
+
+Daremos el código de R que realiza el cálculo, en el código no se
+redondea: La matriz centrada de los datos anteriores es:
+
+\[
+\tilde{\mathbf{X}}=
+\left(
+\begin{array}{rrrr}
+-3.000 & -0.578 & -0.881 & -0.133 \\
+-12.000 & -3.278 & -1.481 & -3.333 \\
+-4.000 & -2.478 & 0.779 & 2.567 \\
+7.000 & 0.222 & 1.889 & 6.867 \\
+-14.000 & -5.778 & -0.421 & -2.433 \\
+-1.000 & -0.778 & 0.689 & -1.933 \\
+-7.000 & -0.778 & -1.321 & -1.333 \\
+13.000 & 4.222 & 0.669 & 0.667 \\
+21.000 & 9.222 & 0.079 & -0.933
+\end{array}
+\right)
+\]
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-2}{}
+\begin{itemize}
+\item
+  La matriz de covarianzas de los datos anteriores es: \[
+  \mathbf{S}=
+  \left(
+  \begin{array}{rrrr}
+  119.333 & 43.133 & 6.148 & 12.511 \\
+   43.133 & 17.193 & 1.148 & 1.886 \\
+   6.148 & 1.148 & 1.111 & 2.428 \\
+   12.511 & 1.886 & 2.428 & 8.624 
+  \end{array}
+  \right)
+  \]
+\item
+  Los valores propios son:
+  \(136.615,\quad 8.861,\quad 0.738,\quad 0.047.\)
+\item
+  Los vectores propios ortonormales correspondientes a los valores
+  propios, son las columnas de la siguiente matriz: \[
+  \left(
+  \begin{array}{rrrr}
+  0.934 & -0.022 & 0.256 & 0.247 \\
+  0.339 & 0.354 & -0.661 & -0.568 \\
+  0.047 & -0.248 & 0.566 & -0.785 \\
+  0.097 & -0.902 & -0.421 & -0.013
+  \end{array}
+  \right)
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-3}{}
+\begin{itemize}
+\tightlist
+\item
+  Las expresiones de las variables nuevas \(CP_i\) en función de las
+  antiguas, notemos que se calculan sobre los datos centrados, son: \[
+  \begin{array}{rl}
+  CP_1 = & 0.934\cdot \tilde{X}_1 + 0.339\cdot \tilde{X}_2 + 0.047\cdot
+  \tilde{X}_3  \\ & + 0.097 \cdot \tilde{X}_4, \\
+  CP_2 = & -0.022\cdot \tilde{X}_1 +0.354\cdot \tilde{X}_2 -0.248 \cdot
+  \tilde{X}_3 \\ & -0.902 \cdot \tilde{X}_4, \\
+  CP_3 = & 0.256\cdot \tilde{X}_1 -0.661 \cdot \tilde{X}_2 +0.566\cdot \tilde{X}_3
+  \\ &  -0.421\cdot \tilde{X}_4, \\
+  CP_4 = & 0.247 \cdot \tilde{X}_1 - 0.568\cdot \tilde{X}_2 - 0.785\cdot
+  \tilde{X}_3 \\ & - 0.013 \cdot \tilde{X}_4.
+  \end{array}
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-4}{}
+\begin{itemize}
+\item
+  La nueva matriz de datos respecto de las nuevas variables será: \[
+  \mathbf{CP}= \tilde{\mathbf{X}} \mathbf{u} =
+  \left(
+  \begin{array}{rrrr}
+  -3.054 & 0.201 & -0.827 & 0.280 \\
+  -12.719 & 2.480 & -0.333 & 0.103 \\
+  -4.293 & -3.295 & -0.025 & -0.228 \\
+  7.373 & -6.736 & -0.183 & 0.029 \\
+  -15.299 & 0.565 & 1.029 & 0.183 \\
+  -1.354 & 1.319 & 1.463 & -0.321 \\
+  -6.997 & 1.411 & -1.460 & -0.233 \\
+  13.677 & 0.437 & 0.629 & 0.282 \\
+  22.666 & 3.618 & -0.292 & -0.095 \\
+  \end{array}
+  \right)
+  \]
+\item
+  Se puede observar que si se multiplican escalarmente dos columnas
+  cualesquiera, es resultado es nulo. Es decir, las columnas de la nueva
+  matriz de datos son ortogonales dos a dos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo-5}{}
+Como podemos observar, nuestro análisis ha explicado la variable de
+perfil sexo ya que distingue entre niños y niñas con las dos primeras
+componentes.
+
+\includegraphics{ACP_files/figure-beamer/plotACP1-1.pdf}
+
+El siguiente código dibuja todos los componentes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pairs}\NormalTok{(solacp}\OperatorTok{$}\NormalTok{scores,}\DataTypeTok{pch=}\DecValTok{21}\NormalTok{,}
+\DataTypeTok{bg =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)[}\KeywordTok{unclass}\NormalTok{(Datos}\OperatorTok{$}\NormalTok{Sexo)],}
+\DataTypeTok{main=}\StringTok{"Diagrama matricial de }
+\StringTok{los componentes principales"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ACP_files/figure-beamer/pairsacptodos-1.pdf}
+
+\includegraphics{ACP_files/figure-beamer/pairsacptodos1-1.pdf}
+\end{frame}
+
+\hypertarget{acp-correlaciones.}{%
+\section{ACP correlaciones.}\label{acp-correlaciones.}}
+
+\begin{frame}{ACP correlaciones.}
+\protect\hypertarget{acp-correlaciones.-1}{}
+Sea \(\mathbf{R}\) la matriz de correlaciones de orden \(p\).
+Calcularemos sus valores propios
+
+\(\lambda_1\geq \lambda_2\geq\ldots\geq\lambda_p\)
+
+y los correspondientes vectores propios ortonormales.
+
+\(\mathbf{u}_1,\mathbf{u}_2,\ldots,\mathbf{u}_p\)
+
+Las direcciones de los componentes principales quedan determinadas por
+el vector propio correspondiente.
+
+\blue{Cálculo de las coordenadas de la nueva matriz de datos respecto de las
+nuevas variables $CP$:} \[\mathbf{CP}= \mathbf{Z} \mathbf{u},\] donde
+\(Z\) es la matriz de datos tipificados y \(\mathbf{u}\) es la matriz de
+los vectores propios.
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-6}{}
+\begin{itemize}
+\tightlist
+\item
+  Realicemos un análisis ACP de correlaciones con el ejemplo anterior.
+\item
+  La matriz tipificada de datos es: \[
+  \mathbf{Z}=
+  \left(
+  \begin{array}{rrrr}
+  -0.275 & -0.139 & -0.836 & -0.045 \\
+   -1.099 & -0.791 & -1.405 & -1.135 \\
+   -0.366 & -0.598 & 0.739 & 0.874 \\
+   0.641 & 0.054 & 1.792 & 2.338 \\
+   -1.282 & -1.393 & -0.400 & -0.829 \\
+   -0.092 & -0.188 & 0.654 & -0.658 \\
+   -0.641 & -0.188 & -1.254 & -0.454 \\
+   1.190 & 1.018 & 0.635 & 0.227 \\
+   1.922 & 2.224 & 0.075 & -0.318 
+  \end{array}
+  \right)
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-7}{}
+\begin{itemize}
+\tightlist
+\item
+  La matriz de correlaciones \(\mathbf{R}\) vale, en este caso: \[
+  \mathbf{R} =
+  \left(
+  \begin{array}{rrrr}
+  1.000 & 0.952 & 0.534 & 0.390 \\
+  0.952 & 1.000 & 0.263 & 0.155 \\
+  0.534 & 0.263 & 1.000 & 0.784 \\
+  0.390 & 0.155 & 0.784 & 1.000 
+  \end{array}
+  \right)
+  \]
+\item
+  Los valores propios de dicha matriz son: \[
+  2.560,\quad 1.229,\quad 0.208,\quad 0.00325.
+  \]
+\item
+  La matriz de los vectores propios es: \[
+  \left(
+  \begin{array}{rrrr}
+  0.573 & 0.359 & -0.038 & 0.736 \\
+  0.478 & 0.578 & 0.145 & -0.646 \\
+  0.499 & -0.459 & -0.707 & -0.201 \\
+  0.442 & -0.572 & 0.691 & -0.029 
+  \end{array}
+  \right)
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-8}{}
+\begin{itemize}
+\tightlist
+\item
+  Las expresiones de las variables nuevas \(CP_i\) en función de las
+  antiguas \(Z_i\) son:
+\end{itemize}
+
+\[
+\begin{array}{rl}
+CP_1 = & 0.573\cdot Z_1 +0.478\cdot Z_2 +0.499\cdot Z_3  \\ & +0.442 \cdot Z_4,
+\\
+CP_2 = & 0.359\cdot Z_1 + 0.578\cdot Z_2 -0.459 \cdot Z_3 \\ & -0.572 \cdot Z_4,
+\\
+CP_3 = & -0.038\cdot Z_1 +0.145 \cdot Z_2 -0.707\cdot Z_3 \\ &  +0.691\cdot Z_4,
+\\
+CP_4 = & 0.736 \cdot Z_1 - 0.646\cdot Z_2 - 0.201\cdot Z_3 \\ & - 0.029 \cdot
+Z_4.
+\end{array}
+\]
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-9}{}
+\begin{itemize}
+\tightlist
+\item
+  La nueva matriz de datos respecto de las nuevas variables será:
+\end{itemize}
+
+\[
+\mathbf{CP} = \mathbf{Z} \mathbf{u} =
+\begin{pmatrix}
+-0.661 & 0.231 & 0.550 & 0.057 \\
+ -2.209 & 0.443 & 0.137 & 0.018 \\
+ 0.259 & -1.316 & 0.008 & -0.058 \\
+ 2.319 & -1.899 & 0.332 & 0.008 \\
+ -1.965 & -0.608 & -0.444 & 0.061 \\
+ -0.107 & -0.065 & -0.941 & -0.058 \\
+ -1.282 & 0.497 & 0.570 & -0.085 \\
+ 1.585 & 0.594 & -0.189 & 0.084 \\
+ 2.061 & 2.122 & -0.023 & -0.027 
+\end{pmatrix}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Se puede observar que si calculamos el producto escalar de dos
+  columnas cualesquiera, es resultado es nulo. Es decir, las columnas de
+  la nueva matriz de datos son ortogonales dos a dos.
+\end{itemize}
+\end{frame}
+
+\hypertarget{propiedades-acp-covarianzas.}{%
+\section{Propiedades ACP
+covarianzas.}\label{propiedades-acp-covarianzas.}}
+
+\begin{frame}{Propiedades ACP covarianzas.}
+\protect\hypertarget{propiedades-acp-covarianzas.-1}{}
+Sea \(\mathbf{X}\) una matriz de datos \(n\times p\) y sea
+
+\[
+\mathbf{S}=\begin{pmatrix}
+s_1^2& s_{ 1 2}&\ldots &  s_{1 p}\\
+s_{2 1}& s_{2}^2&\ldots &  s_{2 p}\\
+\vdots & \vdots &  \ddots & \vdots\\
+s_{p 1}& s_{ p 2}&\ldots &  s_{p}^2
+\end{pmatrix}
+\] su matriz de covarianzas.
+
+Recordemos que \(s_i^2\) es la varianza de la variable \(\mathbf{x}_i\)
+y que \(s_{i j}\) son las covarianzas de la variables \(\mathbf{x}_i\) y
+\(\mathbf{x}_j\).
+
+Además la \(\mbox{Varianza Total}= tr(\mathbf{S})=\sum_{i=1}^p s_i^2\)
+\end{frame}
+
+\begin{frame}{Propiedades ACP covarianzas.}
+\protect\hypertarget{propiedades-acp-covarianzas.-2}{}
+\begin{itemize}
+\tightlist
+\item
+  \(Var(\mathbf{CP}_i)= \lambda_i\). La varianza de cada componente
+  principal es su valor propio.
+\item
+  \(\sum_{i=1}^n Var(\mathbf{CP}_i)=\sum_{i=1}^n \lambda_i=tr(\mathbf{S})=\sum_{i=1}^n s_i^2\).
+  Por lo tanto los componentes principales reproducen la varianza total
+\item
+  Los componentes principales tienen correlación cero entre sí (son
+  \emph{incorrelados}) por lo tanto su matriz de covarianzas es
+  \[\mathbf{S}_{CP}=\left(\begin{array}{cccc}
+  \lambda_1& 0 &\ldots &  0\\
+  0& \lambda_{2}&\ldots & 0\\
+  \vdots & \vdots & & \vdots\\
+  0 & 0&\ldots &  \lambda_{p}
+  \end{array}
+  \right)\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Propiedades ACP covarianzas.}
+\protect\hypertarget{propiedades-acp-covarianzas.-3}{}
+\begin{itemize}
+\item
+  \(\det(\mathbf{S}_{CP})=\prod_{i=1}^n \lambda_i =\det(\mathbf{S})\).
+  Luego los componentes principales conservan la varianza generalizada.
+\item
+  La proporción de varianza explicada por la componente \(j\)-ésima es
+  \[\frac{\lambda_j}{\sum_{i=1}^n \lambda_i}.\]
+\end{itemize}
+
+Además al ser \emph{incorrelados} la proporción de varianza explicada
+por los \(k\) primeros componentes es \[\frac{\sum_{i=1}^k
+\lambda_i}{\sum_{i=1}^n \lambda_i}.\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(cov(\tilde{\mathbf{X}}_i, \mathbf{CP}_j)=\lambda_j u_{j i}\);
+  \(corr(\tilde{\mathbf{X}}_i, \mathbf{CP}_j)=\frac{\sqrt{\lambda_j} u_{j i}}{s_i}\)
+  donde \(u_{j i}\) es la \(i\)-ésima componente del vector propio
+  \(\mathbf{u}_j\).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-10}{}
+Vamos a comprobar las propiedades anteriores con nuestro ejemplo.
+Recordemos las matrices de datos de las variables originales
+\(\mathbf{X}\) (centradas) y de las variables en componentes principales
+\(\mathbf{CP}\): \[
+{\tiny 
+\begin{array}{rl}
+\tilde{\mathbf{X}} =  & 
+\left(
+\begin{array}{rrrr}
+-3.000 & -0.578 & -0.881 & -0.133 \\
+ -12.000 & -3.278 & -1.481 & -3.333 \\
+ -4.000 & -2.478 & 0.779 & 2.567 \\
+ 7.000 & 0.222 & 1.889 & 6.867 \\
+ -14.000 & -5.778 & -0.421 & -2.433 \\
+ -1.000 & -0.778 & 0.689 & -1.933 \\
+ -7.000 & -0.778 & -1.321 & -1.333 \\
+ 13.000 & 4.222 & 0.669 & 0.667 \\
+ 21.000 & 9.222 & 0.079 & -0.933 
+\end{array}
+\right) ,
+\\ &  \\
+\mathbf{CP}= &
+\left(
+\begin{array}{rrrr}
+-3.054 & 0.201 & -0.827 & 0.280 \\
+ -12.719 & 2.480 & -0.333 & 0.103 \\
+ -4.293 & -3.295 & -0.025 & -0.228 \\
+ 7.373 & -6.736 & -0.183 & 0.029 \\
+ -15.299 & 0.565 & 1.029 & 0.183 \\
+ -1.354 & 1.319 & 1.463 & -0.321 \\
+ -6.997 & 1.411 & -1.460 & -0.233 \\
+ 13.677 & 0.437 & 0.629 & 0.282 \\
+ 22.666 & 3.618 & -0.292 & -0.095 
+\end{array}
+\right).
+\end{array}}
+\]
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-11}{}
+\begin{itemize}
+\tightlist
+\item
+  La matriz de los vectores propios de la matriz \(\mathbf{S}\) era: \[
+  {\tiny 
+  \left(
+  \begin{array}{rrrr}
+  0.934 & -0.022 & 0.256 & 0.247 \\
+   0.339 & 0.354 & -0.661 & -0.568 \\
+   0.047 & -0.248 & 0.566 & -0.785 \\
+   0.097 & -0.902 & -0.421 & -0.013 
+  \end{array}\right).}
+  \]
+\item
+  Las varianzas de las variables \(CP\) son las siguientes: \[
+  \begin{array}{llcll}
+  {\mathrm Var}(\mathbf{CP}_1) & =  136.615,\ & {\mathrm Var}(\mathbf{CP}_2) & =  8.861,\\ 
+  {\mathrm Var}(\mathbf{CP}_3) & =  0.738,\   &{\mathrm Var}(\mathbf{CP}_4) & =  0.0468,
+  \end{array}
+  \] valores que corresponden a los valores propios de la matriz de
+  covarianzas\textasciitilde{}\(\mathbf{S}\).
+\item
+  La traza de la matriz \(\mathbf{S}\) vale: \(tr(\mathbf{S})=146.261\).
+  Si sumamos los 4 valores propios, su valor coincide con el valor
+  anterior: \(\lambda_1 + \lambda_2+ \lambda_3 + \lambda_4 = 146.261\).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-12}{}
+\begin{itemize}
+\tightlist
+\item
+  La matriz de covarianzas de las variables \(\mathbf{CP}\) vale: \[
+  cov(\mathbf{CP})=
+  \left(
+  \begin{array}{rrrr}
+  136.615 & 0.000 & 0.000 & 0.000 \\
+   0.000 & 8.861 & 0.000 & 0.000 \\
+   0.000 & 0.000 & 0.738 & 0.000 \\
+   0.000 & 0.000 & 0.000 & 0.047 
+  \end{array}
+  \right)
+  \] Podemos observar que es una matriz diagonal con los valores propios
+  de la matriz \(\mathbf{S}\) en la diagonal.
+\item
+  El determinante de las matrices de covarianzas de
+  \(\tilde{\mathbf{X}}\) y \(\mathbf{CP}\) vale \(41.785\), valor que
+  coincide con el producto de los valores propios de la matriz
+  \(\mathbf{S}\): \[
+  136.615\cdot 8.861\cdot 0.738\cdot 0.0468 = 41.785.
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-13}{}
+\begin{itemize}
+\tightlist
+\item
+  La proporción de varianza explicada por los componentes viene dada en
+  la tabla siguiente:
+\end{itemize}
+
+\begin{tabular}{|l|l|}\hline
+Variables&Varianza Explicada\\\hline
+$\mathbf{CP}_1$&$136.615/146.261=0.934$\\\hline
+$\mathbf{CP}_{1,2}$&$(136.615+8.861)/146.261=0.995$\\\hline
+$\mathbf{CP}_{1,2,3}$&$(136.615+8.861+0.738)/146.261=0.999$\\\hline
+$\mathbf{CP}_{1,2,3,4}$&$1$\\\hline
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-14}{}
+\begin{itemize}
+\tightlist
+\item
+  La matriz de covarianzas entre las variables \(\tilde{\mathbf{X}}\) y
+  \(\mathbf{CP}\) vale: \[
+  cov(\tilde{\mathbf{X}},\mathbf{CP})=
+  \left(
+  \begin{array}{rrrr}
+  127.653 & -0.198 & 0.189 & 0.012 \\
+   46.377 & 3.138 & -0.488 & -0.027 \\
+   6.422 & -2.195 & 0.417 & -0.037 \\
+   13.283 & -7.989 & -0.311 & -0.001 
+  \end{array}
+  \right)
+  \] Recordemos la matriz de vectores propios de la
+  matriz\textasciitilde{}\(\mathbf{S}\): \[
+  {\tiny \left(
+  \begin{array}{rrrr}
+  0.934 & -0.022 & 0.256 & 0.247 \\
+   0.339 & 0.354 & -0.661 & -0.568 \\
+   0.047 & -0.248 & 0.566 & -0.785 \\
+   0.097 & -0.902 & -0.421 & -0.013 
+  \end{array}
+  \right)
+  .}
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-15}{}
+\begin{itemize}
+\tightlist
+\item
+  Si multiplicamos la primera columna de la matriz anterior \$\left(
+
+  \begin{array}{rrrr}
+  0.934\\ 0.339\\ 0.047\\ 0.097
+  \end{array}
+
+  \right) \$ por el valor propio \(136.615\) de la matriz \(\mathbf{S}\)
+  obtenemos la primera columna de la matriz
+  \(cov(\tilde{\mathbf{X}},\mathbf{CP})\): \[
+  136.615\cdot \begin{pmatrix}0.934\\ 0.339\\ 0.047\\ 0.097\end{pmatrix}=
+  \begin{pmatrix}
+  127.652 \\ 46.377 \\ 6.422 \\ 13.283
+  \end{pmatrix}
+  \]
+\item
+  En general, podemos escribir: \[
+  \mathbf{u}\cdot \mbox{diag}(\lambda) = cov(\tilde{\mathbf{X}},\mathbf{CP}),
+  \] donde \(\mathbf{u}\) es la matriz formada por los vectores propios
+  de la matriz \(\mathbf{S}\) y \(\mbox{diag}(\lambda)\) es una matriz
+  diagonal con los valores propios de la matriz \(\mathbf{S}\) en la
+  diagonal.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Propiedades ACP covarianzas.}
+\protect\hypertarget{propiedades-acp-covarianzas.-4}{}
+\begin{itemize}
+\item
+  La primera componente principal es la recta que conserva mayor inercia
+  de la nube de puntos.
+\item
+  Las dos primeras componentes principales forman el plano que conserva
+  mayor inercia de la nube de puntos.
+\item
+  Lo mismo sucede con los espacios formados por las \(k\) primeras
+  componentes
+\end{itemize}
+\end{frame}
+
+\hypertarget{propiedades-acp-correlaciones.}{%
+\section{Propiedades ACP
+correlaciones.}\label{propiedades-acp-correlaciones.}}
+
+\begin{frame}{Propiedades ACP correlaciones.}
+\protect\hypertarget{propiedades-acp-correlaciones.-1}{}
+Sea \(\mathbf{X}\) una matriz de datos \(n\times p\) y sea
+
+\$\$\mathbf{R}=\left(
+
+\begin{array}{cccc}
+1& r_{ 1 2}&\ldots &  r_{1 p}\\
+r_{2 1}& 1&\ldots &  r_{2 p}\\
+\vdots & \vdots & & \vdots\\
+
+r_{p 1}& s_{ p 2}&\ldots &  1
+\end{array}
+
+\right)\$\$ Su matriz de correlaciones. Se verifican las siguientes
+propiedades:
+
+\begin{itemize}
+\item
+  Recordemos que la diagonal es \(1\) pues es la varianza de los datos
+  tipificados y que \(r_{i j}\) son las correlaciones lineales de la
+  variables \(\mathbf{x}_i\) y \(\mathbf{x}_j\).
+\item
+  Además la \(\mbox{Varianza Total}= tr(\mathbf{R})=p\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Propiedades ACP correlaciones.}
+\protect\hypertarget{propiedades-acp-correlaciones.-2}{}
+\begin{itemize}
+\tightlist
+\item
+  \(Var(\mathbf{CP}_i)= \lambda_i\). El valor propio del componente es
+  igual a su varianza
+\item
+  \(\sum_{i=1}^n var(\mathbf{CP}_i)=\sum_{i=1}^n \lambda_i=tr(\mathbf{R})=p\).
+  Por lo tanto los componentes principales reproducen la varianza total
+  y ésta es igual al numero de variables \(p\).
+\item
+  Los componentes principales tienen correlación cero entre sí (son
+  \emph{incorrelados}) por lo tanto su matriz de covarianzas ( que este
+  caso es igual a la de correlaciones es
+\end{itemize}
+
+\[\mathbf{S}_{CP}=\left(\begin{array}{cccc}
+\lambda_1& 0 &\ldots &  0\\
+0& \lambda_{2}&\ldots & 0\\
+\vdots & \vdots & & \vdots\\
+0 & 0&\ldots &  \lambda_{p}
+\end{array}
+\right)\]
+\end{frame}
+
+\begin{frame}{Propiedades ACP correlaciones.}
+\protect\hypertarget{propiedades-acp-correlaciones.-3}{}
+\begin{itemize}
+\tightlist
+\item
+  \(\det(\mathbf{S}_{CP})=\prod_{i=1}^n \lambda_i =\det(\mathbf{R})\).
+  Luego los componentes principales conservan la varianza generalizada.
+\item
+  La proporción de varianza explicada por cada componente es
+  \[\frac{\lambda_i}{p}.\]
+\end{itemize}
+
+Además al ser \emph{incorreladas} la proporción de varianza explicada
+por los \(k\) primeros componentes es
+\[\frac{\sum_{i=1}^k \lambda_i}{p}.\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(corr(\mathbf{Z}_i, \mathbf{CP}_j)=\sqrt{\lambda_j} u_{j i}\) donde
+  \(u_{j i}\) es la \(i\)-ésima componente del vector propio
+  \(\mathbf{u}_j\).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-16}{}
+Vamos a comprobar las propiedades anteriores con nuestro ejemplo.
+Recordemos las matrices de datos estandarizada \(\mathbf{Z}\) y de las
+variables en componentes principales \(\mathbf{CP}\):
+
+\[
+{\tiny 
+\begin{array}{rl}
+\mathbf{Z}= & 
+\left(
+\begin{array}{rrrr}
+-0.275 & -0.139 & -0.836 & -0.045 \\
+ -1.099 & -0.791 & -1.405 & -1.135 \\
+ -0.366 & -0.598 & 0.739 & 0.874 \\
+ 0.641 & 0.054 & 1.792 & 2.338 \\
+ -1.282 & -1.393 & -0.400 & -0.829 \\
+ -0.092 & -0.188 & 0.654 & -0.658 \\
+ -0.641 & -0.188 & -1.254 & -0.454 \\
+ 1.190 & 1.018 & 0.635 & 0.227 \\
+ 1.922 & 2.224 & 0.075 & -0.318 
+\end{array}
+\right),
+\\ &  \\
+\mathbf{CP} = &
+\left(
+\begin{array}{rrrr}
+-0.661 & 0.231 & 0.550 & 0.057 \\
+ -2.209 & 0.443 & 0.137 & 0.018 \\
+ 0.259 & -1.316 & 0.008 & -0.058 \\
+ 2.319 & -1.899 & 0.332 & 0.008 \\
+ -1.965 & -0.608 & -0.444 & 0.061 \\
+ -0.107 & -0.065 & -0.941 & -0.058 \\
+ -1.282 & 0.497 & 0.570 & -0.085 \\
+ 1.585 & 0.594 & -0.189 & 0.084 \\
+ 2.061 & 2.122 & -0.023 & -0.027 
+\end{array}
+\right).
+\end{array}}
+\]
+\end{frame}
+
+\begin{frame}{Ejemplo\}}
+\protect\hypertarget{ejemplo-17}{}
+\begin{itemize}
+\tightlist
+\item
+  Las varianzas de las variables \(\mathbf{CP}_i\) son las siguientes:
+\end{itemize}
+
+\[
+\begin{array}{llcll}
+{\mathrm Var}(\mathbf{CP}_1) & =  2.560,\ & {\mathrm Var}(\mathbf{CP}_2) & =  1.229,\\  {\rm
+Var}(\mathbf{CP}_3) & =  0.208,\   &{\mathrm Var}(\mathbf{CP}_4) & =  0.00325,
+\end{array}
+\] valores que corresponden a los valores propios de la matriz
+\(\mathbf{R}\). * Se puede comprobar que su suma
+vale\textasciitilde{}\(4\) que es el valor de \(p\) en nuestro caso. *
+Si calculamos la matriz de covarianzas de las variables \(\mathbf{CP}\)
+obtenemos una matriz diagonal donde ésta contiene los valores propios de
+la matriz\textasciitilde{}\(\mathbf{R}\) calculados anteriormente: \[
+cov(\mathbf{CP})= \mathbf{S}_{\mathbf{CP}} = 
+\left(
+\begin{array}{rrrr}
+2.560 & 0.000 & 0.000 & 0.000 \\
+ 0.000 & 1.229 & 0.000 & 0.000 \\
+ 0.000 & 0.000 & 0.208 & 0.000 \\
+ 0.000 & 0.000 & 0.000 & 0.003 
+\end{array}
+\right)
+\]
+\end{frame}
+
+\begin{frame}{Ejemplo\}}
+\protect\hypertarget{ejemplo-18}{}
+\begin{itemize}
+\tightlist
+\item
+  El determinante de la matriz \(\mathbf{S}_{\mathbf{CP}}\) vale:
+  \({\rm det}(\mathbf{S}_{\mathbf{CP}} )=0.00213\), valor que coincide
+  con el producto de los valores propios de la
+  matriz\textasciitilde{}\(\mathbf{R}\): \[
+  2.560\cdot 1.229\cdot 0.208\cdot 0.00325 = 0.00213.
+  \]
+\item
+  La proporción de varianza explicada por los componentes viene dada en
+  la tabla siguiente:
+\end{itemize}
+
+\begin{tabular}{|l|l|}\hline
+Variables&Varianza Explicada\\\hline
+$\mathbf{CP}_1$&$2.560/4=0.640$\\\hline
+$\mathbf{CP}_{1,2}$&$(2.560+1.229)/4=0.947$\\\hline
+$\mathbf{CP}_{1,2,3}$&$(2.560+1.229+0.208)/4=0.999$\\\hline
+$\mathbf{CP}_{1,2,3,4}$&$1$\\\hline
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Ejemplo\}}
+\protect\hypertarget{ejemplo-19}{}
+\begin{itemize}
+\tightlist
+\item
+  La matriz de correlaciones entre las variables \(\mathbf{Z}\) y
+  \(\mathbf{CP}\) vale: \[
+  corr(\mathbf{Z},\mathbf{CP}) =
+  \left(
+  \begin{array}{rrrr}
+  0.916 & 0.398 & -0.017 & 0.042 \\
+   0.764 & 0.641 & 0.066 & -0.037 \\
+   0.798 & -0.509 & -0.323 & -0.011 \\
+   0.706 & -0.634 & 0.315 & -0.002 
+  \end{array}
+  \right)
+  \] La matriz de vectores propios de la matriz \(\mathbf{R}\) era:
+\end{itemize}
+
+\[
+{\tiny
+\left(
+\begin{array}{rrrr}
+0.573 & 0.359 & -0.038 & 0.736 \\
+ 0.478 & 0.578 & 0.145 & -0.646 \\
+ 0.499 & -0.459 & -0.707 & -0.201 \\
+ 0.442 & -0.572 & 0.691 & -0.029.
+\end{array}
+\right)
+}\]
+\end{frame}
+
+\begin{frame}{Ejemplo\}}
+\protect\hypertarget{ejemplo-20}{}
+\begin{itemize}
+\tightlist
+\item
+  Si multiplicamos la primera columna de la matriz anterior
+  \(\begin{pmatrix}0.573 \\ 0.478\\ 0.499 \\ 0.442\end{pmatrix}\) por la
+  raíz cuadrada del primer valor propio de la matriz \(\mathbf{R}\),
+  \(\sqrt{2.560}\), obtenemos la primera columna de la matriz
+  \(corr(\mathbf{Z},\mathbf{CP})\): \[
+  \sqrt{2.560}\cdot \begin{pmatrix}0.573 \\ 0.478\\ 0.499 \\ 0.442\end{pmatrix} =
+  \begin{pmatrix}0.916 \\ 0.764\\ 0.798 \\ 0.706\end{pmatrix}
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo\}}
+\protect\hypertarget{ejemplo-21}{}
+\begin{itemize}
+\tightlist
+\item
+  En general, podemos escribir: \[
+  \mathbf{u}\cdot {\mathrm diag} (\sqrt{\lambda}) = corr(\mathbf{Z},\mathbf{CP}),
+  \] donde \(\mathbf{u}\) es la matriz formada por los vectores propios
+  de la matriz\textasciitilde{}\(\mathbf{R}\) y \$ \{\mathrm diag\}
+  (\sqrt{\lambda}) \$ es una matriz diagonal con la raíz cuadrada de los
+  valores propios de la matriz\textasciitilde{}\(\mathbf{R}\) en la
+  diagonal.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Propiedades ACP correlaciones}
+\protect\hypertarget{propiedades-acp-correlaciones}{}
+\begin{itemize}
+\item
+  La primera componente principal es la recta que conserva mayor inercia
+  de la nube de puntos.
+\item
+  Los dos primeros componentes principales forma el plano que conserva
+  mayor inercia de la nube de puntos.
+\item
+  Lo mismo sucede con los espacios formados por los \(k\) primeros
+  componentes
+\end{itemize}
+\end{frame}
+
+\hypertarget{etapas-de-un-acp}{%
+\section{Etapas de un ACP}\label{etapas-de-un-acp}}
+
+\begin{frame}{Etapas de un ACP}
+\protect\hypertarget{etapas-de-un-acp-1}{}
+\begin{itemize}
+\item
+  Determinar las variables e individuos que intervienen en el análisis,
+  las variables de perfil y los individuos ilustrativos.
+\item
+  Decidir si se realiza el análisis sobre los datos brutos (matriz de
+  covarianzas) o sobre los datos tipificados (matriz de correlaciones):
+\item
+  Cuando las variables originales \(\mathbf{X}\) están medidas en
+  distintas unidades, conviene aplicar el análisis de correlaciones. Si
+  están en las mismas unidades, ambas alternativas son posibles.
+\item
+  Si las diferencias entre las varianzas son informativas y queremos
+  tenerlas en cuenta en el análisis, no debemos estandarizar las
+  variables.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Etapas de un ACP}
+\protect\hypertarget{etapas-de-un-acp-2}{}
+\begin{itemize}
+\tightlist
+\item
+  Reducción de la dimensionalidad; tenemos que decidir cuántas
+  componente retenemos. La cantidad de varianza retenida será:
+  \vskip 0.5cm
+
+  \begin{tabular}{|c|c|c|}\hline
+  Comp. & Valor propio & Cantidad retenida\\\hline
+  $Cp_1$  & $\lambda_1$ & $\lambda_1/\sum_{i=1}^p \lambda_i$\\
+  $Cp_2 $ & $\lambda_2$ & $(\lambda_1+\lambda_2)/\sum_{i=1}^p \lambda_i$\\
+  $Cp_3$ & $\lambda_3$ &
+  $(\lambda_1+\lambda_2+\lambda_3)/\sum_{i=1}^p
+  \lambda_i$\\ $\ldots$ & $\ldots$ & $\ldots$\\
+  $Cp_p$ & $\lambda_p$ &
+  $(\lambda_1+\ldots+\lambda_p)/\sum_{i=1}^p=1$\\\hline
+  \end{tabular}
+\end{itemize}
+\end{frame}
+
+\hypertarget{retenciuxf3n-de-componentes}{%
+\section{Retención de componentes}\label{retenciuxf3n-de-componentes}}
+
+\begin{frame}{Retención de componentes}
+\protect\hypertarget{retenciuxf3n-de-componentes-1}{}
+Una vez realizado el ACP tengo que decidir que número de componentes se
+retienen. Existen diversos métodos:
+\blue{Seleccionar una proporción fija de varianza}.Seleccionar
+componentes hasta cubrir una proporción determinada de varianza, como el
+\(80\%\) o el \(90\%\).
+
+\begin{itemize}
+\tightlist
+\item
+  En el ejemplo que hemos desarrollado, tenemos que con un análisis de
+  covarianzas, si sólo elegimos la primera componente, cubrimos el
+  \(93.4\%\) de la varianza. Si elegimos, las dos primeras, cubrimos el
+  \(99.5\%\) de la varianza. Con las tres primeras, cubrimos el
+  \(99.9\%\) de la varianza.
+\item
+  En cambio, con un análisis de correlaciones, con la primera
+  componente, sólo cubrimos el \(64\%\) de la varianza; con las dos
+  primeras, el \(94.7\%\) de la varianza y con las tres primeras, el
+  \(99.9\%\) de la varianza.
+\end{itemize}
+\end{frame}
+
+\hypertarget{tuxe9cnicas-de-retenciuxf3n-de-reteciuxf3n-de-componentes}{%
+\section{Técnicas de retención de reteción de
+componentes}\label{tuxe9cnicas-de-retenciuxf3n-de-reteciuxf3n-de-componentes}}
+
+\begin{frame}{Retención de componentes}
+\protect\hypertarget{retenciuxf3n-de-componentes-2}{}
+\blue{Método de la Media aritmética}. Se retienen todas las componentes
+\(\mathbf{CP}_i\) que cumplan
+\(\lambda_i\geq\overline{\lambda}=\frac{\sum_{i=1}^p \lambda_i}{p}\) En
+el caso del análisis de correlaciones, la condición anterior equivale a
+retener los componentes con valores propios mayores que\textasciitilde1.
+
+\begin{itemize}
+\tightlist
+\item
+  En nuestro ejemplo, para el análisis de covarianzas, tenemos que:
+  \(\overline{\lambda}=36.565\). Recordemos que los valores propios de
+  la matriz de covarianzas \(\mathbf{S}\) eran:
+  \(136.615,\ 8.861,\ 0.738,\ 0.0468\). Por tanto, tenemos que retener
+  sólo la componente \(\mathbf{CP}_1\).
+\item
+  Para el análisis de correlaciones, recordemos que los valores propios
+  de la matriz\textasciitilde{}\(\mathbf{R}\) eran:
+  \(2.560,\ 1.229,\ 0.208,\ 0.00324\). En este caso, tenemos que retener
+  los componentes \(\mathbf{CP}_1\) y \(\mathbf{CP}_2\).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Gráfico de sedimentación, regla del codo.}
+\protect\hypertarget{gruxe1fico-de-sedimentaciuxf3n-regla-del-codo.}{}
+Gráfico de sedimentación (\emph{screeplot}) es una técnica gráfica de
+para la retención de componentes. Se representan los vectores propios
+ordenados de mayor a menor unidos por una poligonal o simplemente un
+diagrama de barras. Se retienen los componente hasta el que
+\emph{sedimenta}. El código es el siguiente
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{screeplot}\NormalTok{(solacp,}\DataTypeTok{type=}\StringTok{"lines"}\NormalTok{,}\DataTypeTok{main=}\StringTok{"Gráfico de sedimentación"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ACP_files/figure-beamer/screeplotcodigo-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{screeplot}\NormalTok{(solacp,}\DataTypeTok{type=}\StringTok{"barplot"}\NormalTok{,}\DataTypeTok{main=}\StringTok{"Gráfico de sedimentación"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ACP_files/figure-beamer/screeplotcodigo-2.pdf}
+
+\includegraphics{ACP_files/figure-beamer/screeplotlines-1.pdf}
+
+\includegraphics{ACP_files/figure-beamer/screeplotbar-1.pdf}
+
+Hay muchas otras pruebas más com la pruebas de Hipótesis de Anderson:
+\[\left\{ \begin{array}{l}
+H_0: \lambda_m=\ldots\lambda_p\\ H_1: \mbox{no todos
+iguales}\end{array}\right.\]
+\end{frame}
+
+\hypertarget{adecuaciuxf3n-de-los-datos-al-acp}{%
+\section{Adecuación de los datos al
+ACP}\label{adecuaciuxf3n-de-los-datos-al-acp}}
+
+\begin{frame}[fragile]{Adecuación de los datos al ACP}
+\protect\hypertarget{adecuaciuxf3n-de-los-datos-al-acp-1}{}
+\begin{itemize}
+\tightlist
+\item
+  Coeficiente de adecuación muestral (Kaiser Meyer y Olkin):
+\end{itemize}
+
+\[KMO=\frac{\sum_j \sum_{i\not =j} r_{i j}^2}{\sum_j \sum_{i\not =j} r^2_{i j}  +
+\sum_j \sum_{i\not =j} a^2_{i j}}\]
+
+donde \(r_{i j}\) son los coef. de correlación entre las variables \(i\)
+y \(j\), mientras que los \(a_{i j}\) son los coef. de correlación
+parcial entre las variables \(i\) y \(j\) (equivalentes a las
+correlaciones entre los residuos de la regresiones de estas dos
+variables con las restantes).
+
+\begin{itemize}
+\tightlist
+\item
+  Niveles de KMO \(\geq 0.5\) son considerados aceptables.
+\end{itemize}
+
+En nuestro ejemplo, las correlaciones parciales son:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(corpcor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'corpcor' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor2pcor}\NormalTok{(}\KeywordTok{cor}\NormalTok{(X))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]       [,2]        [,3]        [,4]
+## [1,] 1.0000000  0.9957943  0.90468746  0.31170534
+## [2,] 0.9957943  1.0000000 -0.89188935 -0.31783572
+## [3,] 0.9046875 -0.8918894  1.00000000  0.03389341
+## [4,] 0.3117053 -0.3178357  0.03389341  1.00000000
+\end{verbatim}
+
+En nuestro ejemplo el valor de KMO es (necesitamos crear una función que
+lo calcule):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kmo.test \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df)\{}
+\NormalTok{cor.sq =}\StringTok{ }\KeywordTok{cor}\NormalTok{(df)}\OperatorTok{\^{}}\DecValTok{2}
+\NormalTok{cor.sumsq =}\StringTok{ }\NormalTok{(}\KeywordTok{sum}\NormalTok{(cor.sq)}\OperatorTok{{-}}\KeywordTok{dim}\NormalTok{(cor.sq)[}\DecValTok{1}\NormalTok{])}
+\NormalTok{pcor.sq =}\StringTok{ }\KeywordTok{cor2pcor}\NormalTok{(}\KeywordTok{cor}\NormalTok{(df))}\OperatorTok{\^{}}\DecValTok{2}
+\NormalTok{pcor.sumsq =}\StringTok{ }\NormalTok{(}\KeywordTok{sum}\NormalTok{(pcor.sq)}\OperatorTok{{-}}\KeywordTok{dim}\NormalTok{(pcor.sq)[}\DecValTok{1}\NormalTok{])}
+\NormalTok{kmo =}\StringTok{ }\NormalTok{cor.sumsq}\OperatorTok{/}\NormalTok{(cor.sumsq}\OperatorTok{+}\NormalTok{pcor.sumsq)}
+\KeywordTok{return}\NormalTok{(kmo)}
+\NormalTok{\} }
+
+\KeywordTok{kmo.test}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4225498
+\end{verbatim}
+
+El test de esfericidad de Barlett contrasta si la matriz de
+correlaciones es la identidad.
+
+\[\left\{ \begin{array}{l}
+H_0: \mbox{La matriz de correlaciones es la identidad}\\\\ H_1: \mbox{es
+distinta de la
+identidad}\end{array}\right.\]
+
+Para que el ACP sea útil interesa rechazar la hipótesis nula, pues si
+\(\bR=I\) los componentes principales son las propias variables y no se
+produce una reducción de los factores. \%
+
+Este test, al igual que casi todas las propiedades de los estimadores en
+ACP, requiere multinormalidad en la distribución de las variables.
+
+En nuestro ejemplo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(psych)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'psych' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cortest.bartlett}\NormalTok{(}\KeywordTok{cor}\NormalTok{(X),}\DataTypeTok{n=}\NormalTok{n)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $chisq
+## [1] 35.89478
+## 
+## $p.value
+## [1] 2.889513e-06
+## 
+## $df
+## [1] 6
+\end{verbatim}
+
+El \(p\)-valor es muy pequeño por lo que no podemos aceptar la hipóstesi
+nula, la matriz de correlaciones es significativamente distinta de la
+identidad.
+\end{frame}
+
+\hypertarget{representaciones-gruxe1ficas.-biplots}{%
+\section{Representaciones gráficas.
+Biplots}\label{representaciones-gruxe1ficas.-biplots}}
+
+\begin{frame}{Biplots}
+\protect\hypertarget{biplots}{}
+\begin{itemize}
+\tightlist
+\item
+  El análisis de componentes principales se utiliza para representar
+  gráficamente la tabla de datos. Entre otras representaciones gráficas
+  la denominada \{\bf biplot\} es uno de los más útiles.
+\item
+  Este gráfico presenta los componentes principales junto con la
+  proyección de las variables originales \emph{como si fueran vectores}
+  que expresan la dirección en la que aumentan las variables.
+\item
+  Para obtener esta representación conjunta las coordenadas de los
+  componentes principales y las variables es necesario modificarlas
+  multiplicándolas por constante de escala. Esta constante puede variar
+  según el algoritmo que se utilice.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-22}{}
+\begin{itemize}
+\tightlist
+\item
+  En el mismo gráfico, se representan como vectores cada una de las
+  variables iniciales\textasciitilde{}\(\mathbf{X}\). Las coordenadas de
+  dichas variables son las correlaciones de dichas variables con las
+  componentes principales divididas por la raíz cuadrada del valor
+  propio correspondiente a la componente principal.
+\item
+  Sea \(\tilde{\mathbf{X}}_i\) es una variable inicial. Calculemos la
+  coordenadas de dicha variable inicial como vector de dos componentes
+  representado en el biplot. Dichas coordenadas valen: \[
+  \frac{{\mathrm corr}(\tilde{\mathbf{X}}_i,\mathbf{CP}_j)}{\sqrt{\lambda_j}},
+  \] para \(j=1,2\) que son los ejes correspondientes a las dos
+  componentes principales.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-23}{}
+\begin{itemize}
+\item
+  Escrito en forma matricial, se calcula: \[
+  {\mathrm corr}(\tilde{\mathbf{X}},\mathbf{CP})\cdot {\rm
+  diag}\left(\frac{1}{\sqrt{\lambda}}\right).
+  \]
+\item
+  La expresión anterior, usando las propiedades de las componentes
+  principales es equivalente a calcular \[
+  \mathbf{u}\cdot  {\mathrm diag}\left(\sqrt{\lambda}\right).
+  \]
+\item
+  Los vectores correspondientes a las variables iniciales se multiplican
+  por un factor de escala dependiente de cada paquete estadístico que se
+  use (en el caso de \{\tt R\}, dicho factor es\textasciitilde{}\(3\)).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-24}{}
+\begin{itemize}
+\tightlist
+\item
+  Vamos a realizar un biplot con los datos del ejemplo que hemos
+  desarrollado en este capítulo. Se tendrá en cuenta el caso de ACP
+  usando la matriz de covarianzas.
+\item
+  Las coordenadas de las componentes principales de nuestros datos eran
+  las siguientes: \[
+  \mathbf{CP}= 
+  \left(
+  \begin{array}{rrrr}
+  -3.054 & 0.201 & -0.827 & 0.280 \\
+   -12.719 & 2.480 & -0.333 & 0.103 \\
+   -4.293 & -3.295 & -0.025 & -0.228 \\
+   7.373 & -6.736 & -0.183 & 0.029 \\
+   -15.299 & 0.565 & 1.029 & 0.183 \\
+   -1.354 & 1.319 & 1.463 & -0.321 \\
+   -6.997 & 1.411 & -1.460 & -0.233 \\
+   13.677 & 0.437 & 0.629 & 0.282 \\
+   22.666 & 3.618 & -0.292 & -0.095 
+  \end{array}
+  \right).
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo\}}
+\protect\hypertarget{ejemplo-25}{}
+\begin{itemize}
+\tightlist
+\item
+  Sólo representaremos las dos primeras componentes principales que
+  corresponden a las dos primeras columnas de la matriz anterior.
+\item
+  Vamos a estandarizar los datos. Calculemos el módulo de cada
+  componente principal: \[
+  \begin{array}{rl}
+  |\mathbf{CP}_1|= & \sqrt{(-3.054)^2+\cdots +(22.666)^2} = 35.065, \\
+  |\mathbf{CP}_2|= & \sqrt{(0.201)^2+\cdots +(3.618)^2} = 8.930.
+  \end{array}
+  \]
+\item
+  Dividiendo cada una de las dos componentes principales por su módulo
+  correspondiente, obtenemos las coordenadas del biplot de cada dato:
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo\}}
+\protect\hypertarget{ejemplo-26}{}
+\begin{itemize}
+\tightlist
+\item
+  \[
+  {\tiny
+  \left(
+  \begin{array}{rr}
+  -3.054/35.065  &  0.201/8.903 \\
+   -12.719/35.065  &  2.480/8.903 \\
+   -4.293/35.065  &  -3.295/8.903 \\
+   7.373/35.065  &  -6.736/8.903 \\
+   -15.299/35.065  &  0.565/8.903 \\
+   -1.354/35.065  &  1.319/8.903 \\
+   -6.997/35.065  &  1.411/8.903 \\
+   13.677/35.065  &  0.437/8.903 \\
+   22.666/35.065  &  3.618/8.903 \\
+  \end{array}
+  \right)=
+  \left(
+  \begin{array}{rr}
+  -0.087 & 0.023 \\
+   -0.363 & 0.278 \\
+   -0.122 & -0.369 \\
+   0.210 & -0.754 \\
+   -0.436 & 0.063 \\
+   -0.039 & 0.148 \\
+   -0.200 & 0.158 \\
+   0.390 & 0.049 \\
+   0.646 & 0.405 \\
+  \end{array}
+  \right).}
+  \]
+\item
+  Seguidamente, vamos a encontrar las componentes de los vectores que
+  representan las variables. Recordemos que la matriz de vectores
+  propios de la matriz de covarianzas era: \[
+  \mathbf{u}=
+  \left(
+  \begin{array}{rrrr}
+  0.934 & -0.022 & 0.256 & 0.247 \\
+   0.339 & 0.354 & -0.661 & -0.568 \\
+   0.047 & -0.248 & 0.566 & -0.785 \\
+   0.097 & -0.902 & -0.421 & -0.013 
+  \end{array}
+  \right),
+  \] cuyos valores propios asociados eran
+  \(136.615,\quad 8.861,\quad 0.738,\quad 0.0468.\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-27}{}
+\begin{itemize}
+\tightlist
+\item
+  Para hallar las coordenadas de los vectores que representarán las
+  variables, hemos de multiplicar cada vector propio por la raíz
+  cuadrada de su valor propio correspondiente y
+  por\textasciitilde{}\(3\):
+\end{itemize}
+
+\[
+\mathbf{u}\cdot 3\cdot
+\begin{pmatrix}
+\sqrt{136.615}&0&0&0\\
+0&\sqrt{8.861}&0&0\\
+0&0&\sqrt{0.738}&0\\
+0&0&0&\sqrt{0.0468}\\
+\end{pmatrix} \] \[=
+\left(
+\begin{array}{rrrr}
+32.764 & -0.200 & 0.659 & 0.160 \\
+ 11.904 & 3.163 & -1.704 & -0.368 \\
+ 1.648 & -2.212 & 1.458 & -0.509 \\
+ 3.409 & -8.051 & -1.086 & -0.009 \\
+\end{array}
+\right).
+\]
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo-28}{}
+\% \% *\\
+Las componentes de los vectores que representarán las variables serán:
+\[
+{\mathrm Var.\  1:} (32.764,-0.200),\ {\mathrm Var.\  2:} (11.904,3.163),
+\] \[
+{\mathrm Var. \  3:} (1.648,-2.212),\ {\mathrm Var.\  4:} (3.409,-8.051).
+\] El código \texttt{biplot(solacp)} dibuja el biplot de los dos
+primeros componentes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{biplot}\NormalTok{(solacp)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ACP_files/figure-beamer/biplot3-1.pdf}
+\end{frame}
+
+\begin{frame}{Interpretación de un biplot}
+\protect\hypertarget{interpretaciuxf3n-de-un-biplot}{}
+\begin{itemize}
+\tightlist
+\item
+  La representación de las observaciones o los datos en un biplot
+  equivale a proyectar las observaciones sobre el plano de las
+  componentes principales estandarizadas para que tengan varianza
+  unidad.
+\item
+  La representación de variables mediante vectores de dos coordenadas
+  cumple que la correlación entre dos variables iniciales
+  \(\mathbf{X}_i\) y \(\mathbf{X}_j\) es aproximadamente el coseno del
+  ángulo que forman en el biplot. Por tanto, si dos variables
+  \(\mathbf{X}_i\) y \(\mathbf{X}_j\) están muy correlacionadas, el
+  coseno será grande y el ángulo entre los vectores, pequeño. En caso
+  contrario, si están poco correlacionadas, el coseno será pequeño y el
+  ángulo entre los vectores estará próximo a un ángulo recto.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Comunalidades.}
+\protect\hypertarget{comunalidades.}{}
+En un ACP la comunalidad de la variable \(X_j\) retenida por las \(k\)
+primeras componentes es la proporción de varianza de la variable que
+queda explicada por esas componentes. Por ejemplo.
+
+\begin{itemize}
+\tightlist
+\item
+  Si retenemos sólo el componente \(CP_1\) la comunalidad de la variable
+  \(X_j\) es:
+\end{itemize}
+
+\[h_j=r_{j 1}^2=\left( u_{1 j}\sqrt{\lambda_1}\right)^2\] * Si retenemos
+los componentes \(CP_1\) y \(CP_2\) la comunalidad de la variable
+\(X_j\) es:
+
+\[h_j=r_{j 1}^2+r_{2 j}^2=\left( u_{1 j}\sqrt{\lambda_1}\right)^2+
+ \left( u_{2 j}\sqrt{\lambda_2}\right)^2\]
+\end{frame}
+
+\hypertarget{interpretaciuxf3n-de-las-variables-y-los-individuos}{%
+\section{Interpretación de las variables y los
+individuos}\label{interpretaciuxf3n-de-las-variables-y-los-individuos}}
+
+\begin{frame}{Interpretación de las variables y los individuos}
+\protect\hypertarget{interpretaciuxf3n-de-las-variables-y-los-individuos-1}{}
+\begin{itemize}
+\item
+  Las variables también pueden representar de forma simultanea con los
+  individuos en los componentes principales.
+\item
+  Esta representación se hace mediante las coordenadas que la matriz de
+  componentes \%(cargasfactoriales) que nos explican las correlaciones
+  de cada factor con cada variable.
+\end{itemize}
+
+En esta representación gráfica cada variable aparece como un punto de
+forma que :
+
+\begin{itemize}
+\tightlist
+\item
+  Cada variable está representada por el vector que une el origen de
+  coordenadas cono el punto.
+\item
+  Todos están en círculo unidad (círculo de correlación).
+\item
+  A medida que cada variable se acerca a la circunferencia unidad está
+  mejor representado por los componentes retenidas y viceversa.
+\item
+  El ángulo entre variables y componentes nos da una idea de su
+  correlación, al nivel de retención de varianza total que tengamos.
+\item
+  Así variable perpendiculares tenderán a ser \emph{incorreladas}.
+\item
+  Los valores de una variable crecen en la dirección de ésta.
+\end{itemize}
+\end{frame}
+
+\hypertarget{y-muchas-cosas-muxe1s..}{%
+\section{Y muchas cosas más..}\label{y-muchas-cosas-muxe1s..}}
+
+\begin{frame}{Y muchas cosas más..}
+\protect\hypertarget{y-muchas-cosas-muxe1s..-1}{}
+Para acabar\ldots{}
+\blue{Análisis Factorial Confirmatorio y  Exploratorio}
+
+\begin{itemize}
+\item
+  El Análisis factorial confirmatorio se realiza sobre modelos
+  establecidos de factores y se hacen inferencias sobre sus propiedades.
+\item
+  El análisis factorial descriptivo ayuda a la descripción de los datos
+  y a la búsqueda de factores.
+\end{itemize}
+
+\blue{Relación del ACP con  otras técnicas de análisis de datos}
+
+\begin{itemize}
+\tightlist
+\item
+  Regresión Lineal Múltiple
+\item
+  Clasificación.
+\item
+  Análisis de correspondencias simples y múltiples.
+\item
+  \ldots{} y muchas otras más
+\end{itemize}
+\end{frame}
+
+\end{document}

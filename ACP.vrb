@@ -1,0 +1,22 @@
+\frametitle{Ejemplo}
+\protect\hypertarget{ejemplo-5}{}
+Como podemos observar, nuestro análisis ha explicado la variable de
+perfil sexo ya que distingue entre niños y niñas con las dos primeras
+componentes.
+
+\includegraphics{ACP_files/figure-beamer/plotACP1-1.pdf}
+
+El siguiente código dibuja todos los componentes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pairs}\NormalTok{(solacp}\OperatorTok{$}\NormalTok{scores,}\DataTypeTok{pch=}\DecValTok{21}\NormalTok{,}
+\DataTypeTok{bg =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)[}\KeywordTok{unclass}\NormalTok{(Datos}\OperatorTok{$}\NormalTok{Sexo)],}
+\DataTypeTok{main=}\StringTok{"Diagrama matricial de }
+\StringTok{los componentes principales"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ACP_files/figure-beamer/pairsacptodos-1.pdf}
+
+\includegraphics{ACP_files/figure-beamer/pairsacptodos1-1.pdf}
