@@ -737,17 +737,14 @@ plt.show()
 ## Código python de la curva ROC y decisión ciega
 
 ```{python,eval=F}
-import numpy
-from scipy.stats import norm
-import math
-import matplotlib.pyplot as plt
 plt.title("Curva ROC")
 plt.xlabel("Falsos positivos")
 plt.ylabel("Verdaderos positivos")
 plt.plot(tasas_falsos_positivos, 
    tasas_verdaderos_positivos, 
    c = "blue", ls = "-", marker = "o")
-plt.plot(tasas_falsos_positivos,tasas_falsos_positivos,c="red")
+plt.plot(tasas_falsos_positivos,tasas_falsos_positivos,
+   c="red")
 plt.text(0.25,0.75,"Neyman-Pearson",c="blue")
 plt.text(0.5,0.45,"Decisión ciega",c="red")
 plt.show()
@@ -756,10 +753,6 @@ plt.show()
 ## Código python de la curva ROC y decisión ciega
 
 ```{python,echo=F}
-import numpy
-from scipy.stats import norm
-import math
-import matplotlib.pyplot as plt
 plt.title("Curva ROC")
 plt.xlabel("Falsos positivos")
 plt.ylabel("Verdaderos positivos")
