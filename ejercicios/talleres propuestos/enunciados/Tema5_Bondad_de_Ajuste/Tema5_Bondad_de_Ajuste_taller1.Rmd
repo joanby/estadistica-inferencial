@@ -2,10 +2,12 @@
 title: "Ejercicios Tema 5 -Problemas de bondad de ajuste. Taller 1"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: "Curso completo de estadística inferencial con R y Python"
+geometry: "left=2cm,right=2cm,top=2cm,bottom=2cm"
 output:
   pdf_document: 
     number_sections: yes
     toc: yes
+    toc_depth: 4
   html_document:
     df_print: paged
     toc: yes
@@ -17,6 +19,7 @@ urlcolor: blue
 ---
 
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 options(scipen=999)
@@ -24,10 +27,10 @@ contador=0
 cuenta=function(x=contador) {contador<<- contador+1;return(contador)} 
 library(tidyverse)
 ```
-# Bonda de ajuste. Taller1
+# Bondad de ajuste. Taller1
 
 
-## Ejercicio `r cuenta()`
+## Problema `r cuenta()`
 
 Se lanzaron un par de dados $500$ veces. 
 En la taula siguiente se muestran las sumas que se obtuvieron. Provar la hipótesis de que los dados no estaban
@@ -42,7 +45,7 @@ $9$&$135$\\\hline $10,11,12$&$\ 88$\\\hline
 \end{tabular}
 \end{center}
 
-## Ejercicio `r cuenta()`
+## Problema `r cuenta()`
 
 En $1972$, el informe oficial dió la información siguiente sobre el número
 de días que fueron internados los enfermos en el hospital en el año $1971$.
@@ -62,7 +65,7 @@ $6-9$&$221$\\\hline $10-14$&$124$\\\hline $15-30$
 Probar la hipótesis que estos datos se obtuvieron de una distribución $\chi^2$ con $4$ grados de libertad.
 
 
-## Ejercicio `r cuenta()`
+## Problema `r cuenta()`
 
 Se realizó una prueba de inteligencia a $100$ estudiantes. En la tabla siguiente se muestran las calificaciones
 obtenidas:
@@ -83,7 +86,7 @@ calificaciones obtenidas por la población (conceptualmente
 infinita) estarían distribuidas normalmente.
 
 
-## Ejercicio `r cuenta()`
+## Problema `r cuenta()`
 
 Consideremos la muestra aleatoria siguiente de una variable aleatoria $X$ tal que $X(\Omega)=[0,1]$.
 Probar mediante el test $\chi^2$, que podemos considerar que
@@ -99,7 +102,7 @@ $X$ sigue una distribución uniforme en $[0,1]$. (Considerar intervalos de ampli
 
 
 
-## Ejercicio `r cuenta()`
+## Problema `r cuenta()`
 
 Sea $X$ la variable aleatòria que tiene
 como función de densidad: 

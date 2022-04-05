@@ -4,13 +4,27 @@ author: ""
 date: ""
 geometry: "left=2cm,right=2cm,top=2cm,bottom=2cm"
 output:
-  pdf_document: default
-  html_document: default
+  pdf_document: 
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+  html_document:
+    df_print: paged
+    toc: yes
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+toccolor: blue
+urlcolor: blue
 ---
 
-1. Se lanzaron un par de dados $500$ veces. 
-En la taula siguiente se muestran las sumas que se obtuvieron. Provar la hipótesis de que los dados no estaban
-trucados, es decir, comprobar que el p-valor para aceptar que los dados no estan trucados no es pequeño.
+# Problemas de bondad de ajuste
+
+## Problema 1.
+
+Se lanzaron un par de dados $500$ veces. 
+En la tabla siguiente se muestran las sumas que se obtuvieron. Probar la hipótesis de que los dados no estaban
+trucados, es decir, comprobar que el p-valor para aceptar que los dados no están trucados no es pequeño.
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
@@ -22,7 +36,7 @@ $8,9$&$135$\\\hline $10,11,12$&$\ 88$\\\hline
 \end{center}
 
 
-## Solución
+### Solución
 Ponemos las frecuencias empíricas en el vector `frecuencias.empíricas`:
 ```{r}
 frecuencias.empiricas= c(74,120,83,135,88)
@@ -47,8 +61,9 @@ chisq.test(frecuencias.empiricas,p=probabilidades.teóricas)
 Como el p-valor es grande, podemos concluir que no tenemos evidencias para rechazar que los dados no están trucados.
 
 
-\newpage
-2. El $1972$, el informe oficial dió la información siguiente sobre el número
+## Problema 2.
+
+ El $1972$, el informe oficial dio la información siguiente sobre el número
 de días que fueron internados los enfermos en el hospital en el año $1971$.
 \begin{center}
 \begin{tabular}{|c|c|}
@@ -64,7 +79,7 @@ $6-9$&$221$\\\hline $10-14$&$124$\\\hline $15-30$
 \end{center}
 Probar la hipótesis que estos datos se obtuvieron de una distribución $\chi^2$ con $4$ grados de libertad.
 
-## Solución
+### Solución
 
 Ponemos las frecuencias empíricas en el vector `frecuencias.empíricas`:
 ```{r}
@@ -95,7 +110,7 @@ Por último, realizamos el test $\chi^2$:
 ```{r}
 chisq.test(frecuencias.empíricas,p=probabilidades.teóricas)
 ```
-`R` nos da un warning avisándonos que algunas celdas tienen frecuencias teóricas menores que $5$. Averiguemos cuáles son estan celdas:
+`R` nos da un warning avisándonos que algunas celdas tienen frecuencias teóricas menores que $5$. Averigüemos cuáles son están celdas:
 ```{r}
 round(probabilidades.teóricas*sum(frecuencias.empíricas),2)
 ```
@@ -107,8 +122,9 @@ chisq.test(frecuencias.empíricas2,p=probabilidades.teóricas2)
 ```
 Como el p-valor es pequeño, concluimos que tenemos evidencias para afirmar que los datos no provienen de una distribución $\chi^2$ con $4$ grados de libertad.
 
-\newpage
-3. Se realizó una prueba de inteligencia a $100$ estudiantes. En la tabla siguiente se muestran las calificaciones
+## Problema 3. 
+
+Se realizó una prueba de inteligencia a $100$ estudiantes. En la tabla siguiente se muestran las calificaciones
 obtenidas:
 \begin{center}
 \begin{tabular}{|c|c|}
@@ -121,14 +137,14 @@ $110<x\leq 130$&$45$\\\hline
 $130<x\leq 150$&$\ 9$\\\hline 
 \end{tabular}
 \end{center}
-Podéis suponer que las calificaciones anteriores son una muestra aleatoria de las que tendrien todas las personas
+Podéis suponer que las calificaciones anteriores son una muestra aleatoria de las que tendrían todas las personas
 posibles que hicieran la prueba. Probar la hipótesis de que las
 calificaciones obtenidas por la población (conceptualmente
 infinita) estarían distribuidas normalmente.
 
 
 
-## Solución
+### Solución
 
 Ponemos las frecuencias empíricas en el vector `frecuencias.empíricas`:
 ```{r}
@@ -145,7 +161,7 @@ Como la distribución normal es continua con valores en $\mathbb{R}$, consideram
 |110-130 | 45 |
 |130-$\infty$ | 9 |
 </div>
-Antes de calcular las probabilidades téoricas, necesitamos estimar los valores $\mu$ y $\sigma$ de la normal:
+Antes de calcular las probabilidades teóricas, necesitamos estimar los valores $\mu$ y $\sigma$ de la normal:
 ```{r}
 valores.prueba=rep(c(80,100,120,140),frecuencias.empíricas)
 mu = mean(valores.prueba)
@@ -172,8 +188,9 @@ p.valor.correcto
 
 Como el p-valor es grande, concluimos que no tenemos evidencias suficientes para rechazar que los datos no provengan de una distribución normal.
 
-\newpage
-4. Consideremos la muestra aleatoria siguiente de una variable aleatoria $X$ tal que $X(\Omega)=[0,1]$.
+## Problema 4.
+
+Consideremos la muestra aleatoria siguiente de una variable aleatoria $X$ tal que $X(\Omega)=[0,1]$.
 Probar mediante el test $\chi^2$, que podemos considerar que
 $X$ sigue una distribución uniforme en $[0,1]$. (Considerar intervalos de amplitud $0.25$.)
 \begin{center}
@@ -185,7 +202,7 @@ $X$ sigue una distribución uniforme en $[0,1]$. (Considerar intervalos de ampli
  \end{tabular}
  \end{center}
  
-## Solución
+### Solución
 
 Calculemos las frecuencias empíricas considerando las clases siguientes:
 ```{r,echo=FALSE}
@@ -218,9 +235,8 @@ chisq.test(frecuencias.empiricas,p=probabilidades.teóricas)
 ```
 Como el p-valor es grande, concluimos que no tenemos evidencias suficientes para rechazar que los datos no provengan de una distribución uniforme.
  
-\newpage
- 
-5. Sea $X$ la variable aleatòria que tiene
+## Problema 5. 
+ Sea $X$ la variable aleatoria que tiene
 como función de densidad: 
 $$
 f(x)=
@@ -230,7 +246,7 @@ $x\in [0,1],$}\\
 0, & \text{en caso contrario.} 
 \end{array}\right.
 $$
-Comprobar mediante el test de la $\chi^2$ que la muestra aleatòria simple siguiente
+Comprobar mediante el test de la $\chi^2$ que la muestra aleatoria simple siguiente
 tiene la misma distribución que $X$:
 \begin{center}
 \begin{tabular}{r@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}l} 
@@ -241,7 +257,7 @@ tiene la misma distribución que $X$:
 \end{tabular}
 \end{center}
 
-## Solución
+### Solución
 
 Consideremos las clases siguientes:
 $$
@@ -258,7 +274,8 @@ extremos.izquierda = seq(from=-1,to=0.75,by=0.25)
 extremos.derecha = c(extremos.izquierda[-1],1)
 frecuencias.empiricas=c()
 for (i in 1:length(extremos.izquierda)){
-  frecuencias.empiricas=c(frecuencias.empiricas,length(muestra.x[muestra.x>=extremos.izquierda[i] & 
+  frecuencias.empiricas=c(frecuencias.empiricas,
+                          length(muestra.x[muestra.x>=extremos.izquierda[i] & 
                                           muestra.x< extremos.derecha[i]]))
 }
 ```
