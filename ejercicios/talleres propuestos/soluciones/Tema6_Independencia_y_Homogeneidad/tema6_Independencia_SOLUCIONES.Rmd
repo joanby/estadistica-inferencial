@@ -1,14 +1,34 @@
----
-title: "Problemas de independencia"
+--- 
+title: "Problemas de independencia y homogneidad"
 author: ""
 date: ""
 geometry: "left=2cm,right=2cm,top=2cm,bottom=2cm"
 output:
-  pdf_document: default
-  html_document: default
+  pdf_document: 
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+  html_document:
+    df_print: paged
+    toc: yes
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+toccolor: blue
+urlcolor: blue
 ---
 
-1. Se seleccionó una muestra de $3000$ naranjas de València. Cada
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+r=0
+```
+
+
+# Ejercicios independencia y homogeneidad
+
+## Problema `r r=r+1;r`  
+
+Se seleccionó una muestra de $3000$ naranjas de València. Cada
 naranja se clasificó según su color (claro, medio y oscuro) y se determinó su contenido de azúcar
 (dulce o no dulce). Los resultados fueron:
 \ \newline
@@ -24,7 +44,7 @@ Dulce&Totales\\\hline\hline Claro&$1300$&$\ 200$&$1500$
 \ \newline
 Probar la hipótesis de que la dulzura y el color son independientes.
 
-## Solución
+### Solución
 
 En primer lugar definimos la tabla `naranjas` que contine las frecuencias empíricas:
 ```{r}
@@ -38,7 +58,9 @@ Como el p-valor es muy pequeño, concluimos que tenemos indicios suficientes par
 
 \newpage
 
-2. Nos dan las notas de cierta asignatura de 3 grupos de alumnos $A$, $B$ i $C$:
+## Problema `r r=r+1;r`  
+
+Nos dan las notas de cierta asignatura de 3 grupos de alumnos $A$, $B$ i $C$:
 \ \newline
 \begin{center}
 \begin{tabular}{|c||r@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}l
@@ -56,7 +78,7 @@ que: **Suspenso** significa una nota más pequeña que $5$ (nota $<5$) y **Aprob
 independientes
 
 
-## Solución
+### Solución
 
 El siguiento código crea la tabla de frecuencias por grupo y por nota:
 
@@ -81,9 +103,9 @@ chisq.test(table(tabla.notas),simulate.p.value = TRUE, B=5000)
 ```
 El p-valor no ha variado mucho. Concluimos que como el p-valor es muy pequeño, tenemos evidencias suficientes para afirmar que el grupo del alumno y nota obtenida por el mismo no son independientes.
 
-\newpage
+## Problema `r r=r+1;r`  
 
-3. Clasificamos $N$ individuos según dos criterios. Cada criterio tiene dos
+Clasificamos $N$ individuos según dos criterios. Cada criterio tiene dos
 niveles. La tabla de contingencia es la siguiente:
 \begin{center}
 \begin{tabular}{|c|r|r|}
@@ -98,7 +120,7 @@ $B_2$&5&10\\\hline
 Hallar el p-valor para poder aceptar que los dos criterios son 
 independientes usando el test $\chi^2$.
 
-## Solución
+### Solución
 
 La tabla de frecuencias empíricas es la siguiente:
 ```{r}
@@ -111,9 +133,10 @@ chisq.test(tabla.frec.emp.)
 Como el p-valor es bastante grande, concluimos que no tenemos evidencias para rechazar que los dos criterios no sean independientes.
 
 
-\newpage
 
-4. En un estudio se quiso contrastar si había relación entre el grupo sanguíneo de una persona y el hecho que sea o no portador de un cierto antígeno raro. Para hacerlo, se eligieron 150 portadores del antígeno y 500 no portadores y se les miró el grupo sanguíneo. Los resultados son los de la tabla siguiente:
+## Problema `r r=r+1;r`
+
+En un estudio se quiso contrastar si había relación entre el grupo sanguíneo de una persona y el hecho que sea o no portador de un cierto antígeno raro. Para hacerlo, se eligieron 150 portadores del antígeno y 500 no portadores y se les miró el grupo sanguíneo. Los resultados son los de la tabla siguiente:
 \ \newline
 \begin{center}
 \begin{tabular}{lcc}
@@ -127,7 +150,7 @@ AB & 8 & 15
 \ \newline
 Usar el test $\chi^2$ sobre estos datos para contrastar si las frecuencias de los diferentes tipos sanguíneos son diferentes en los portadores y los no portadores.
 
-## Solución
+### Solución
 
 La tabla de frecuencias empíricas es la siguiente:
 ```{r}
@@ -139,11 +162,13 @@ chisq.test(tabla.frec.emp)
 ```
 Como el p-valor es muy grande, concluimos que no tenemos evidencias para rechazar que ser portador del antígeno y el grupo sanguíneo de la persona no sean independientes.
 
-\newpage
 
-5. En un estudio del 2003 se investigó si el historial familiar del paciente con desorden bipolar tiene influencia
+## Problema `r r=r+1;r`  
+
+ En un estudio del 2003 se investigó si el historial familiar del paciente con desorden bipolar tiene influencia
 en  la edad en que se le manifiesta este desorden. Se tomó un grupo de enfermos al azar y se anotó su historial familiar y la edad en que se manifestó la dolencia, clasificándolos en este punto en  Precoces (en los cuales el desorden bipolar se manifestó antes de los 18 años) y Tardíos (en los cuales el desorden bipolar se manifestó después de los 18 años). Los resultados son los siguientes:
-\ \newline
+
+
 \begin{center}
 \begin{tabular}{lcc}
 Historial Familiar & Precoces & Tardíos\\ \hline
@@ -153,11 +178,12 @@ Desorden unipolar & 41 & 44\\
 Desórdenes unipolar y bipolar & 53 & 60
 \end{tabular}
 \end{center}
-\ \newline
+
+
 Queremos contrastar si el historial familiar influye en la edad en la cual se manifestó el desorden bipolar en el paciente. 
 Usar el test $\chi^2$ sobre estos datos para contrastar si las frecuencias de los diferentes tipos de desorden difieren según la edad en la cual se manifestó el desorden bipolar en el paciente.
 
-## Solución
+### Solución
 
 La tabla de frecuencias empíricas junto con el test $\chi^2$ son:
 ```{r}

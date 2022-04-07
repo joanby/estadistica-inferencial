@@ -4,11 +4,31 @@ author: ""
 date: ""
 geometry: "left=2cm,right=2cm,top=2cm,bottom=2cm"
 output:
-  pdf_document: default
-  html_document: default
+  pdf_document: 
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+  html_document:
+    df_print: paged
+    toc: yes
+linkcolor: red
+header-includes: \renewcommand{\contentsname}{Contenidos}
+citecolor: blue
+toccolor: blue
+urlcolor: blue
 ---
 
-1. Se seleccionó una muestra de $3000$ naranjas de València. Cada
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+r=0
+```
+
+
+# Ejercicios independnecia y homogeneidad
+
+## Problema `r r=r+1;r`  
+
+Se seleccionó una muestra de $3000$ naranjas de Valencia. Cada
 naranja se clasificó según su color (claro, medio y oscuro) y se determinó su contenido de azúcar
 (dulce o no dulce). Los resultados fueron:
 \ \newline
@@ -23,7 +43,10 @@ Dulce&Totales\\\hline\hline Claro&$1300$&$\ 200$&$1500$
 \end{center}
 \ \newline
 Probar la hipótesis de que la dulzura y el color son independientes.
-1. Nos dan las notas de cierta asignatura de 3 grupos de alumnos $A$, $B$ i $C$:
+
+## Problema `r r=r+1;r` 
+
+Nos dan las notas de cierta asignatura de 3 grupos de alumnos $A$, $B$ i $C$:
 \ \newline
 \begin{center}
 \begin{tabular}{|c||r@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}l
@@ -34,12 +57,15 @@ $B$&4&6&3&4&5&3&4&&3&5&4&&5&&4&7&3&6&4&1\\\hline
 $C$&7&2&7&3&5&7&4&1&5&7&6&1&6&&7&8&7&&3&8\\\hline
 \end{tabular}
 \end{center}
-\ \newline
+
 Los clasificamos según $2$ criterios: por grupo y por nota teniendo en cuenta
 que: **Suspenso** significa una nota más pequeña que $5$ (nota $<5$) y **Aprobado** significa una nota entre $5$ y $6$ ($5\leq 6$), **Notable** significa una nota mayor que $6$ (nota $>\ 6$).
-\newline Hallar a partir del test $\chi^2$ el p-valor para aceptar que los dos criterios son
-independientes
-1. Clasificamos $N$ individuos según dos criterios. Cada criterio tiene dos
+
+ Hallar a partir del test $\chi^2$ el p-valor para aceptar que los dos criterios son independientes.
+
+## Problema `r r=r+1;r` 
+
+Clasificamos $N$ individuos según dos criterios. Cada criterio tiene dos
 niveles. La tabla de contingencia es la siguiente:
 \begin{center}
 \begin{tabular}{|c|r|r|}
