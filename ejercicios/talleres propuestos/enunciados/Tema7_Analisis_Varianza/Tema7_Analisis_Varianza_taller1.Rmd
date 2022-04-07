@@ -7,7 +7,6 @@ output:
   pdf_document: 
     number_sections: yes
     toc: yes
-header-includes: \renewcommand{\contentsname}{Contenidos}  
     toc_depth: 4
   html_document:
     df_print: paged
@@ -82,14 +81,14 @@ en centímetros):
 \begin{tabular}{c|c|c|c|c|}
 &&\multicolumn{3}{c|}{FACTOR AGUA}\\\hline
 & &{bajo}&{medio}&{alto}\\\cline{3-5}
-\multirow{12}{1.75cm}{FACTOR PLANTA}&\multirow{6}{1cm}{Sin Hojas}&
+FACTOR PLANTA&Sin Hojas&
 $69.0$&$\ \,96.1$&$121.0$\\\cline{3-5}
 &&$71.3$&$102.3$&$122.9$\\\cline{3-5}
 &&$73.2$&$107.5$&$123.1$\\\cline{3-5}
 &&$75.1$&$103.6$&$125.7$\\\cline{3-5}
 &&$74.4$&$100.7$&$125.2$\\\cline{3-5}
 &&$75.0$&$101.8$&$120.1$\\\cline{2-5}
-&\multirow{6}{1cm}{Con Hojas}&$71.1$&$\ \,81.0$&$101.1$\\\cline{3-5}
+&Con Hojas&$71.1$&$\ \,81.0$&$101.1$\\\cline{3-5}
 &&$69.2$&$\ \,85.8$&$103.2$\\\cline{3-5}
 &&$70.4$&$\ \,86.0$&$106.1$\\\cline{3-5}
 &&$73.2$&$\ \,87.5$&$109.7$\\\cline{3-5}
