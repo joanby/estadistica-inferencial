@@ -1,12 +1,16 @@
 ---
 title: "Tema 8 - Regresión Lineal"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
-date: 
-output: 
-  ioslides_presentation:
-    widescreen: true
+date: "null"
+output:
+  ioslides_presentation: 
+    widescreen: yes
     css: Mery_style.css
     logo: Images/matriz_mov.gif
+  beamer_presentation: 
+    colortheme: dolphin
+  slidy_presentation: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -1197,7 +1201,7 @@ Y_{|x_1,\ldots,x_k}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k + E_{x_1,\ldots,x
 $$
 y añadimos una nueva variable independiente $x_{k+1}$. Entonces, tendremos otro modelo:
 $$
-Y_{|x_1,\ldots,x_k,x_{k+1}}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k +\beta_{k+1}+ E_{x_1,\ldots,x_k,x_{k+1}}.
+Y_{|x_1,\ldots,x_k,x_{k+1}}=\beta_0 + \beta_1 x_1+\cdots + \beta_k x_k +\beta_{k+1}  x_{k+1}+ E_{x_1,\ldots,x_k,x_{k+1}}.
 $$
 ¿Cómo podemos comparar los dos modelos anteriores?
 
