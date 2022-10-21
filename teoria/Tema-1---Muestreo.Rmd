@@ -461,7 +461,7 @@ head(muestra.worldcup.pol,12)
 Cargamos la librería reticulate para conectar `R` con `Python` indicando donde tenemos instalada la versión favorita de `Python`:
 ```{r}
 library(reticulate)
-use_python("/Users/juangabriel/anaconda3/bin/python3")
+use_python("/usr/bin/python3")
 #reticulate::py_install("pandas")
 ```
 
