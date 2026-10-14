@@ -90,7 +90,7 @@ Para la primera cuestión y bajo estas condiciones, $n=50$ muestra grande varian
 t.test(muestra_50,mu=5.5,alternative = "two.sided",conf.level = 0.95)
 ```
 
-El $p$-valor del contraste  es `r t.test(muestra_50,mu=5.5,alternative = "two.sided")` muy pequeño así que no podemos rechazar que la media sea $5.5$ (fijémosnos que media real es $5.843333$)
+El $p$-valor del contraste  es `r t.test(muestra_50,mu=5.5,alternative = "two.sided")$p.value` muy pequeño así que no podemos rechazar que la media sea $5.5$ (fijémosnos que media real es $5.843333$)
 
 
 Para la segunda cuestión podemos utilizar la función t.test
@@ -246,7 +246,7 @@ Carga el fichero en la variable `conc.zinc`. Utiliza la función de `R` que calc
 Con `R` calculamos el test  de comparación de medias emparejadas mediante la siguiente instrucción:
 
 ```{r}
-conc.zinc = read.table("zinc.txt", header=TRUE)
+conc.zinc = read.table("../zinc.txt", header=TRUE)
 test = t.test(conc.zinc$bottom, conc.zinc$surface,
               alternative="greater", 
               paired=TRUE,

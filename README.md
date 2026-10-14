@@ -1,5 +1,7 @@
 # Curso completo de estadística inferencial con R y Python
 
+> **🆕 Octubre de 2026 — rama [`update-2026`](https://github.com/joanby/estadistica-inferencial/tree/update-2026):** el mismo código del curso, adaptado a R y los paquetes de hoy (R 4.5, pandas 3 en los bloques de Python). Qué ha cambiado y por qué: [`CAMBIOS-2026.md`](https://github.com/joanby/estadistica-inferencial/blob/update-2026/CAMBIOS-2026.md).
+
 Consulta el curso completo de estadística creado por Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir solamente en [Frogames Formación](https://cursos.frogamesformacion.com/courses/estadistica-inferencial).
 
 Asienta las bases para convertirte en el Data Scientist del futuro con todo el contenido de estadística inferencial del curso. En particular verás los mismos contenidos que explicamos en primero de carrera a matemáticos, ingenieros, economistas, biólogos, médicos o informáticos. 

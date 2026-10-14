@@ -46,7 +46,7 @@ Es un data frame de 18278 observaciones (filas)  y 104 variables (columna)
 
 ```{r}
 datos = read.csv("FIFA2020/players_20.csv",
-  encoding="UTF-8")# cambia tu path
+  encoding="UTF-8", stringsAsFactors = TRUE)# cambia tu path
 #str(datos)
 #names(datos)
 ```

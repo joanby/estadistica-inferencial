@@ -35,7 +35,7 @@ Rellenad estos datos:
 Explica  el data set y de qué tipo son cada una de las variables y  en qué tipo de  fichero están guardadas.  Carga los datos  en un data frame  con `read.csv` y explica las clases de cada columna de datos.  Explica  el parámeto `encoding`.
 
 ```{r}
-datos = read.csv("FIFA2020/players_20.csv", encoding="UTF-8")
+datos = read.csv("FIFA2020/players_20.csv", encoding="UTF-8", stringsAsFactors = TRUE)
 str(datos, 5)
 ```
 

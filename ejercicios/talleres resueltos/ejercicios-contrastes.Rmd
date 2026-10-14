@@ -7,14 +7,14 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-reticulate::use_python("/Users/juangabriel/anaconda3/bin/python3")
+reticulate::use_python("/Users/juangabriel/anaconda3/bin/python3", required = FALSE)
 ```
 
 ## Ejercicio 1
 
 ```{python}
 import pandas as pd
-ages = pd.read_csv("../datasets/ages.csv")
+ages = pd.read_csv("../../datasets/ages.csv")
 print(ages)
 ```
 
@@ -63,8 +63,8 @@ H_1: & \mu_1 \neq \mu_2
 $$
 
 ```{python}
-week1 = pd.read_csv("../datasets/week1.csv")
-week2 = pd.read_csv("../datasets/week2.csv")
+week1 = pd.read_csv("../../datasets/week1.csv")
+week2 = pd.read_csv("../../datasets/week2.csv")
 print(week1)
 print(week2)
 

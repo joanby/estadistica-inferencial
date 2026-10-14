@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-reticulate::use_python("/Users/juangabriel/anaconda3/bin/python3")
+reticulate::use_python("/Users/juangabriel/anaconda3/bin/python3", required = FALSE)
 ```
 
 ```{python setup2, include = FALSE}
@@ -135,7 +135,7 @@ H_1: & \mu_1 \neq \mu_2
 $$
 
 ```{python}
-url = "https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/nhanes_2015_2016.csv?token=ADCEA6ARLWCQ7IK43CRGD7K6A5CYK"
+url = "https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/nhanes_2015_2016.csv"
 data = pd.read_csv(url)
 data.head()
 
